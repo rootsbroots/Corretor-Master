@@ -256,7 +256,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.61</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.62</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -515,7 +515,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.61</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.62</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="anm" hidden role="dialog" aria-modal="true" aria-labelledby="an-t">
@@ -1217,7 +1217,7 @@ const FONE_UPG="5562982505081";let PLANO_ATUAL="";
 /* Cole aqui o link de pagamento do Asaas (assinatura mensal R$ 24,90). Vazio = o botão abre o WhatsApp. */
 const LINK_ASSINAR="https://www.asaas.com/000/c/4pcx7f9b3zqmz20n"; /* link da assinatura mensal de GOIÁS (conta real do Asaas) */
 /* Cada estado é uma assinatura própria de R$ 24,90/mês. Cole abaixo os links de SP e RJ gerados pelo criar-link. Vazio = abre o WhatsApp. */
-const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"",mg:"",df:"",pr:"",to:"",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
+const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"https://www.asaas.com/000/c/fftd1ditderwx6xj",mg:"https://www.asaas.com/000/c/8vrb0qqfj8iqxti8",df:"https://www.asaas.com/000/c/op6vbr4lta0cyfx5",pr:"https://www.asaas.com/000/c/xipjy41acq8y5evi",to:"https://www.asaas.com/000/c/r6dgz8t2f37riiga",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
 const NOME_EST={go:"Goiás",sp:"São Paulo",rj:"Rio de Janeiro",mg:"Belo Horizonte",df:"Brasília",pr:"Curitiba",to:"Palmas"};
 function estAtual(){const e=(typeof S==="object"&&S&&S.estado)||EST0;return NOME_EST[e]?e:"go"}
 function rotuloAssinar(){const e=estAtual();return e==="go"?"Assinar o Unlimited (R$ 24,90/mês)":"Assinar "+NOME_EST[e]+" (R$ 24,90/mês)"}
