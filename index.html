@@ -256,7 +256,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.62</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.63</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -485,7 +485,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
           </div>
         </div>
         <div class="panel" id="reg" style="margin-bottom:16px" hidden>
-          <h2 id="reg-t">Perfil da região</h2>
+          <h2 id="reg-t">Perfil do município</h2>
           <div class="alert warn" id="reg-aviso" hidden></div>
           <div class="kpis" id="reg-kpi"></div>
           <h3>Pessoas por idade e sexo</h3><div id="reg-pir"></div>
@@ -515,7 +515,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.62</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.63</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="anm" hidden role="dialog" aria-modal="true" aria-labelledby="an-t">
@@ -1040,10 +1040,10 @@ function pintarRegiao(){
   const box=$("reg");
   if(!REG){box.hidden=true;return}
   const d=REG,st=regStats(d);box.hidden=false;
-  $("reg-t").textContent="Perfil da região · "+d.nome;
+  $("reg-t").textContent="Perfil do município · "+d.nome+(d.uf?" ("+d.uf+")":"");
   const av=$("reg-aviso");av.hidden=!semLocal();
   av.textContent="O IBGE não publicou dados por bairro para esta cidade. Os números abaixo são do município inteiro.";
-  $("reg-kpi").innerHTML=[["População",nf(d.pop)],["Densidade",nf(d.dens)+" hab./km²"],["Moradores por domicílio",d.mor_dom.toLocaleString("pt-BR")],["Mulheres",p1(d.mulheres_pct)],["Até 14 anos",p1(st.ate14)],["60 anos ou mais",p1(st.mais60)]]
+  $("reg-kpi").innerHTML=[["População do município",nf(d.pop)],["Densidade",nf(d.dens)+" hab./km²"],["Moradores por domicílio",d.mor_dom.toLocaleString("pt-BR")],["Mulheres",p1(d.mulheres_pct)],["Até 14 anos",p1(st.ate14)],["60 anos ou mais",p1(st.mais60)]]
     .map(([k,v])=>`<div class="kpi"><b>${v}</b><span>${k}</span></div>`).join("");
   $("reg-pir").innerHTML=pirSvg(d);$("reg-tipo").innerHTML=tipoHtml(d);$("reg-banh").innerHTML=banhHtml(d);
   const tab=(cab,lin)=>`<table class="calc-t"><tr class="sec"><td>${cab[0]}</td>${cab.slice(1).map(c=>`<td>${c}</td>`).join("")}</tr>${lin.map(r=>`<tr><td>${esc(r[0])}</td>${r.slice(1).map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table>`;
