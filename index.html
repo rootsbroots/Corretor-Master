@@ -256,7 +256,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.63</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.67</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -386,7 +386,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 
   <section id="tab-clientes" hidden>
-    <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,application/json" hidden></div>
+    <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-xls" type="button">Exportar para Excel</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,application/json" hidden></div>
     <p class="hint" style="margin:0 0 12px">Seus clientes são salvos na sua conta e aparecem em qualquer aparelho e em todos os estados do Corretor Master quando você entra com o mesmo e-mail. Exportar guarda uma cópia extra. <span id="cli-sync"></span></p>
     <div id="lista"></div>
   </section>
@@ -451,9 +451,24 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
           <div class="actions">
             <button class="btn acc" id="zap-copy" type="button">Copiar mensagem para o cliente</button>
             <button class="btn" id="pdf" type="button">Baixar relatório em PDF</button>
+            <button class="btn alt" id="busca-xls" type="button">Exportar busca em Excel</button>
             <a class="btn alt" id="zap-wa" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
           </div>
           <p class="hint">O WhatsApp pode não abrir dentro do app — use Copiar e cole na conversa.</p>
+        </div>
+        <div class="panel" id="imv" style="margin-bottom:16px">
+          <h2>Imóveis escolhidos</h2>
+          <p class="hint" style="margin:-6px 0 10px">Achou um imóvel no portal? Cole o link aqui. Marque os que vão para o cliente e envie por PDF ou WhatsApp.</p>
+          <div class="f"><label for="imv-url">Link do anúncio</label><input type="text" id="imv-url" inputmode="url" placeholder="Cole o link (ZAP, VivaReal, OLX, Imovelweb...)"></div>
+          <div class="f"><label for="imv-tit">Descrição (opcional)</label><input type="text" id="imv-tit" placeholder="Ex: Apto 82 m², 3 quartos, R$ 850.000"></div>
+          <div class="actions" style="margin-top:0"><button class="btn acc" id="imv-add" type="button">Adicionar imóvel</button></div>
+          <div id="imv-lista"></div>
+          <div class="actions" id="imv-acoes" hidden>
+            <button class="btn" id="imv-pdf" type="button">Baixar PDF com os imóveis</button>
+            <a class="btn alt" id="imv-wa" href="#" target="_blank" rel="noopener">Enviar no WhatsApp</a>
+            <button class="btn alt" id="imv-copy" type="button">Copiar lista</button>
+          </div>
+          <p class="hint" id="imv-hint" hidden>Toque em "Salvar cliente" para guardar esta lista na ficha do cliente.</p>
         </div>
         <div class="panel" id="ent" style="margin-bottom:16px">
           <h2>Entorno do imóvel</h2>
@@ -515,7 +530,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.63</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.67</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="anm" hidden role="dialog" aria-modal="true" aria-labelledby="an-t">
@@ -545,7 +560,7 @@ const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Pa
 function phEst(){const p=PH[EST0]||PH.go,u=PH[EST0]?EST0:"go";return {E:[{s:u,n:p.n,uf:u.toUpperCase()}],C:[{n:p.c,s:p.s,uf:u}]}}
 let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},PARQUES=[];
 
-const VAZIO={nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",condo:"",condoOutro:""};
+const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",condo:"",condoOutro:""};
 let S={...VAZIO};
 const $=id=>document.getElementById(id);
 const brl=n=>n?"R$ "+n.toLocaleString("pt-BR"):"";
@@ -610,7 +625,7 @@ function syncInputs(){
   $("nome").value=S.nome;$("idade").value=S.idade;
   $("vmin").value=S.vmin?S.vmin.toLocaleString("pt-BR"):"";$("vmax").value=S.vmax?S.vmax.toLocaleString("pt-BR"):"";
   
-  $("estado").value=S.estado||EST0;fillSelects();$("cidade").value=S.cidade;$("bairro").value=S.bairro;$("condo").value=S.condo;$("condo-outro").value=S.condoOutro;$("parque").value=S.parque;
+  $("estado").value=S.estado||EST0;fillSelects();$("cidade").value=S.cidade;$("bairro").value=S.bairro;$("condo").value=S.condo;$("condo-outro").value=S.condoOutro;$("parque").value=S.parque;pintarImoveis();
 }
 function fillSelects(){
   if(!ESTADOS.some(e=>e.s===S.estado))S.estado=ESTADOS.some(e=>e.s===EST0)?EST0:ESTADOS[0].s;
@@ -793,6 +808,20 @@ $("cli-exp").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Arquivo de clientes baixado.");
 });
+$("cli-xls").addEventListener("click",()=>{
+  const a=getC();if(!a.length){toast("Nenhum cliente para exportar.");return}
+  const pt=x=>String(x||"").replace(/-/g," ").replace(/\b\w/g,m=>m.toUpperCase());
+  const cel=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  const cab=["Nome","Estado","Cidade","Bairro","Tipo","Valor mínimo","Valor máximo","Condomínio","Piscina","Vista","Parque","Condição","Status","Mobiliado","Salvo em"];
+  const lin=a.map(c=>{const p=c.perfil||{};
+    const cid=(CIDADES.find(x=>x.s===p.cidade)||{}).n||pt(p.cidade),bai=(BAIRROS.find(x=>x.s===p.bairro&&x.cid===p.cidade)||{}).n||pt(p.bairro);
+    return [p.nome,NOME_EST[p.estado]||"",cid,bai,p.tipo,p.vmin||"",p.vmax||"",p.condoOutro||pt(p.condo),p.piscina,p.vista,p.parque,p.condicao,p.status,p.mobiliado,c.data].map(cel).join(";")});
+  const csv="\ufeff"+"sep=;\r\n"+[cab.map(cel).join(";"),...lin].join("\r\n");
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const u=URL.createObjectURL(blob),l=document.createElement("a");
+  l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
+  toast("Planilha baixada. Abra no Excel.");
+});
 $("cli-imp").addEventListener("click",()=>$("cli-file").click());
 $("cli-file").addEventListener("change",async e=>{
   const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
@@ -849,6 +878,12 @@ function gerarPdf(){
   txt(RES.resumoTxt,10,false);y+=3;
   RES.avisos.forEach(([k,t])=>txt("! "+t,9,false,k==="crit"?[163,38,28]:[138,90,0]));
   y+=4;
+  const selI=imvLista().filter(i=>i.sel);
+  if(selI.length){need(30);txt("Imóveis selecionados para você",12,true,[29,74,53]);y+=2;
+    selI.forEach((i,n)=>{need(22);txt((n+1)+". "+(i.titulo||"Imóvel")+" · "+i.portal,10,true);
+      d.setFont("helvetica","normal");d.setFontSize(8);d.setTextColor(29,74,200);
+      d.splitTextToSize(i.url,TW).forEach(l=>{need(5);d.textWithLink(l,M,y,{url:i.url});y+=3.6});y+=4})
+  }else{
   txt("Links de busca",12,true,[29,74,53]);y+=2;
   LS.forEach(l=>{
     need(34);
@@ -859,6 +894,7 @@ function gerarPdf(){
     d.splitTextToSize(l.url,TW).forEach(s=>{need(5);d.textWithLink(s,M,y,{url:l.url});y+=3.6});
     y+=4;
   });
+  }
   if(CALC){need(60);y+=2;txt("Simulação de financiamento",12,true,[29,74,53]);y+=1;CALC.linhas.forEach(([k,v])=>txt(k+": "+v,10,false));txt("Estimativa com as taxas informadas; não substitui a simulação do banco.",8,false,[74,93,82]);y+=3}
   if(REG){need(40);y+=2;txt("Perfil da região · "+REG.nome,12,true,[29,74,53]);y+=1;
     const st=regStats(REG),tp=REG.tipo;
@@ -876,6 +912,59 @@ function gerarPdf(){
   for(let i=1;i<=n;i++){d.setPage(i);d.setFont("helvetica","normal");d.setFontSize(8);d.setTextColor(120,130,125);d.text("Corretor Master · gerado em "+new Date().toLocaleDateString("pt-BR")+(EMAIL?" por "+EMAIL:"")+" · página "+i+" de "+n,M,292)}
   return d.output("arraybuffer");
 }
+/* ---------- imóveis escolhidos ---------- */
+const PORTAL_HOST=[["zapimoveis","ZAP Imóveis"],["vivareal","VivaReal"],["olx","OLX"],["imovelweb","Imovelweb"],["chavesnamao","Chaves na Mão"],["62imoveis","62 Imóveis"],["quintoandar","QuintoAndar"],["loft","Loft"]];
+function portalDe(u){try{const h=new URL(u).hostname.toLowerCase();const p=PORTAL_HOST.find(x=>h.includes(x[0]));return p?p[1]:h.replace(/^www\./,"")}catch(_){return""}}
+function imvLista(){return Array.isArray(S.imoveis)?S.imoveis:[]}
+function imvMsg(){
+  const l=imvLista().filter(i=>i.sel);if(!l.length)return"";
+  const nome=(S.nome||"").trim();
+  return (nome?"Olá, "+nome+"! ":"Olá! ")+"Separei estes imóveis para você:\n\n"+l.map((i,n)=>(n+1)+". "+(i.titulo?i.titulo+" · ":"")+i.portal+"\n"+i.url).join("\n\n");
+}
+function pintarImoveis(){
+  const a=imvLista(),box=$("imv-lista");if(!box)return;
+  box.innerHTML=a.map(i=>`<div class="client" style="align-items:center"><label style="display:flex;gap:10px;align-items:center;min-width:0;flex:1;cursor:pointer"><input type="checkbox" data-isel="${esc(i.id)}"${i.sel?" checked":""} style="width:22px;height:22px;flex:none"><span class="i" style="min-width:0"><strong>${esc(i.titulo||"Imóvel sem descrição")}</strong><small>${esc(i.portal)}</small></span></label>
+    <div class="pbtn"><a class="btn alt" href="${esc(i.url)}" target="_blank" rel="noopener">Abrir</a><button class="btn warn" data-idel="${esc(i.id)}" type="button">Remover</button></div></div>`).join("");
+  const n=a.filter(i=>i.sel).length;
+  $("imv-acoes").hidden=!a.length;
+  $("imv-wa").href=n?"https://wa.me/?text="+encodeURIComponent(imvMsg()):"#";
+}
+function imvMudou(novo){S.imoveis=novo;pintarImoveis();$("imv-hint").hidden=false}
+$("imv-add").addEventListener("click",()=>{
+  const u=$("imv-url").value.trim();
+  if(!/^https?:\/\//i.test(u)){toast("Cole o link completo do anúncio (começa com https://).",3500);return}
+  const t=$("imv-tit").value.trim().slice(0,120);
+  imvMudou([...imvLista(),{id:String(Date.now()),url:u,titulo:t,portal:portalDe(u)||"Anúncio",sel:true}]);
+  $("imv-url").value="";$("imv-tit").value="";toast("Imóvel adicionado.");
+});
+$("imv-lista").addEventListener("click",e=>{
+  const d=e.target.closest("[data-idel]");if(d)imvMudou(imvLista().filter(i=>i.id!==d.dataset.idel));
+});
+$("imv-lista").addEventListener("change",e=>{
+  const c=e.target.closest("[data-isel]");if(c)imvMudou(imvLista().map(i=>i.id===c.dataset.isel?{...i,sel:c.checked}:i));
+});
+$("imv-copy").addEventListener("click",async()=>{
+  const m=imvMsg();if(!m){toast("Marque pelo menos um imóvel.");return}
+  try{await navigator.clipboard.writeText(m);toast("Lista copiada. Cole no WhatsApp.")}catch(_){toast("Não foi possível copiar.",3000)}
+});
+$("imv-wa").addEventListener("click",e=>{if(!imvMsg()){e.preventDefault();toast("Marque pelo menos um imóvel.")}});
+$("imv-pdf").addEventListener("click",()=>{if(!imvLista().some(i=>i.sel)){toast("Marque pelo menos um imóvel.");return}$("pdf").click()});
+
+$("busca-xls").addEventListener("click",()=>{
+  const cel=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"',L=a=>a.map(cel).join(";");
+  const pt=x=>String(x||"").replace(/-/g," ").replace(/\b\w/g,m=>m.toUpperCase());
+  const cid=(CIDADES.find(x=>x.s===S.cidade)||{}).n||pt(S.cidade),bai=(BAIRROS.find(x=>x.s===S.bairro&&x.cid===S.cidade)||{}).n||pt(S.bairro);
+  const r=[L(["Busca de imóveis · Corretor Master"]),L(["Gerado em",new Date().toLocaleString("pt-BR")]),"",
+    L(["PERFIL DO CLIENTE"]),L(["Cliente",S.nome||""]),L(["Estado",NOME_EST[S.estado]||""]),L(["Cidade",cid]),L(["Bairro",bai]),L(["Tipo",S.tipo||""]),L(["Valor mínimo",S.vmin||""]),L(["Valor máximo",S.vmax||""]),L(["Resumo",(typeof RES==="object"&&RES.resumoTxt)||""])];
+  if(PRONTO&&LS&&LS.length&&gerado())r.push("",L(["LINKS DE BUSCA"]),L(["Portal","Link"]),...LS.map(l=>L([l.nome,l.url])));
+  const im=imvLista();
+  if(im.length)r.push("",L(["IMÓVEIS ESCOLHIDOS"]),L(["Descrição","Portal","Link","Para o cliente"]),...im.map(i=>L([i.titulo,i.portal,i.url,i.sel?"Sim":"Não"])));
+  if(r.length<=12&&!im.length&&!(PRONTO&&LS&&LS.length&&gerado())){toast("Gere os links da busca ou adicione imóveis para exportar.",3500);return}
+  const blob=new Blob(["\ufeff"+"sep=;\r\n"+r.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  const u=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=u;a.download="busca-"+(slugify(S.nome)||"cliente")+".csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
+  toast("Planilha da busca baixada. Abra no Excel.");
+});
 $("pdf").addEventListener("click",async()=>{
   if(!DL)return;
   try{
