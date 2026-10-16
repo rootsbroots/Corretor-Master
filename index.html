@@ -421,7 +421,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
         <div class="f" id="f-condo"><label for="condo">Condomínio</label><select id="condo"></select></div>
         <div class="f" id="f-condo-outro"><label for="condo-outro" id="lbl-co">Nome do condomínio</label><input type="text" id="condo-outro"><div class="hint" id="hint-co">Slug por tentativa — confira o resultado.</div></div>
         <div class="f" data-show="casa"><label>Piscina</label><div class="seg" data-k="piscina"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com piscina</button></div></div>
-        <div class="f" data-show="apartamento"><label>Vista</label><div class="seg" data-k="vista"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com vista</button></div></div>
+        <div class="f" data-show="apartamento"><label>Vista</label><div class="seg" data-k="vista"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com vista</button></div><p class="hint" id="hint-vista" hidden>Esta cidade ainda não tem parques cadastrados. A busca fica no bairro escolhido; confira a vista nos anúncios.</p></div>
         <div class="f" id="f-parque" data-show="apartamento"><label for="parque">Vista para parque</label><select id="parque"></select></div>
 
         <h3>Condição</h3>
@@ -571,10 +571,10 @@ function ui(){marcarAtalhos();
   $("f-condo-outro").hidden=!(cond&&(cbm||S.condo==="__outro"));
   $("lbl-co").textContent=cbm?"Nome do condomínio (opcional)":"Nome do condomínio";
   $("hint-co").textContent=cbm?"Escolha o bairro acima. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios.":"Slug por tentativa — confira o resultado.";
-  $("f-parque").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&temBairros());
+  const tp=PARQUES.some(p=>p.cid===S.cidade);$("f-parque").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&temBairros()&&tp);$("hint-vista").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&!tp);
   $("f-status").hidden=S.condicao!=="novo";
   document.querySelectorAll("[data-show]").forEach(e=>e.hidden=e.dataset.show!==S.tipo);
-  if(S.tipo==="apartamento"&&!(S.vista==="com"&&temBairros()))$("f-parque").hidden=true;
+  if(S.tipo==="apartamento"&&!(S.vista==="com"&&temBairros()&&tp))$("f-parque").hidden=true;
   document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(S[g.dataset.k]===b.dataset.v))));
 }
 function render(){ui();if(!PRONTO)return;if(GER&&!gerado())pintar();clearTimeout(tm);tm=setTimeout(atualizar,180)}
