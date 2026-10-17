@@ -249,7 +249,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.72) */
+/* painéis (v1.74) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -277,6 +277,8 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pn-top .ht{grid-column:1/-1;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}.pn-top .ht i{display:block;height:100%;border-radius:99px}
 .pn-pill{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-left:6px;vertical-align:middle}
 .pn-note{font-size:12px;color:var(--ink-2);margin-top:12px}
+.av-box{background:var(--warn-bg);border-radius:10px;padding:12px 14px;margin:0 0 12px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.av-box b{font-size:14px}
 .lb-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;margin:4px 0 0 6px;background:var(--warn-bg);color:var(--warn)}
 .lb-chip.venc{background:var(--crit-bg);color:var(--crit)}
 .neg-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-top:4px}
@@ -289,7 +291,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.72</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.74</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -435,7 +437,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   <section id="tab-clientes" hidden>
     <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-xls" type="button">Exportar para Excel</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,application/json" hidden></div>
     <p class="hint" style="margin:0 0 12px">Seus clientes são salvos na sua conta e aparecem em qualquer aparelho e em todos os estados do Corretor Master quando você entra com o mesmo e-mail. Exportar guarda uma cópia extra. <span id="cli-sync"></span></p>
-    <div class="actions" style="margin:0 0 10px;align-items:center"><button class="btn alt" id="av-btn" type="button">🔔 Ativar avisos</button><span class="hint" id="av-msg" style="margin:0"></span></div>
+    <div class="av-box"><b>Não perca o timing com o cliente.</b><span>Ative os avisos e receba no celular o lembrete na hora de retornar ao cliente e o alerta quando um negócio ficar parado.</span><div class="actions" style="margin:8px 0 0;align-items:center"><button class="btn alt" id="av-btn" type="button">🔔 Ativar avisos</button><span class="hint" id="av-msg" style="margin:0"></span></div></div>
     <div id="lista"></div>
   </section>
 
@@ -578,7 +580,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.72</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.74</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -763,7 +765,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.72): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.74): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -1053,7 +1055,7 @@ $("lista").addEventListener("click",e=>{
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.72) ===== */
+/* ===== avisos e lembretes (v1.74) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
