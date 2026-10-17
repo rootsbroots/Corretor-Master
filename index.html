@@ -249,7 +249,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.70) */
+/* painéis (v1.71) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -287,7 +287,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.70</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.71</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -464,7 +464,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
         <div class="f"><label for="cidade">Cidade</label><select id="cidade"></select></div>
         <div class="f" id="f-bairro"><label for="bairro">Bairro</label><select id="bairro"></select></div>
         <div class="f" id="f-condo"><label for="condo">Condomínio</label><select id="condo"></select></div>
-        <div class="f" id="f-condo-outro"><label for="condo-outro" id="lbl-co">Nome do condomínio</label><input type="text" id="condo-outro" list="condo-sug" autocomplete="off"><datalist id="condo-sug"></datalist><div class="hint" id="hint-co">Slug por tentativa — confira o resultado.</div></div>
+        <div class="f" id="f-condo-outro"><label for="condo-outro" id="lbl-co">Nome do condomínio</label><input type="text" id="condo-outro"><div class="hint" id="hint-co">Slug por tentativa — confira o resultado.</div></div>
         <div class="f" data-show="casa"><label>Piscina</label><div class="seg" data-k="piscina"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com piscina</button></div></div>
         <div class="f" data-show="apartamento"><label>Vista</label><div class="seg" data-k="vista"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com vista</button></div><p class="hint" id="hint-vista" hidden>Esta cidade ainda não tem parques cadastrados. A busca fica no bairro escolhido; confira a vista nos anúncios.</p></div>
         <div class="f" id="f-parque" data-show="apartamento"><label for="parque">Vista para parque</label><select id="parque"></select></div>
@@ -575,7 +575,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.70</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.71</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -640,8 +640,10 @@ function ui(){marcarAtalhos();
   const cbm=!!cidadeObj().cb;
   $("f-bairro").hidden=!temBairros()||(S.tipo==="casa"&&S.locCasa==="condominio"&&!cbm)||(S.tipo==="apartamento"&&S.vista==="com"&&S.parque);
   const cond=S.tipo==="casa"&&S.locCasa==="condominio";
-  $("f-condo").hidden=!cond||cbm;
-  $("f-condo-outro").hidden=!(cond&&(cbm||S.condo==="__outro"));
+  const lst=CONDOS[cidadeObj().n]||[];
+  if(cbm&&lst.length&&S.condoOutro&&S.condo!=="__outro"&&!lst.some(x=>x[0]===S.condoOutro)){S.condo="__outro";$("condo").value="__outro"}
+  $("f-condo").hidden=!cond||(cbm&&!lst.length);
+  $("f-condo-outro").hidden=!(cond&&(cbm?(!lst.length||S.condo==="__outro"):S.condo==="__outro"));
   $("lbl-co").textContent=cbm?"Nome do condomínio (opcional)":"Nome do condomínio";
   $("hint-co").textContent=cbm?(((CONDOS[cidadeObj().n]||[]).length)?"Escolha na lista ou digite. O bairro é ajustado sozinho. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios.":"Escolha o bairro acima. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios."):"Slug por tentativa — confira o resultado.";
   const tp=PARQUES.some(p=>p.cid===S.cidade);$("f-parque").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&temBairros()&&tp);$("hint-vista").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&!tp);
@@ -695,8 +697,8 @@ function fillSelects(){
   $("cidade").innerHTML=cs.map(c=>`<option value="${c.s}">${c.n}</option>`).join("");$("cidade").value=S.cidade;
   $("bairro").innerHTML='<option value="">Cidade toda</option>'+BAIRROS.filter(b=>b.cid===S.cidade).map(b=>`<option value="${b.s}">${b.n}</option>`).join("");
   const l=CONDOS[cidadeObj().n]||[];
-  $("condo").innerHTML='<option value="">Escolha…</option>'+l.map(x=>`<option value="${x[1]}">${x[0]}</option>`).join("")+'<option value="__outro">Outro (digitar)</option>';
-  $("condo-sug").innerHTML=(cidadeObj().cb?l:[]).map(x=>`<option value="${esc(x[0])}">`).join("");
+  const cbL=!!cidadeObj().cb;
+  $("condo").innerHTML='<option value="">Escolha…</option>'+l.map(x=>`<option value="${esc(cbL?x[0]:x[1])}">${esc(x[0])}</option>`).join("")+'<option value="__outro">Outro (digitar)</option>';
   $("parque").innerHTML='<option value="">Sem parque específico</option>'+PARQUES.filter(p=>p.cid===S.cidade).map(p=>`<option>${esc(p.n)}</option>`).join("");
 }
 
@@ -712,8 +714,10 @@ document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.addEventListener("clic
 }));
 const bind=(id,k,fn)=>$(id).addEventListener("input",e=>{S[k]=fn?fn(e.target.value):e.target.value;render()});
 bind("nome","nome");bind("idade","idade");bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
-$("condo-outro").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value.trim().toLowerCase();const it=(CONDOS[c.n]||[]).find(x=>x[0].toLowerCase()===v);
-  if(it&&it[1]&&BAIRROS.some(b=>b.cid===c.s&&b.s===it[1])&&S.bairro!==it[1]){S.bairro=it[1];$("bairro").value=it[1];render();toast("Bairro ajustado: "+(BAIRROS.find(b=>b.cid===c.s&&b.s===it[1])||{}).n)}});bind("parque","parque");
+$("condo").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value,it=(CONDOS[c.n]||[]).find(x=>x[0]===v);
+  if(it){S.condoOutro=it[0];$("condo-outro").value=it[0];if(it[1]&&BAIRROS.some(b=>b.cid===c.s&&b.s===it[1])){S.bairro=it[1];$("bairro").value=it[1]}}
+  else{S.condoOutro="";$("condo-outro").value=""}
+  render()});
 $("estado-top").addEventListener("change",e=>{$("estado").value=e.target.value;$("estado").dispatchEvent(new Event("input"))});
 $("estado").addEventListener("input",e=>{S.estado=e.target.value;S.cidade="";S.bairro="";S.condo="";S.condoOutro="";S.parque="";fillSelects();$("bairro").value="";render();if(typeof verPlano==="function")verPlano()});
 $("cidade").addEventListener("input",e=>{S.cidade=e.target.value;S.bairro="";S.condo="";S.condoOutro="";S.parque="";fillSelects();$("bairro").value="";render()});
@@ -746,7 +750,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.70): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.71): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
