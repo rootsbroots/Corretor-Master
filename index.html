@@ -249,7 +249,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.71) */
+/* painéis (v1.72) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -277,6 +277,8 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pn-top .ht{grid-column:1/-1;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}.pn-top .ht i{display:block;height:100%;border-radius:99px}
 .pn-pill{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-left:6px;vertical-align:middle}
 .pn-note{font-size:12px;color:var(--ink-2);margin-top:12px}
+.lb-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;margin:4px 0 0 6px;background:var(--warn-bg);color:var(--warn)}
+.lb-chip.venc{background:var(--crit-bg);color:var(--crit)}
 .neg-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-top:4px}
 
 </style>
@@ -287,7 +289,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.71</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.72</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -433,6 +435,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   <section id="tab-clientes" hidden>
     <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-xls" type="button">Exportar para Excel</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,application/json" hidden></div>
     <p class="hint" style="margin:0 0 12px">Seus clientes são salvos na sua conta e aparecem em qualquer aparelho e em todos os estados do Corretor Master quando você entra com o mesmo e-mail. Exportar guarda uma cópia extra. <span id="cli-sync"></span></p>
+    <div class="actions" style="margin:0 0 10px;align-items:center"><button class="btn alt" id="av-btn" type="button">🔔 Ativar avisos</button><span class="hint" id="av-msg" style="margin:0"></span></div>
     <div id="lista"></div>
   </section>
 
@@ -575,7 +578,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.71</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.72</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -588,6 +591,16 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
     <div class="f"><label for="ng-obs">Observação (opcional)</label><input type="text" id="ng-obs" maxlength="120"></div>
     <p class="hint" id="ng-res"></p>
     <div class="actions"><button class="btn" id="ng-salvar" type="button">Salvar</button><button class="btn alt" id="ng-limpar" type="button">Remover negócio</button></div>
+  </div>
+</div>
+
+<div class="modal" id="lb-m" hidden role="dialog" aria-modal="true" aria-labelledby="lb-t">
+  <div class="panel">
+    <div class="mh"><div><p class="eyebrow">Lembrete</p><h2 id="lb-t">Cliente</h2></div><button class="x" id="lb-x" type="button" aria-label="Fechar">×</button></div>
+    <div class="f"><label for="lb-quando">Quando avisar</label><input type="datetime-local" id="lb-quando"></div>
+    <div class="f"><label for="lb-txt">O que fazer</label><input type="text" id="lb-txt" maxlength="80" placeholder="Ex.: Ligar para confirmar a visita"></div>
+    <p class="hint" id="lb-av"></p>
+    <div class="actions"><button class="btn" id="lb-salvar" type="button">Salvar lembrete</button><button class="btn alt" id="lb-limpar" type="button">Remover</button></div>
   </div>
 </div>
 
@@ -750,7 +763,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.71): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.72): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -934,15 +947,15 @@ $("salvar").addEventListener("click",()=>{
   const prev=S.__id?getC().find(c=>c.id===S.__id):null;
   if(prev&&String(prev.perfil.nome||"").trim().toLowerCase()!==S.nome.trim().toLowerCase())S.__id=undefined;
   const a=getC().filter(c=>c.id!==S.__id);const id=S.__id||String(Date.now());
-  const negK=prev&&prev.perfil.neg?prev.perfil.neg:S.neg;const pf={...S,__id:undefined};if(negK&&S.__id)pf.neg=negK;else delete pf.neg;
+  const negK=prev&&prev.perfil.neg?prev.perfil.neg:S.neg;const pf={...S,__id:undefined};if(negK&&S.__id)pf.neg=negK;else delete pf.neg;const lbK=prev&&prev.perfil.lemb?prev.perfil.lemb:S.lemb;if(lbK&&S.__id)pf.lemb=lbK;else delete pf.lemb;
   a.unshift({id,data:new Date().toLocaleString("pt-BR"),upd:Date.now(),perfil:pf});
   S.__id=id;setC(a);agendarNuvem();$("salvo-msg").innerHTML='<div class="alert good">Cliente salvo na sua conta.</div>';
 });
 $("limpar").addEventListener("click",()=>{S={...VAZIO};syncInputs();$("salvo-msg").innerHTML="";render()});
 let PLANO_EST={};
 const ABERTAS=new Set();
-function linhaCliente(c){const p=c.perfil;return`<div class="client"><div class="i"><strong>${esc(p.nome)}</strong><small>${esc(p.tipo)} · ${esc((CIDADES.find(x=>x.s===p.cidade)||{}).n||"")} · ${esc(c.data)}</small>${p.neg&&p.neg.etapa?`<span class="neg-chip" style="background:${etp(p.neg.etapa)[3]}">${esc(etp(p.neg.etapa)[1])}${p.neg.valor?" · "+brk(p.neg.valor):""}</span>`:""}</div>
-    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
+function linhaCliente(c){const p=c.perfil;return`<div class="client"><div class="i"><strong>${esc(p.nome)}</strong><small>${esc(p.tipo)} · ${esc((CIDADES.find(x=>x.s===p.cidade)||{}).n||"")} · ${esc(c.data)}</small>${lbChip(p)}${p.neg&&p.neg.etapa?`<span class="neg-chip" style="background:${etp(p.neg.etapa)[3]}">${esc(etp(p.neg.etapa)[1])}${p.neg.valor?" · "+brk(p.neg.valor):""}</span>`:""}</div>
+    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn alt" data-lb="${c.id}" type="button">Lembrete</button><button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
 function listar(){
   const a=getC();$("cnt").textContent=a.length?`(${a.length})`:"";
   if(!a.length&&!(typeof ESTADOS!=="undefined"&&ESTADOS.length>1&&Object.values(PLANO_EST).filter(x=>x&&x.plano==="unlimited").length>=2)){$("lista").innerHTML='<div class="empty">Nenhum cliente salvo ainda. Monte uma busca e toque em Salvar cliente.<br>Os clientes ficam guardados na sua conta e aparecem em qualquer aparelho.</div>';return}
@@ -1033,11 +1046,59 @@ $("cli-file").addEventListener("change",async e=>{
   }catch(_){toast("Arquivo inválido. Use um arquivo exportado pelo Corretor Master.",4000)}
 });
 $("lista").addEventListener("click",e=>{
-  const o=e.target.closest("[data-open]"),d=e.target.closest("[data-del]"),ng=e.target.closest("[data-neg]");
+  const o=e.target.closest("[data-open]"),d=e.target.closest("[data-del]"),ng=e.target.closest("[data-neg]"),lb=e.target.closest("[data-lb]");
   if(ng){ngAbrir(ng.dataset.neg);return}
+  if(lb){lbAbrir(lb.dataset.lb);return}
   if(o){const c=getC().find(x=>x.id===o.dataset.open);if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();tab("busca")}}
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
+
+/* ===== avisos e lembretes (v1.72) ===== */
+function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
+  const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
+  const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
+  return`<span class="lb-chip${venc?" venc":""}">⏰ ${venc?"venceu ":""}${esc(dia)} ${esc(t)}${l.txt?" · "+esc(l.txt):""}</span>`}
+let LB_ID=null;
+function lbIso(ts){const d=new Date(ts),z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())+"T"+z(d.getHours())+":"+z(d.getMinutes())}
+function lbAbrir(id){const c=getC().find(x=>x.id===id);if(!c)return;LB_ID=id;const l=c.perfil.lemb||{};
+  $("lb-t").textContent=c.perfil.nome||"Cliente";
+  $("lb-quando").value=l.ts?lbIso(l.ts):lbIso(Date.now()+3600000);$("lb-txt").value=l.txt||"";
+  avAtualizar();$("lb-m").hidden=false}
+function lbGravar(lemb){const a=getC(),c=a.find(x=>x.id===LB_ID);if(!c)return;
+  const perfil={...c.perfil};if(lemb)perfil.lemb=lemb;else delete perfil.lemb;
+  setC(a.map(x=>x.id===LB_ID?{...x,perfil,upd:Date.now()}:x));listar();agendarNuvem();$("lb-m").hidden=true;toast(lemb?"Lembrete salvo.":"Lembrete removido.")}
+$("lb-salvar").addEventListener("click",()=>{const v=$("lb-quando").value,ts=v?new Date(v).getTime():0;
+  if(!ts){toast("Escolha o dia e a hora.");return}
+  lbGravar({ts,txt:$("lb-txt").value.trim().slice(0,80)})});
+$("lb-limpar").addEventListener("click",()=>lbGravar(null));
+$("lb-x").addEventListener("click",()=>{$("lb-m").hidden=true});
+$("lb-m").addEventListener("click",e=>{if(e.target===$("lb-m"))$("lb-m").hidden=true});
+/* notificações push */
+function avSuporte(){return"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window}
+function avIos(){return/iphone|ipad|ipod/i.test(navigator.userAgent)}
+function avInstalado(){return window.matchMedia&&matchMedia("(display-mode: standalone)").matches||navigator.standalone===true}
+function b64u(s){const p="=".repeat((4-s.length%4)%4),b=(s+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b),o=new Uint8Array(r.length);for(let i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o}
+async function avSub(){try{const reg=await navigator.serviceWorker.ready;return await reg.pushManager.getSubscription()}catch(_){return null}}
+async function avAtualizar(){
+  const b=$("av-btn"),m=$("av-msg"),h=$("lb-av");let txt="",ativo=false;
+  if(!avSuporte()){txt=avIos()&&!avInstalado()?"No iPhone, instale o app na Tela de Início para receber avisos.":"Este navegador não recebe avisos.";if(b)b.hidden=!avIos()}
+  else if(Notification.permission==="denied"){txt="Avisos bloqueados no aparelho. Libere nas configurações do navegador."}
+  else{const s=await avSub();ativo=!!s&&Notification.permission==="granted";txt=ativo?"Avisos ativos neste aparelho.":"Ative para receber os lembretes e avisos.";}
+  if(b){b.textContent=ativo?"🔔 Desativar avisos":"🔔 Ativar avisos";b.dataset.on=ativo?"1":""}
+  if(m)m.textContent=txt;if(h)h.textContent=ativo?"Você receberá a notificação na hora marcada.":"Para receber a notificação, ative os avisos na aba Clientes.";}
+async function avAtivar(){
+  if(!avSuporte()){toast(avIos()&&!avInstalado()?"No iPhone, instale o app na Tela de Início primeiro.":"Este navegador não recebe avisos.");return}
+  const perm=await Notification.requestPermission();
+  if(perm!=="granted"){toast("Sem permissão, os avisos não funcionam.");avAtualizar();return}
+  try{const k=await api({acao:"push_chave"});if(!k||!k.chave){toast("Avisos indisponíveis agora.");return}
+    const reg=await navigator.serviceWorker.ready;let s=await reg.pushManager.getSubscription();
+    if(!s)s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(k.chave)});
+    const j=s.toJSON();const r=await api({acao:"push_inscrever",sub:{endpoint:j.endpoint,keys:j.keys}});
+    toast(r&&r.ok?"Avisos ativados.":"Não foi possível ativar os avisos.")}catch(e){toast("Não foi possível ativar os avisos.")}
+  avAtualizar()}
+async function avDesativar(){try{const s=await avSub();if(s){await api({acao:"push_cancelar",endpoint:s.endpoint});await s.unsubscribe()}toast("Avisos desativados.")}catch(_){toast("Não foi possível desativar.")}avAtualizar()}
+$("av-btn").addEventListener("click",()=>{$("av-btn").dataset.on?avDesativar():avAtivar()});
+avAtualizar();
 
 /* colar link */
 $("l-go").addEventListener("click",async()=>{
