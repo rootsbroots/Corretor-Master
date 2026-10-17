@@ -249,7 +249,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.74) */
+/* painéis (v1.76) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -277,8 +277,24 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pn-top .ht{grid-column:1/-1;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}.pn-top .ht i{display:block;height:100%;border-radius:99px}
 .pn-pill{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-left:6px;vertical-align:middle}
 .pn-note{font-size:12px;color:var(--ink-2);margin-top:12px}
+.im-r{display:grid;grid-template-columns:minmax(0,120px) minmax(0,1fr);gap:8px;align-items:center;margin:0 0 8px}
+.im-r label{margin:0;font-size:13px}
+.im-tb{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.im-tb td,.im-tb th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .av-box{background:var(--warn-bg);border-radius:10px;padding:12px 14px;margin:0 0 12px;display:flex;flex-direction:column;gap:4px;font-size:13px}
 .av-box b{font-size:14px}
+.hj{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 10px}
+.hj button{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:14px;padding:10px 6px;font:inherit;text-align:center;cursor:pointer;min-width:0}
+.hj button b{display:block;font-size:22px;line-height:1.1}
+.hj button span{display:block;font-size:11px;color:var(--ink-2);margin-top:2px}
+.hj button[aria-pressed="true"]{outline:2px solid var(--accent,#e0b45c)}
+.hj button.zero{opacity:.55}
+.cf{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.cf input,.cf select{flex:1 1 150px;min-width:0}
+.ct-chip{display:block;font-size:12px;color:var(--ink-2);margin-top:2px}
+.ct-chip.alerta{color:var(--warn);font-weight:700}
+.ct-h{margin:10px 0 0;padding:0;list-style:none;max-height:200px;overflow:auto}
+.ct-h li{border-top:1px solid var(--line);padding:6px 0;font-size:13px}
 .lb-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;margin:4px 0 0 6px;background:var(--warn-bg);color:var(--warn)}
 .lb-chip.venc{background:var(--crit-bg);color:var(--crit)}
 .neg-chip{display:inline-block;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;color:#fff;margin-top:4px}
@@ -291,7 +307,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.74</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.76</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -435,8 +451,10 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 
   <section id="tab-clientes" hidden>
-    <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-xls" type="button">Exportar para Excel</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,application/json" hidden></div>
+    <div class="actions" style="margin:0 0 6px"><button class="btn alt" id="cli-exp" type="button">Exportar clientes</button><button class="btn alt" id="cli-xls" type="button">Exportar para Excel</button><button class="btn alt" id="cli-imp" type="button">Importar clientes</button><input type="file" id="cli-file" accept=".json,.csv,.txt,.xlsx,.xls,application/json,text/csv" hidden></div>
     <p class="hint" style="margin:0 0 12px">Seus clientes são salvos na sua conta e aparecem em qualquer aparelho e em todos os estados do Corretor Master quando você entra com o mesmo e-mail. Exportar guarda uma cópia extra. <span id="cli-sync"></span></p>
+    <div class="hj" id="cli-hoje" hidden></div>
+    <div class="cf" id="cli-filtro" hidden><input type="text" id="cli-q" inputmode="search" placeholder="Buscar por nome, telefone ou observação" autocomplete="off"><select id="cli-f" aria-label="Filtrar clientes"><option value="todos">Todos os clientes</option><option value="retornar">Para retornar hoje</option><option value="sem7">Sem contato há 7+ dias</option><option value="parado">Negócio parado 7+ dias</option><option value="ativos">Negócios em andamento</option><option value="semfone">Sem telefone</option></select></div>
     <div class="av-box"><b>Não perca o timing com o cliente.</b><span>Ative os avisos e receba no celular o lembrete na hora de retornar ao cliente e o alerta quando um negócio ficar parado.</span><div class="actions" style="margin:8px 0 0;align-items:center"><button class="btn alt" id="av-btn" type="button">🔔 Ativar avisos</button><span class="hint" id="av-msg" style="margin:0"></span></div></div>
     <div id="lista"></div>
   </section>
@@ -460,6 +478,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
           <div class="f"><label for="nome">Nome</label><input type="text" id="nome"></div>
           <div class="f"><label for="idade">Idade</label><input type="number" id="idade" min="0" max="120" inputmode="numeric"></div>
         </div>
+        <div class="f"><label for="fone">Telefone / WhatsApp (opcional)</label><input type="text" id="fone" inputmode="tel" autocomplete="off" placeholder="(62) 99999-9999"></div>
         <div class="f"><label>Tratamento no convite</label><div class="seg" data-k="trat"><button type="button" data-v="m">Ele</button><button type="button" data-v="f">Ela</button></div></div>
 
         <h3>Imóvel</h3>
@@ -580,7 +599,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.74</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.76</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -588,11 +607,34 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
     <div class="mh"><div><p class="eyebrow">Negócio</p><h2 id="neg-t">Cliente</h2></div><button class="x" id="neg-x" type="button" aria-label="Fechar">×</button></div>
     <div class="f"><label for="ng-etapa">Etapa</label><select id="ng-etapa"></select></div>
     <div class="f"><label for="ng-valor">Valor do imóvel (R$)</label><input type="text" inputmode="numeric" id="ng-valor" placeholder="800.000"></div>
-    <div class="row2"><div class="f"><label for="ng-pct">Comissão total (%)</label><input type="text" inputmode="decimal" id="ng-pct" placeholder="6"></div><div class="f"><label for="ng-parte">Minha parte (%)</label><input type="text" inputmode="decimal" id="ng-parte" placeholder="100"></div></div>
+    <div class="f"><label for="ng-imob">Como você atua neste negócio</label><select id="ng-imob"><option value="sem">Sem imobiliária (comissão inteira para mim)</option><option value="com">Com imobiliária (divido a comissão)</option></select></div>
+    <div class="row2"><div class="f"><label for="ng-pct">Comissão total (%)</label><input type="text" inputmode="decimal" id="ng-pct" placeholder="6"></div><div class="f" id="ng-parte-f"><label for="ng-parte">Minha parte (%)</label><input type="text" inputmode="decimal" id="ng-parte" placeholder="100"></div></div>
     <div class="row2"><div class="f"><label for="ng-prob">Chance de fechar (%)</label><input type="text" inputmode="numeric" id="ng-prob" placeholder="50"></div><div class="f"><label for="ng-data" id="ng-data-l">Data prevista</label><input type="date" id="ng-data"></div></div>
     <div class="f"><label for="ng-obs">Observação (opcional)</label><input type="text" id="ng-obs" maxlength="120"></div>
     <p class="hint" id="ng-res"></p>
     <div class="actions"><button class="btn" id="ng-salvar" type="button">Salvar</button><button class="btn alt" id="ng-limpar" type="button">Remover negócio</button></div>
+  </div>
+</div>
+
+<div class="modal" id="ct-m" hidden role="dialog" aria-modal="true" aria-labelledby="ct-t">
+  <div class="panel">
+    <div class="mh"><div><p class="eyebrow">Contato</p><h2 id="ct-t">Cliente</h2></div><button class="x" id="ct-x" type="button" aria-label="Fechar">×</button></div>
+    <div class="f"><label for="ct-tipo">O que você fez?</label><select id="ct-tipo"><option value="lig">Liguei</option><option value="zap">Conversei no WhatsApp</option><option value="vis">Visita ao imóvel</option><option value="out">Outro</option></select></div>
+    <div class="f"><label for="ct-nota">Anotação (opcional)</label><input type="text" id="ct-nota" maxlength="200" autocomplete="off" placeholder="Gostou do 3º imóvel, volta a falar sexta"></div>
+    <div class="actions"><button class="btn" id="ct-ok" type="button">Registrar contato</button></div>
+    <ul class="ct-h" id="ct-hist"></ul>
+  </div>
+</div>
+
+<div class="modal" id="im-m" hidden role="dialog" aria-modal="true" aria-labelledby="im-t">
+  <div class="panel">
+    <div class="mh"><div><p class="eyebrow">Importar clientes</p><h2 id="im-t">Sua carteira no app</h2></div><button class="x" id="im-x" type="button" aria-label="Fechar">×</button></div>
+    <p class="hint" id="im-arq" style="margin:0 0 8px"></p>
+    <div class="f"><label for="im-est">Em qual estado ficam estes clientes?</label><select id="im-est"></select></div>
+    <p class="hint" style="margin:6px 0">Indique qual coluna da sua planilha corresponde a cada informação. O app já tenta escolher sozinho.</p>
+    <div id="im-map"></div>
+    <div id="im-prev" class="hint" style="margin-top:10px"></div>
+    <div class="actions"><button class="btn" id="im-ok" type="button">Importar</button><button class="btn alt" id="im-modelo" type="button">Baixar modelo de planilha</button></div>
   </div>
 </div>
 
@@ -633,7 +675,7 @@ const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Pa
 function phEst(){const p=PH[EST0]||PH.go,u=PH[EST0]?EST0:"go";return {E:[{s:u,n:p.n,uf:u.toUpperCase()}],C:[{n:p.c,s:p.s,uf:u}]}}
 let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},PARQUES=[];
 
-const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",condo:"",condoOutro:""};
+const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",condo:"",condoOutro:"",fone:"",nota:""};
 let S={...VAZIO};
 const $=id=>document.getElementById(id);
 const brl=n=>n?"R$ "+n.toLocaleString("pt-BR"):"";
@@ -696,8 +738,8 @@ function pintar(){
   $("zap-wa").href="https://wa.me/?text="+encodeURIComponent(RES.msg);
   pintarEntorno();pintarConvite();
 }
-function syncInputs(){
-  $("nome").value=S.nome;$("idade").value=S.idade;
+function syncInputs(){try{delete $("cv-fone").dataset.u;if(typeof pintarConvite==="function")pintarConvite()}catch(_){}
+  $("nome").value=S.nome;$("fone").value=S.fone||"";$("idade").value=S.idade;
   $("vmin").value=S.vmin?S.vmin.toLocaleString("pt-BR"):"";$("vmax").value=S.vmax?S.vmax.toLocaleString("pt-BR"):"";
   
   $("estado").value=S.estado||EST0;fillSelects();$("cidade").value=S.cidade;$("bairro").value=S.bairro;$("condo").value=S.condo;$("condo-outro").value=S.condoOutro;$("parque").value=S.parque;pintarImoveis();
@@ -728,7 +770,7 @@ document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.addEventListener("clic
   syncInputs();render();
 }));
 const bind=(id,k,fn)=>$(id).addEventListener("input",e=>{S[k]=fn?fn(e.target.value):e.target.value;render()});
-bind("nome","nome");bind("idade","idade");bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
+bind("nome","nome");bind("fone","fone");bind("idade","idade");bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
 $("condo").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value,it=(CONDOS[c.n]||[]).find(x=>x[0]===v);
   if(it){S.condoOutro=it[0];$("condo-outro").value=it[0];if(it[1]&&BAIRROS.some(b=>b.cid===c.s&&b.s===it[1])){S.bairro=it[1];$("bairro").value=it[1]}}
   else{S.condoOutro="";$("condo-outro").value=""}
@@ -765,7 +807,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.74): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.76): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -835,19 +877,21 @@ $("pn-per-m").addEventListener("click",e=>{const b=e.target.closest("[data-p]");
 let NG_ID=null,NG_MANUAL=false;
 function ngRes(){const v=num($("ng-valor").value),pct=dec($("ng-pct").value),parte=$("ng-parte").value.trim()===""?100:dec($("ng-parte").value),prob=num($("ng-prob").value),e=$("ng-etapa").value;
   const total=v*pct/100,minha=total*parte/100,p=e==="fechado"?100:e==="perdido"?0:prob;
-  $("ng-res").textContent=v?`Comissão total ${reais(total)} · minha parte ${reais(minha)} · esperada ${reais(minha*p/100)}`:"Informe o valor do imóvel para calcular a comissão.";
+  const sem=$("ng-imob").value==="sem";$("ng-parte-f").hidden=sem;
+  $("ng-res").textContent=v?(sem?`Comissão sem imobiliária ${reais(total)} (100% para você) · esperada ${reais(total*p/100)}`:`Comissão total ${reais(total)} · minha parte (${String(parte).replace(".",",")}%) ${reais(minha)} · esperada ${reais(minha*p/100)} · sem imobiliária seria ${reais(total)}`):"Informe o valor do imóvel para calcular a comissão.";
   $("ng-data-l").textContent=e==="fechado"?"Data do fechamento":"Data prevista"}
 function ngAbrir(id){const c=getC().find(x=>x.id===id);if(!c)return;NG_ID=id;const n=c.perfil.neg||{};
   $("ng-etapa").innerHTML=ETP.map(e=>`<option value="${e[0]}">${e[1]}</option>`).join("");
   $("neg-t").textContent=c.perfil.nome||"Cliente";$("ng-etapa").value=n.etapa||"novo";
   $("ng-valor").value=n.valor?Number(n.valor).toLocaleString("pt-BR"):(c.perfil.vmax?Number(c.perfil.vmax).toLocaleString("pt-BR"):"");
-  $("ng-pct").value=n.pct!=null?String(n.pct).replace(".",","):"6";$("ng-parte").value=n.parte!=null?String(n.parte).replace(".",","):"100";
+  $("ng-pct").value=n.pct!=null?String(n.pct).replace(".",","):"6";$("ng-parte").value=n.parte!=null?String(n.parte).replace(".",","):"100";$("ng-imob").value=(n.parte==null||+n.parte>=100)?"sem":"com";
   NG_MANUAL=!!n.probManual;$("ng-prob").value=n.prob!=null?n.prob:etp($("ng-etapa").value)[2];$("ng-data").value=n.data||"";$("ng-obs").value=n.obs||"";
   ngRes();$("neg-m").hidden=false}
 $("ng-etapa").addEventListener("change",()=>{if(!NG_MANUAL)$("ng-prob").value=etp($("ng-etapa").value)[2];ngRes()});
 $("ng-valor").addEventListener("input",e=>{const n=num(e.target.value);e.target.value=n?n.toLocaleString("pt-BR"):"";ngRes()});
 $("ng-prob").addEventListener("input",e=>{NG_MANUAL=true;e.target.value=String(Math.min(100,num(e.target.value))||"");ngRes()});
 ["ng-pct","ng-parte"].forEach(id=>$(id).addEventListener("input",ngRes));
+$("ng-imob").addEventListener("change",()=>{if($("ng-imob").value==="sem")$("ng-parte").value="100";else if(dec($("ng-parte").value)>=100||$("ng-parte").value.trim()==="")$("ng-parte").value="50";ngRes()});
 $("neg-x").addEventListener("click",()=>{$("neg-m").hidden=true});
 $("neg-m").addEventListener("click",e=>{if(e.target===$("neg-m"))$("neg-m").hidden=true});
 function ngGravar(neg){const a=getC(),c=a.find(x=>x.id===NG_ID);if(!c)return;
@@ -856,7 +900,7 @@ function ngGravar(neg){const a=getC(),c=a.find(x=>x.id===NG_ID);if(!c)return;
 $("ng-salvar").addEventListener("click",()=>{
   const e=$("ng-etapa").value,valor=num($("ng-valor").value);
   if(!valor){toast("Informe o valor do imóvel.");return}
-  const pct=Math.min(100,dec($("ng-pct").value)),parte=$("ng-parte").value.trim()===""?100:Math.min(100,dec($("ng-parte").value));
+  const pct=Math.min(100,dec($("ng-pct").value)),parte=$("ng-imob").value==="sem"||$("ng-parte").value.trim()===""?100:Math.min(100,dec($("ng-parte").value));
   ngGravar({etapa:e,valor,pct,parte,prob:Math.min(100,num($("ng-prob").value)),probManual:NG_MANUAL,data:$("ng-data").value||"",obs:$("ng-obs").value.trim().slice(0,120),upd:Date.now()})});
 $("ng-limpar").addEventListener("click",()=>ngGravar(null));
 
@@ -949,18 +993,22 @@ $("salvar").addEventListener("click",()=>{
   const prev=S.__id?getC().find(c=>c.id===S.__id):null;
   if(prev&&String(prev.perfil.nome||"").trim().toLowerCase()!==S.nome.trim().toLowerCase())S.__id=undefined;
   const a=getC().filter(c=>c.id!==S.__id);const id=S.__id||String(Date.now());
-  const negK=prev&&prev.perfil.neg?prev.perfil.neg:S.neg;const pf={...S,__id:undefined};if(negK&&S.__id)pf.neg=negK;else delete pf.neg;const lbK=prev&&prev.perfil.lemb?prev.perfil.lemb:S.lemb;if(lbK&&S.__id)pf.lemb=lbK;else delete pf.lemb;
+  const negK=prev&&prev.perfil.neg?prev.perfil.neg:S.neg;const pf={...S,__id:undefined};if(negK&&S.__id)pf.neg=negK;else delete pf.neg;const lbK=prev&&prev.perfil.lemb?prev.perfil.lemb:S.lemb;if(lbK&&S.__id)pf.lemb=lbK;else delete pf.lemb;const ctK=prev&&prev.perfil.contatos?prev.perfil.contatos:null;if(ctK&&S.__id)pf.contatos=ctK;else delete pf.contatos;
   a.unshift({id,data:new Date().toLocaleString("pt-BR"),upd:Date.now(),perfil:pf});
   S.__id=id;setC(a);agendarNuvem();$("salvo-msg").innerHTML='<div class="alert good">Cliente salvo na sua conta.</div>';
 });
 $("limpar").addEventListener("click",()=>{S={...VAZIO};syncInputs();$("salvo-msg").innerHTML="";render()});
 let PLANO_EST={};
 const ABERTAS=new Set();
-function linhaCliente(c){const p=c.perfil;return`<div class="client"><div class="i"><strong>${esc(p.nome)}</strong><small>${esc(p.tipo)} · ${esc((CIDADES.find(x=>x.s===p.cidade)||{}).n||"")} · ${esc(c.data)}</small>${lbChip(p)}${p.neg&&p.neg.etapa?`<span class="neg-chip" style="background:${etp(p.neg.etapa)[3]}">${esc(etp(p.neg.etapa)[1])}${p.neg.valor?" · "+brk(p.neg.valor):""}</span>`:""}</div>
-    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn alt" data-lb="${c.id}" type="button">Lembrete</button><button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
+function linhaCliente(c){const p=c.perfil;return`<div class="client"><div class="i"><strong>${esc(p.nome)}</strong><small>${esc(p.tipo)} · ${esc((CIDADES.find(x=>x.s===p.cidade)||{}).n||"")} · ${esc(c.data)}</small>${p.fone?`<small>📞 ${esc(p.fone)}</small>`:""}${p.nota?`<small>${esc(String(p.nota).slice(0,120))}</small>`:""}${lbChip(p)}${ctLinha(c)}${p.neg&&p.neg.etapa?`<span class="neg-chip" style="background:${etp(p.neg.etapa)[3]}">${esc(etp(p.neg.etapa)[1])}${p.neg.valor?" · "+brk(p.neg.valor):""}</span>`:""}</div>
+    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn alt" data-ct="${c.id}" type="button">Contato</button><button class="btn alt" data-lb="${c.id}" type="button">Lembrete</button>${waLink(p.fone)?`<a class="btn alt" data-wa="${c.id}" href="${waLink(p.fone)}" target="_blank" rel="noopener">WhatsApp</a>`:""}<button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
 function listar(){
   const a=getC();$("cnt").textContent=a.length?`(${a.length})`:"";
   if(!a.length&&!(typeof ESTADOS!=="undefined"&&ESTADOS.length>1&&Object.values(PLANO_EST).filter(x=>x&&x.plano==="unlimited").length>=2)){$("lista").innerHTML='<div class="empty">Nenhum cliente salvo ainda. Monte uma busca e toque em Salvar cliente.<br>Os clientes ficam guardados na sua conta e aparecem em qualquer aparelho.</div>';return}
+  renderHoje(a);
+  if(CQ||CF!=="todos"){
+    const f=filtrar(a);
+    $("lista").innerHTML=`<p class="hint" style="margin:0 0 8px">${f.length} cliente(s)${CF!=="todos"?" · "+esc($("cli-f").selectedOptions[0].textContent):""}${CQ?" · busca: “"+esc(CQ)+"”":""}</p>`+(f.length?f.map(linhaCliente).join(""):'<div class="empty">Nenhum cliente neste filtro.</div>');return}
   /* pastas por estado: quem tem 2 ou mais estados contratados (ou Plano Capitais) vê todas as pastas; os demais, só as que têm clientes */
   const pagos=Object.keys(PLANO_EST).filter(k=>PLANO_EST[k]&&PLANO_EST[k].plano==="unlimited").length;
   const pasta=c=>(c.perfil.estado||EST0);
@@ -1022,19 +1070,143 @@ $("cli-xls").addEventListener("click",()=>{
   const a=getC();if(!a.length){toast("Nenhum cliente para exportar.");return}
   const pt=x=>String(x||"").replace(/-/g," ").replace(/\b\w/g,m=>m.toUpperCase());
   const cel=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
-  const cab=["Nome","Estado","Cidade","Bairro","Tipo","Valor mínimo","Valor máximo","Condomínio","Piscina","Vista","Parque","Condição","Status","Mobiliado","Salvo em","Etapa","Valor do imóvel","Comissão (minha parte)","Chance de fechar"];
+  const cab=["Nome","Telefone","Estado","Cidade","Bairro","Tipo","Valor mínimo","Valor máximo","Condomínio","Piscina","Vista","Parque","Condição","Status","Mobiliado","Salvo em","Etapa","Valor do imóvel","Comissão (minha parte)","Chance de fechar","Observação","Último contato","Contatos registrados"];
   const lin=a.map(c=>{const p=c.perfil||{};
     const cid=(CIDADES.find(x=>x.s===p.cidade)||{}).n||pt(p.cidade),bai=(BAIRROS.find(x=>x.s===p.bairro&&x.cid===p.cidade)||{}).n||pt(p.bairro);
-    return [p.nome,NOME_EST[p.estado]||"",cid,bai,p.tipo,p.vmin||"",p.vmax||"",p.condoOutro||pt(p.condo),p.piscina,p.vista,p.parque,p.condicao,p.status,p.mobiliado,c.data,...(()=>{const n=negDe(c);return n?[etp(n.etapa)[1],n.valor,Math.round(n.minha),n.prob+"%"]:["","","",""]})()].map(cel).join(";")});
+    return [p.nome,p.fone||"",NOME_EST[p.estado]||"",cid,bai,p.tipo,p.vmin||"",p.vmax||"",p.condoOutro||pt(p.condo),p.piscina,p.vista,p.parque,p.condicao,p.status,p.mobiliado,c.data,...(()=>{const n=negDe(c);return n?[etp(n.etapa)[1],n.valor,Math.round(n.minha),n.prob+"%"]:["","","",""]})(),p.nota||"",ctUlt(c)?new Date(ctUlt(c)).toLocaleDateString("pt-BR"):"",(p.contatos||[]).length].map(cel).join(";")});
   const csv="\ufeff"+"sep=;\r\n"+[cab.map(cel).join(";"),...lin].join("\r\n");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
   const u=URL.createObjectURL(blob),l=document.createElement("a");
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha baixada. Abra no Excel.");
 });
+/* ===== monitoramento de clientes (v1.76) ===== */
+const DIA_MS=864e5,CT_ROT={lig:"Liguei",zap:"WhatsApp",vis:"Visita",con:"Convite enviado",out:"Outro"};
+let CF="todos",CQ="";
+const ctUlt=c=>{const l=c.perfil&&c.perfil.contatos;return l&&l[0]?+l[0].ts||0:0};
+const emAberto=c=>{const n=c.perfil&&c.perfil.neg;return!(n&&(n.etapa==="fechado"||n.etapa==="perdido"))};
+function quando(ts){const d=Math.floor((Date.now()-ts)/DIA_MS);return d<=0?"hoje":d===1?"ontem":"há "+d+" dias"}
+function ctLinha(c){const u=ctUlt(c),l=c.perfil.contatos&&c.perfil.contatos[0];
+  if(!u)return emAberto(c)?'<span class="ct-chip">Nenhum contato registrado</span>':"";
+  const d=Math.floor((Date.now()-u)/DIA_MS);
+  return`<span class="ct-chip${d>=7&&emAberto(c)?" alerta":""}">Último contato: ${quando(u)} · ${esc(CT_ROT[l.t]||"Contato")}</span>`}
+const fimHoje=()=>{const d=new Date();d.setHours(23,59,59,999);return d.getTime()};
+const FILTROS={
+  retornar:c=>{const l=c.perfil.lemb;return!!(l&&l.ts&&l.ts<=fimHoje())},
+  sem7:c=>emAberto(c)&&(!ctUlt(c)||Date.now()-ctUlt(c)>=7*DIA_MS),
+  parado:c=>{const n=c.perfil.neg;if(!n||!n.etapa||!emAberto(c))return false;const ref=Math.max(+n.upd||+c.upd||0,ctUlt(c));return ref&&Date.now()-ref>=7*DIA_MS},
+  ativos:c=>{const n=c.perfil.neg;return!!(n&&n.etapa&&emAberto(c))},
+  semfone:c=>!String(c.perfil.fone||"").replace(/\D/g,"")
+};
+function filtrar(a){
+  const q=imNorm(CQ),qd=CQ.replace(/\D/g,"");
+  let f=a.filter(c=>{if(CF!=="todos"&&!FILTROS[CF](c))return false;if(!q)return true;const p=c.perfil;
+    return imNorm(p.nome).includes(q)||imNorm(p.nota).includes(q)||(qd.length>=3&&String(p.fone||"").replace(/\D/g,"").includes(qd))});
+  if(CF==="sem7"||CF==="parado")f=f.slice().sort((x,y)=>ctUlt(x)-ctUlt(y));
+  else if(CF==="retornar")f=f.slice().sort((x,y)=>x.perfil.lemb.ts-y.perfil.lemb.ts);
+  return f}
+function renderHoje(a){
+  const box=$("cli-hoje"),fl=$("cli-filtro");if(!box)return;
+  box.hidden=fl.hidden=!a.length;if(!a.length)return;
+  const n={retornar:a.filter(FILTROS.retornar).length,sem7:a.filter(FILTROS.sem7).length,parado:a.filter(FILTROS.parado).length};
+  const it=[["retornar","⏰","Retornar hoje"],["sem7","🕒","Sem contato 7+ dias"],["parado","⚠️","Negócios parados"]];
+  box.innerHTML=it.map(([k,i,t])=>`<button type="button" data-cf="${k}" aria-pressed="${CF===k}" class="${n[k]?"":"zero"}"><b>${i} ${n[k]}</b><span>${t}</span></button>`).join("");
+  $("cli-f").value=CF}
+function logContato(id,t,nota){
+  const a=getC(),c=a.find(x=>x.id===id);if(!c)return false;
+  const perfil={...c.perfil},l=(perfil.contatos||[]).slice();
+  l.unshift({ts:Date.now(),t,n:String(nota||"").slice(0,200)});perfil.contatos=l.slice(0,20);
+  setC(a.map(x=>x.id===id?{...x,perfil,upd:Date.now()}:x));agendarNuvem();return true}
+let CT_ID=null;
+function ctAbrir(id){const c=getC().find(x=>x.id===id);if(!c)return;CT_ID=id;$("ct-t").textContent=c.perfil.nome||"Cliente";$("ct-nota").value="";$("ct-tipo").value="lig";ctHist();$("ct-m").hidden=false}
+function ctHist(){const c=getC().find(x=>x.id===CT_ID),l=(c&&c.perfil.contatos)||[];
+  $("ct-hist").innerHTML=l.length?l.slice(0,10).map(x=>`<li><b>${esc(CT_ROT[x.t]||"Contato")}</b> · ${esc(new Date(x.ts).toLocaleDateString("pt-BR"))} (${quando(x.ts)})${x.n?"<br>"+esc(x.n):""}</li>`).join(""):'<li style="border:0">Nenhum contato registrado ainda.</li>'}
+$("ct-ok").addEventListener("click",()=>{if(logContato(CT_ID,$("ct-tipo").value,$("ct-nota").value.trim())){$("ct-nota").value="";ctHist();listar();toast("Contato registrado.")}});
+$("ct-x").addEventListener("click",()=>{$("ct-m").hidden=true});
+$("ct-m").addEventListener("click",e=>{if(e.target===$("ct-m"))$("ct-m").hidden=true});
+$("cli-q").addEventListener("input",e=>{CQ=e.target.value.trim();listar()});
+$("cli-f").addEventListener("change",e=>{CF=e.target.value;listar()});
+$("cli-hoje").addEventListener("click",e=>{const b=e.target.closest("[data-cf]");if(!b)return;CF=CF===b.dataset.cf?"todos":b.dataset.cf;listar()});
+/* ===== importação de clientes por planilha (v1.76) ===== */
+function waLink(f){const d=String(f||"").replace(/\D/g,"");if(d.length<10)return"";const n=d.length<=11?"55"+d:d;return"https://wa.me/"+n}
+const IM_CAMPOS=[["nome","Nome *",["nome","cliente","contato","name"]],["fone","Telefone",["telefone","celular","whatsapp","fone","tel","contato"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao"]],["tipo","Tipo (casa/apto)",["tipo","imovel","interesse"]],["valor","Valor / orçamento",["valor","orcamento","preco","faixa","maximo","teto"]],["etapa","Etapa do negócio",["etapa","status","fase","situacao"]],["nota","Observação",["observ","obs","nota","anotac","comentario"]]];
+let IM_DADOS=null;
+const imNorm=t=>String(t||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+function imCsv(txt){
+  txt=txt.replace(/^﻿/,"");const m=txt.match(/^sep=(.)\r?\n/i);let sep=null;if(m){sep=m[1];txt=txt.slice(m[0].length)}
+  if(!sep){const l=txt.split(/\r?\n/)[0]||"";const c=[";",",","\t"].map(x=>[x,l.split(x).length]);c.sort((a,b)=>b[1]-a[1]);sep=c[0][1]>1?c[0][0]:";"}
+  const rows=[];let r=[],v="",q=false;
+  for(let i=0;i<txt.length;i++){const ch=txt[i];
+    if(q){if(ch==='"'){if(txt[i+1]==='"'){v+='"';i++}else q=false}else v+=ch}
+    else if(ch==='"')q=true;
+    else if(ch===sep){r.push(v);v=""}
+    else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&txt[i+1]==="\n")i++;r.push(v);v="";if(r.some(x=>String(x).trim()))rows.push(r);r=[]}
+    else v+=ch}
+  r.push(v);if(r.some(x=>String(x).trim()))rows.push(r);return rows}
+function imXlsx(buf){return new Promise((ok,no)=>{
+  const ler=()=>{try{const wb=XLSX.read(buf,{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]];ok(XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:""}).filter(r=>r.some(x=>String(x).trim())))}catch(e){no(e)}};
+  if(window.XLSX)return ler();
+  const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";sc.onload=ler;sc.onerror=()=>no(new Error("lib"));document.head.appendChild(sc)})}
+function imAbrir(rows,nome){
+  const cab=rows[0].map(x=>String(x||"").trim()),corpo=rows.slice(1).filter(r=>r.some(x=>String(x).trim()));
+  if(!corpo.length){toast("A planilha não tem clientes abaixo do cabeçalho.",4000);return}
+  IM_DADOS={cab,corpo};
+  $("im-arq").textContent=nome+" · "+corpo.length+" linha(s) encontrada(s)";
+  $("im-est").innerHTML=ESTADOS.map(e=>`<option value="${esc(e.s)}">${esc(e.n)}</option>`).join("");$("im-est").value=S.estado||EST0;
+  const usados=new Set();
+  $("im-map").innerHTML=IM_CAMPOS.map(([k,rot,chaves])=>{
+    let sel=-1;cab.forEach((h,i)=>{if(sel<0&&!usados.has(i)&&chaves.some(c=>imNorm(h).includes(c)))sel=i});if(sel>=0)usados.add(sel);
+    return`<div class="im-r"><label for="im-c-${k}">${rot}</label><select id="im-c-${k}" data-k="${k}"><option value="-1">(não importar)</option>${cab.map((h,i)=>`<option value="${i}"${i===sel?" selected":""}>${esc(h||"Coluna "+(i+1))}</option>`).join("")}</select></div>`}).join("");
+  $("im-map").querySelectorAll("select").forEach(x=>x.addEventListener("change",imPrev));$("im-est").addEventListener("change",imPrev);
+  imPrev();$("im-m").hidden=false}
+function imMapa(){const m={};$("im-map").querySelectorAll("select").forEach(x=>{m[x.dataset.k]=Number(x.value)});return m}
+function imTipo(v){const t=imNorm(v);if(/casa|sobrado|condominio/.test(t))return"casa";if(/ap|flat|cobertura|kitnet|studio/.test(t))return"apartamento";return null}
+function imValor(v){const n=parseFloat(String(v||"").replace(/[^\d,.]/g,"").replace(/\.(?=\d{3}\b)/g,"").replace(",","."));return isFinite(n)&&n>=1000?Math.round(n):0}
+function imEtapa(v){const t=imNorm(v);if(!t)return"";if(/perd|desist|cancel/.test(t))return"perdido";if(/fech|vend|conclu|assin/.test(t))return"fechado";if(/negoc/.test(t))return"negoc";if(/propost/.test(t))return"proposta";if(/visit/.test(t))return"visita";if(/novo|lead|contato/.test(t))return"novo";return""}
+function imMontar(){
+  const m=imMapa(),uf=$("im-est").value,g=(r,k)=>m[k]>=0?String(r[m[k]]==null?"":r[m[k]]).trim():"";
+  const cidUf=CIDADES.filter(c=>c.uf===uf),padrao=(cidUf.find(c=>c.cap)||cidUf[0]||{}).s||"goiania";
+  const existentes=getC(),chave=(n,f)=>imNorm(n)+"|"+String(f||"").replace(/\D/g,"").slice(-9);
+  const vistos=new Set(existentes.map(c=>chave(c.perfil.nome,c.perfil.fone)));
+  const novos=[];let dup=0,sem=0;const base=Date.now();
+  IM_DADOS.corpo.forEach((r,i)=>{
+    const nome=g(r,"nome").slice(0,80);if(!nome){sem++;return}
+    const fone=g(r,"fone").slice(0,30),k=chave(nome,fone);if(vistos.has(k)){dup++;return}vistos.add(k);
+    const cn=imNorm(g(r,"cidade")),cid=(cn&&cidUf.find(c=>imNorm(c.n)===cn))||null;
+    const tipo=imTipo(g(r,"tipo"))||"apartamento",valor=imValor(g(r,"valor")),et=imEtapa(g(r,"etapa"));
+    const nota=[g(r,"nota"),(!cid&&g(r,"cidade")?"Cidade: "+g(r,"cidade"):""),(g(r,"bairro")?"Bairro: "+g(r,"bairro"):""),(g(r,"etapa")&&!et?"Etapa: "+g(r,"etapa"):"")].filter(Boolean).join(" · ").slice(0,200);
+    const perfil={...VAZIO,nome,fone,tipo,estado:uf,cidade:cid?cid.s:padrao,vmax:valor||0,nota};
+    delete perfil.__id;
+    if(et&&valor)perfil.neg={etapa:et,valor,pct:6,parte:100,prob:etp(et)[2],probManual:false,data:"",obs:"",upd:base-i};
+    else if(et&&!valor)perfil.nota=(perfil.nota?perfil.nota+" · ":"")+"Etapa: "+etp(et)[1];
+    novos.push({id:"imp"+base+"_"+i,data:new Date().toLocaleString("pt-BR"),upd:base-i,perfil})});
+  return{novos,dup,sem}}
+function imPrev(){
+  if(!IM_DADOS)return;const m=imMapa(),r=imMontar(),ex=getC().length;
+  if(m.nome<0){$("im-prev").textContent="Escolha qual coluna é o Nome do cliente.";$("im-ok").disabled=true;return}
+  const lim=3000-ex,ok=Math.min(r.novos.length,Math.max(0,lim));
+  $("im-ok").disabled=!ok;
+  const amostra=r.novos.slice(0,4).map(c=>`<tr><td>${esc(c.perfil.nome)}</td><td>${esc(c.perfil.fone||"")}</td><td>${esc((CIDADES.find(x=>x.s===c.perfil.cidade)||{}).n||"")}</td><td>${c.perfil.neg?esc(etp(c.perfil.neg.etapa)[1]):""}</td></tr>`).join("");
+  $("im-prev").innerHTML=`<b>${ok}</b> cliente(s) serão criados.`+(r.dup?` ${r.dup} repetido(s) serão ignorado(s).`:"")+(r.sem?` ${r.sem} linha(s) sem nome serão ignorada(s).`:"")+(r.novos.length>lim?` Limite de 3.000 clientes: só ${Math.max(0,lim)} cabem.`:"")+(amostra?`<table class="im-tb"><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>Etapa</th></tr>${amostra}</table>`:"")}
+$("im-ok").addEventListener("click",()=>{
+  const r=imMontar(),ex=getC(),lim=Math.max(0,3000-ex.length),n=r.novos.slice(0,lim);if(!n.length)return;
+  setC([...n,...ex]);listar();agendarNuvem();$("im-m").hidden=true;IM_DADOS=null;
+  toast(n.length+" cliente(s) importado(s)."+(r.dup?" "+r.dup+" repetido(s) ignorado(s).":""),4500)});
+$("im-x").addEventListener("click",()=>{$("im-m").hidden=true;IM_DADOS=null});
+$("im-m").addEventListener("click",e=>{if(e.target===$("im-m")){$("im-m").hidden=true;IM_DADOS=null}});
+$("im-modelo").addEventListener("click",()=>{
+  const cel=v=>'"'+String(v).replace(/"/g,'""')+'"';
+  const cab=["Nome","Telefone","Cidade","Bairro","Tipo","Valor","Etapa","Observação"],ex=[["Maria Souza","(62) 99999-1111","Goiânia","Setor Bueno","Apartamento","850000","Visitando","Quer 3 quartos e vaga dupla"],["João Lima","(62) 98888-2222","Goiânia","Jardim Goiás","Casa","1200000","Proposta","Prefere condomínio fechado"]];
+  const csv="﻿"+"sep=;\r\n"+[cab,...ex].map(l=>l.map(cel).join(";")).join("\r\n");
+  const u=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})),l=document.createElement("a");
+  l.href=u;l.download="modelo-clientes-corretor-master.csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast("Modelo baixado. Preencha no Excel e importe.")});
 $("cli-imp").addEventListener("click",()=>$("cli-file").click());
 $("cli-file").addEventListener("change",async e=>{
   const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;
+  if(/\.(csv|txt|xlsx|xls)$/i.test(f.name)){
+    (async()=>{try{if(f.size>8e6)throw 0;
+      const rows=/\.(xlsx|xls)$/i.test(f.name)?await imXlsx(await f.arrayBuffer()):imCsv(await f.text());
+      if(!rows||rows.length<2)throw 0;imAbrir(rows,f.name)}catch(_){toast("Não consegui ler a planilha. Use o modelo (CSV ou Excel) com o cabeçalho na primeira linha.",5000)}})();return}
   try{
     if(f.size>5e6)throw 0;
     const j=JSON.parse(await f.text()),arr=Array.isArray(j)?j:(j&&j.clientes);
@@ -1049,13 +1221,16 @@ $("cli-file").addEventListener("change",async e=>{
 });
 $("lista").addEventListener("click",e=>{
   const o=e.target.closest("[data-open]"),d=e.target.closest("[data-del]"),ng=e.target.closest("[data-neg]"),lb=e.target.closest("[data-lb]");
+  const ct=e.target.closest("[data-ct]"),wa=e.target.closest("[data-wa]");
+  if(ct){ctAbrir(ct.dataset.ct);return}
+  if(wa){const id=wa.dataset.wa,c=getC().find(x=>x.id===id),u=c&&c.perfil.contatos&&c.perfil.contatos[0];if(!(u&&u.t==="zap"&&Date.now()-u.ts<6e5))setTimeout(()=>{logContato(id,"zap","");listar()},400);return}
   if(ng){ngAbrir(ng.dataset.neg);return}
   if(lb){lbAbrir(lb.dataset.lb);return}
   if(o){const c=getC().find(x=>x.id===o.dataset.open);if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();tab("busca")}}
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.74) ===== */
+/* ===== avisos e lembretes (v1.76) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
@@ -1465,12 +1640,14 @@ function pintarConvite(){
   const g=tratAtual();
   $("cv-aviso").textContent=!S.nome.trim()?"Digite o nome do cliente para personalizar o texto.":(S.trat?"":(g?"Tratamento automático: "+(g==="f"?"Sra.":"Sr.")+". Escolha Ele/Ela em Perfil do cliente se estiver errado.":"Não deu para identificar pelo nome. Escolha Ele ou Ela em Perfil do cliente."));
   if(!CONV_EDIT)$("cv-msg").value=montarConvite();
+  if(!$("cv-fone").dataset.u)$("cv-fone").value=S.fone||"";
   const fone=($("cv-fone").value||"").replace(/\D/g,"");
   $("cv-wa").href="https://wa.me/"+(fone?(fone.length<=11?"55"+fone:fone):"")+"?text="+encodeURIComponent($("cv-msg").value);
 }
 ["cv-corretor","cv-data","cv-hora","cv-local","cv-fone"].forEach(id=>$(id).addEventListener("input",()=>{
   if(id==="cv-corretor"){try{localStorage.setItem("cm-corretor",$(id).value)}catch(_){}}
-  CONV_EDIT=false;pintarConvite()}));
+  if(id==="cv-fone")$(id).dataset.u="1";CONV_EDIT=false;pintarConvite()}));
+$("cv-wa").addEventListener("click",()=>{const id=S.__id;if(id)setTimeout(()=>{logContato(id,"con","Convite para visita");listar()},400)});
 $("cv-msg").addEventListener("input",()=>{CONV_EDIT=true;pintarConvite()});
 $("cv-reset").addEventListener("click",()=>{CONV_EDIT=false;pintarConvite()});
 $("cv-copy").addEventListener("click",()=>copiar($("cv-msg").value,"Convite copiado"));
