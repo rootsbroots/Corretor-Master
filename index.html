@@ -208,6 +208,8 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .ac-sec{margin:16px 0 8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
 .ac-tot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}.ac-tot div{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface-2);text-align:center}.ac-tot b{display:block;font-size:15px}.ac-tot small{color:var(--ink-2);font-size:11px}
 .ac-tag{display:inline-block;border-radius:99px;padding:1px 8px;font-size:11px;font-weight:700;background:var(--warn-bg);color:var(--warn);margin-left:4px;vertical-align:1px}
+.ac-kp{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 10px}.ac-kp div{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface-2);min-width:0}.ac-kp b{display:block;font-size:18px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.ac-kp small{display:block;color:var(--ink-2);font-size:11px}.ac-kp .d{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}.ac-kp .d small{color:inherit;opacity:.85}
+.ac-gr{display:flex;align-items:flex-end;gap:6px;height:112px;margin:6px 0 2px}.ac-gr div{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.ac-gr i{display:block;width:100%;max-width:34px;background:var(--good);border-radius:4px 4px 0 0}.ac-gr span{font-size:10px;color:var(--ink-2);margin-top:3px}.ac-gr em{font-style:normal;font-size:10px;font-variant-numeric:tabular-nums;min-height:12px}
 .ac-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0}.ac-row .btn{flex:1 1 auto}
 .card.c3{background:linear-gradient(135deg,#7c3aed,#2e1065)}
 
@@ -359,7 +361,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.81</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.82</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -1314,7 +1316,7 @@ $("pc-salvar").addEventListener("click",async()=>{
   catch(e){toast((e&&e.msg)||"Não foi possível salvar agora.",5000)}
   b.disabled=false});
 /* ===== academia do corretor (v1.81) ===== */
-const AC={v:"home",isAdm:false,home:null,cid:null,cur:null,aid:null,adm:null,eaid:null,pAlvo:undefined,pm:null,foto:undefined};
+const AC={v:"home",isAdm:false,home:null,cid:null,cur:null,aid:null,adm:null,eaid:null,pAlvo:undefined,pm:null,foto:undefined,pp:null,ppAlvo:null,ap:null,rpSel:null};
 const acR=n=>"R$ "+Number(n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const acIni=n=>String(n||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase();
 const acAv=(p,g)=>p&&p.foto?`<img class="ac-av${g?" g":""}" src="${esc(p.foto)}" alt="">`:`<div class="ac-av ac-ini${g?" g":""}">${esc(acIni(p&&p.nome))}</div>`;
@@ -1329,8 +1331,8 @@ function acTxt(s){let h="",m="";const f=()=>{if(m){h+="</"+m+">";m=""}};
     f();h+="<p>"+esc(l)+"</p>"}
   f();return h}
 function acNav(){$("ac-nav").hidden=AC.v==="home"}
-function acRender(){acNav();const T={home:"Cursos",curso:"Curso",aula:"Aula",perfil:"Perfil de professor",edit:"Editar curso",adm:"Administração"};$("ac-t").textContent=T[AC.v]||"Cursos";
-  const V={home:acViewHome,curso:acViewCurso,aula:acViewAula,perfil:acViewPerfil,edit:acViewEdit,adm:acViewAdm};$("ac-c").innerHTML=(V[AC.v]||acViewHome)();$("ac-m").scrollTop=0}
+function acRender(){acNav();const T={home:"Cursos",curso:"Curso",aula:"Aula",perfil:"Perfil de professor",edit:"Editar curso",adm:"Administração",pp:"Painel do professor",admp:"Painel geral"};$("ac-t").textContent=T[AC.v]||"Cursos";
+  const V={home:acViewHome,curso:acViewCurso,aula:acViewAula,perfil:acViewPerfil,edit:acViewEdit,adm:acViewAdm,pp:acViewPP,admp:acViewAdmP};$("ac-c").innerHTML=(V[AC.v]||acViewHome)();$("ac-m").scrollTop=0}
 async function acAbrir(){$("ac-m").hidden=false;await acHome()}
 async function acHome(){AC.v="home";acNav();$("ac-c").innerHTML='<p class="hint">Carregando…</p>';const d=await acApi({acao:"academia_home"});
   if(!d||!d.ok){$("ac-c").innerHTML='<p class="hint">A Academia não está disponível agora. Tente de novo em instantes.</p>';return}AC.home=d;AC.isAdm=!!d.admin;acRender()}
@@ -1343,8 +1345,8 @@ function acViewHome(){const d=AC.home,cs=d.cursos.slice().sort((a,b)=>(/^destrav
   h+=d.prof?`<p class="hint" style="margin:0 0 8px">${d.prof.aprovado?"Seu perfil de professor está aprovado"+(d.prof.verificado?" e verificado ✓":" (CRECI em conferência)")+". Crie cursos e aulas.":"Seu perfil de professor está em análise. A equipe confere seu CRECI e libera."}</p>`
     :'<p class="hint" style="margin:0 0 8px">Você é corretor experiente ou especialista? Cadastre seu perfil e ensine na Academia. Você cria o conteúdo; o Corretor Master cuida da plataforma e da cobrança, dividindo a receita.</p>';
   h+=`<div class="ac-row"><button class="btn alt" type="button" data-ac="perfil">${d.prof?"Meu perfil de professor":"Quero ensinar"}</button>`;
-  if(d.prof&&d.prof.aprovado)h+='<button class="btn" type="button" data-ac="novo">Novo curso</button>';
-  if(d.admin)h+='<button class="btn" type="button" data-ac="adm">Administração</button>';
+  if(d.prof&&d.prof.aprovado)h+='<button class="btn" type="button" data-ac="novo">Novo curso</button><button class="btn alt" type="button" data-ac="pp">📊 Meu painel</button>';
+  if(d.admin)h+='<button class="btn alt" type="button" data-ac="admp">📊 Painel geral</button><button class="btn" type="button" data-ac="adm">Administração</button>';
   return h+"</div>"}
 async function acCurso(id){AC.cid=id;AC.v="curso";acNav();$("ac-c").innerHTML='<p class="hint">Carregando…</p>';const d=await acApi({acao:"academia_curso",id});if(!d||!d.ok){return acHome()}AC.cur=d;acRender()}
 function acViewCurso(){const d=AC.cur,c=d.curso,p=d.prof;
@@ -1423,8 +1425,8 @@ async function acSalvarAula(){const ea=AC.cur.aulas.find(a=>a.id===AC.eaid);
 /* administração: professores, cursos, matrículas e repasses */
 async function acAdm(){AC.v="adm";acNav();$("ac-c").innerHTML='<p class="hint">Carregando…</p>';const d=await acApi({acao:"academia_admin"});if(!d||!d.ok)return acHome();AC.adm=d;acRender()}
 function acViewAdm(){const d=AC.adm,t=d.total,pend=d.profs.filter(p=>!p.aprovado&&!p.banido);
-  const prof=p=>`<div class="pc-i"><b>${esc(p.nome)} ${p.verificado?'<span class="pc-ok">✓ Verificado</span>':'<span class="pc-nv">CRECI não conferido</span>'}${p.aprovado?"":'<span class="ac-tag">aguardando</span>'}${p.banido?'<span class="ac-tag">banido</span>':""}</b><small>${esc(p.email)} · CRECI ${esc(p.creci)} · ${esc([p.cidade,p.uf].filter(Boolean).join("/"))}</small><div class="actions"><button class="btn alt" type="button" data-ac="prof-editar" data-email="${esc(p.email)}">Ver/editar</button><button class="btn" type="button" data-ac="prof-set" data-id="${esc(p.id)}" data-k="aprovado" data-v="${p.aprovado?"0":"1"}">${p.aprovado?"Suspender":"Aprovar"}</button><button class="btn alt" type="button" data-ac="prof-set" data-id="${esc(p.id)}" data-k="verificado" data-v="${p.verificado?"0":"1"}">${p.verificado?"Tirar selo":"Dar selo ✓"}</button></div></div>`;
-  return`<div class="ac-tot"><div><b>${acR(t.bruto)}</b><small>vendas (pagas)</small></div><div><b>${acR(t.app)}</b><small>fica com o app</small></div><div><b>${acR(t.repasse)}</b><small>a repassar</small></div></div>
+  const prof=p=>`<div class="pc-i"><b>${esc(p.nome)} ${p.verificado?'<span class="pc-ok">✓ Verificado</span>':'<span class="pc-nv">CRECI não conferido</span>'}${p.aprovado?"":'<span class="ac-tag">aguardando</span>'}${p.banido?'<span class="ac-tag">banido</span>':""}</b><small>${esc(p.email)} · CRECI ${esc(p.creci)} · ${esc([p.cidade,p.uf].filter(Boolean).join("/"))}</small><div class="actions"><button class="btn alt" type="button" data-ac="prof-editar" data-email="${esc(p.email)}">Ver/editar</button><button class="btn alt" type="button" data-ac="pp-ver" data-email="${esc(p.email)}">Painel</button><button class="btn" type="button" data-ac="prof-set" data-id="${esc(p.id)}" data-k="aprovado" data-v="${p.aprovado?"0":"1"}">${p.aprovado?"Suspender":"Aprovar"}</button><button class="btn alt" type="button" data-ac="prof-set" data-id="${esc(p.id)}" data-k="verificado" data-v="${p.verificado?"0":"1"}">${p.verificado?"Tirar selo":"Dar selo ✓"}</button></div></div>`;
+  return`<div class="ac-row" style="margin:0 0 10px"><button class="btn" type="button" data-ac="admp">📊 Painel geral (números e repasses)</button></div><div class="ac-tot"><div><b>${acR(t.bruto)}</b><small>vendas (pagas)</small></div><div><b>${acR(t.app)}</b><small>fica com o app</small></div><div><b>${acR(t.repasse)}</b><small>a repassar</small></div></div>
   <p class="hint">Os valores vêm das matrículas marcadas como "pagamento". O repasse é o total menos a sua porcentagem de cada curso.</p>
   <p class="ac-sec">Professores a aprovar (${pend.length})</p>${pend.length?pend.map(prof).join(""):'<p class="hint">Nenhum pedido agora.</p>'}
   <div class="ac-row"><button class="btn alt" type="button" data-ac="prof-novo">Cadastrar professor por e-mail</button><button class="btn" type="button" data-ac="novo">Novo curso</button></div>
@@ -1435,6 +1437,46 @@ function acViewAdm(){const d=AC.adm,t=d.total,pend=d.profs.filter(p=>!p.aprovado
   <div class="row2"><div class="f"><label for="acm-o">Tipo</label><select id="acm-o"><option value="cortesia">Cortesia (não entra no repasse)</option><option value="pagamento">Pagou por fora (entra no repasse)</option></select></div><div class="f"><label for="acm-v">Valor pago (R$)</label><input type="text" id="acm-v" inputmode="decimal" autocomplete="off"></div></div>
   <div class="actions"><button class="btn" type="button" data-ac="matricular">Liberar</button><button class="btn alt" type="button" data-ac="desmatricular">Remover acesso</button></div>
   <p class="ac-sec">Todos os professores</p>${d.profs.filter(p=>p.aprovado||p.banido).map(prof).join("")||'<p class="hint">Nenhum ainda.</p>'}`}
+/* painéis de números: professor e administração (v1.82) */
+const acMes=m=>{const[y,mm]=String(m).split("-");return["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][+mm-1]+"/"+String(y).slice(2)};
+const acHoras=m=>m>=60?Math.floor(m/60)+" h"+(m%60?" "+m%60+" min":""):m+" min";
+const acDt=x=>{const t=new Date(x);return isNaN(t)?"":t.toLocaleDateString("pt-BR")};
+const acKp=(b,s,d)=>`<div${d?' class="d"':""}><b>${b}</b><small>${s}</small></div>`;
+const acNum=n=>Number(n||0).toLocaleString("pt-BR");
+function acGraf(ms,k,din,tit){const mx=Math.max(0,...ms.map(x=>x[k]));
+  return`<p class="hint" style="margin:8px 0 0"><b>${tit}</b></p><div class="ac-gr" role="img" aria-label="${esc(tit)}: ${ms.map(x=>acMes(x.m)+" "+(din?acR(x[k]):x[k])).join(", ")}">${ms.map(x=>`<div title="${acMes(x.m)}: ${din?acR(x[k]):x[k]}"><em>${x[k]?(din?acNum(Math.round(x[k])):x[k]):""}</em><i style="height:${mx?Math.max(2,Math.round(x[k]/mx*78)):2}px"></i><span>${acMes(x.m)}</span></div>`).join("")}</div>`}
+async function acPP(alvo){AC.v="pp";AC.ppAlvo=alvo||null;acNav();$("ac-c").innerHTML='<p class="hint">Carregando…</p>';const d=await acApi({acao:"academia_prof_painel",email:alvo||undefined});if(!d||!d.ok)return alvo?acAdm():acHome();AC.pp=d;acRender()}
+function acViewPP(){const d=AC.pp;if(!d||!d.prof)return'<p class="hint">Você ainda não tem perfil de professor. Toque em “Quero ensinar” na tela inicial da Academia.</p>';
+  const r=d.resumo;let h=`<p class="hint" style="margin:0 0 8px">${AC.ppAlvo?"Painel de <b>"+esc(d.prof.nome)+"</b>. ":""}Valores das matrículas pagas, já na sua parte combinada. Nenhum e-mail de aluno aparece aqui.</p>`;
+  h+='<p class="ac-sec">Ganhos</p><div class="ac-kp">'+(d.repasses_ativo?acKp(acR(r.a_receber),"saldo a receber",1)+acKp(acR(r.ganho),"sua parte nas vendas")+acKp(acR(r.repassado),"já repassado a você")+acKp(acR(r.bruto),"vendas totais (pagas)"):acKp(acR(r.ganho),"sua parte nas vendas",1)+acKp(acR(r.bruto),"vendas totais (pagas)"))+'</div>';
+  h+=`<p class="hint" style="margin:0 0 6px">${r.vendas} venda${r.vendas===1?"":"s"} no total · últimos 30 dias: ${r.vendas30} venda${r.vendas30===1?"":"s"}, ${acR(r.ganho30)} para você.</p>`;
+  h+='<p class="ac-sec">Alunos</p><div class="ac-kp">'+acKp(acNum(r.alunos),"alunos")+acKp(acNum(r.novos30),"novos nos últimos 30 dias")+acKp(acNum(r.concluintes),"concluíram um curso")+acKp(r.progresso+"%","progresso médio")+'</div>';
+  h+='<p class="ac-sec">Conteúdo</p><div class="ac-kp">'+acKp(r.publicados+" de "+r.cursos,"cursos publicados")+acKp(acNum(r.aulas),"aulas postadas")+acKp(acHoras(r.minutos),"de conteúdo")+acKp(r.nota?"★ "+r.nota:"—",r.n_notas?r.n_notas+" avaliaç"+(r.n_notas===1?"ão":"ões"):"sem avaliações ainda")+'</div>';
+  h+=`<p class="hint" style="margin:0 0 6px">Seus alunos já concluíram ${acNum(r.aulas_feitas)} aula${r.aulas_feitas===1?"":"s"}.</p>`;
+  h+='<p class="ac-sec">Últimos 6 meses</p>'+acGraf(d.meses,"ganho",1,"Sua parte por mês (R$)")+acGraf(d.meses,"alunos",0,"Novos alunos por mês");
+  h+='<p class="ac-sec">Por curso</p>'+(d.cursos.length?d.cursos.map(c=>`<div class="pc-i"><b>${esc(c.titulo)}${c.publicado?"":'<span class="ac-tag">Rascunho</span>'}</b><small>${c.alunos} aluno${c.alunos===1?"":"s"} · ${c.concluintes} concluiu${c.concluintes===1?"":"ram"} · progresso médio ${c.progresso}%${c.nota?" · ★ "+c.nota+" ("+c.n_notas+")":""}</small><small>${c.n_aulas} aula${c.n_aulas===1?"":"s"} · ${c.preco>0?acR(c.preco):"Grátis"} · ${c.vendas} venda${c.vendas===1?"":"s"}${c.cortesias?" · "+c.cortesias+" cortesia"+(c.cortesias===1?"":"s"):""}</small>${c.vendas?`<small>Vendas ${acR(c.bruto)} · app ${c.pct_app}% (${acR(c.app)}) · <b>sua parte ${acR(c.ganho)}</b></small>`:""}<div class="ac-bar"><i style="width:${c.progresso}%"></i></div></div>`).join(""):'<p class="hint">Você ainda não tem cursos. Crie o primeiro na tela inicial da Academia.</p>');
+  if(d.repasses_ativo)h+='<p class="ac-sec">Repasses recebidos</p>'+(d.repasses.length?d.repasses.map(x=>`<div class="pc-i"><b>${acR(x.valor)}</b><small>${acDt(x.em)}${x.obs?" · "+esc(x.obs):""}</small></div>`).join(""):'<p class="hint">Nenhum repasse registrado ainda.</p>');
+  return h}
+async function acAdmP(){AC.v="admp";acNav();$("ac-c").innerHTML='<p class="hint">Carregando…</p>';const d=await acApi({acao:"academia_admin_painel"});if(!d||!d.ok)return acAdm();AC.ap=d;acRender()}
+function acViewAdmP(){const d=AC.ap,r=d.resumo;let h='<p class="hint" style="margin:0 0 8px">Visão geral da Academia. A parte dos professores usa a porcentagem atual de cada curso.</p>';
+  h+='<p class="ac-sec">Dinheiro</p><div class="ac-kp">'+(d.repasses_ativo?acKp(acR(r.a_repassar),"a repassar aos professores",1):acKp(acR(r.ganho),"parte dos professores",1))+acKp(acR(r.bruto),"vendas totais (pagas)")+acKp(acR(r.app),"fica com o app")+(d.repasses_ativo?acKp(acR(r.repassado),"já repassado"):acKp(acR(r.ganho30),"professores nos últimos 30 dias"))+'</div>';
+  h+=`<p class="hint" style="margin:0 0 6px">Últimos 30 dias: ${r.vendas30} venda${r.vendas30===1?"":"s"} · ${acR(r.bruto30)} no total · ${acR(r.app30)} para o app.${d.repasses_ativo?"":" Para registrar repasses, rode o <b>academia_painel.sql</b> no Supabase."}</p>`;
+  h+='<p class="ac-sec">Professores</p><div class="ac-kp">'+acKp(acNum(r.profs),"cadastrados")+acKp(acNum(r.profs_aprovados),"aprovados")+acKp(acNum(r.profs_aguardando),"aguardando aprovação")+acKp(acNum(r.profs_verificados),"com selo ✓ de CRECI")+'</div>';
+  if(r.profs_banidos)h+=`<p class="hint" style="margin:0 0 6px">${r.profs_banidos} suspenso${r.profs_banidos===1?"":"s"}.</p>`;
+  h+='<p class="ac-sec">Cursos e conteúdo</p><div class="ac-kp">'+acKp(r.publicados+" de "+r.cursos,"cursos publicados")+acKp(r.gratis+" / "+r.pagos,"grátis / pagos")+acKp(acNum(r.aulas),"aulas postadas")+acKp(acHoras(r.minutos),"de conteúdo")+'</div>';
+  h+='<p class="ac-sec">Alunos</p><div class="ac-kp">'+acKp(acNum(r.alunos),"alunos")+acKp(acNum(r.pagantes),"alunos pagantes")+acKp(acNum(r.novos30),"novos nos últimos 30 dias")+acKp(acNum(r.concluintes),"concluíram um curso")+acKp(r.progresso+"%","progresso médio")+acKp(r.nota?"★ "+r.nota:"—",r.n_notas?r.n_notas+" avaliaç"+(r.n_notas===1?"ão":"ões"):"sem avaliações")+'</div>';
+  h+=`<p class="hint" style="margin:0 0 6px">${acNum(r.aulas_feitas)} aulas concluídas no total · ${acNum(r.cortesias)} acesso${r.cortesias===1?"":"s"} de cortesia.</p>`;
+  h+='<p class="ac-sec">Últimos 6 meses</p>'+acGraf(d.meses,"bruto",1,"Vendas por mês (R$)")+acGraf(d.meses,"alunos",0,"Novos alunos por mês");
+  h+='<p class="ac-sec">Cursos que mais vendem</p>'+(d.top_cursos.length?d.top_cursos.map((c,i)=>`<div class="pc-i"><b>${i+1}. ${esc(c.titulo)}${c.publicado?"":'<span class="ac-tag">Rascunho</span>'}</b><small>${esc(c.prof_nome)} · ${c.alunos} aluno${c.alunos===1?"":"s"} · ${c.vendas} venda${c.vendas===1?"":"s"} · ${acR(c.bruto)}${c.nota?" · ★ "+c.nota:""}</small></div>`).join(""):'<p class="hint">Nenhum curso ainda.</p>');
+  h+='<p class="ac-sec">Professores: resultados e repasses</p>'+(d.profs.length?d.profs.map(p=>`<div class="pc-i"><b>${esc(p.nome)}${p.verificado?' <span class="pc-ok">✓</span>':""}${p.aprovado?"":'<span class="ac-tag">aguardando</span>'}${p.banido?'<span class="ac-tag">suspenso</span>':""}</b><small>${p.publicados} de ${p.cursos} curso${p.cursos===1?"":"s"} · ${p.alunos} aluno${p.alunos===1?"":"s"} · ${p.vendas} venda${p.vendas===1?"":"s"}${p.nota?" · ★ "+p.nota:""}</small><small>Vendas ${acR(p.bruto)} · professor ${acR(p.ganho)} · app ${acR(p.app)}</small>${d.repasses_ativo?`<small><b>${p.a_repassar>0?"A repassar "+acR(p.a_repassar):p.a_repassar<0?"Repassado a mais "+acR(-p.a_repassar):"Em dia"}</b> · já repassado ${acR(p.repassado)}</small>`:""}<div class="actions"><button class="btn alt" type="button" data-ac="pp-ver" data-email="${esc(p.email)}">Ver painel</button>${d.repasses_ativo?`<button class="btn" type="button" data-ac="rp-pre" data-id="${esc(p.id)}">Registrar repasse</button>`:""}</div></div>`).join(""):'<p class="hint">Nenhum professor ainda.</p>');
+  if(d.repasses_ativo&&d.profs.length)h+=`<p class="ac-sec">Registrar um repasse já pago</p><p class="hint" style="margin:0 0 6px">Anote aqui o Pix que você fez ao professor. O app só registra: o pagamento em si é por fora.</p>
+  <div class="f"><label for="rp-p">Professor</label><select id="rp-p">${d.profs.map(p=>`<option value="${esc(p.id)}"${p.id===AC.rpSel?" selected":""}>${esc(p.nome)}</option>`).join("")}</select></div>
+  <div class="row2"><div class="f"><label for="rp-v">Valor repassado (R$)</label><input type="text" id="rp-v" inputmode="decimal" autocomplete="off" placeholder="ex.: 137,90"></div><div class="f"><label for="rp-o">Observação (opcional)</label><input type="text" id="rp-o" maxlength="140" autocomplete="off" placeholder="referente a outubro"></div></div>
+  <div class="actions"><button class="btn" type="button" data-ac="rp-salvar">Registrar repasse</button></div>`;
+  if(d.repasses_ativo)h+='<p class="ac-sec">Últimos repasses</p>'+(d.repasses.length?d.repasses.map(x=>`<div class="pc-i"><b>${acR(x.valor)} · ${esc(x.prof_nome)}</b><small>${acDt(x.em)}${x.obs?" · "+esc(x.obs):""}</small><div class="actions"><button class="btn alt" type="button" data-ac="rp-del" data-id="${esc(x.id)}">Desfazer</button></div></div>`).join(""):'<p class="hint">Nenhum repasse registrado ainda.</p>');
+  return h}
+async function acRepasse(){const v=acG("rp-v").trim();if(!v)return toast("Informe o valor repassado.");
+  const d=await acApi({acao:"academia_repasse",prof_id:acG("rp-p"),valor:v,obs:acG("rp-o")});if(d&&d.ok){toast("Repasse registrado. O professor foi avisado.",4000);AC.rpSel=null;acAdmP()}}
 async function acMatricular(rem){const e=acG("acm-e").trim().toLowerCase();if(!e)return toast("Informe o e-mail do aluno.");
   const d=await acApi({acao:"academia_matricular",email:e,curso_id:acG("acm-c"),origem:acG("acm-o"),valor:acG("acm-v"),remover:rem||undefined});if(d&&d.ok){toast(rem?"Acesso removido.":"Acesso liberado. O aluno foi avisado.");acAdm()}}
 $("ac-c").addEventListener("click",async e=>{const b=e.target.closest("[data-ac]");if(!b)return;const k=b.dataset.ac,id=b.dataset.id;
@@ -1443,6 +1485,12 @@ $("ac-c").addEventListener("click",async e=>{const b=e.target.closest("[data-ac]
   if(k==="perfil")return acPerfil();
   if(k==="novo")return acEditar();
   if(k==="adm")return acAdm();
+  if(k==="pp")return acPP();
+  if(k==="pp-ver"){AC.ppOrig=AC.v;return acPP(b.dataset.email)}
+  if(k==="admp")return acAdmP();
+  if(k==="rp-pre"){AC.rpSel=id;acRender();const el=$("rp-v");if(el){el.scrollIntoView({block:"center"});el.focus()}return}
+  if(k==="rp-salvar")return acRepasse();
+  if(k==="rp-del"){if(!confirm("Desfazer este registro de repasse?"))return;const d=await acApi({acao:"academia_repasse",remover_id:id});if(d&&d.ok){toast("Registro removido.");acAdmP()}return}
   if(k==="editar")return acEditar(AC.cid);
   if(k==="editar-id")return acEditar(id);
   if(k==="prof-novo")return acPerfil("*");
@@ -1464,7 +1512,7 @@ $("ac-c").addEventListener("click",async e=>{const b=e.target.closest("[data-ac]
 $("ac-c").addEventListener("change",async e=>{if(e.target.id!=="acp-foto"||!e.target.files[0])return;
   try{AC.foto=await acFotoRed(e.target.files[0]);$("acp-av").innerHTML=acAv({foto:AC.foto},true)}catch(_){toast("Não foi possível usar essa imagem.")}});
 $("ac-back").addEventListener("click",()=>{const v=AC.v;
-  if(v==="aula")acCurso(AC.cid);else if(v==="edit"&&AC.cid)acCurso(AC.cid);else if(v==="perfil"&&AC.pAlvo&&AC.isAdm)acAdm();else acHome()});
+  if(v==="aula")acCurso(AC.cid);else if(v==="edit"&&AC.cid)acCurso(AC.cid);else if(v==="perfil"&&AC.pAlvo&&AC.isAdm)acAdm();else if(v==="pp"&&AC.ppAlvo&&AC.isAdm)(AC.ppOrig==="adm"?acAdm():acAdmP());else if(v==="admp")acAdm();else acHome()});
 $("ac-x").addEventListener("click",()=>{$("ac-m").hidden=true});
 $("ac-m").addEventListener("click",e=>{if(e.target===$("ac-m"))$("ac-m").hidden=true});
 $("ac-ban-b").addEventListener("click",acAbrir);
