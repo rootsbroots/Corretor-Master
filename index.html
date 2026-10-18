@@ -265,7 +265,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.79) */
+/* painéis (v1.80) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -323,7 +323,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.79</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.80</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -623,7 +623,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.79</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.80</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -716,7 +716,7 @@ function estadoInicial(){let e="";try{const q=new URLSearchParams(location.searc
   if(!e&&/corretormastersp/i.test(location.hostname))e="sp";
   return /^[a-z]{2}$/.test(e)?e:"go"}
 const EST0=estadoInicial();
-const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Paulo",s:"sao-paulo"},rj:{n:"Rio de Janeiro",c:"Rio de Janeiro",s:"rio-de-janeiro"},mg:{n:"Minas Gerais",c:"Belo Horizonte",s:"belo-horizonte"},df:{n:"Distrito Federal",c:"Brasília",s:"brasilia"},pr:{n:"Paraná",c:"Curitiba",s:"curitiba"},to:{n:"Tocantins",c:"Palmas",s:"palmas"},rs:{n:"Rio Grande do Sul",c:"Porto Alegre",s:"porto-alegre"},sc:{n:"Santa Catarina",c:"Balneário Camboriú",s:"balneario-camboriu"}};
+const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Paulo",s:"sao-paulo"},rj:{n:"Rio de Janeiro",c:"Rio de Janeiro",s:"rio-de-janeiro"},mg:{n:"Minas Gerais",c:"Belo Horizonte",s:"belo-horizonte"},df:{n:"Distrito Federal",c:"Brasília",s:"brasilia"},pr:{n:"Paraná",c:"Curitiba",s:"curitiba"},to:{n:"Tocantins",c:"Palmas",s:"palmas"},rs:{n:"Rio Grande do Sul",c:"Porto Alegre",s:"porto-alegre"},sc:{n:"Santa Catarina",c:"Balneário Camboriú",s:"balneario-camboriu"},pb:{n:"Paraíba",c:"João Pessoa",s:"joao-pessoa"},ce:{n:"Ceará",c:"Fortaleza",s:"fortaleza"},pe:{n:"Pernambuco",c:"Recife",s:"recife"},se:{n:"Sergipe",c:"Aracaju",s:"aracaju"}};
 function phEst(){const p=PH[EST0]||PH.go,u=PH[EST0]?EST0:"go";return {E:[{s:u,n:p.n,uf:u.toUpperCase()}],C:[{n:p.c,s:p.s,uf:u}]}}
 let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},EDIF={},PARQUES=[];
 
@@ -854,7 +854,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.79): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.80): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -1127,7 +1127,7 @@ $("cli-xls").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha baixada. Abra no Excel.");
 });
-/* ===== monitoramento de clientes (v1.79) ===== */
+/* ===== monitoramento de clientes (v1.80) ===== */
 const DIA_MS=864e5,CT_ROT={lig:"Liguei",zap:"WhatsApp",vis:"Visita",con:"Convite enviado",out:"Outro"};
 let CF="todos",CQ="";
 const ctUlt=c=>{const l=c.perfil&&c.perfil.contatos;return l&&l[0]?+l[0].ts||0:0};
@@ -1174,7 +1174,7 @@ $("ct-m").addEventListener("click",e=>{if(e.target===$("ct-m"))$("ct-m").hidden=
 $("cli-q").addEventListener("input",e=>{CQ=e.target.value.trim();listar()});
 $("cli-f").addEventListener("change",e=>{CF=e.target.value;listar()});
 $("cli-hoje").addEventListener("click",e=>{const b=e.target.closest("[data-cf]");if(!b)return;CF=CF===b.dataset.cf?"todos":b.dataset.cf;listar()});
-/* ===== parcerias entre estados (v1.79) ===== */
+/* ===== parcerias entre estados (v1.80) ===== */
 let PC_ME=null,PC_CLI=null;
 const pcNomeEst=k=>(ESTADOS.find(e=>e.s===k)||{}).n||NOME_EST[k]||String(k).toUpperCase();
 const pcWa=(w,m)=>{const d=String(w||"").replace(/\D/g,"");return"https://wa.me/"+(d.length<=11?"55"+d:d)+"?text="+encodeURIComponent(m)};
@@ -1243,7 +1243,7 @@ $("pc-ped-c").addEventListener("click",async e=>{
 $("pc-est").addEventListener("change",pcListar);
 function pcBanner(){
   const home=(PH[EST0]||PH.go).c,out=ESTADOS.filter(e=>e.s!==EST0);
-  const pref=["sc","rs","rj","sp","mg","df","pr","to","go"],ord=out.slice().sort((a,b)=>pref.indexOf(a.s)-pref.indexOf(b.s));
+  const pref=["pb","ce","pe","se","sc","rs","rj","sp","mg","df","pr","to","go"],ord=out.slice().sort((a,b)=>pref.indexOf(a.s)-pref.indexOf(b.s));
   const alvo=ord.length?ord[0].s:"sc",cid=k=>(PH[k]||{}).c||(ESTADOS.find(e=>e.s===k)||{}).n||k;
   $("pc-ban-t").textContent=`Corretor de ${home}: venda também em ${cid(alvo)}`;
   $("pc-ban-s").textContent=`Seu cliente quer um apartamento em ${cid(alvo)}? Chame um corretor de lá, feche junto e divida a comissão. Cada estado, um parceiro local.`;
@@ -1261,7 +1261,7 @@ $("pc-salvar").addEventListener("click",async()=>{
     if(d&&d.ok){toast("Perfil salvo."+($("pc-ativo").checked&&!d.verificado?" Seu CRECI será conferido e o selo aparece em breve.":""),5000);await pcMeu();pcListar()}else toast((d&&d.msg)||"Não foi possível salvar agora.",5000)}
   catch(e){toast((e&&e.msg)||"Não foi possível salvar agora.",5000)}
   b.disabled=false});
-/* ===== importação de clientes por planilha (v1.79) ===== */
+/* ===== importação de clientes por planilha (v1.80) ===== */
 function waLink(f){const d=String(f||"").replace(/\D/g,"");if(d.length<10)return"";const n=d.length<=11?"55"+d:d;return"https://wa.me/"+n}
 const IM_CAMPOS=[["nome","Nome *",["nome","cliente","contato","name"]],["fone","Telefone",["telefone","celular","whatsapp","fone","tel","contato"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao"]],["tipo","Tipo (casa/apto)",["tipo","imovel","interesse"]],["valor","Valor / orçamento",["valor","orcamento","preco","faixa","maximo","teto"]],["etapa","Etapa do negócio",["etapa","status","fase","situacao"]],["nota","Observação",["observ","obs","nota","anotac","comentario"]]];
 let IM_DADOS=null;
@@ -1366,7 +1366,7 @@ $("lista").addEventListener("click",e=>{
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.79) ===== */
+/* ===== avisos e lembretes (v1.80) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
@@ -1878,8 +1878,8 @@ const FONE_UPG="5562982505081";let PLANO_ATUAL="";
 /* Cole aqui o link de pagamento do Asaas (assinatura mensal R$ 24,90). Vazio = o botão abre o WhatsApp. */
 const LINK_ASSINAR="https://www.asaas.com/000/c/4pcx7f9b3zqmz20n"; /* link da assinatura mensal de GOIÁS (conta real do Asaas) */
 /* Cada estado é uma assinatura própria de R$ 24,90/mês. Cole abaixo os links de SP e RJ gerados pelo criar-link. Vazio = abre o WhatsApp. */
-const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"https://www.asaas.com/000/c/fftd1ditderwx6xj",mg:"https://www.asaas.com/000/c/8vrb0qqfj8iqxti8",df:"https://www.asaas.com/000/c/op6vbr4lta0cyfx5",pr:"https://www.asaas.com/000/c/xipjy41acq8y5evi",to:"https://www.asaas.com/000/c/r6dgz8t2f37riiga",rs:"",sc:"",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
-const NOME_EST={go:"Goiás",sp:"São Paulo",rj:"Rio de Janeiro",mg:"Belo Horizonte",df:"Brasília",pr:"Curitiba",to:"Palmas",rs:"Porto Alegre",sc:"Balneário Camboriú"};
+const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"https://www.asaas.com/000/c/fftd1ditderwx6xj",mg:"https://www.asaas.com/000/c/8vrb0qqfj8iqxti8",df:"https://www.asaas.com/000/c/op6vbr4lta0cyfx5",pr:"https://www.asaas.com/000/c/xipjy41acq8y5evi",to:"https://www.asaas.com/000/c/r6dgz8t2f37riiga",rs:"",sc:"",pb:"",ce:"",pe:"",se:"",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
+const NOME_EST={go:"Goiás",sp:"São Paulo",rj:"Rio de Janeiro",mg:"Belo Horizonte",df:"Brasília",pr:"Curitiba",to:"Palmas",rs:"Porto Alegre",sc:"Balneário Camboriú",pb:"João Pessoa",ce:"Fortaleza",pe:"Recife",se:"Aracaju"};
 function estAtual(){const e=(typeof S==="object"&&S&&S.estado)||EST0;return NOME_EST[e]?e:"go"}
 function rotuloAssinar(){const e=estAtual();return e==="go"?"Assinar o Unlimited (R$ 24,90/mês)":"Assinar "+NOME_EST[e]+" (R$ 24,90/mês)"}
 function assinarUrl(p){return LINKS_ASSINAR[estAtual()]||upgUrl(p)}
