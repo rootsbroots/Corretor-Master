@@ -157,6 +157,15 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .card em{font-style:normal;font-size:40px}
 .card.c1{background:linear-gradient(135deg,#1d4ed8,#0b1f55)}
 .card.c2{background:linear-gradient(135deg,#0f766e,#052e2b)}
+.pc-ban{background:linear-gradient(135deg,#b45309,#451a03);color:#fff;border-radius:22px;padding:18px 18px 16px;margin:0 0 16px}
+.pc-ban .eyebrow{color:#fcd9a0;margin:0 0 6px}
+.pc-ban h2{margin:0 0 6px;font-size:21px;line-height:1.2;color:#fff;text-wrap:balance}
+.pc-ban p.s{margin:0 0 12px;color:#fde9c9;font-size:14px;line-height:1.4}
+.pc-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin:0 0 12px}
+.pc-chips::-webkit-scrollbar{display:none}
+.pc-chips button{flex:none;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+.pc-chips button:first-child{background:#fff;color:#451a03;border-color:#fff}
+.pc-ban .btn{background:#fff;color:#451a03;font-weight:800}
 .card.c4{background:linear-gradient(135deg,#b45309,#451a03)}
 .pc-i{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 8px;background:var(--surface-2)}
 .pc-i b{display:block}.pc-i small{display:block;color:var(--ink-2)}
@@ -253,7 +262,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.77) */
+/* painéis (v1.78) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -311,7 +320,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.77</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.78</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -466,6 +475,13 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   <section id="tab-busca">
     <button type="button" class="hero" id="hero"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="hero-t" id="hero-t">Qual imóvel o cliente procura?</span><span class="hero-p">Ver links</span></button>
     <div class="rec" id="rec" hidden><div id="rec-l"></div></div>
+    <div class="pc-ban" id="pc-ban">
+      <p class="eyebrow">Parcerias entre estados</p>
+      <h2 id="pc-ban-t">Seu cliente quer comprar em outro estado?</h2>
+      <p class="s" id="pc-ban-s">Chame um corretor local, feche junto e divida a comissão.</p>
+      <div class="pc-chips" id="pc-chips"></div>
+      <button type="button" class="btn" id="pc-ban-b">Encontrar parceiro</button>
+    </div>
     <h2 class="sec-h">Atalhos</h2>
     <div class="atalhos" id="atalhos">
       <button type="button" data-a="apartamento"><i>🏢</i>Apartamento</button>
@@ -590,7 +606,6 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
       <button type="button" class="card c1" data-go="calc"><em>🧮</em><div><b>Calculadora</b><br><span>Parcela, custos da compra e a sua comissão</span></div></button>
       <button type="button" class="card c2" data-go="link"><em>🔗</em><div><b>Colar link</b><br><span>Monte a busca a partir de um anúncio</span></div></button>
       <button type="button" class="card c3" data-go="clientes"><em>👥</em><div><b>Clientes</b><br><span>Reabra as buscas salvas</span></div></button>
-      <button type="button" class="card c4" id="pc-card"><em>🤝</em><div><b>Parcerias</b><br><span>Corretores de outros estados</span></div></button>
     </div>
 
     <div class="panel" id="outros-estados" style="margin-top:14px">
@@ -604,7 +619,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.77</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.78</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -833,7 +848,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.77): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.78): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -1106,7 +1121,7 @@ $("cli-xls").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha baixada. Abra no Excel.");
 });
-/* ===== monitoramento de clientes (v1.77) ===== */
+/* ===== monitoramento de clientes (v1.78) ===== */
 const DIA_MS=864e5,CT_ROT={lig:"Liguei",zap:"WhatsApp",vis:"Visita",con:"Convite enviado",out:"Outro"};
 let CF="todos",CQ="";
 const ctUlt=c=>{const l=c.perfil&&c.perfil.contatos;return l&&l[0]?+l[0].ts||0:0};
@@ -1153,7 +1168,7 @@ $("ct-m").addEventListener("click",e=>{if(e.target===$("ct-m"))$("ct-m").hidden=
 $("cli-q").addEventListener("input",e=>{CQ=e.target.value.trim();listar()});
 $("cli-f").addEventListener("change",e=>{CF=e.target.value;listar()});
 $("cli-hoje").addEventListener("click",e=>{const b=e.target.closest("[data-cf]");if(!b)return;CF=CF===b.dataset.cf?"todos":b.dataset.cf;listar()});
-/* ===== parcerias entre estados (v1.77) ===== */
+/* ===== parcerias entre estados (v1.78) ===== */
 let PC_ME=null,PC_CLI=null;
 const pcNomeEst=k=>(ESTADOS.find(e=>e.s===k)||{}).n||NOME_EST[k]||String(k).toUpperCase();
 function pcBrief(p){
@@ -1165,8 +1180,8 @@ function pcMsg(){
   const me=PC_ME&&PC_ME.nome?PC_ME.nome:"um corretor parceiro",cre=PC_ME&&PC_ME.creci?" (CRECI "+PC_ME.creci+")":"";
   const br=pcBrief(PC_CLI);
   return`Olá! Sou ${me}${cre}, pelo Corretor Master. Tenho ${br||"um cliente interessado em imóveis na sua região"}. Podemos fazer uma parceria? A divisão da comissão combinamos por escrito antes de avançar.`}
-async function pcAbrir(perfil){
-  PC_CLI=perfil||null;const uf=(perfil&&perfil.estado)||S.estado||EST0;
+async function pcAbrir(perfil,ufPre){
+  PC_CLI=perfil||null;const uf=ufPre||(perfil&&perfil.estado)||S.estado||EST0;
   $("pc-est").innerHTML=ESTADOS.map(e=>`<option value="${esc(e.s)}">${esc(e.n)}</option>`).join("");$("pc-est").value=ESTADOS.some(e=>e.s===uf)?uf:ESTADOS[0].s;
   $("pc-estados").innerHTML=ESTADOS.map(e=>`<label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" data-pe="${esc(e.s)}"> ${esc(e.n)}</label>`).join("");
   $("pc-m").hidden=false;await pcMeu();pcListar()}
@@ -1185,7 +1200,17 @@ async function pcListar(){
       return`<div class="pc-i"><b>${esc(x.nome)}</b><small>${x.creci?"CRECI "+esc(x.creci)+" (informado pelo corretor)":"CRECI não informado"}</small><small>Atua em: ${esc(String(x.estados||"").split(",").map(pcNomeEst).join(", "))}${x.cidades?" · "+esc(x.cidades):""}</small>${x.obs?`<small>${esc(x.obs)}</small>`:""}<div class="actions"><a class="btn" href="https://wa.me/${n}?text=${m}" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></div>`}).join("")
   }catch(e){box.innerHTML='<p class="hint">'+esc((e&&e.msg)||"Não foi possível carregar agora. Tente de novo.")+'</p>'}}
 $("pc-est").addEventListener("change",pcListar);
-$("pc-card").addEventListener("click",()=>pcAbrir(null));
+function pcBanner(){
+  const home=(PH[EST0]||PH.go).c,out=ESTADOS.filter(e=>e.s!==EST0);
+  const pref=["sc","rs","rj","sp","mg","df","pr","to","go"],ord=out.slice().sort((a,b)=>pref.indexOf(a.s)-pref.indexOf(b.s));
+  const alvo=ord.length?ord[0].s:"sc",cid=k=>(PH[k]||{}).c||(ESTADOS.find(e=>e.s===k)||{}).n||k;
+  $("pc-ban-t").textContent=`Corretor de ${home}: venda também em ${cid(alvo)}`;
+  $("pc-ban-s").textContent=`Seu cliente quer um apartamento em ${cid(alvo)}? Chame um corretor de lá, feche junto e divida a comissão. Cada estado, um parceiro local.`;
+  $("pc-chips").innerHTML=ord.map(e=>`<button type="button" data-pu="${esc(e.s)}">${esc(cid(e.s))}</button>`).join("");
+  $("pc-ban").hidden=!ord.length}
+$("pc-chips").addEventListener("click",e=>{const b=e.target.closest("[data-pu]");if(b)pcAbrir(null,b.dataset.pu)});
+$("pc-ban-b").addEventListener("click",()=>{const f=$("pc-chips").querySelector("[data-pu]");pcAbrir(null,f?f.dataset.pu:undefined)});
+pcBanner();
 $("pc-x").addEventListener("click",()=>{$("pc-m").hidden=true});
 $("pc-m").addEventListener("click",e=>{if(e.target===$("pc-m"))$("pc-m").hidden=true});
 $("pc-salvar").addEventListener("click",async()=>{
@@ -1194,7 +1219,7 @@ $("pc-salvar").addEventListener("click",async()=>{
     if(d&&d.ok){toast("Perfil salvo.");await pcMeu();pcListar()}else toast((d&&d.msg)||"Não foi possível salvar agora.",5000)}
   catch(e){toast((e&&e.msg)||"Não foi possível salvar agora.",5000)}
   b.disabled=false});
-/* ===== importação de clientes por planilha (v1.77) ===== */
+/* ===== importação de clientes por planilha (v1.78) ===== */
 function waLink(f){const d=String(f||"").replace(/\D/g,"");if(d.length<10)return"";const n=d.length<=11?"55"+d:d;return"https://wa.me/"+n}
 const IM_CAMPOS=[["nome","Nome *",["nome","cliente","contato","name"]],["fone","Telefone",["telefone","celular","whatsapp","fone","tel","contato"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao"]],["tipo","Tipo (casa/apto)",["tipo","imovel","interesse"]],["valor","Valor / orçamento",["valor","orcamento","preco","faixa","maximo","teto"]],["etapa","Etapa do negócio",["etapa","status","fase","situacao"]],["nota","Observação",["observ","obs","nota","anotac","comentario"]]];
 let IM_DADOS=null;
@@ -1299,7 +1324,7 @@ $("lista").addEventListener("click",e=>{
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.77) ===== */
+/* ===== avisos e lembretes (v1.78) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
@@ -1856,7 +1881,7 @@ function gmsg0(t){$("g-msg").innerHTML=`<div class="alert crit">${esc(t)}</div>`
 let EMAIL=null;
 const gmsg=(k,t)=>{$("g-msg").innerHTML=t?`<div class="alert ${k}">${esc(t)}</div>`:""};
 let CARGA=null;
-async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;EDIF=c.edificios||{};PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
+async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;EDIF=c.edificios||{};PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{pcBanner()}catch(_){}try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
 function limparDados(){GER=null;CALCOK="";ENT=null;ENTLOC=null;CONV_EDIT=false;REG=null;REGC={};PRONTO=false;CARGA=null;ESTADOS=phEst().E;CIDADES=phEst().C;BAIRROS=[];CONDOS={};EDIF={};PARQUES=[];LS=[]}
 function mostrarGate(){limparDados();marcaDagua("");$("app").hidden=true;$("gate").hidden=false;$("sair").hidden=true;$("g-form").hidden=false;$("g-code").hidden=true}
 async function logUso(acao){if(!EMAIL)return;try{await sb.from("uso").insert({email:EMAIL,acao})}catch(_){}}
