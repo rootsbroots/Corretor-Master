@@ -157,6 +157,10 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .card em{font-style:normal;font-size:40px}
 .card.c1{background:linear-gradient(135deg,#1d4ed8,#0b1f55)}
 .card.c2{background:linear-gradient(135deg,#0f766e,#052e2b)}
+.card.c4{background:linear-gradient(135deg,#b45309,#451a03)}
+.pc-i{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 8px;background:var(--surface-2)}
+.pc-i b{display:block}.pc-i small{display:block;color:var(--ink-2)}
+.pc-i .actions{margin:8px 0 0}
 .card.c3{background:linear-gradient(135deg,#7c3aed,#2e1065)}
 
 #reg{--v1:#2a78d6;--v2:#eb6834;--v3:#1baf7a;--vg:#8d8c86}
@@ -249,7 +253,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.76) */
+/* painéis (v1.77) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -307,7 +311,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.76</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.77</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -487,7 +491,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
         <div class="f" hidden><label for="estado">Estado</label><select id="estado"></select></div>
         <div class="f"><label for="cidade">Cidade</label><select id="cidade"></select></div>
         <div class="f" id="f-bairro"><label for="bairro">Bairro</label><select id="bairro"></select></div>
-        <div class="f" id="f-condo"><label for="condo">Condomínio</label><select id="condo"></select></div>
+        <div class="f" id="f-condo"><label for="condo" id="lbl-cd">Condomínio</label><select id="condo"></select></div>
         <div class="f" id="f-condo-outro"><label for="condo-outro" id="lbl-co">Nome do condomínio</label><input type="text" id="condo-outro"><div class="hint" id="hint-co">Slug por tentativa — confira o resultado.</div></div>
         <div class="f" data-show="casa"><label>Piscina</label><div class="seg" data-k="piscina"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com piscina</button></div></div>
         <div class="f" data-show="apartamento"><label>Vista</label><div class="seg" data-k="vista"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Com vista</button></div><p class="hint" id="hint-vista" hidden>Esta cidade ainda não tem parques cadastrados. A busca fica no bairro escolhido; confira a vista nos anúncios.</p></div>
@@ -586,6 +590,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
       <button type="button" class="card c1" data-go="calc"><em>🧮</em><div><b>Calculadora</b><br><span>Parcela, custos da compra e a sua comissão</span></div></button>
       <button type="button" class="card c2" data-go="link"><em>🔗</em><div><b>Colar link</b><br><span>Monte a busca a partir de um anúncio</span></div></button>
       <button type="button" class="card c3" data-go="clientes"><em>👥</em><div><b>Clientes</b><br><span>Reabra as buscas salvas</span></div></button>
+      <button type="button" class="card c4" id="pc-card"><em>🤝</em><div><b>Parcerias</b><br><span>Corretores de outros estados</span></div></button>
     </div>
 
     <div class="panel" id="outros-estados" style="margin-top:14px">
@@ -599,7 +604,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.76</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.77</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -613,6 +618,25 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
     <div class="f"><label for="ng-obs">Observação (opcional)</label><input type="text" id="ng-obs" maxlength="120"></div>
     <p class="hint" id="ng-res"></p>
     <div class="actions"><button class="btn" id="ng-salvar" type="button">Salvar</button><button class="btn alt" id="ng-limpar" type="button">Remover negócio</button></div>
+  </div>
+</div>
+
+<div class="modal" id="pc-m" hidden role="dialog" aria-modal="true" aria-labelledby="pc-t">
+  <div class="panel">
+    <div class="mh"><div><p class="eyebrow">Parcerias entre estados</p><h2 id="pc-t">Corretores parceiros</h2></div><button class="x" id="pc-x" type="button" aria-label="Fechar">×</button></div>
+    <p class="hint" style="margin:0 0 8px">Seu cliente quer comprar em outro estado? Chame um corretor de lá e fechem juntos. A divisão da comissão é combinada entre vocês, de preferência por escrito.</p>
+    <div class="f"><label for="pc-est">Corretores que atuam em</label><select id="pc-est"></select></div>
+    <div id="pc-lista"><p class="hint">Carregando…</p></div>
+    <details id="pc-meu" style="margin-top:12px"><summary><b>Meu perfil de parceiro</b> <small id="pc-status"></small></summary>
+      <div class="f"><label for="pc-nome">Nome</label><input type="text" id="pc-nome" maxlength="60" autocomplete="off"></div>
+      <div class="row2"><div class="f"><label for="pc-creci">CRECI</label><input type="text" id="pc-creci" maxlength="20" autocomplete="off"></div><div class="f"><label for="pc-whats">WhatsApp (com DDD)</label><input type="text" id="pc-whats" inputmode="tel" maxlength="20" autocomplete="off"></div></div>
+      <div class="f"><label>Estados em que você atua</label><div id="pc-estados" style="display:flex;flex-wrap:wrap;gap:6px 14px"></div></div>
+      <div class="f"><label for="pc-cid">Cidades e bairros (opcional)</label><input type="text" id="pc-cid" maxlength="120" placeholder="Balneário Camboriú: Barra Sul e Centro" autocomplete="off"></div>
+      <div class="f"><label for="pc-obs">Sobre você (opcional)</label><input type="text" id="pc-obs" maxlength="300" placeholder="Alto padrão, lançamentos, investidores…" autocomplete="off"></div>
+      <label style="display:flex;gap:8px;align-items:flex-start;margin-block:8px"><input type="checkbox" id="pc-ativo" style="margin-top:3px"><span>Quero aparecer na rede. Meu nome, CRECI, WhatsApp, estados e cidades ficam visíveis para outros corretores assinantes do Corretor Master.</span></label>
+      <p class="hint" style="margin:0 0 8px">O CRECI é informado pelo próprio corretor e não é verificado pelo app. Confira no Cofeci antes de fechar parceria. Nenhum dado dos seus clientes é compartilhado.</p>
+      <div class="actions"><button class="btn" id="pc-salvar" type="button">Salvar perfil</button></div>
+    </details>
   </div>
 </div>
 
@@ -671,9 +695,9 @@ function estadoInicial(){let e="";try{const q=new URLSearchParams(location.searc
   if(!e&&/corretormastersp/i.test(location.hostname))e="sp";
   return /^[a-z]{2}$/.test(e)?e:"go"}
 const EST0=estadoInicial();
-const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Paulo",s:"sao-paulo"},rj:{n:"Rio de Janeiro",c:"Rio de Janeiro",s:"rio-de-janeiro"},mg:{n:"Minas Gerais",c:"Belo Horizonte",s:"belo-horizonte"},df:{n:"Distrito Federal",c:"Brasília",s:"brasilia"},pr:{n:"Paraná",c:"Curitiba",s:"curitiba"},to:{n:"Tocantins",c:"Palmas",s:"palmas"}};
+const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Paulo",s:"sao-paulo"},rj:{n:"Rio de Janeiro",c:"Rio de Janeiro",s:"rio-de-janeiro"},mg:{n:"Minas Gerais",c:"Belo Horizonte",s:"belo-horizonte"},df:{n:"Distrito Federal",c:"Brasília",s:"brasilia"},pr:{n:"Paraná",c:"Curitiba",s:"curitiba"},to:{n:"Tocantins",c:"Palmas",s:"palmas"},rs:{n:"Rio Grande do Sul",c:"Porto Alegre",s:"porto-alegre"},sc:{n:"Santa Catarina",c:"Balneário Camboriú",s:"balneario-camboriu"}};
 function phEst(){const p=PH[EST0]||PH.go,u=PH[EST0]?EST0:"go";return {E:[{s:u,n:p.n,uf:u.toUpperCase()}],C:[{n:p.c,s:p.s,uf:u}]}}
-let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},PARQUES=[];
+let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},EDIF={},PARQUES=[];
 
 const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",condo:"",condoOutro:"",fone:"",nota:""};
 let S={...VAZIO};
@@ -696,13 +720,14 @@ const gerado=()=>!!(GER&&GER.key===skey());
 function ui(){marcarAtalhos();
   const cbm=!!cidadeObj().cb;
   $("f-bairro").hidden=!temBairros()||(S.tipo==="casa"&&S.locCasa==="condominio"&&!cbm)||(S.tipo==="apartamento"&&S.vista==="com"&&S.parque);
-  const cond=S.tipo==="casa"&&S.locCasa==="condominio";
-  const lst=CONDOS[cidadeObj().n]||[];
+  const apEd=S.tipo==="apartamento"&&cbm&&(EDIF[cidadeObj().n]||[]).length>0;
+  const cond=(S.tipo==="casa"&&S.locCasa==="condominio")||apEd;
+  const lst=apEd?EDIF[cidadeObj().n]:(CONDOS[cidadeObj().n]||[]);
   if(cbm&&lst.length&&S.condoOutro&&S.condo!=="__outro"&&!lst.some(x=>x[0]===S.condoOutro)){S.condo="__outro";$("condo").value="__outro"}
   $("f-condo").hidden=!cond||(cbm&&!lst.length);
   $("f-condo-outro").hidden=!(cond&&(cbm?(!lst.length||S.condo==="__outro"):S.condo==="__outro"));
-  $("lbl-co").textContent=cbm?"Nome do condomínio (opcional)":"Nome do condomínio";
-  $("hint-co").textContent=cbm?(((CONDOS[cidadeObj().n]||[]).length)?"Escolha na lista ou digite. O bairro é ajustado sozinho. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios.":"Escolha o bairro acima. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios."):"Slug por tentativa — confira o resultado.";
+  $("lbl-co").textContent=apEd?"Nome do edifício (opcional)":cbm?"Nome do condomínio (opcional)":"Nome do condomínio";$("lbl-cd").textContent=apEd?"Edifício / torre":"Condomínio";
+  $("hint-co").textContent=cbm?((lst.length)?"Escolha na lista ou digite. O bairro é ajustado sozinho. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios.":"Escolha o bairro acima. O nome entra como palavra-chave na OLX; nos outros portais, confira nos anúncios."):"Slug por tentativa — confira o resultado.";
   const tp=PARQUES.some(p=>p.cid===S.cidade);$("f-parque").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&temBairros()&&tp);$("hint-vista").hidden=!(S.tipo==="apartamento"&&S.vista==="com"&&!tp);
   $("f-status").hidden=S.condicao!=="novo";
   document.querySelectorAll("[data-show]").forEach(e=>e.hidden=e.dataset.show!==S.tipo);
@@ -753,7 +778,8 @@ function fillSelects(){
   const cs=CIDADES.filter(c=>c.uf===S.estado);if(!cs.some(c=>c.s===S.cidade)&&cs.length)S.cidade=cs[0].s;
   $("cidade").innerHTML=cs.map(c=>`<option value="${c.s}">${c.n}</option>`).join("");$("cidade").value=S.cidade;
   $("bairro").innerHTML='<option value="">Cidade toda</option>'+BAIRROS.filter(b=>b.cid===S.cidade).map(b=>`<option value="${b.s}">${b.n}</option>`).join("");
-  const l=CONDOS[cidadeObj().n]||[];
+  const apE=S.tipo==="apartamento"&&!!cidadeObj().cb&&(EDIF[cidadeObj().n]||[]).length>0;
+  const l=apE?EDIF[cidadeObj().n]:(CONDOS[cidadeObj().n]||[]);
   const cbL=!!cidadeObj().cb;
   $("condo").innerHTML='<option value="">Escolha…</option>'+l.map(x=>`<option value="${esc(cbL?x[0]:x[1])}">${esc(x[0])}</option>`).join("")+'<option value="__outro">Outro (digitar)</option>';
   $("parque").innerHTML='<option value="">Sem parque específico</option>'+PARQUES.filter(p=>p.cid===S.cidade).map(p=>`<option>${esc(p.n)}</option>`).join("");
@@ -763,7 +789,7 @@ function fillSelects(){
 document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
   S[g.dataset.k]=b.dataset.v;
-  if(g.dataset.k==="tipo"){S.piscina="";S.vista="";S.parque="";S.locCasa="bairro";S.condo="";}
+  if(g.dataset.k==="tipo"){S.piscina="";S.vista="";S.parque="";S.locCasa="bairro";S.condo="";S.condoOutro="";try{fillSelects();$("condo-outro").value=""}catch(_){}}
   if(g.dataset.k==="locCasa"){S.condo="";S.condoOutro="";}
   if(g.dataset.k==="vista"&&b.dataset.v==="")S.parque="";
   if(g.dataset.k==="condicao"&&b.dataset.v!=="novo")S.status="";
@@ -771,7 +797,7 @@ document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.addEventListener("clic
 }));
 const bind=(id,k,fn)=>$(id).addEventListener("input",e=>{S[k]=fn?fn(e.target.value):e.target.value;render()});
 bind("nome","nome");bind("fone","fone");bind("idade","idade");bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
-$("condo").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value,it=(CONDOS[c.n]||[]).find(x=>x[0]===v);
+$("condo").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value,it=((S.tipo==="apartamento"&&EDIF[c.n])?EDIF[c.n]:(CONDOS[c.n]||[])).find(x=>x[0]===v);
   if(it){S.condoOutro=it[0];$("condo-outro").value=it[0];if(it[1]&&BAIRROS.some(b=>b.cid===c.s&&b.s===it[1])){S.bairro=it[1];$("bairro").value=it[1]}}
   else{S.condoOutro="";$("condo-outro").value=""}
   render()});
@@ -807,7 +833,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.76): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.77): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -1001,7 +1027,7 @@ $("limpar").addEventListener("click",()=>{S={...VAZIO};syncInputs();$("salvo-msg
 let PLANO_EST={};
 const ABERTAS=new Set();
 function linhaCliente(c){const p=c.perfil;return`<div class="client"><div class="i"><strong>${esc(p.nome)}</strong><small>${esc(p.tipo)} · ${esc((CIDADES.find(x=>x.s===p.cidade)||{}).n||"")} · ${esc(c.data)}</small>${p.fone?`<small>📞 ${esc(p.fone)}</small>`:""}${p.nota?`<small>${esc(String(p.nota).slice(0,120))}</small>`:""}${lbChip(p)}${ctLinha(c)}${p.neg&&p.neg.etapa?`<span class="neg-chip" style="background:${etp(p.neg.etapa)[3]}">${esc(etp(p.neg.etapa)[1])}${p.neg.valor?" · "+brk(p.neg.valor):""}</span>`:""}</div>
-    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn alt" data-ct="${c.id}" type="button">Contato</button><button class="btn alt" data-lb="${c.id}" type="button">Lembrete</button>${waLink(p.fone)?`<a class="btn alt" data-wa="${c.id}" href="${waLink(p.fone)}" target="_blank" rel="noopener">WhatsApp</a>`:""}<button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
+    <div class="pbtn"><button class="btn" data-open="${c.id}" type="button">Reabrir</button><button class="btn alt" data-neg="${c.id}" type="button">Negócio</button><button class="btn alt" data-ct="${c.id}" type="button">Contato</button><button class="btn alt" data-pc="${c.id}" type="button">Parceiro</button><button class="btn alt" data-lb="${c.id}" type="button">Lembrete</button>${waLink(p.fone)?`<a class="btn alt" data-wa="${c.id}" href="${waLink(p.fone)}" target="_blank" rel="noopener">WhatsApp</a>`:""}<button class="btn warn" data-del="${c.id}" type="button">Excluir</button></div></div>`}
 function listar(){
   const a=getC();$("cnt").textContent=a.length?`(${a.length})`:"";
   if(!a.length&&!(typeof ESTADOS!=="undefined"&&ESTADOS.length>1&&Object.values(PLANO_EST).filter(x=>x&&x.plano==="unlimited").length>=2)){$("lista").innerHTML='<div class="empty">Nenhum cliente salvo ainda. Monte uma busca e toque em Salvar cliente.<br>Os clientes ficam guardados na sua conta e aparecem em qualquer aparelho.</div>';return}
@@ -1080,7 +1106,7 @@ $("cli-xls").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha baixada. Abra no Excel.");
 });
-/* ===== monitoramento de clientes (v1.76) ===== */
+/* ===== monitoramento de clientes (v1.77) ===== */
 const DIA_MS=864e5,CT_ROT={lig:"Liguei",zap:"WhatsApp",vis:"Visita",con:"Convite enviado",out:"Outro"};
 let CF="todos",CQ="";
 const ctUlt=c=>{const l=c.perfil&&c.perfil.contatos;return l&&l[0]?+l[0].ts||0:0};
@@ -1127,7 +1153,48 @@ $("ct-m").addEventListener("click",e=>{if(e.target===$("ct-m"))$("ct-m").hidden=
 $("cli-q").addEventListener("input",e=>{CQ=e.target.value.trim();listar()});
 $("cli-f").addEventListener("change",e=>{CF=e.target.value;listar()});
 $("cli-hoje").addEventListener("click",e=>{const b=e.target.closest("[data-cf]");if(!b)return;CF=CF===b.dataset.cf?"todos":b.dataset.cf;listar()});
-/* ===== importação de clientes por planilha (v1.76) ===== */
+/* ===== parcerias entre estados (v1.77) ===== */
+let PC_ME=null,PC_CLI=null;
+const pcNomeEst=k=>(ESTADOS.find(e=>e.s===k)||{}).n||NOME_EST[k]||String(k).toUpperCase();
+function pcBrief(p){
+  if(!p)return"";const cid=(CIDADES.find(x=>x.s===p.cidade)||{}).n||"",bai=(BAIRROS.find(x=>x.s===p.bairro&&x.cid===p.cidade)||{}).n||"";
+  const tipo=p.tipo==="casa"?(p.locCasa==="condominio"?"casa em condomínio":"casa"):"apartamento";
+  const v=p.vmin&&p.vmax?`entre ${brk(p.vmin)} e ${brk(p.vmax)}`:p.vmax?`até ${brk(p.vmax)}`:p.vmin?`a partir de ${brk(p.vmin)}`:"";
+  return`um cliente buscando ${tipo}${bai?" no bairro "+bai:""}${cid?" em "+cid:""}${v?", "+v:""}`}
+function pcMsg(){
+  const me=PC_ME&&PC_ME.nome?PC_ME.nome:"um corretor parceiro",cre=PC_ME&&PC_ME.creci?" (CRECI "+PC_ME.creci+")":"";
+  const br=pcBrief(PC_CLI);
+  return`Olá! Sou ${me}${cre}, pelo Corretor Master. Tenho ${br||"um cliente interessado em imóveis na sua região"}. Podemos fazer uma parceria? A divisão da comissão combinamos por escrito antes de avançar.`}
+async function pcAbrir(perfil){
+  PC_CLI=perfil||null;const uf=(perfil&&perfil.estado)||S.estado||EST0;
+  $("pc-est").innerHTML=ESTADOS.map(e=>`<option value="${esc(e.s)}">${esc(e.n)}</option>`).join("");$("pc-est").value=ESTADOS.some(e=>e.s===uf)?uf:ESTADOS[0].s;
+  $("pc-estados").innerHTML=ESTADOS.map(e=>`<label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" data-pe="${esc(e.s)}"> ${esc(e.n)}</label>`).join("");
+  $("pc-m").hidden=false;await pcMeu();pcListar()}
+async function pcMeu(){
+  try{const d=await api({acao:"parceiro_meu"});if(d&&d.ok){PC_ME=d.p;const p=d.p||{};
+    $("pc-nome").value=p.nome||"";$("pc-creci").value=p.creci||"";$("pc-whats").value=p.whats||"";$("pc-cid").value=p.cidades||"";$("pc-obs").value=p.obs||"";$("pc-ativo").checked=!!p.ativo;
+    const sel=String(p.estados||"").split(",");$("pc-estados").querySelectorAll("[data-pe]").forEach(c=>{c.checked=sel.includes(c.dataset.pe)});
+    $("pc-status").textContent=p.ativo?"· você aparece na rede":"· você não aparece na rede";if(!p.nome)$("pc-meu").open=true}}catch(_){}}
+async function pcListar(){
+  const box=$("pc-lista"),uf=$("pc-est").value;box.innerHTML='<p class="hint">Carregando…</p>';
+  try{const d=await api({acao:"parceiro_listar",estado:uf});
+    if(!d||!d.ok){box.innerHTML='<p class="hint">'+esc((d&&d.msg)||"A rede de parcerias não está disponível agora.")+'</p>';return}
+    if(!d.lista.length){box.innerHTML='<p class="hint">Ainda não há corretores parceiros em '+esc(pcNomeEst(uf))+'. Quanto mais corretores entrarem, mais parcerias surgem. Convide colegas de lá.</p>';return}
+    const m=encodeURIComponent(pcMsg());
+    box.innerHTML=d.lista.map(x=>{const w=String(x.whats||"").replace(/\D/g,""),n=w.length<=11?"55"+w:w;
+      return`<div class="pc-i"><b>${esc(x.nome)}</b><small>${x.creci?"CRECI "+esc(x.creci)+" (informado pelo corretor)":"CRECI não informado"}</small><small>Atua em: ${esc(String(x.estados||"").split(",").map(pcNomeEst).join(", "))}${x.cidades?" · "+esc(x.cidades):""}</small>${x.obs?`<small>${esc(x.obs)}</small>`:""}<div class="actions"><a class="btn" href="https://wa.me/${n}?text=${m}" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></div>`}).join("")
+  }catch(e){box.innerHTML='<p class="hint">'+esc((e&&e.msg)||"Não foi possível carregar agora. Tente de novo.")+'</p>'}}
+$("pc-est").addEventListener("change",pcListar);
+$("pc-card").addEventListener("click",()=>pcAbrir(null));
+$("pc-x").addEventListener("click",()=>{$("pc-m").hidden=true});
+$("pc-m").addEventListener("click",e=>{if(e.target===$("pc-m"))$("pc-m").hidden=true});
+$("pc-salvar").addEventListener("click",async()=>{
+  const b=$("pc-salvar");b.disabled=true;
+  try{const d=await api({acao:"parceiro_salvar",nome:$("pc-nome").value,creci:$("pc-creci").value,whats:$("pc-whats").value,cidades:$("pc-cid").value,obs:$("pc-obs").value,ativo:$("pc-ativo").checked,estados:[...$("pc-estados").querySelectorAll("[data-pe]:checked")].map(c=>c.dataset.pe)});
+    if(d&&d.ok){toast("Perfil salvo.");await pcMeu();pcListar()}else toast((d&&d.msg)||"Não foi possível salvar agora.",5000)}
+  catch(e){toast((e&&e.msg)||"Não foi possível salvar agora.",5000)}
+  b.disabled=false});
+/* ===== importação de clientes por planilha (v1.77) ===== */
 function waLink(f){const d=String(f||"").replace(/\D/g,"");if(d.length<10)return"";const n=d.length<=11?"55"+d:d;return"https://wa.me/"+n}
 const IM_CAMPOS=[["nome","Nome *",["nome","cliente","contato","name"]],["fone","Telefone",["telefone","celular","whatsapp","fone","tel","contato"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao"]],["tipo","Tipo (casa/apto)",["tipo","imovel","interesse"]],["valor","Valor / orçamento",["valor","orcamento","preco","faixa","maximo","teto"]],["etapa","Etapa do negócio",["etapa","status","fase","situacao"]],["nota","Observação",["observ","obs","nota","anotac","comentario"]]];
 let IM_DADOS=null;
@@ -1222,6 +1289,8 @@ $("cli-file").addEventListener("change",async e=>{
 $("lista").addEventListener("click",e=>{
   const o=e.target.closest("[data-open]"),d=e.target.closest("[data-del]"),ng=e.target.closest("[data-neg]"),lb=e.target.closest("[data-lb]");
   const ct=e.target.closest("[data-ct]"),wa=e.target.closest("[data-wa]");
+  const pcb=e.target.closest("[data-pc]");
+  if(pcb){const c=getC().find(x=>x.id===pcb.dataset.pc);pcAbrir(c?c.perfil:null);return}
   if(ct){ctAbrir(ct.dataset.ct);return}
   if(wa){const id=wa.dataset.wa,c=getC().find(x=>x.id===id),u=c&&c.perfil.contatos&&c.perfil.contatos[0];if(!(u&&u.t==="zap"&&Date.now()-u.ts<6e5))setTimeout(()=>{logContato(id,"zap","");listar()},400);return}
   if(ng){ngAbrir(ng.dataset.neg);return}
@@ -1230,7 +1299,7 @@ $("lista").addEventListener("click",e=>{
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.76) ===== */
+/* ===== avisos e lembretes (v1.77) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
@@ -1742,8 +1811,8 @@ const FONE_UPG="5562982505081";let PLANO_ATUAL="";
 /* Cole aqui o link de pagamento do Asaas (assinatura mensal R$ 24,90). Vazio = o botão abre o WhatsApp. */
 const LINK_ASSINAR="https://www.asaas.com/000/c/4pcx7f9b3zqmz20n"; /* link da assinatura mensal de GOIÁS (conta real do Asaas) */
 /* Cada estado é uma assinatura própria de R$ 24,90/mês. Cole abaixo os links de SP e RJ gerados pelo criar-link. Vazio = abre o WhatsApp. */
-const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"https://www.asaas.com/000/c/fftd1ditderwx6xj",mg:"https://www.asaas.com/000/c/8vrb0qqfj8iqxti8",df:"https://www.asaas.com/000/c/op6vbr4lta0cyfx5",pr:"https://www.asaas.com/000/c/xipjy41acq8y5evi",to:"https://www.asaas.com/000/c/r6dgz8t2f37riiga",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
-const NOME_EST={go:"Goiás",sp:"São Paulo",rj:"Rio de Janeiro",mg:"Belo Horizonte",df:"Brasília",pr:"Curitiba",to:"Palmas"};
+const LINKS_ASSINAR={go:LINK_ASSINAR,sp:"https://www.asaas.com/000/c/o9b3a0h7vx91j2qw",rj:"https://www.asaas.com/000/c/fftd1ditderwx6xj",mg:"https://www.asaas.com/000/c/8vrb0qqfj8iqxti8",df:"https://www.asaas.com/000/c/op6vbr4lta0cyfx5",pr:"https://www.asaas.com/000/c/xipjy41acq8y5evi",to:"https://www.asaas.com/000/c/r6dgz8t2f37riiga",rs:"",sc:"",br:"https://www.asaas.com/000/c/vppxz39z9fuanp0d"}; /* COLE AQUI o link de pagamento de São Paulo (criar-link?e=sp), entre as aspas do "sp" */
+const NOME_EST={go:"Goiás",sp:"São Paulo",rj:"Rio de Janeiro",mg:"Belo Horizonte",df:"Brasília",pr:"Curitiba",to:"Palmas",rs:"Porto Alegre",sc:"Balneário Camboriú"};
 function estAtual(){const e=(typeof S==="object"&&S&&S.estado)||EST0;return NOME_EST[e]?e:"go"}
 function rotuloAssinar(){const e=estAtual();return e==="go"?"Assinar o Unlimited (R$ 24,90/mês)":"Assinar "+NOME_EST[e]+" (R$ 24,90/mês)"}
 function assinarUrl(p){return LINKS_ASSINAR[estAtual()]||upgUrl(p)}
@@ -1787,8 +1856,8 @@ function gmsg0(t){$("g-msg").innerHTML=`<div class="alert crit">${esc(t)}</div>`
 let EMAIL=null;
 const gmsg=(k,t)=>{$("g-msg").innerHTML=t?`<div class="alert ${k}">${esc(t)}</div>`:""};
 let CARGA=null;
-async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
-function limparDados(){GER=null;CALCOK="";ENT=null;ENTLOC=null;CONV_EDIT=false;REG=null;REGC={};PRONTO=false;CARGA=null;ESTADOS=phEst().E;CIDADES=phEst().C;BAIRROS=[];CONDOS={};PARQUES=[];LS=[]}
+async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;EDIF=c.edificios||{};PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
+function limparDados(){GER=null;CALCOK="";ENT=null;ENTLOC=null;CONV_EDIT=false;REG=null;REGC={};PRONTO=false;CARGA=null;ESTADOS=phEst().E;CIDADES=phEst().C;BAIRROS=[];CONDOS={};EDIF={};PARQUES=[];LS=[]}
 function mostrarGate(){limparDados();marcaDagua("");$("app").hidden=true;$("gate").hidden=false;$("sair").hidden=true;$("g-form").hidden=false;$("g-code").hidden=true}
 async function logUso(acao){if(!EMAIL)return;try{await sb.from("uso").insert({email:EMAIL,acao})}catch(_){}}
 /* logout local: não depende da rede (signOut padrão falha em silêncio se o servidor não responder) */
