@@ -755,7 +755,9 @@ function ui(){marcarAtalhos();
   if(S.tipo==="apartamento"&&!(S.vista==="com"&&temBairros()&&tp))$("f-parque").hidden=true;
   document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(S[g.dataset.k]===b.dataset.v))));
 }
-function render(){ui();if(!PRONTO)return;if(GER&&!gerado())pintar();clearTimeout(tm);tm=setTimeout(atualizar,180)}
+const DDD={go:"62",sp:"11",rj:"21",mg:"31",df:"61",pr:"41",to:"63",rs:"51",sc:"47",pb:"83",ce:"85",pe:"81",se:"79"};
+function pintarDDD(){try{const d=DDD[S.estado]||"62",ph="("+d+") 99999-9999";["fone","cv-fone"].forEach(id=>{const e=$(id);if(e&&e.placeholder!==ph)e.placeholder=ph})}catch(_){}}
+function render(){pintarDDD();ui();if(!PRONTO)return;if(GER&&!gerado())pintar();clearTimeout(tm);tm=setTimeout(atualizar,180)}
 let _DISP="";
 function dispId(){if(_DISP)return _DISP;try{_DISP=localStorage.getItem("cm_disp")||""}catch(_){}
   /* vindo do endereço antigo de SP: aproveita o mesmo código do aparelho para não gastar outra vaga */
