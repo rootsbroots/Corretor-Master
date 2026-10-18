@@ -168,6 +168,9 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pc-ban .btn{background:#fff;color:#451a03;font-weight:800}
 .card.c4{background:linear-gradient(135deg,#b45309,#451a03)}
 .pc-i{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 8px;background:var(--surface-2)}
+.pc-ok{display:inline-block;background:#1f9d6b;color:#fff;border-radius:99px;padding:1px 8px;font-size:11px;font-weight:800;margin-left:4px;vertical-align:1px}
+.pc-nv{display:inline-block;background:var(--warn-bg);color:var(--warn);border-radius:99px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:4px;vertical-align:1px}
+.pc-dica{border:1px solid var(--line);border-left:4px solid #d97706;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:13px;line-height:1.4;background:var(--surface-2)}
 .pc-i b{display:block}.pc-i small{display:block;color:var(--ink-2)}
 .pc-i .actions{margin:8px 0 0}
 .card.c3{background:linear-gradient(135deg,#7c3aed,#2e1065)}
@@ -262,7 +265,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .pasta>summary::-webkit-details-marker{display:none}.pasta>summary::after{content:"▾";margin-left:auto;color:var(--ink-2);transition:transform .15s}.pasta:not([open])>summary::after{transform:rotate(-90deg)}
 .pasta .pn{color:var(--ink-2);font-weight:600}.pasta .pf{font-size:18px}
 
-/* painéis (v1.78) */
+/* painéis (v1.79) */
 .pn{--c1:#4F7CFF;--c2:#19B28A;--c3:#F5A524;--c4:#8B5CF6;--c5:#EF5B7A;--c6:#2FA4D9;--c7:#9AA5B8}
 .pn-seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
 .pn-seg button,.pn-per button{background:var(--surface-2);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;min-height:38px}
@@ -320,7 +323,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 <div id="gate" hidden>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.78</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v1.79</p>
     <div id="g-form">
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
       <div class="f"><label for="g-email">E-mail</label><input type="text" id="g-email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div>
@@ -480,6 +483,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
       <h2 id="pc-ban-t">Seu cliente quer comprar em outro estado?</h2>
       <p class="s" id="pc-ban-s">Chame um corretor local, feche junto e divida a comissão.</p>
       <div class="pc-chips" id="pc-chips"></div>
+      <p class="s" id="pc-ban-n" hidden role="button" tabindex="0" style="font-weight:800;color:#fff;cursor:pointer"></p>
       <button type="button" class="btn" id="pc-ban-b">Encontrar parceiro</button>
     </div>
     <h2 class="sec-h">Atalhos</h2>
@@ -619,7 +623,7 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.78</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v1.79</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -640,16 +644,18 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
   <div class="panel">
     <div class="mh"><div><p class="eyebrow">Parcerias entre estados</p><h2 id="pc-t">Corretores parceiros</h2></div><button class="x" id="pc-x" type="button" aria-label="Fechar">×</button></div>
     <p class="hint" style="margin:0 0 8px">Seu cliente quer comprar em outro estado? Chame um corretor de lá e fechem juntos. A divisão da comissão é combinada entre vocês, de preferência por escrito.</p>
+    <div class="pc-dica"><b>Proteja-se de golpes.</b> Confira o CRECI no site do CRECI do estado. Nunca pague sinal, taxa ou "reserva" antes de contrato. Combine a comissão por escrito. Desconfie de pressa e de pedido de dinheiro adiantado. O WhatsApp só é liberado quando o corretor aceita o seu pedido.</div>
+    <details id="pc-ped" style="margin:0 0 10px"><summary><b>Meus pedidos</b> <small id="pc-ped-n"></small></summary><div id="pc-ped-c"><p class="hint">Carregando…</p></div></details>
     <div class="f"><label for="pc-est">Corretores que atuam em</label><select id="pc-est"></select></div>
     <div id="pc-lista"><p class="hint">Carregando…</p></div>
     <details id="pc-meu" style="margin-top:12px"><summary><b>Meu perfil de parceiro</b> <small id="pc-status"></small></summary>
       <div class="f"><label for="pc-nome">Nome</label><input type="text" id="pc-nome" maxlength="60" autocomplete="off"></div>
-      <div class="row2"><div class="f"><label for="pc-creci">CRECI</label><input type="text" id="pc-creci" maxlength="20" autocomplete="off"></div><div class="f"><label for="pc-whats">WhatsApp (com DDD)</label><input type="text" id="pc-whats" inputmode="tel" maxlength="20" autocomplete="off"></div></div>
+      <div class="row2"><div class="f"><label for="pc-creci">CRECI (obrigatório)</label><input type="text" id="pc-creci" maxlength="20" autocomplete="off"></div><div class="f"><label for="pc-whats">WhatsApp (com DDD)</label><input type="text" id="pc-whats" inputmode="tel" maxlength="20" autocomplete="off"></div></div>
       <div class="f"><label>Estados em que você atua</label><div id="pc-estados" style="display:flex;flex-wrap:wrap;gap:6px 14px"></div></div>
       <div class="f"><label for="pc-cid">Cidades e bairros (opcional)</label><input type="text" id="pc-cid" maxlength="120" placeholder="Balneário Camboriú: Barra Sul e Centro" autocomplete="off"></div>
       <div class="f"><label for="pc-obs">Sobre você (opcional)</label><input type="text" id="pc-obs" maxlength="300" placeholder="Alto padrão, lançamentos, investidores…" autocomplete="off"></div>
       <label style="display:flex;gap:8px;align-items:flex-start;margin-block:8px"><input type="checkbox" id="pc-ativo" style="margin-top:3px"><span>Quero aparecer na rede. Meu nome, CRECI, WhatsApp, estados e cidades ficam visíveis para outros corretores assinantes do Corretor Master.</span></label>
-      <p class="hint" style="margin:0 0 8px">O CRECI é informado pelo próprio corretor e não é verificado pelo app. Confira no Cofeci antes de fechar parceria. Nenhum dado dos seus clientes é compartilhado.</p>
+      <p class="hint" style="margin:0 0 8px">Para aparecer, informe nome completo, CRECI, WhatsApp e ao menos um estado. A equipe confere o CRECI e libera o selo ✓ Verificado. Trocar nome ou CRECI refaz a conferência. Seu WhatsApp só é mostrado a quem você aceitar. Nenhum dado dos seus clientes é compartilhado.</p>
       <div class="actions"><button class="btn" id="pc-salvar" type="button">Salvar perfil</button></div>
     </details>
   </div>
@@ -848,7 +854,7 @@ function tab(n){window.scrollTo(0,0);
 document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tab(b.dataset.tab)});
 
 
-/* ===== painéis (v1.78): Meu painel (corretor) e Geral (admin) ===== */
+/* ===== painéis (v1.79): Meu painel (corretor) e Geral (admin) ===== */
 const PAL=["#4F7CFF","#19B28A","#F5A524","#8B5CF6","#EF5B7A","#2FA4D9","#9AA5B8"];
 const ETP=[["novo","Novo contato",10,"#9AA5B8"],["visita","Visitando imóveis",25,"#2FA4D9"],["proposta","Proposta enviada",50,"#F5A524"],["negoc","Em negociação",75,"#8B5CF6"],["fechado","Fechado",100,"#19B28A"],["perdido","Perdido",0,"#EF5B7A"]];
 const etp=k=>ETP.find(e=>e[0]===k)||ETP[0];
@@ -1121,7 +1127,7 @@ $("cli-xls").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha baixada. Abra no Excel.");
 });
-/* ===== monitoramento de clientes (v1.78) ===== */
+/* ===== monitoramento de clientes (v1.79) ===== */
 const DIA_MS=864e5,CT_ROT={lig:"Liguei",zap:"WhatsApp",vis:"Visita",con:"Convite enviado",out:"Outro"};
 let CF="todos",CQ="";
 const ctUlt=c=>{const l=c.perfil&&c.perfil.contatos;return l&&l[0]?+l[0].ts||0:0};
@@ -1168,37 +1174,72 @@ $("ct-m").addEventListener("click",e=>{if(e.target===$("ct-m"))$("ct-m").hidden=
 $("cli-q").addEventListener("input",e=>{CQ=e.target.value.trim();listar()});
 $("cli-f").addEventListener("change",e=>{CF=e.target.value;listar()});
 $("cli-hoje").addEventListener("click",e=>{const b=e.target.closest("[data-cf]");if(!b)return;CF=CF===b.dataset.cf?"todos":b.dataset.cf;listar()});
-/* ===== parcerias entre estados (v1.78) ===== */
+/* ===== parcerias entre estados (v1.79) ===== */
 let PC_ME=null,PC_CLI=null;
 const pcNomeEst=k=>(ESTADOS.find(e=>e.s===k)||{}).n||NOME_EST[k]||String(k).toUpperCase();
+const pcWa=(w,m)=>{const d=String(w||"").replace(/\D/g,"");return"https://wa.me/"+(d.length<=11?"55"+d:d)+"?text="+encodeURIComponent(m)};
 function pcBrief(p){
   if(!p)return"";const cid=(CIDADES.find(x=>x.s===p.cidade)||{}).n||"",bai=(BAIRROS.find(x=>x.s===p.bairro&&x.cid===p.cidade)||{}).n||"";
   const tipo=p.tipo==="casa"?(p.locCasa==="condominio"?"casa em condomínio":"casa"):"apartamento";
   const v=p.vmin&&p.vmax?`entre ${brk(p.vmin)} e ${brk(p.vmax)}`:p.vmax?`até ${brk(p.vmax)}`:p.vmin?`a partir de ${brk(p.vmin)}`:"";
   return`um cliente buscando ${tipo}${bai?" no bairro "+bai:""}${cid?" em "+cid:""}${v?", "+v:""}`}
-function pcMsg(){
-  const me=PC_ME&&PC_ME.nome?PC_ME.nome:"um corretor parceiro",cre=PC_ME&&PC_ME.creci?" (CRECI "+PC_ME.creci+")":"";
-  const br=pcBrief(PC_CLI);
-  return`Olá! Sou ${me}${cre}, pelo Corretor Master. Tenho ${br||"um cliente interessado em imóveis na sua região"}. Podemos fazer uma parceria? A divisão da comissão combinamos por escrito antes de avançar.`}
-async function pcAbrir(perfil,ufPre){
+const pcMeNome=()=>PC_ME&&PC_ME.nome?PC_ME.nome:"um corretor parceiro";
+async function pcAbrir(perfil,ufPre,abrirPed){
   PC_CLI=perfil||null;const uf=ufPre||(perfil&&perfil.estado)||S.estado||EST0;
   $("pc-est").innerHTML=ESTADOS.map(e=>`<option value="${esc(e.s)}">${esc(e.n)}</option>`).join("");$("pc-est").value=ESTADOS.some(e=>e.s===uf)?uf:ESTADOS[0].s;
   $("pc-estados").innerHTML=ESTADOS.map(e=>`<label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" data-pe="${esc(e.s)}"> ${esc(e.n)}</label>`).join("");
-  $("pc-m").hidden=false;await pcMeu();pcListar()}
+  $("pc-m").hidden=false;if(abrirPed)$("pc-ped").open=true;await pcMeu();pcPedidos();pcListar()}
 async function pcMeu(){
   try{const d=await api({acao:"parceiro_meu"});if(d&&d.ok){PC_ME=d.p;const p=d.p||{};
     $("pc-nome").value=p.nome||"";$("pc-creci").value=p.creci||"";$("pc-whats").value=p.whats||"";$("pc-cid").value=p.cidades||"";$("pc-obs").value=p.obs||"";$("pc-ativo").checked=!!p.ativo;
     const sel=String(p.estados||"").split(",");$("pc-estados").querySelectorAll("[data-pe]").forEach(c=>{c.checked=sel.includes(c.dataset.pe)});
-    $("pc-status").textContent=p.ativo?"· você aparece na rede":"· você não aparece na rede";if(!p.nome)$("pc-meu").open=true}}catch(_){}}
+    $("pc-status").textContent=!p.nome?"":p.oculto?"· perfil oculto por denúncias: fale com o suporte":!p.ativo?"· você não aparece na rede":p.verificado?"· aparece na rede · ✓ verificado":"· aparece na rede · CRECI em conferência";
+    if(!p.nome)$("pc-meu").open=true}}catch(_){}}
+function pcItem(x){
+  const sel=x.verificado?'<span class="pc-ok">✓ Verificado</span>':'<span class="pc-nv">CRECI ainda não conferido</span>';
+  const bt=x.pedido==="aceito"?`<a class="btn" href="${pcWa(x.whats,"Olá, "+(x.nome||"").split(" ")[0]+"! Aqui é "+pcMeNome()+", pelo Corretor Master. Obrigado por aceitar a parceria. Vamos alinhar os detalhes e a divisão da comissão por escrito?")}" target="_blank" rel="noopener">Chamar no WhatsApp</a>`
+    :x.pedido==="pendente"?'<button class="btn alt" type="button" disabled>Pedido enviado, aguardando</button>'
+    :x.pedido==="recusado"?'<button class="btn alt" type="button" disabled>Pedido recusado</button>'
+    :`<button class="btn" type="button" data-pp="${esc(x.pid)}">Pedir parceria</button>`;
+  return`<div class="pc-i"><b>${esc(x.nome)} ${sel}</b><small>${x.creci?"CRECI "+esc(x.creci)+" (informado pelo corretor)":"CRECI não informado"}</small><small>Atua em: ${esc(String(x.estados||"").split(",").map(pcNomeEst).join(", "))}${x.cidades?" · "+esc(x.cidades):""}</small>${x.obs?`<small>${esc(x.obs)}</small>`:""}<div class="actions" data-ac="${esc(x.pid)}">${bt}<button class="btn alt" type="button" data-pd="${esc(x.pid)}">Denunciar</button></div></div>`}
 async function pcListar(){
   const box=$("pc-lista"),uf=$("pc-est").value;box.innerHTML='<p class="hint">Carregando…</p>';
   try{const d=await api({acao:"parceiro_listar",estado:uf});
     if(!d||!d.ok){box.innerHTML='<p class="hint">'+esc((d&&d.msg)||"A rede de parcerias não está disponível agora.")+'</p>';return}
     if(!d.lista.length){box.innerHTML='<p class="hint">Ainda não há corretores parceiros em '+esc(pcNomeEst(uf))+'. Quanto mais corretores entrarem, mais parcerias surgem. Convide colegas de lá.</p>';return}
-    const m=encodeURIComponent(pcMsg());
-    box.innerHTML=d.lista.map(x=>{const w=String(x.whats||"").replace(/\D/g,""),n=w.length<=11?"55"+w:w;
-      return`<div class="pc-i"><b>${esc(x.nome)}</b><small>${x.creci?"CRECI "+esc(x.creci)+" (informado pelo corretor)":"CRECI não informado"}</small><small>Atua em: ${esc(String(x.estados||"").split(",").map(pcNomeEst).join(", "))}${x.cidades?" · "+esc(x.cidades):""}</small>${x.obs?`<small>${esc(x.obs)}</small>`:""}<div class="actions"><a class="btn" href="https://wa.me/${n}?text=${m}" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></div>`}).join("")
+    box.innerHTML=d.lista.map(pcItem).join("")
   }catch(e){box.innerHTML='<p class="hint">'+esc((e&&e.msg)||"Não foi possível carregar agora. Tente de novo.")+'</p>'}}
+function pcQuando(t){return t?quando(new Date(t).getTime()):""}
+async function pcPedidos(){
+  const c=$("pc-ped-c");
+  try{const d=await api({acao:"parceiro_pedidos"});if(!d||!d.ok){c.innerHTML='<p class="hint">'+esc((d&&d.msg)||"Não foi possível carregar os pedidos.")+'</p>';return}
+    const pend=d.recebidos.filter(x=>x.status==="pendente").length;
+    $("pc-ped-n").textContent=pend?`· ${pend} aguardando você`:(d.recebidos.length+d.enviados.length?`· ${d.recebidos.length+d.enviados.length}`:"");
+    const lb={pendente:"aguardando",aceito:"aceito",recusado:"recusado"};
+    const rec=d.recebidos.map(x=>`<div class="pc-i"><b>${esc(x.de.nome)} ${x.de.verificado?'<span class="pc-ok">✓ Verificado</span>':'<span class="pc-nv">CRECI ainda não conferido</span>'}</b><small>${x.de.creci?"CRECI "+esc(x.de.creci):"CRECI não informado"} · de ${esc(String(x.de.estados||"").split(",").map(pcNomeEst).join(", "))} · ${esc(pcQuando(x.quando))}</small>${x.resumo?`<small>${esc(x.resumo)}</small>`:""}<div class="actions">${x.status==="pendente"?`<button class="btn" type="button" data-pr="${esc(x.id)}" data-ac="1">Aceitar</button><button class="btn alt" type="button" data-pr="${esc(x.id)}" data-ac="0">Recusar</button>`:x.status==="aceito"?`<a class="btn" target="_blank" rel="noopener" href="${pcWa(x.de.whats,"Olá, "+(x.de.nome||"").split(" ")[0]+"! Aceitei seu pedido de parceria no Corretor Master. Vamos conversar sobre o cliente?")}">Chamar no WhatsApp</a>`:`<small>Você recusou</small>`}</div></div>`).join("");
+    const env=d.enviados.map(x=>`<div class="pc-i"><b>${esc(x.para.nome)} ${x.para.verificado?'<span class="pc-ok">✓ Verificado</span>':""}</b><small>Pedido ${lb[x.status]||esc(x.status)} · ${esc(pcQuando(x.quando))}</small>${x.status==="aceito"?`<div class="actions"><a class="btn" target="_blank" rel="noopener" href="${pcWa(x.para.whats,"Olá, "+(x.para.nome||"").split(" ")[0]+"! Aqui é "+pcMeNome()+", pelo Corretor Master. Obrigado por aceitar a parceria."+(x.resumo?" Sobre o cliente: "+x.resumo+".":"")+" Vamos alinhar a divisão da comissão por escrito antes de avançar?")}">Chamar no WhatsApp</a></div>`:""}</div>`).join("");
+    c.innerHTML=(rec?`<p class="hint" style="margin:8px 0 4px"><b>Recebidos</b></p>${rec}`:"")+(env?`<p class="hint" style="margin:8px 0 4px"><b>Enviados</b></p>${env}`:"")||'<p class="hint">Nenhum pedido ainda.</p>'
+  }catch(e){c.innerHTML='<p class="hint">'+esc((e&&e.msg)||"Não foi possível carregar os pedidos.")+'</p>'}}
+async function pcBadge(){
+  try{const d=await api({acao:"parceiro_pedidos"});const n=d&&d.ok?d.recebidos.filter(x=>x.status==="pendente").length:0;const e=$("pc-ban-n");
+    e.hidden=!n;if(n)e.textContent=`🔔 ${n} pedido${n>1?"s":""} de parceria esperando sua resposta`}catch(_){}}
+$("pc-lista").addEventListener("click",async e=>{
+  const pp=e.target.closest("[data-pp]"),pd=e.target.closest("[data-pd]"),pe=e.target.closest("[data-pde]"),pc=e.target.closest("[data-pdc]");
+  if(pp){pp.disabled=true;
+    try{const d=await api({acao:"parceiro_pedir",pid:pp.dataset.pp,resumo:PC_CLI?"Tem "+pcBrief(PC_CLI):""});
+      if(d&&d.ok){toast("Pedido enviado. Você será avisado quando o corretor responder.",5000);pcListar();pcPedidos()}
+      else{toast((d&&d.msg)||"Não foi possível enviar agora.",6000);if(d&&d.erro==="perfil"){$("pc-meu").open=true;$("pc-meu").scrollIntoView({behavior:"smooth"})}pp.disabled=false}}
+    catch(er){toast((er&&er.msg)||"Não foi possível enviar agora.",5000);pp.disabled=false}return}
+  if(pd){const box=pd.closest(".actions");box.innerHTML=`<select data-dm style="flex:1 1 160px"><option value="golpe">Tentativa de golpe</option><option value="perfil_falso">Perfil falso</option><option value="assedio">Assédio ou spam</option><option value="outro">Outro motivo</option></select><button class="btn warn" type="button" data-pde="${esc(pd.dataset.pd)}">Enviar denúncia</button><button class="btn alt" type="button" data-pdc="1">Cancelar</button>`;return}
+  if(pc){pcListar();return}
+  if(pe){const m=pe.closest(".actions").querySelector("[data-dm]").value;pe.disabled=true;
+    try{const d=await api({acao:"parceiro_denunciar",pid:pe.dataset.pde,motivo:m});toast(d&&d.ok?"Denúncia enviada. Obrigado por proteger a rede.":((d&&d.msg)||"Não foi possível enviar."),5000);pcListar()}catch(er){toast("Não foi possível enviar agora.",4000);pcListar()}}
+});
+$("pc-ped-c").addEventListener("click",async e=>{
+  const b=e.target.closest("[data-pr]");if(!b)return;b.disabled=true;
+  try{const d=await api({acao:"parceiro_responder",id:b.dataset.pr,aceitar:b.dataset.ac==="1"});
+    if(d&&d.ok){toast(b.dataset.ac==="1"?"Parceria aceita. O contato foi liberado.":"Pedido recusado.",4000);pcPedidos();pcListar();pcBadge()}else{toast((d&&d.msg)||"Não foi possível responder.",5000);pcPedidos()}}
+  catch(er){toast("Não foi possível responder agora.",4000);b.disabled=false}});
 $("pc-est").addEventListener("change",pcListar);
 function pcBanner(){
   const home=(PH[EST0]||PH.go).c,out=ESTADOS.filter(e=>e.s!==EST0);
@@ -1210,16 +1251,17 @@ function pcBanner(){
   $("pc-ban").hidden=!ord.length}
 $("pc-chips").addEventListener("click",e=>{const b=e.target.closest("[data-pu]");if(b)pcAbrir(null,b.dataset.pu)});
 $("pc-ban-b").addEventListener("click",()=>{const f=$("pc-chips").querySelector("[data-pu]");pcAbrir(null,f?f.dataset.pu:undefined)});
+$("pc-ban-n").addEventListener("click",()=>pcAbrir(null,undefined,true));
 pcBanner();
-$("pc-x").addEventListener("click",()=>{$("pc-m").hidden=true});
-$("pc-m").addEventListener("click",e=>{if(e.target===$("pc-m"))$("pc-m").hidden=true});
+$("pc-x").addEventListener("click",()=>{$("pc-m").hidden=true;pcBadge()});
+$("pc-m").addEventListener("click",e=>{if(e.target===$("pc-m")){$("pc-m").hidden=true;pcBadge()}});
 $("pc-salvar").addEventListener("click",async()=>{
   const b=$("pc-salvar");b.disabled=true;
   try{const d=await api({acao:"parceiro_salvar",nome:$("pc-nome").value,creci:$("pc-creci").value,whats:$("pc-whats").value,cidades:$("pc-cid").value,obs:$("pc-obs").value,ativo:$("pc-ativo").checked,estados:[...$("pc-estados").querySelectorAll("[data-pe]:checked")].map(c=>c.dataset.pe)});
-    if(d&&d.ok){toast("Perfil salvo.");await pcMeu();pcListar()}else toast((d&&d.msg)||"Não foi possível salvar agora.",5000)}
+    if(d&&d.ok){toast("Perfil salvo."+($("pc-ativo").checked&&!d.verificado?" Seu CRECI será conferido e o selo aparece em breve.":""),5000);await pcMeu();pcListar()}else toast((d&&d.msg)||"Não foi possível salvar agora.",5000)}
   catch(e){toast((e&&e.msg)||"Não foi possível salvar agora.",5000)}
   b.disabled=false});
-/* ===== importação de clientes por planilha (v1.78) ===== */
+/* ===== importação de clientes por planilha (v1.79) ===== */
 function waLink(f){const d=String(f||"").replace(/\D/g,"");if(d.length<10)return"";const n=d.length<=11?"55"+d:d;return"https://wa.me/"+n}
 const IM_CAMPOS=[["nome","Nome *",["nome","cliente","contato","name"]],["fone","Telefone",["telefone","celular","whatsapp","fone","tel","contato"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao"]],["tipo","Tipo (casa/apto)",["tipo","imovel","interesse"]],["valor","Valor / orçamento",["valor","orcamento","preco","faixa","maximo","teto"]],["etapa","Etapa do negócio",["etapa","status","fase","situacao"]],["nota","Observação",["observ","obs","nota","anotac","comentario"]]];
 let IM_DADOS=null;
@@ -1324,7 +1366,7 @@ $("lista").addEventListener("click",e=>{
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
-/* ===== avisos e lembretes (v1.78) ===== */
+/* ===== avisos e lembretes (v1.79) ===== */
 function lbChip(p){const l=p&&p.lemb;if(!l||!l.ts)return"";const d=new Date(l.ts),agora=Date.now(),venc=l.ts<agora;
   const hoje=new Date(),mesmo=d.toDateString()===hoje.toDateString();
   const t=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),dia=mesmo?"hoje":d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
@@ -1881,7 +1923,7 @@ function gmsg0(t){$("g-msg").innerHTML=`<div class="alert crit">${esc(t)}</div>`
 let EMAIL=null;
 const gmsg=(k,t)=>{$("g-msg").innerHTML=t?`<div class="alert ${k}">${esc(t)}</div>`:""};
 let CARGA=null;
-async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;EDIF=c.edificios||{};PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{pcBanner()}catch(_){}try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
+async function carregar(){const c=await api({acao:"catalogo"});ESTADOS=c.estados||ESTADOS;CIDADES=c.cidades;if(!CIDADES.length)throw new Error("catálogo vazio: atualize a função smart-endpoint");BAIRROS=c.bairros;CONDOS=c.condos;EDIF=c.edificios||{};PARQUES=c.parques;PRONTO=true;fillSelects();syncInputs();render();recentes();try{pcBanner();pcBadge()}catch(_){}try{api({acao:"admin_painel",ping:true}).then(r=>{if(r&&r.admin)$("pn-b-geral").hidden=false}).catch(()=>{})}catch(_){}}
 function limparDados(){GER=null;CALCOK="";ENT=null;ENTLOC=null;CONV_EDIT=false;REG=null;REGC={};PRONTO=false;CARGA=null;ESTADOS=phEst().E;CIDADES=phEst().C;BAIRROS=[];CONDOS={};EDIF={};PARQUES=[];LS=[]}
 function mostrarGate(){limparDados();marcaDagua("");$("app").hidden=true;$("gate").hidden=false;$("sair").hidden=true;$("g-form").hidden=false;$("g-code").hidden=true}
 async function logUso(acao){if(!EMAIL)return;try{await sb.from("uso").insert({email:EMAIL,acao})}catch(_){}}
