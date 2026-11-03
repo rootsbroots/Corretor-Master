@@ -297,7 +297,7 @@ function set(l){
 [].forEach.call(document.querySelectorAll(".langbar button"),function(b){b.addEventListener("click",function(){set(b.dataset.l)})});
 var q=null;try{q=new URLSearchParams(location.search).get("lang")}catch(e){}
 var l0=q||null;try{if(!l0)l0=localStorage.getItem("cm-lang")}catch(e){}
-if(l0==="zh"||l0==="ar")l0="en";
+if(l0==="zh"||l0==="ar"||l0==="it")l0="en";if(l0&&l0.indexOf("es-")===0)l0="es";
 if(!l0||!H[l0])l0=(navigator.language||"pt").slice(0,2);
 if(!H[l0])l0="pt";
 window.__termosCount=els.length;
