@@ -1380,7 +1380,7 @@ function fillSelects(){
   const apE=S.tipo==="apartamento"&&!!cidadeObj().cb&&(EDIF[cidadeObj().n]||[]).length>0;
   const l=apE?EDIF[cidadeObj().n]:(CONDOS[cidadeObj().n]||[]);
   const cbL=!!cidadeObj().cb;
-  $("condo").innerHTML='<option value="">Escolha…</option>'+l.map(x=>`<option value="${esc(cbL?x[0]:x[1])}">${esc(x[0])}</option>`).join("")+'<option value="__outro">Outro (digitar)</option>';
+  $("condo").innerHTML='<option value="">Escolha…</option>'+l.map(x=>`<option value="${esc(cbL?x[0]:(x[1]||x[0]))}">${esc(x[0])}</option>`).join("")+'<option value="__outro">Outro (digitar)</option>';
   $("parque").innerHTML='<option value="">Sem parque específico</option>'+PARQUES.filter(p=>p.cid===S.cidade).map(p=>`<option>${esc(p.n)}</option>`).join("");
 }
 
