@@ -3210,15 +3210,14 @@ async function aquiBuscar(){
       (ac>300?'<div class="alert warn">A localização veio imprecisa (±'+ac+' m). Isso é comum em computador ou com o GPS desligado: o bairro pode estar errado. Abra no celular com o GPS ligado, ou escolha o bairro na lista abaixo.</div>':"")+
       (b||!r.bairro?"":livreSlug?'<div class="alert good">O bairro <b>'+esc(livre)+'</b> não está na lista do app, então a busca foi montada pelo nome dele. Confira no portal se abriu o bairro certo.</div>':'<div class="alert warn">O bairro "'+esc(r.bairro)+'"'+(nomes.length?' (outros nomes no endereço: '+esc(nomes.slice(0,3).join(", "))+')':"")+' não está na lista do app; a busca vai pela cidade toda. Escolha o bairro na lista para filtrar.</div>')+
       '<p class="hint" style="margin:8px 0 6px">O app abre os portais já filtrados para '+esc(b?b.n:cid.n)+". O que você procura?</p>"+
-      '<div class="actions" style="margin:0">'+(AQUI_CONDO?'<button class="btn acc" data-aqui="condo" type="button">🏘️ Casas no '+esc(AQUI_CONDO.nome)+'</button>':"")+'<button class="btn" data-aqui="apartamento" type="button">🏢 Apartamentos à venda</button><button class="btn" data-aqui="casa" type="button">🏠 Casas na proximidade</button>'+((CONDOS[cid.n]||[]).length?'<button class="btn" data-aqui="escolher" type="button">🏘️ Escolher condomínio</button>':"")+'</div>'+
+      '<div class="actions" style="margin:0">'+(AQUI_CONDO?'<button class="btn acc" data-aqui="condo" type="button">🏘️ Casas no '+esc(AQUI_CONDO.nome)+'</button>':"")+'<button class="btn" data-aqui="apartamento" type="button">🏢 Apartamentos à venda</button><button class="btn" data-aqui="casa" type="button">🏠 Casas na proximidade</button>'+'</div>'+
       '<p class="hint" style="margin:6px 0 0">Cada tipo conta como 1 busca do seu plano.</p>'
   }catch(e){res.innerHTML='<div class="alert warn">'+((e&&e.message==="limite")?"Limite de consultas atingido. Tente em instantes.":"Não consegui agora. Tente de novo.")+"</div>"}
   finally{btn.disabled=false}
 }
 $("aqui-btn").addEventListener("click",aquiBuscar);
 $("aqui-res").addEventListener("click",e=>{const b=e.target.closest("[data-aqui]");if(!b)return;
-  if(b.dataset.aqui==="escolher"){S.tipo="casa";S.locCasa="condominio";S.piscina="";S.vista="";S.parque="";S.bairro="";S.bairroOutro="";S.condo="";S.condoOutro="";try{fillSelects()}catch(_){}syncInputs();render();const fc=$("f-condo");if(fc)fc.scrollIntoView({behavior:"smooth",block:"center"});return}
-  const cd=b.dataset.aqui==="condo"&&AQUI_CONDO;
+    const cd=b.dataset.aqui==="condo"&&AQUI_CONDO;
   S.tipo=cd?"casa":b.dataset.aqui;S.piscina="";S.vista="";S.parque="";S.locCasa=cd?"condominio":"bairro";S.condo=cd?(AQUI_CONDO.livre?"__outro":AQUI_CONDO.slug):"";S.condoOutro=cd?AQUI_CONDO.nome:"";
   if(cd&&AQUI_CONDO.bairro&&BAIRROS.some(x=>x.cid===S.cidade&&x.s===AQUI_CONDO.bairro))S.bairro=AQUI_CONDO.bairro;
   try{fillSelects()}catch(_){}syncInputs();render();
