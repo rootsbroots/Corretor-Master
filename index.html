@@ -3186,11 +3186,16 @@ async function aquiBuscar(){
       if(!b)for(const nm of nomes){b=casa(nm);if(b)break}
       const cl=(CONDOS[cid.n]||[]);
       for(const nm of nomes){const n=normSem(nm);if(n.length<5)continue;condoAch=cl.find(x=>{const m=normSem(x[0]);return m===n||m.includes(n)||n.includes(m)});if(condoAch)break}
+      /* nomes diferentes do cadastro (ex.: "Alphaville Flamboyant Residencial Araguaia"): casa por palavras */
+      if(!condoAch){const W=v=>normSem(v).split(/[^a-z0-9]+/).filter(w=>w.length>2&&!/^(residencial|condominio|loteamento|bairro|geral|setor|parque|jardim)$/.test(w));
+        for(const nm of nomes){const wn=W(nm);if(wn.length<2)continue;condoAch=cl.find(x=>{const wx=W(x[0]);return wx.length>=2&&wx.every(w=>wn.includes(w))});if(condoAch)break}}
+      /* nome de condomínio que não está na lista: usa o nome lido do GPS */
+      if(!condoAch){const nm=nomes.find(v=>/alphaville|condominio|residencial/.test(normSem(v))&&normSem(v)!==normSem(cid.n)&&!/^(residencial)$/.test(normSem(v)));if(nm)condoAch=[nm.trim(),"","",null,null,true]}
       /* sem nome que case: condomínio mais próximo do GPS (até 600 m, ou a precisão da leitura) */
       if(!condoAch){const R=Math.PI/180,dist=(a,o,a2,o2)=>6371000*Math.acos(Math.min(1,Math.sin(a*R)*Math.sin(a2*R)+Math.cos(a*R)*Math.cos(a2*R)*Math.cos((o-o2)*R)));
         const lim=Math.max(600,Math.min(1500,c.accuracy||0));let best=1e9;
         cl.forEach(x=>{if(typeof x[3]==="number"&&typeof x[4]==="number"){const d=dist(c.latitude,c.longitude,x[3],x[4]);if(d<best&&d<=lim){best=d;condoAch=x}}})}}
-    AQUI_CONDO=condoAch?{slug:(cid.cb||!condoAch[1])?condoAch[0]:condoAch[1],nome:condoAch[0],bairro:condoAch[2]||""}:null;
+    AQUI_CONDO=condoAch?{slug:(cid.cb||!condoAch[1])?condoAch[0]:condoAch[1],nome:condoAch[0],bairro:condoAch[2]||"",livre:!!condoAch[5]}:null;
     if(condoAch&&(c.accuracy||9999)<=150){try{const G=geoLer();G[[String(r.uf).toUpperCase(),cid.n,condoAch[0]].join("|")]={lat:c.latitude,lon:c.longitude};geoGravar(G)}catch(_){}}
     if(!b&&condoAch&&condoAch[2])b=bs.find(x=>x.s===condoAch[2])||null;
     /* bairro que o GPS achou mas não está na lista: busca pelo nome dele (exceto onde os portais exigem zona, como SP e RJ) */
@@ -3214,7 +3219,7 @@ $("aqui-btn").addEventListener("click",aquiBuscar);
 $("aqui-res").addEventListener("click",e=>{const b=e.target.closest("[data-aqui]");if(!b)return;
   if(b.dataset.aqui==="escolher"){S.tipo="casa";S.locCasa="condominio";S.piscina="";S.vista="";S.parque="";S.bairro="";S.bairroOutro="";S.condo="";S.condoOutro="";try{fillSelects()}catch(_){}syncInputs();render();const fc=$("f-condo");if(fc)fc.scrollIntoView({behavior:"smooth",block:"center"});return}
   const cd=b.dataset.aqui==="condo"&&AQUI_CONDO;
-  S.tipo=cd?"casa":b.dataset.aqui;S.piscina="";S.vista="";S.parque="";S.locCasa=cd?"condominio":"bairro";S.condo=cd?AQUI_CONDO.slug:"";S.condoOutro=cd?AQUI_CONDO.nome:"";
+  S.tipo=cd?"casa":b.dataset.aqui;S.piscina="";S.vista="";S.parque="";S.locCasa=cd?"condominio":"bairro";S.condo=cd?(AQUI_CONDO.livre?"__outro":AQUI_CONDO.slug):"";S.condoOutro=cd?AQUI_CONDO.nome:"";
   if(cd&&AQUI_CONDO.bairro&&BAIRROS.some(x=>x.cid===S.cidade&&x.s===AQUI_CONDO.bairro))S.bairro=AQUI_CONDO.bairro;
   try{fillSelects()}catch(_){}syncInputs();render();
   setTimeout(()=>{const g=$("gerar");if(g){g.click()}else{const h=$("hero");if(h)h.scrollIntoView({behavior:"smooth",block:"center"})}},150)});
