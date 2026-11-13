@@ -117,6 +117,7 @@ header{padding-block:18px 8px}
 .logo{font-size:23px;font-weight:800;letter-spacing:-.025em;color:var(--ink)}
 .logo i{width:12px;height:12px;border-radius:50%;transform:none;background:var(--accent)}
 .logo small{font-weight:500;letter-spacing:0}
+.logo .rg{display:inline-block;width:.62em;height:.62em;vertical-align:.5em;margin-left:4px;overflow:visible}
 .icon-btn{background:var(--surface);border:0;border-radius:999px;color:var(--ink);padding:10px 16px;font-weight:600}
 .panel{border:0;border-radius:22px;padding:20px}
 h2{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
@@ -535,7 +536,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 
 <div id="gate" hidden>
   <div style="display:flex;justify-content:flex-end;margin-bottom:10px"><select id="g-lang" data-noi18n aria-label="Language" style="font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card,transparent);color:var(--ink)"></select></div>
-  <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<small>Acesso restrito a corretores autorizados</small></div>
+  <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<svg class="rg" viewBox="0 0 20 20" role="img" aria-label="marca registrada"><circle cx="10" cy="10" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="10" y="14.4" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="12.5" fill="currentColor">R</text></svg><small>Acesso restrito a corretores autorizados</small></div>
   <div id="g-hero">
     <p id="g-bem">Invista em imóveis no Brasil</p>
     <p class="g-sub">Busque imóveis em todo o Brasil, no seu idioma e na sua moeda.</p>
@@ -560,7 +561,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v2.92</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v2.93</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -590,7 +591,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 <div id="app" hidden>
 <div class="wrap">
   <header>
-    <div class="logo"><i></i>Corretor Master<small id="sub-est">Busca precisa nos portais</small></div>
+    <div class="logo"><i></i>Corretor Master<svg class="rg" viewBox="0 0 20 20" role="img" aria-label="marca registrada"><circle cx="10" cy="10" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="10" y="14.4" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="12.5" fill="currentColor">R</text></svg><small id="sub-est">Busca precisa nos portais</small></div>
     <div class="hdr-r"><button class="icon-btn" id="instalar" type="button" hidden>Instalar app</button><button class="icon-btn" id="theme" type="button">Tema</button>
       <button class="icon-btn" id="lang-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Idioma"><span class="lg-f" id="lang-flag"></span><b id="lang-code">PT</b></button>
       <div class="hdr-menu" id="lang-menu" role="menu" hidden></div>
@@ -997,7 +998,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v2.92</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v2.93</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2137,7 +2138,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v2.92 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v2.93 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
