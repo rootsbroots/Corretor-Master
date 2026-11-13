@@ -561,7 +561,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v2.93</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v2.97</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -913,7 +913,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
           <div class="av-box" id="est-gd" hidden><b><svg class="gd-ic" viewBox="0 0 87.3 78" aria-hidden="true" focusable="false"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>Importar do Google Drive</b><span>Cole o link da planilha (Google Sheets, ou Excel/CSV no Drive), compartilhada como <b>"Qualquer pessoa com o link"</b> (leitor). Se preferir não compartilhar, baixe a planilha do Drive e use <b>Importar planilha</b>.</span><div class="f" style="margin-top:8px"><input type="text" id="est-gd-url" inputmode="url" autocomplete="off" placeholder="https://docs.google.com/spreadsheets/d/..."></div><div class="actions" style="margin:8px 0 0"><button class="btn acc" id="est-gd-ok" type="button">Ler planilha</button><button class="btn alt" id="est-gd-x" type="button">Fechar</button></div><div id="est-gd-msg" style="margin-top:8px"></div></div>
           <div class="av-box" id="est-wa" hidden><b>💬 Imóveis de grupos de WhatsApp</b>
             <span>Os imóveis que os corretores compartilham nos grupos vão para o seu portfólio, marcados com o nome do grupo, e entram na busca junto com a sua planilha e os portais.</span>
-            <div class="f"><label for="wa-grupo">Nome do grupo</label><input id="wa-grupo" type="text" maxlength="60" autocomplete="off" placeholder="Ex.: Corretores Goiânia"></div>
+            <div class="alert warn" style="margin:8px 0;font-size:13px;line-height:1.45"><b>Para a busca ficar precisa, preencha corretamente (são os mesmos campos do perfil do cliente):</b><br>• <b>Obrigatório:</b> o <b>valor</b> e o <b>local</b> do imóvel (bairro, condomínio ou cidade). Mensagens sem valor ou sem local são ignoradas.<br>• <b>Muito importante:</b> o <b>tipo</b> (casa ou apartamento) e a <b>cidade</b> junto com o bairro.<br>• <b>Quanto mais completo, melhor:</b> condomínio, piscina, vista, condição (novo/usado), obra (pronto/em construção), mobiliado, quartos, vagas, metragem (m²) e código ou link do anúncio. O app compara cada um com o perfil do cliente e mostra o que combina e o que falta conferir.</div><span class="hint">Dica: peça aos colegas do grupo para postar assim: <i>"Apto 3 quartos, 96 m², Setor Bueno, Goiânia, R$ 780 mil"</i>.</span><div class="f"><label for="wa-grupo">Nome do grupo</label><input id="wa-grupo" type="text" maxlength="60" autocomplete="off" placeholder="Ex.: Corretores Goiânia"></div>
             <span><b>Opção 1 — conversa exportada</b> (Android e iPhone): no WhatsApp abra o grupo → ⋮ → Mais → Exportar conversa → Sem mídia, e escolha o arquivo aqui (.txt ou .zip).</span>
             <div class="actions" style="margin:0"><button class="btn alt" id="wa-arq" type="button">📎 Escolher conversa exportada</button><input type="file" id="wa-file" accept=".txt,.zip,text/plain,application/zip" hidden></div>
             <span><b>Opção 2 — colar</b>: copie as mensagens do grupo e cole abaixo.</span>
@@ -998,7 +998,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v2.93</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v2.97</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1088,7 +1088,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
     <p class="hint" style="margin:6px 0"><b>Como funciona:</b> cada caixa abaixo é uma informação do app (em negrito). Em cada uma, escolha a <b>coluna da sua planilha</b> onde essa informação está. Já deixei marcado o que reconheci (<span style="color:#19B28A">✓ encontrada</span>). Se a sua planilha não tem aquela informação, deixe em "Não importar".</p>
     <p class="hint" id="im-dica" hidden style="margin:0 0 8px"><b>Fotos:</b> se a coluna de link tiver uma pasta ou foto do Drive, deixe compartilhada como <b>“Qualquer pessoa com o link”</b>. Assim o cliente também consegue abrir. Use pastas só com fotos de divulgação, sem documentos nem dados pessoais de proprietários ou clientes (LGPD).</p>
     <div id="im-map"></div>
-    <div id="im-prev" class="hint" style="margin-top:10px"></div>
+    <div class="alert warn" style="margin:8px 0;font-size:13px;line-height:1.45"><b>Para a busca ficar precisa, preencha corretamente:</b><br>• <b>Obrigatório:</b> o <b>valor</b> e o <b>local</b> do imóvel (bairro, condomínio ou cidade). Sem isso, o imóvel não entra.<br>• <b>Muito importante:</b> o <b>tipo</b> (casa ou apartamento) e a <b>cidade</b> junto com o bairro.<br>• <b>Quanto mais completo, melhor:</b> condomínio, piscina, vista, condição (novo/usado), obra (pronto/em construção), mobiliado, quartos, vagas, metragem (m²) e código ou link do anúncio. O app compara cada um com o perfil do cliente e mostra o que combina e o que falta conferir.</div><div id="im-prev" class="hint" style="margin-top:10px"></div>
     <div class="actions"><button class="btn" id="im-ok" type="button">Importar</button></div>
     <p class="hint" style="margin:10px 0 0"><button id="im-modelo" type="button" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;opacity:.85">Não tem planilha? Baixe o modelo</button></p>
   </div>
@@ -2138,7 +2138,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v2.93 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v2.97 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -2662,8 +2662,8 @@ $("imv-pdf").addEventListener("click",()=>{if(!imvLista().some(i=>i.sel)){toast(
 
 
 /* ===== meu portfólio de imóveis (v2.49): importa planilha do corretor e busca nela ===== */
-const IM_CAMPOS_EST=[["cod","Código / referência",["codigo","cod","referencia","ref"]],["tit","Título / descrição",["titulo","descri","anuncio"]],["tipo","Tipo (casa/apto)",["tipo","categoria"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao","setor"]],["cond","Condomínio / empreendimento",["condominio","empreendimento","edificio","residencial"]],["end","Endereço ou CEP",["endereco","cep","logradouro","rua"]],["valor","Valor (R$)",["valor","preco","venda"]],["qts","Quartos",["quarto","dorm"]],["vagas","Vagas",["vaga","garagem"]],["area","Área (m²)",["area","m2","metragem"]],["st","Status (disponível/vendido)",["status","situacao","disponib"]],["link","Link do anúncio ou das fotos",["link","url","site","foto","album"]],["obs","Observação",["observ","obs","nota","detalhe"]]];
-const EST_MAX=5000;let EST=null,EST_N=25,EST_ATIVO=false;
+const IM_CAMPOS_EST=[["cod","Código / referência",["codigo","cod","referencia","ref"]],["tit","Título / descrição",["titulo","descri","anuncio"]],["tipo","Tipo (casa/apto)",["tipo","categoria"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao","setor"]],["cond","Condomínio / empreendimento",["condominio","empreendimento","edificio","residencial"]],["end","Endereço ou CEP",["endereco","cep","logradouro","rua"]],["valor","Valor (R$)",["valor","preco","venda"]],["qts","Quartos",["quarto","dorm"]],["vagas","Vagas",["vaga","garagem"]],["area","Área (m²)",["area","m2","metragem"]],["pisc","Piscina (sim/não)",["piscina"]],["vis","Vista (sim/não)",["vista"]],["cnd","Condição (novo/usado)",["condicao","novo","usado"]],["obr","Obra (pronto/em construção)",["obra","andamento","entrega"]],["mob","Mobiliado (sim/não)",["mobiliado","mobilia"]],["st","Status (disponível/vendido)",["status","situacao","disponib"]],["link","Link do anúncio ou das fotos",["link","url","site","foto","album"]],["obs","Observação",["observ","obs","nota","detalhe"]]];
+const EST_MAX=5000;let EST=null,EST_N=25,EST_ATIVO=false,EST_FONTE="",EST_AT_N=6;
 function estAtivar(){if(!EST_ATIVO){EST_ATIVO=true;try{estRender()}catch(_){}}}
 function buscaCompletaBloq(){const d=PLANO_D;if(!d||d.plano!=="teste"||d.teste_expirou!==true)return false;return !Object.values(PLANO_EST||{}).some(x=>x&&x.plano&&x.plano!=="teste")}
 function estLer(){if(EST)return EST;try{const o=JSON.parse(localStorage.getItem("cm-estoque")||"null");EST=o&&Array.isArray(o.itens)?o:{itens:[],em:0,arq:""}}catch(_){EST={itens:[],em:0,arq:""}}return EST}
@@ -2690,6 +2690,9 @@ async function estNuvem(){
   EST_BUSY=false;if(EST_AGAIN){EST_AGAIN=false;estAgendaNuvem()}}
 const estInt=v=>{const n=parseInt(String(v||"").replace(/\D/g,""),10);return isFinite(n)?Math.min(n,99):0};
 const estAreaN=v=>{const n=parseFloat(String(v||"").replace(/[^\d,.]/g,"").replace(/\.(?=\d{3}\b)/g,"").replace(",","."));return isFinite(n)&&n>0?Math.round(n*10)/10:0};
+const estSN=v=>{v=imNorm(v||"").trim();if(!v)return undefined;if(/^(sim|s|x|com|possui|tem|1|yes|true|ok)\b/.test(v))return true;if(/^(nao|n|sem|0|no|false)\b/.test(v))return false;return undefined};
+const estCnd=v=>{v=imNorm(v||"");return /novo|lanc|planta|nunca/.test(v)?"novo":/usad|segunda|revend/.test(v)?"usado":""};
+const estObr=v=>{v=imNorm(v||"");return /pront|habit|entreg|morar/.test(v)?"pronto":/constr|planta|obra/.test(v)?"construcao":""};
 function estMontar(){
   const m=imMapa(),g=(r,k)=>m[k]>=0?String(r[m[k]]==null?"":r[m[k]]).trim():"";
   const novos=[],vistos=new Set();let dup=0,sem=0;
@@ -2697,17 +2700,19 @@ function estMontar(){
     const cod=g(r,"cod").slice(0,30),tit=g(r,"tit").slice(0,120),bai=g(r,"bairro").slice(0,60),cond=g(r,"cond").slice(0,80),end=g(r,"end").slice(0,120);
     if(!(cod||tit||bai||cond||end)){sem++;return}
     const cid=g(r,"cidade").slice(0,60),tr=g(r,"tipo").slice(0,40),valor=imValor(g(r,"valor")),st=g(r,"st").slice(0,30);
+    if(!valor||!(bai||cond||end||cid)){sem++;return}
     const chave=cod?"c|"+imNorm(cod):"t|"+imNorm(tit+"|"+cond+"|"+bai+"|"+valor+"|"+end);
     if(vistos.has(chave)){dup++;return}vistos.add(chave);
     let link=g(r,"link").slice(0,300);if(link&&!/^https?:\/\//i.test(link))link=/^[\w-]+\.[\w.-]+\//.test(link)?"https://"+link:"";
-    novos.push({id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
+    novos.push({pisc:estSN(g(r,"pisc")),vis:estSN(g(r,"vis")),mob:estSN(g(r,"mob")),cnd:estCnd(g(r,"cnd")),obr:estObr(g(r,"obr")),id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
   return{novos,dup,sem}}
 function estPrev(){
   const m=imMapa(),r=estMontar(),ex=estLer().itens.length;
+  if(m.valor<0||(m.bairro<0&&m.cond<0&&m.end<0&&m.cidade<0)){$("im-prev").textContent="Para importar, escolha as colunas do valor e do local do imóvel (bairro, condomínio, endereço ou cidade). Linhas sem valor ou sem local não entram.";$("im-ok").disabled=true;return}
   if(m.tit<0&&m.cod<0&&m.bairro<0&&m.cond<0&&m.end<0){$("im-prev").textContent="Escolha pelo menos uma coluna que identifique o imóvel (título, código, bairro, condomínio ou endereço).";$("im-ok").disabled=true;return}
   const ok=Math.min(r.novos.length,EST_MAX);$("im-ok").disabled=!ok;
   const am=r.novos.slice(0,4).map(c=>`<tr><td>${esc(c.cod||"")}</td><td>${esc(c.tit||c.cond||"")}</td><td>${esc(c.bai||"")}</td><td>${esc(brl(c.valor))}</td></tr>`).join("");
-  $("im-prev").innerHTML=`<b>${ok}</b> imóvel(is) serão importados.`+(ex?` O portfólio atual (${ex-estLer().itens.filter(x=>x.orig==="wa").length}) será substituído; os imóveis vindos do WhatsApp são mantidos.`:"")+(r.dup?` ${r.dup} repetido(s) ignorado(s).`:"")+(r.sem?` ${r.sem} linha(s) sem identificação ignorada(s).`:"")+(r.novos.length>EST_MAX?` Limite de ${EST_MAX}: só os primeiros cabem.`:"")+(am?`<table class="im-tb"><tr><th>Código</th><th>Imóvel</th><th>Bairro</th><th>Valor</th></tr>${am}</table>`:"")}
+  $("im-prev").innerHTML=`<b>${ok}</b> imóvel(is) serão importados.`+(ex?` O portfólio atual (${ex-estLer().itens.filter(x=>x.orig==="wa").length}) será substituído; os imóveis vindos do WhatsApp são mantidos.`:"")+(r.dup?` ${r.dup} repetido(s) ignorado(s).`:"")+(r.sem?` ${r.sem} linha(s) sem valor ou sem local ignorada(s).`:"")+(r.novos.length>EST_MAX?` Limite de ${EST_MAX}: só os primeiros cabem.`:"")+(am?`<table class="im-tb"><tr><th>Código</th><th>Imóvel</th><th>Bairro</th><th>Valor</th></tr>${am}</table>`:"")}
 function estConfirmar(){
   const r=estMontar(),n0=r.novos.slice(0,EST_MAX);if(!n0.length)return;
   const wa=estLer().itens.filter(x=>x.orig==="wa"),n=[...n0,...wa].slice(0,EST_MAX);
@@ -2717,6 +2722,21 @@ function estConfirmar(){
 function estNomeBairro(){const b=S.bairro?BAIRROS.find(x=>x.s===S.bairro&&x.cid===S.cidade):null;return b?b.n:""}
 function estNomeCidade(){const c=CIDADES.find(x=>x.s===S.cidade&&x.uf===S.estado);return c?c.n:""}
 function estNomeCondo(){if(!S.condo)return"";if(S.condo==="__outro")return S.condoOutro||"";const s=$("condo"),o=s&&s.selectedOptions&&s.selectedOptions[0];return o&&s.value?o.text:""}
+function estCorresp(i){
+  const ok=[],falta=[],ruim=[];
+  const ch=(nome,ativo,tem,casa)=>{if(!ativo)return;if(!tem){falta.push(nome);return}casa?ok.push(nome):ruim.push(nome)};
+  const ni=x=>imNorm(x||"");
+  ch("tipo",!!S.tipo,!!i.t,i.t===S.tipo);
+  const cid=ni(estNomeCidade());ch("cidade",!!cid,!!i.cid,ni(i.cid)===cid);
+  const bai=ni(estNomeBairro());ch("bairro",!!bai,!!i.bai,ni(i.bai).includes(bai)||bai.includes(ni(i.bai)));
+  const cnd=ni(estNomeCondo());ch("condomínio",!!cnd,!!i.cond,ni(i.cond).includes(cnd)||cnd.includes(ni(i.cond)));
+  const v=i.valor||0,vmin=+S.vmin||0,vmax=+S.vmax||0;if(vmin||vmax)ch("valor",true,!!v,(!vmin||v>=vmin)&&(!vmax||v<=vmax));
+  ch("piscina",S.piscina==="com",i.pisc!==undefined,i.pisc===true);
+  ch("vista",S.vista==="com"||!!S.parque,i.vis!==undefined,i.vis===true);
+  ch("condição",!!S.condicao,!!i.cnd,i.cnd===S.condicao);
+  ch("obra",!!S.status,!!i.obr,i.obr===S.status);
+  ch("mobiliado",S.mobiliado==="com",i.mob!==undefined,i.mob===true);
+  return{ok,falta,ruim}}
 function estFiltrar(simples){
   const E=estLer().itens,q=simples?[]:imNorm($("est-q").value).split(/\s+/).filter(Boolean),perf=simples?true:$("est-perfil").checked,qmin=simples?0:(+$("est-qt").value||0),off=simples?false:$("est-off").checked;
   const cid=perf?imNorm(estNomeCidade()):"",bai=perf?imNorm(estNomeBairro()):"",cnd=perf?imNorm(estNomeCondo()):"";
@@ -2731,6 +2751,7 @@ function estFiltrar(simples){
     if(vmax&&i.valor&&i.valor>vmax)return false;
     if(qmin&&i.qts&&i.qts<qmin)return false;
     if(qmin&&!i.qts)return false;
+    if(perf&&estCorresp(i).ruim.length)return false;
     if(q.length){const hs=imNorm([i.cod,i.tit,i.tr,i.cid,i.bai,i.cond,i.end,i.obs,i.orig==="wa"?"whatsapp "+(i.grupo||""):""].join(" "));if(!q.every(t=>hs.includes(t)))return false}
     return true});
   return r.sort((a,b)=>(a.valor||9e12)-(b.valor||9e12))}
@@ -2739,13 +2760,19 @@ function estAtalho(){
   if(!o.itens.length){a.hidden=true;return}
   if(buscaCompletaBloq()){a.hidden=false;$("est-at-t").innerHTML="🔒 <b>A busca completa é do plano.</b> Seu teste acabou: assine para buscar também no seu portfólio e nas conversas do WhatsApp.";$("est-at-l").innerHTML=upgBtn("teste");return}
   if(!EST_ATIVO){a.hidden=false;$("est-at-t").innerHTML="📁 <b>Seu portfólio</b> tem "+o.itens.length+" imóvel(is). Preencha o perfil do cliente para ver os que combinam.";$("est-at-l").innerHTML="";return}
-  const r=estFiltrar(true),n=r.length;a.hidden=false;
-  $("est-at-t").innerHTML="📁 <b>Do seu portfólio:</b> "+(n?n+(n>1?" imóveis combinam":" imóvel combina")+" com este perfil.":"nenhum imóvel combina com este perfil.");
-  $("est-at-l").innerHTML=r.slice(0,5).map(i=>estCard(i,true)).join("")+(n>5?`<small class="hint">Mostrando 5 de ${n}. Toque em “Ver todos no meu portfólio” para filtrar e ver o restante.</small>`:"")}
+  const todos=estFiltrar(true).map(x=>({x,c:estCorresp(x)}));
+  todos.sort((a,b)=>(b.c.ok.length-a.c.ok.length)||(a.c.falta.length-b.c.falta.length)||((a.x.valor||9e12)-(b.x.valor||9e12)));
+  const wa=todos.filter(o=>o.x.orig==="wa").length,pf=todos.length-wa,pn=+(($("portais-n")||{}).textContent||0)||0;
+  const lista=todos.filter(o=>EST_FONTE==="wa"?o.x.orig==="wa":EST_FONTE==="pf"?o.x.orig!=="wa":true),n=lista.length;a.hidden=false;
+  const chip=(f,t)=>`<button type="button" class="btn ${EST_FONTE===f?"acc":"alt"}" data-fonte="${f}" style="padding:6px 10px;min-height:34px;font-size:12.5px">${t}</button>`;
+  $("est-at-t").innerHTML=`<b>Resultado da busca: ${pn+todos.length} opç${pn+todos.length===1?"ão":"ões"}</b><br><span style="font-size:13px">🌐 Sites: <b>${pn}</b> portais · 📁 Portfólio: <b>${pf}</b> · 💬 WhatsApp: <b>${wa}</b></span>`;
+  $("est-at-l").innerHTML=`<div class="actions" style="margin:4px 0 8px;gap:6px">${chip("","Todos")}${chip("pf","📁 Portfólio ("+pf+")")}${chip("wa","💬 WhatsApp ("+wa+")")}<button type="button" class="btn alt" id="est-at-p" style="padding:6px 10px;min-height:34px;font-size:12.5px">🌐 Ver links dos portais</button></div>`+
+    (n?lista.slice(0,EST_AT_N).map(o=>estCard(o.x,true)).join(""):`<small class="hint">Nenhum imóvel ${EST_FONTE==="wa"?"do WhatsApp":EST_FONTE==="pf"?"do portfólio":"do portfólio ou do WhatsApp"} combina com este perfil. Os portais continuam disponíveis nos links abaixo.</small>`)+
+    (n>EST_AT_N?`<div class="actions"><button type="button" class="btn alt" id="est-at-m">Mostrar mais (${n-EST_AT_N})</button></div>`:"")}
 function estCard(i,compacto){
     const det=[i.qts?i.qts+" quarto"+(i.qts>1?"s":""):"",i.vg?i.vg+" vaga"+(i.vg>1?"s":""):"",i.ar?String(i.ar).replace(".",",")+" m²":""].filter(Boolean).join(" · ");
     const loc=[i.cond,i.bai,i.cid].filter(Boolean).join(" · ");
-    return`<div class="est-i${i.off?" off":""}"><b>${esc(i.tit||i.cond||i.bai||"Imóvel")}</b>${i.cod?`<small>Cód. ${esc(i.cod)}${i.off?" · "+esc(i.st||"indisponível"):""}</small>`:(i.off?`<small>${esc(i.st||"indisponível")}</small>`:"")}${loc?`<small>${esc(loc)}</small>`:""}${det?`<small>${esc(det)}</small>`:""}${i.valor?`<span class="v">${esc(brl(i.valor))}</span>`:""}${i.orig==="wa"?`<small class="wa-o">💬 Do grupo de WhatsApp${i.grupo?" «"+esc(i.grupo)+"»":""}${i.quem?" · "+esc(i.quem):""}${i.dt?" · "+new Date(i.dt).toLocaleDateString(LOC()):""}</small>`:""}${!compacto&&i.obs?`<small>${esc(i.obs)}</small>`:""}<div class="actions"><button class="btn acc" type="button" data-ea="${esc(i.id)}">Adicionar aos escolhidos</button>${i.link?`<a class="btn alt" href="${esc(i.link)}" target="_blank" rel="noopener">${/drive\.google|docs\.google|photos\.google|photos\.app\.goo/i.test(i.link)?"Ver fotos":"Abrir anúncio"}</a>`:""}${compacto?"":`<button class="btn warn" type="button" data-er="${esc(i.id)}">Remover do portfólio</button>`}</div></div>`}
+    return`<div class="est-i${i.off?" off":""}"><b>${esc(i.tit||i.cond||i.bai||"Imóvel")}</b>${i.cod?`<small>Cód. ${esc(i.cod)}${i.off?" · "+esc(i.st||"indisponível"):""}</small>`:(i.off?`<small>${esc(i.st||"indisponível")}</small>`:"")}${loc?`<small>${esc(loc)}</small>`:""}${det?`<small>${esc(det)}</small>`:""}${i.valor?`<span class="v">${esc(brl(i.valor))}</span>`:""}${i.orig==="wa"?`<small class="wa-o">💬 Do grupo de WhatsApp${i.grupo?" «"+esc(i.grupo)+"»":""}${i.quem?" · "+esc(i.quem):""}${i.dt?" · "+new Date(i.dt).toLocaleDateString(LOC()):""}</small>`:""}${(()=>{if(!EST_ATIVO)return"";try{if(!$("est-perfil").checked)return"";const c=estCorresp(i);return(c.ok.length?`<small class="wa-o" style="color:var(--good,#2a9d6f)">✓ Combina: ${esc(c.ok.join(", "))}</small>`:"")+(c.falta.length?`<small class="wa-o" style="color:var(--warn,#b9770e)">⚠ Sem dado para conferir: ${esc(c.falta.join(", "))}</small>`:"")}catch(_){return""}})()}${!compacto&&i.obs?`<small>${esc(i.obs)}</small>`:""}<div class="actions"><button class="btn acc" type="button" data-ea="${esc(i.id)}">Adicionar aos escolhidos</button>${i.link?`<a class="btn alt" href="${esc(i.link)}" target="_blank" rel="noopener">${/drive\.google|docs\.google|photos\.google|photos\.app\.goo/i.test(i.link)?"Ver fotos":"Abrir anúncio"}</a>`:""}${compacto?"":`<button class="btn warn" type="button" data-er="${esc(i.id)}">Remover do portfólio</button>`}</div></div>`}
 function estRender(){
   const o=estLer(),box=$("est-box");if(!box)return;
   box.hidden=!o.itens.length;estAtalho();if(!o.itens.length)return;
@@ -2757,6 +2784,11 @@ function estRender(){
   $("est-n").textContent=r.length?r.length+" encontrado(s) de "+o.itens.length+(r.length>EST_N?" · mostrando "+EST_N:""):"Nenhum imóvel do portfólio combina com a busca. Desmarque “Usar o perfil do cliente” ou afrouxe os filtros.";
   $("est-res").innerHTML=mostra.map(i=>estCard(i)).join("")+(r.length>EST_N?`<div class="actions"><button class="btn alt" id="est-mais" type="button">Mostrar mais</button></div>`:"")}
 let EST_T=null;const estAgenda=()=>{clearTimeout(EST_T);EST_T=setTimeout(()=>{try{estRender()}catch(_){}},250)};
+$("est-at").addEventListener("click",e=>{
+  const f=e.target.closest("[data-fonte]");if(f){EST_FONTE=f.dataset.fonte;EST_AT_N=6;estAtalho();return}
+  if(e.target.closest("#est-at-m")){EST_AT_N+=10;estAtalho();return}
+  if(e.target.closest("#est-at-p")){const d=$("portais-d");if(d){d.hidden=false;d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})}}});
+try{new MutationObserver(()=>{try{estAtalho()}catch(_){}}).observe($("portais-n"),{childList:true,characterData:true,subtree:true})}catch(_){}
 $("est-at-b").addEventListener("click",()=>{const x=$("est");if(x)x.scrollIntoView({behavior:"smooth",block:"start"})});
 $("est-q").addEventListener("input",()=>{EST_N=25;EST_ATIVO=true;estAgenda()});
 ["est-perfil","est-qt","est-off"].forEach(k=>$(k).addEventListener("change",()=>{EST_N=25;EST_ATIVO=true;estRender()}));
@@ -2835,10 +2867,11 @@ function waExtrair(m){
   if(!cid){const cc=CIDADES.find(x=>x.uf===S.estado&&x.n.length>=5&&tp.includes(" "+imNorm(x.n).replace(/[^a-z0-9]+/g," ")+" "));if(cc)cid=cc.n}
   const mcd=/(?:condom[ií]nio|cond\.|edif[ií]cio|ed\.)\s+([A-ZÀ-Ú][\wÀ-ú'-]+(?:\s+(?:de|do|da|dos|das|[A-ZÀ-Ú])[\wÀ-ú'-]*){0,3})/.exec(sem),cond=mcd?mcd[1].slice(0,80):"";
   const sinais=(tipo?1:0)+(qts?1:0)+(ar?1:0)+(bai?1:0)+(cond?1:0);
-  if(!((valor&&sinais>=1)||(portalU&&(valor||sinais>=1))))return null;
+  if(!(valor&&(bai||cond||cid)))return null;
   const tit=[tr||"Imóvel",bai||cond].filter(Boolean).join(" · ").slice(0,120);
   let h=5381;const k=link||(imNorm(tit)+"|"+valor+"|"+imNorm(bai||cond)+"|"+qts+"|"+ar+"|"+cod);for(let i=0;i<k.length;i++)h=((h<<5)+h+k.charCodeAt(i))>>>0;
-  return{id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
+  const pisc=/piscina/.test(tp)||undefined,vis=/ vista /.test(tp)||undefined,mob=/ (mobiliad|mobiliada|mobilia) /.test(tp)||undefined,cnd=/ (lancamento|lancamentos|novo|nova|nunca habitado) /.test(tp)?"novo":/ (usado|usada|seminovo|seminova) /.test(tp)?"usado":"",obr=/ (na planta|em construcao|em obras) /.test(tp)?"construcao":/ (pronto|pronta|pronto pra morar|pronto para morar|entregue) /.test(tp)?"pronto":"";
+  return{pisc,vis,mob,cnd,obr,id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
 async function waZipTexto(buf){
   const u=new DataView(buf),b=new Uint8Array(buf);let e=-1;
   for(let i=b.length-22;i>=Math.max(0,b.length-70000);i--)if(u.getUint32(i,true)===0x06054b50){e=i;break}
@@ -2855,7 +2888,7 @@ let WA_RES=[];
 function waChaveDup(i){const E=estLer().itens;return E.some(x=>x.id===i.id||(i.link&&x.link===i.link))}
 function waPintar(info,dups){
   const box=$("wa-res");
-  if(!WA_RES.length){box.innerHTML=`<div class="alert ${dups?"good":"warn"}">${dups?"Nada novo: os imóveis dessa conversa já estão no seu portfólio. "+esc(info||""):(esc(info||"")||"Não encontrei imóveis com preço, link ou características nessas mensagens.")}</div>`;return}
+  if(!WA_RES.length){box.innerHTML=`<div class="alert ${dups?"good":"warn"}">${dups?"Nada novo: os imóveis dessa conversa já estão no seu portfólio. "+esc(info||""):(esc(info||"")||"Não encontrei imóveis com valor e local (bairro, condomínio ou cidade). Cada mensagem precisa ter o valor e o local do imóvel; sem isso ela é ignorada nessas mensagens.")}</div>`;return}
   const n=WA_RES.filter(i=>i._ok).length;
   box.innerHTML=`<p class="summary" style="margin:8px 0">Encontrei <b>${WA_RES.length}</b> imóvel(is)${info?" · "+info:""}. Marque os que quer guardar:</p>`+WA_RES.map((i,k)=>{
     const det=[i.qts?i.qts+" quarto"+(i.qts>1?"s":""):"",i.ar?String(i.ar).replace(".",",")+" m²":"",i.vg?i.vg+" vaga"+(i.vg>1?"s":""):""].filter(Boolean).join(" · ");
