@@ -561,7 +561,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.01</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.02</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -989,7 +989,23 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
       <p class="hint" id="breve-msg" role="status" style="margin-top:10px" hidden></p>
       <p class="hint" style="margin-top:10px">Use o mesmo e-mail em todos os estados. A assinatura é por estado, ou Plano Capitais para todos.</p>
     </div>
-      <div class="ac-ban" id="ac-ban" style="margin:18px 0 8px">
+      <div class="av-box" id="ex-box" style="margin:18px 0 8px"><b>🌍 Quer comprar imóvel no exterior?</b><span>Escolha o país e a cidade. O app abre os portais de lá já filtrados, com a faixa de valor em real ou na moeda local.</span>
+      <div class="actions" style="margin:8px 0 0"><button class="btn acc" id="ex-abrir" type="button">Escolher país</button></div>
+      <div id="ex-p" hidden style="margin-top:10px">
+        <div class="f"><label for="ex-pais">País</label><select id="ex-pais"></select></div>
+        <div class="f"><label for="ex-cid">Cidade</label><select id="ex-cid"></select></div>
+        <div class="f" id="ex-bf" hidden><label for="ex-bai">Bairro (opcional)</label><select id="ex-bai"></select></div>
+        <div class="seg" id="ex-tipo" style="margin:8px 0"><button type="button" data-v="apartamento" aria-pressed="true">🏢 Apartamento</button><button type="button" data-v="casa" aria-pressed="false">🏠 Casa</button></div>
+        <div style="margin:8px 0 2px"><b>Valores em:</b> <span class="seg" id="ex-moeda" style="display:inline-flex;gap:6px"><button type="button" data-v="BRL" aria-pressed="true">R$</button><button type="button" data-v="LOC" aria-pressed="false" id="ex-loc">€</button></span></div>
+        <div style="margin:6px 0 2px"><b>Faixa de valor:</b> <span id="ex-lbl"></span></div>
+        <div class="aq-sl"><div class="tr"></div><div class="fi" id="ex-fi"></div><input type="range" id="ex-a" aria-label="Valor mínimo"><input type="range" id="ex-b" aria-label="Valor máximo"></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;opacity:.7;margin:0 4px"><span id="ex-mn"></span><span id="ex-mx"></span></div>
+        <p class="hint" id="ex-cam" style="margin:6px 0"></p>
+        <div class="actions" style="margin:8px 0 0"><button class="btn acc" id="ex-go" type="button">🔓 Ver imóveis no exterior (conta 1 busca)</button></div>
+      </div>
+      <div id="ex-res" style="margin-top:10px"></div>
+    </div>
+    <div class="ac-ban" id="ac-ban" style="margin:18px 0 8px">
       <p class="eyebrow">Academia do Corretor</p>
       <h2>Destrave a Venda: aprenda com quem vende</h2>
       <p class="s">Lições curtas e práticas, com tarefa para a próxima visita. Cursos de corretores experientes e especialistas.</p>
@@ -998,7 +1014,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.01</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.02</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2138,7 +2154,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.01 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.02 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3198,7 +3214,7 @@ async function aquiDireto(lat,lon){
     if(cid&&/^BR-[A-Z]{2}$/.test(iso))return{ok:true,bairro:loc&&loc!==cid?loc:"",cidade:cid,uf:iso.slice(3)}}
   return null}
 /* leva a tela até o resultado da busca e avisa que está pronta */
-(()=>{const st=document.createElement("style");st.textContent="@keyframes aqPulse{0%{box-shadow:0 0 0 0 rgba(79,140,255,.9)}100%{box-shadow:0 0 0 14px rgba(79,140,255,0)}}.aq-pulse{animation:aqPulse 1.1s ease-out 3;border-radius:12px;scroll-margin-top:12px}";document.head.appendChild(st)})();
+(()=>{const st=document.createElement("style");st.textContent="@keyframes aqPulse{0%{box-shadow:0 0 0 0 rgba(79,140,255,.9)}100%{box-shadow:0 0 0 14px rgba(79,140,255,0)}}.aq-pulse{animation:aqPulse 1.1s ease-out 3;border-radius:12px;scroll-margin-top:12px}.aq-sl{position:relative;height:34px;margin:6px 6px 0}.aq-sl .tr{position:absolute;left:0;right:0;top:15px;height:4px;border-radius:2px;background:rgba(128,140,160,.45)}.aq-sl .fi{position:absolute;top:15px;height:4px;border-radius:2px;background:#4f8cff}.aq-sl input{position:absolute;left:0;width:100%;top:5px;height:24px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}.aq-sl input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#4f8cff;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}.aq-sl input::-moz-range-thumb{pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#4f8cff;border:3px solid #fff}.aq-sl input::-webkit-slider-runnable-track{background:none}.aq-sl input::-moz-range-track{background:none}";document.head.appendChild(st)})();
 function aquiVer(){const a=$("est-at"),t=(a&&!a.hidden)?a:$("portais-d");if(!t||t.hidden)return false;t.scrollIntoView({behavior:"smooth",block:"start"});t.classList.remove("aq-pulse");void t.offsetWidth;t.classList.add("aq-pulse");return true}
 function aquiEsperar(){
   const r=$("aqui-res");let n=0;const velho=$("aq-pronto");if(velho)velho.remove();
@@ -3212,6 +3228,56 @@ function aquiEsperar(){
       r.insertAdjacentHTML("beforeend",'<div class="alert good" id="aq-pronto" style="margin-top:8px">✅ <b>Busca pronta.</b> <button class="btn acc" type="button" data-aqui-ver style="margin-left:6px">Ver resultados ↓</button></div>')}
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
+
+/* ===== comprar no exterior (v3.02) ===== */
+let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
+const EX_BRL={min:500000,max:30000000,passo:250000};
+function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
+function exPais(){return EXT&&EXT.find(p=>p.s===$("ex-pais").value)}
+function exTaxa(p){return p&&EXC?(+EXC[p.moeda]||0):0}
+function exFaixa(){const p=exPais();if(!p)return EX_BRL;return EX.moeda==="BRL"?EX_BRL:p.faixa}
+function exSliderIniciar(){const f=exFaixa(),a=$("ex-a"),b=$("ex-b");[a,b].forEach(e=>{e.min=f.min;e.max=f.max;e.step=f.passo||f.step});a.value=f.min;b.value=f.max;exSliderPintar()}
+function exSliderPintar(){const a=$("ex-a"),b=$("ex-b"),f=exFaixa(),p=exPais();if(!p)return;let x=+a.value,y=+b.value;
+  if(x>y){if(document.activeElement===a){x=y;a.value=x}else{y=x;b.value=y}}
+  EX.v=[x,y];const pc=v=>(v-f.min)/(f.max-f.min)*100;
+  $("ex-fi").style.left="calc("+pc(x)+"% * .96 + 2%)";$("ex-fi").style.width="calc("+(pc(y)-pc(x))+"% * .96)";
+  const sim=EX.moeda==="BRL"?"R$":p.simb,t=exTaxa(p),outro=(v)=>t?(EX.moeda==="BRL"?" ≈ "+exMoeda(v/t,p.simb):" ≈ "+exMoeda(v*t,"R$")):"";
+  const todo=x===f.min&&y===f.max;
+  $("ex-lbl").textContent=todo?"qualquer valor":exMoeda(x,sim)+" a "+exMoeda(y,sim)+(t?" ("+outro(x).replace(" ≈ ","")+" a "+outro(y).replace(" ≈ ","")+")":"");
+  $("ex-mn").textContent=exMoeda(f.min,sim);$("ex-mx").textContent=exMoeda(f.max,sim)}
+function exCamPintar(){const p=exPais(),t=exTaxa(p);$("ex-cam").textContent=!p?"":(t?"Câmbio de referência: 1 "+p.simb.replace("US$","US$")+" = R$ "+t.toFixed(2).replace(".",",")+(EXC&&EXC.aproximada?" (aproximado: não consegui a cotação do dia)":" ("+(EXC&&EXC.fonte||"cotação do dia")+")")+". A conversão é só referência; o portal usa "+(p.moeda==="EUR"?"euro":"dólar")+".":"Câmbio indisponível agora. A conversão não será mostrada.")}
+function exPreencherPais(){const p=exPais();if(!p)return;$("ex-cid").innerHTML=p.cidades.map(c=>'<option value="'+esc(c.s)+'">'+esc(c.n)+"</option>").join("");$("ex-loc").textContent=p.simb;exCidMudou();exSliderIniciar();exCamPintar()}
+function exCidMudou(){const p=exPais(),c=p&&p.cidades.find(x=>x.s===$("ex-cid").value),bs=(c&&c.bairros)||[];$("ex-bf").hidden=!bs.length;$("ex-bai").innerHTML='<option value="">Cidade toda</option>'+bs.map(b=>'<option value="'+esc(b.s)+'">'+esc(b.n)+"</option>").join("")}
+$("ex-abrir").addEventListener("click",async()=>{const pn=$("ex-p");if(!pn.hidden){pn.hidden=true;return}
+  const bt=$("ex-abrir");bt.disabled=true;
+  try{if(!EXT){const d=await api({acao:"exterior_catalogo"});if(!d||!d.ok)throw new Error("catalogo");EXT=d.paises;$("ex-pais").innerHTML=EXT.map(p=>'<option value="'+esc(p.s)+'">'+esc(p.n)+"</option>").join("")}
+    if(!EXC){try{EXC=await api({acao:"exterior_cambio"})}catch(_){EXC=null}}
+    exPreencherPais();pn.hidden=false}
+  catch(e){$("ex-res").innerHTML='<div class="alert warn">Esta função ainda não está no servidor. Atualize o smart-endpoint no Supabase com o index.ts novo (Deploy) e tente de novo.</div>'}
+  finally{bt.disabled=false}});
+$("ex-pais").addEventListener("change",exPreencherPais);
+$("ex-cid").addEventListener("change",exCidMudou);
+$("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
+$("ex-moeda").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.moeda=b.dataset.v;$("ex-moeda").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));exSliderIniciar()});
+["ex-a","ex-b"].forEach(id=>$(id).addEventListener("input",exSliderPintar));
+$("ex-go").addEventListener("click",async()=>{const p=exPais();if(!p)return;const f=exFaixa(),t=exTaxa(p),res=$("ex-res"),bt=$("ex-go");
+  let [mn,mx]=EX.v;const todo=mn===f.min&&mx===f.max;
+  if(!todo&&EX.moeda==="BRL"){if(!t){res.innerHTML='<div class="alert warn">Sem a cotação agora. Escolha os valores na moeda do país ('+esc(p.simb)+") ou tente de novo em instantes.</div>";return}
+    const r=v=>Math.round(v/t/(p.faixa.passo||25000))*(p.faixa.passo||25000);mn=r(mn);mx=r(mx)}
+  const E={pais:p.s,cidade:$("ex-cid").value,bairro:$("ex-bai").value||"",tipo:EX.tipo,vmin:todo?0:mn,vmax:todo?0:mx};
+  bt.disabled=true;res.innerHTML='<div class="alert good">Montando os links…</div>';
+  try{const d=await api({acao:"exterior_gerar",E});if(!d||!d.ok)throw new Error("x");
+    const faixaTxt=todo?"qualquer valor":exMoeda(E.vmin,p.simb)+" a "+exMoeda(E.vmax,p.simb)+(t?" (≈ "+exMoeda(E.vmin*t,"R$")+" a "+exMoeda(E.vmax*t,"R$")+")":"");
+    window.EX_LS=d.links;
+    res.innerHTML='<div class="alert good" id="ex-pronto">✅ <b>Busca pronta:</b> '+esc(p.n)+" · "+esc(d.cidade)+(d.bairro?" · "+esc(d.bairro):"")+" · "+(EX.tipo==="casa"?"Casa":"Apartamento")+" · "+esc(faixaTxt)+"</div>"+
+      '<p class="hint" style="margin:6px 0">Os links com <b>formato a confirmar</b> são o padrão usual do portal, mas ainda não foram conferidos no celular. Se abrir errado, ajuste os filtros no próprio site.</p>'+
+      d.links.map((l,i)=>`<div class="portal"><div class="portal-h"><strong>${esc(l.nome)}</strong></div><div class="tags">${l.ap.map(x=>`<span class="tag ok">✓ ${esc(x)}</span>`).join("")}${l.man.map(x=>`<span class="tag man">${esc("Conferir: "+x)}</span>`).join("")}${l.conf==="conf"?'<span class="tag man">⚠ formato a confirmar</span>':""}</div><div class="url">${esc(l.url)}</div><div class="pbtn"><a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">Abrir</a><button class="btn alt" type="button" data-excopy="${i}">Copiar link</button></div></div>`).join("");
+    toast("✅ Busca pronta: "+d.links.length+" portais abaixo",3500);const a=$("ex-pronto");if(a){a.scrollIntoView({behavior:"smooth",block:"start"});a.classList.remove("aq-pulse");void a.offsetWidth;a.classList.add("aq-pulse")}
+    try{logUso("exterior")}catch(_){}try{verPlano()}catch(_){}}
+  catch(er){res.innerHTML='<div class="alert warn">'+esc(er&&er.msg?er.msg:"Não foi possível montar os links agora. Tente de novo.")+"</div>"+(er&&er.plano?upgBtn(er.plano):"")}
+  finally{bt.disabled=false}});
+$("ex-res").addEventListener("click",e=>{const b=e.target.closest("[data-excopy]");if(!b)return;const l=window.EX_LS&&window.EX_LS[+b.dataset.excopy];if(!l)return;
+  try{navigator.clipboard.writeText(l.url).then(()=>toast("Link copiado"),()=>toast("Não consegui copiar"))}catch(_){toast("Não consegui copiar")}});
 /* faixa de valor do "Estou aqui": barra com duas pontas, R$ 600 mil a R$ 4 milhões */
 const AQ_MIN=600000,AQ_MAX=4000000,AQ_STEP=50000;let AQUI_V=[AQ_MIN,AQ_MAX];
 function aquiMoeda(v){return v>=1e6?"R$ "+(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":"R$ "+Math.round(v/1000)+" mil"}
