@@ -530,7 +530,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.14) ===== */
+/* ===== mais ferramentas (v3.16) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -574,7 +574,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.14</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.16</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -779,8 +779,8 @@ body.estr #ferr{display:none}
 
   <section id="tab-busca">
     <div class="av-box" id="aqui-box" style="margin-bottom:12px"><b>Estou aqui</b><span>Use sua localização para ver casas e apartamentos à venda no bairro onde você está agora.</span><div class="actions" style="margin:8px 0 0"><button class="btn acc" id="aqui-btn" type="button">📍 Ver imóveis à venda aqui por perto</button></div><div id="aqui-res" style="margin-top:8px"></div></div>
-    <div class="av-box" id="voz-box" style="margin-bottom:12px"><b>Descreva o que o cliente procura</b><span>Fale ou escreva em uma frase. Ex.: apartamento no Setor Bueno até 900 mil.</span><span style="opacity:.75">Depois da busca: “agora até 1 milhão”, “troca para casa” ou “salvar para Marcos Silva, telefone 62 99999-9999”.</span>
-      <div style="display:flex;gap:8px;margin-top:8px"><input type="text" id="voz-in" aria-label="Descreva a busca" placeholder="apartamento no Jardim Goiás até 1,5 milhão" autocomplete="off" style="flex:1;min-width:0"><button class="btn alt" id="voz-mic" type="button" aria-label="Falar" title="Falar" style="flex:0 0 auto;min-width:48px">🎤</button></div>
+    <div class="av-box" id="voz-box" style="margin-bottom:12px"><b>Descreva o que o cliente procura</b><span>Toque no 🎤 e fale, ou escreva aqui.</span>
+      <div style="display:flex;gap:8px;margin-top:8px"><input type="text" id="voz-in" aria-label="Descreva a busca" placeholder="Toque no 🎤 e fale, ou escreva" autocomplete="off" style="flex:1;min-width:0"><button class="btn alt" id="voz-mic" type="button" aria-label="Falar" title="Falar" style="flex:0 0 auto;min-width:48px">🎤</button></div>
       <div class="actions" style="margin:8px 0 0"><button class="btn acc" id="voz-go" type="button">Entender e preencher</button></div>
       <div id="voz-res" style="margin-top:8px" role="status"></div></div>
     <button type="button" class="hero" id="hero"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="hero-t" id="hero-t">Qual imóvel o cliente procura?</span><span class="hero-p">Ver links</span></button>
@@ -1036,7 +1036,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.14</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.16</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1169,6 +1169,7 @@ I18N_ROWS.push(...[["cerca de {0}","around {0}","alrededor de {0}","environ {0}"
 I18N_ROWS.push(...[["Busca no exterior: o resultado aparece em “Comprar no exterior”.","Search abroad: the result appears in “Buy abroad”.","Búsqueda en el exterior: el resultado aparece en “Comprar en el exterior”.","Recherche à l'étranger : le résultat apparaît dans « Acheter à l'étranger ».","Suche im Ausland: Das Ergebnis erscheint unter „Im Ausland kaufen“.","","",""]]);
 I18N_ROWS.push(...[["Procurando o lugar no mapa…","Looking up the place on the map…","Buscando el lugar en el mapa…","Recherche du lieu sur la carte…","Ort wird auf der Karte gesucht …","","",""]]);
 I18N_ROWS.push(...[["Depois da busca: “agora até 1 milhão”, “troca para casa” ou “salvar para Marcos Silva, telefone 62 99999-9999”.","After the search: “now up to 1 million”, “switch to house” or “save for John Smith, phone 62 99999-9999”.","Después de la búsqueda: “ahora hasta 1 millón”, “cambia a casa” o “guardar para Marcos Silva, teléfono 62 99999-9999”.","Après la recherche : « maintenant jusqu'à 1 million », « passe à maison » ou « enregistrer pour Marc Dupont, téléphone 62 99999-9999 ».","Nach der Suche: „jetzt bis 1 Million“, „wechsle zu Haus“ oder „speichern für Max Müller, Telefon 62 99999-9999“.","","",""],["Diga o nome do cliente. Ex.: “salvar para Marcos Silva, telefone 62 99999-9999”.","Say the client's name. E.g.: “save for John Smith, phone 62 99999-9999”.","Di el nombre del cliente. Ej.: “guardar para Marcos Silva, teléfono 62 99999-9999”.","Dites le nom du client. Ex. : « enregistrer pour Marc Dupont, téléphone 62 99999-9999 ».","Nennen Sie den Namen des Kunden. Z. B.: „speichern für Max Müller, Telefon 62 99999-9999“.","","",""],["Cliente salvo: {0}","Client saved: {0}","Cliente guardado: {0}","Client enregistré : {0}","Kunde gespeichert: {0}","","",""],["Abrindo: {0}","Opening: {0}","Abriendo: {0}","Ouverture : {0}","Öffne: {0}","","",""]]);
+I18N_ROWS.push(...[["Toque no 🎤 e fale, ou escreva aqui.","Tap 🎤 and speak, or type here.","Toca 🎤 y habla, o escribe aquí.","Touchez 🎤 et parlez, ou écrivez ici.","Tippen Sie auf 🎤 und sprechen Sie, oder schreiben Sie hier.","","",""],["Toque no 🎤 e fale, ou escreva","Tap 🎤 and speak, or type","Toca 🎤 y habla, o escribe","Touchez 🎤 et parlez, ou écrivez","Tippen Sie auf 🎤 und sprechen Sie, oder schreiben Sie","","",""],["Diga o tipo (casa ou apartamento), o lugar (bairro, condomínio ou parque) e o valor.","Say the type (house or apartment), the place (neighborhood, gated community or park) and the price.","Di el tipo (casa o apartamento), el lugar (barrio, condominio o parque) y el precio.","Dites le type (maison ou appartement), le lieu (quartier, résidence ou parc) et le prix.","Nennen Sie den Typ (Haus oder Wohnung), den Ort (Viertel, Wohnanlage oder Park) und den Preis.","","",""],["Exemplo:","Example:","Ejemplo:","Exemple :","Beispiel:","","",""],["apartamento no Setor Bueno até 900 mil","apartment in Setor Bueno up to 900k","apartamento en Setor Bueno hasta 900 mil","appartement à Setor Bueno jusqu'à 900 mille","Wohnung in Setor Bueno bis 900 Tsd.","","",""]]);
 let LANG="pt";
 try{const sv=localStorage.getItem("cm-lang");if(LANGS.some(l=>l[0]===sv))LANG=sv;else if(!sv){const nl=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).map(x=>String(x).toLowerCase());if(!nl.some(x=>x.startsWith("pt"))){for(const x of nl){const m=(x==="es-ar"||x==="es-cl"||x==="es-uy")?x:(["en","es","fr","de","zh","ar","it"].includes(x.slice(0,2))?x.slice(0,2):"");if(m){LANG=m;break}}}}}catch(_){}
 const LOC=()=>(LANGS.find(l=>l[0]===LANG)||LANGS[0])[2];
@@ -2181,7 +2182,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.14 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.16 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3256,7 +3257,7 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.14) ===== */
+/* ===== comprar no exterior (v3.16) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3286,7 +3287,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.14: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.16: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3298,25 +3299,41 @@ function vozValores(t){
     if(u==="mil"||u==="k"||u==="thousand")n*=1000;else if(u)n*=1e6;
     if(n<50||n>1e9)continue;
     if(!u&&n<50000)continue;
-    L.push({n:Math.round(n),i:m.index})}
+    L.push({n:Math.round(n),i:m.index,e:m.index+m[0].length})}
   let vmin=0,vmax=0,alvo=0;
   if(L.length>=2){const a=L[0].n,b=L[1].n;vmin=Math.min(a,b);vmax=Math.max(a,b)}
-  else if(L.length===1){const ctx=t.slice(Math.max(0,L[0].i-24),L[0].i);
-    if(/(a partir|acima|minimo|mais de|apartir|pelo menos|from|above|over|at least|minimum|min|more than|starting at|starting from)\s*(de|do|of)?\s*$/.test(ctx))vmin=L[0].n;
-    else if(/(ate|no maximo|maximo|teto|abaixo|menos|up to|under|below|max|maximum|at most|less than|within)\s*(de|do|of)?\s*$/.test(ctx))vmax=L[0].n;
+  else if(L.length===1){const ctx=t.slice(Math.max(0,L[0].i-24),L[0].i),pos=t.slice(L[0].e,L[0].e+22);
+    if(/^\s*(reais\s*)?(no maximo|maximo|max\b|no teto|at most|or less|ou menos|e o limite|no limite)/.test(pos))vmax=L[0].n;else
+    if(/(nao|not|never)\s+(custe|custar|passe|passar|pode passar|pode custar|ultrapasse|ultrapassar|exceed|go over|more than|pass)(\s+(mais\s+)?(de|do|than|over))?\s*$/.test(ctx)||/(ate|no maximo|maximo|limite|teto|abaixo|menos|up to|under|below|max|maximum|at most|less than|within|budget|orcamento)\s*(de|do|of|is)?\s*$/.test(ctx))vmax=L[0].n;
+    else if(/(a partir|acima|minimo|mais de|apartir|pelo menos|from|above|over|at least|minimum|min|more than|starting at|starting from)\s*(de|do|of)?\s*$/.test(ctx))vmin=L[0].n;
     /* valor sem "até": busca em torno dele (5% para cada lado) */
     else{alvo=L[0].n;vmin=Math.round(alvo*0.95/1000)*1000;vmax=Math.round(alvo*1.05/1000)*1000}}
   return {vmin,vmax,alvo}}
+
+/* "um milhão e meio", "novecentos mil", "meio milhão" -> números */
+function vozNumeros(t){
+  const U={um:1,uma:1,dois:2,duas:2,tres:3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9,dez:10},
+    C={cem:100,cento:100,duzentos:200,trezentos:300,quatrocentos:400,quinhentos:500,seiscentos:600,setecentos:700,oitocentos:800,novecentos:900},
+    D={vinte:20,trinta:30,quarenta:40,cinquenta:50,sessenta:60,setenta:70,oitenta:80,noventa:90};
+  const un=Object.keys(U).join("|"),ce=Object.keys(C).join("|"),de=Object.keys(D).join("|");
+  t=t.replace(/\bmeio milhao\b/g,"500 mil");
+  t=t.replace(new RegExp("\\b("+un+")\\s+milh(?:ao|oes)\\s+e\\s+meio\\b","g"),(m,a)=>(U[a]+0.5).toString().replace(".",",")+" milhoes");
+  t=t.replace(new RegExp("\\b("+un+")\\s+milh(?:ao|oes)\\b","g"),(m,a)=>U[a]+" milhoes");
+  t=t.replace(new RegExp("\\b(?:("+ce+")(?:\\s+e\\s+("+de+"))?(?:\\s+e\\s+("+un+"))?|("+de+")(?:\\s+e\\s+("+un+"))?|("+un+"))\\s+mil\\b","g"),(m,c,d,u,d2,u2,u3)=>((C[c]||0)+(D[d]||0)+(U[u]||0)+(D[d2]||0)+(U[u2]||0)+(U[u3]||0))+" mil");
+  t=t.replace(new RegExp("\\b("+ce+"|"+de+"|"+un+")\\s+(e|a|ate)\\s+(\\d+)\\s*(mil|milhoes)\\b","g"),(m,w,c,n,u)=>((C[w]||D[w]||U[w])*(u==="mil"?1:1))+" "+u+" "+c+" "+n+" "+u);
+  return t}
 function vozParse(txt){
-  let t=normSem(txt).replace(/\s+/g," ");
+  let t=vozNumeros(normSem(txt).replace(/\s+/g," ").replace(/\b(em torno de|por volta de|mais ou menos|aproximadamente|roughly|approximately|about)\b/g,"cerca de").replace(/\b(uns|umas)\s+(?=\d)/g,"cerca de "));
   let cur="";
   if(/(us\$|\busd\b|dollars?|dolares?|\$)/.test(t)&&!/r\$/.test(t))cur="usd";
   else if(/(€|\beur\b|euros?)/.test(t))cur="eur";
   else if(/(r\$|\bbrl\b|\breais\b|\breal\b)/.test(t))cur="brl";
   t=t.replace(/r\$|us\$|€|\$/g," ").replace(/\b(usd|eur|brl|dollars?|dolares?|euros?|reais|real)\b/g," ").replace(/\s+/g," ");
   const o={tipo:"",vmin:0,vmax:0,alvo:0,cidade:null,bairro:null,quartos:0,cur};
-  if(/\b(casa|casas|sobrado|sobrados|moradia|house|houses|home|villa|townhouse)\b/.test(t))o.tipo="casa";
-  else if(/\b(apartamento|apartamentos|apto|aptos|ap|flat|cobertura|kitnet|studio|apartment|apartments|condo|penthouse)\b/.test(t))o.tipo="apartamento";
+  {const tn=t.replace(/\b(nao|not|no|never)\s+(quero|queria|e|seja|gosto de|gostaria de|want|like|a|an)?\s*(uma?\s+|a\s+|an\s+)?(casa|casas|sobrado|apartamento|apto|house|home|apartment|flat|condo)\b/g," ");
+    const RC=/\b(casa|casas|sobrado|sobrados|moradia|house|houses|home|villa|townhouse)\b/g,RA=/\b(apartamento|apartamentos|apto|aptos|ap|flat|cobertura|kitnet|studio|apartment|apartments|condo|penthouse)\b/g;
+    let ic=-1,ia=-1,m;while((m=RC.exec(tn)))ic=m.index;while((m=RA.exec(tn)))ia=m.index;
+    if(ic>=0||ia>=0)o.tipo=ic>ia?"casa":"apartamento"}
   const RQ="quartos?|suites?|dormitorios?|vagas?|banheiros?|bed|beds|bedrooms?|bath|baths|bathrooms?|garage|parking|car";
   const q=t.match(new RegExp("(\\d)\\s*(quartos?|suites?|dormitorios?|bed|beds|bedrooms?)"));if(q)o.quartos=Number(q[1]);
   const v=vozValores(t.replace(new RegExp("(\\d)\\s*("+RQ+")(?![a-z])","g")," "));o.vmin=v.vmin;o.vmax=v.vmax;o.alvo=v.alvo;
@@ -3341,16 +3358,20 @@ function vozParse(txt){
     const core=n=>normSem(n).replace(/^(parque|bosque)\s+(d[aoe]s?\s+)?/,"").replace(/\(.*$/,"").trim();
     const pk=PARQUES.filter(x=>x.cid===cidO.s&&(t.includes(normSem(x.n))||(core(x.n).length>=5&&new RegExp("(^| )"+core(x.n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t)))).sort((a,b)=>b.n.length-a.n.length)[0];
     if(pk){if(o.tipo==="casa")o.livre={nome:pk.n,slug:slugify(pk.n),condo:false,lugar:true};else{o.parque=pk.n;if(!o.tipo)o.tipo="apartamento"}}}
-  /* nome que não está na lista: usa como veio (igual ao Estou aqui), exceto onde o portal exige zona (SP e RJ) */
+  /* nome que não está na lista: só vale se vier depois de "no/na/em/perto do/in/near..." (frases longas têm muita palavra solta) */
   if(!o.bairro&&!o.condo&&!o.parque&&!o.livre&&!bl.some(x=>x.zona)){
-    const STOP=/^(a|o|as|os|um|uma|de|do|da|dos|das|em|no|na|nos|nas|ao|para|por|com|sem|e|ou|ate|partir|acima|abaixo|maximo|minimo|teto|valor|preco|cliente|imovel|imoveis|casa|casas|sobrado|sobrados|moradia|apartamento|apartamentos|apto|aptos|ap|flat|cobertura|kitnet|studio|quero|procuro|procurando|busco|buscar|perto|proximo|mil|milhao|milhoes|mi|k|reais|real|quartos?|suites?|vagas?|house|houses|home|villa|townhouse|apartment|apartments|condo|penthouse|up|to|under|below|from|above|over|at|least|in|the|an|of|for|looking|find|search|near|nearby|close|million|millions|thousand|bedrooms?|beds?|baths?|and|between|more|than|less|max|min|maximum|minimum|starting|want|need|buy|with|me|my|client|is|located|neighborhood|district|area|agora|troca|trocar|muda|mudar|so|somente|tambem|apenas|now|change|switch|only|also|just|make|it|then|instead|mais|barato|caro)$/;
+    const STOP=/^(a|o|as|os|um|uma|uns|umas|de|do|da|dos|das|em|no|na|nos|nas|ao|aos|para|pra|pro|por|com|sem|e|ou|mas|que|se|ate|partir|acima|abaixo|maximo|minimo|teto|limite|valor|preco|cliente|imovel|imoveis|casa|casas|sobrado|sobrados|moradia|apartamento|apartamentos|apto|aptos|ap|flat|cobertura|kitnet|studio|quero|queria|gostaria|preciso|procuro|procurando|busco|buscar|estou|esta|tem|tenha|ter|seja|fica|ficar|sabe|tipo|assim|entao|olha|ola|oi|bom|boa|dia|tarde|noite|por|favor|perto|proximo|proxima|mil|milhao|milhoes|mi|k|reais|real|cerca|quartos?|suites?|vagas?|lindo|linda|lindos|lindas|bonito|bonita|grande|grandes|espacoso|espacosa|amplo|ampla|legal|otimo|otima|muito|muita|bem|super|sonho|sonhos|perfeito|perfeita|tranquilo|tranquila|novo|nova|usado|usada|moderno|moderna|confortavel|aconchegante|qualquer|alguma|algum|esse|essa|este|aquele|aquela|meu|minha|nosso|nossa|familia|filhos|filho|esposa|marido|house|houses|home|villa|townhouse|apartment|apartments|condo|penthouse|up|to|under|below|from|above|over|at|least|in|the|an|of|for|looking|find|search|near|nearby|close|million|millions|thousand|bedrooms?|beds?|baths?|and|between|more|than|less|max|min|maximum|minimum|starting|want|need|buy|with|me|my|client|is|located|neighborhood|district|area|agora|troca|trocar|muda|mudar|so|somente|tambem|apenas|now|change|switch|only|also|just|make|it|then|instead|mais|barato|caro|beautiful|nice|great|big|large|spacious|lovely|dream|perfect|good|very|really|would|like|love|please|can|you|could|something|somewhere|around|that|has|have|be|where|which|quiet|modern|new|used|comfortable|cozy|i|we|our|regiao|zona|lugar|local|torno|volta)$/;
+    const GEN=/^(parque|bosque|shopping|praca|rua|avenida|escola|hospital|centro|bairro|condominio|residencial)$/;
     const cn=cidO?normSem(cidO.n):"";
-    const sobra=t.replace(/\d[\d.,]*/g," ").split(/[^a-z0-9]+/).filter(w=>w&&!STOP.test(w));
-    const sem=sobra.join(" ").replace(cn,"").trim().split(/\s+/).filter(Boolean);
-    const cond=/\b(condominio|condominium|gated)\b/.test(t);
-    const nome=sem.filter(w=>!/^(condominio|condominium|gated|fechado|closed|community)$/.test(w)).join(" ");
-    if(nome.length>=4&&sem.length<=5){const tit=nome.replace(/(^|\s)(\S)/g,(m,a,b)=>a+b.toUpperCase());
-      o.livre={nome:tit,slug:nome.replace(/\s+/g,"-"),condo:cond}}}
+    const FRASE=/(?:^| )(?:no|na|nos|nas|em|perto (?:do|da|de|dos|das)|proximo (?:ao|a|do|da|de)|regiao (?:do|da|de)|bairro|condominio|in|at|near|close to|around)\s+((?:[a-z0-9']+ ?){1,5})/g;
+    let m,melhor="",cond=/\b(condominio|condominium|gated)\b/.test(t);
+    while((m=FRASE.exec(t))){
+      const ws=[];for(const w of m[1].trim().split(/\s+/)){if(/\d/.test(w)||/^(ate|com|que|e|ou|mas|por|up|under|with|for|and|cerca|de|do|da)$/.test(w))break;ws.push(w)}
+      let c=ws.filter(w=>!STOP.test(w)&&!/^(condominio|condominium|gated|fechado|closed|community)$/.test(w));
+      let nome=c.join(" ").replace(cn,"").trim();
+      if(nome.length>=4&&c.length<=4&&!(c.length===1&&GEN.test(c[0]))&&nome.length>melhor.length)melhor=nome}
+    if(melhor){const tit=melhor.replace(/(^|\s)(\S)/g,(mm,a1,b1)=>a1+b1.toUpperCase());
+      o.livre={nome:tit,slug:melhor.replace(/\s+/g,"-"),condo:cond}}}
   return o}
 function vozAplicar(o){
   if(o.cidade&&o.cidade.s!==S.cidade){S.cidade=o.cidade.s;S.cep="";S.bairro="";S.bairroOutro="";S.condo="";S.condoOutro="";S.parque=""}
@@ -3495,6 +3516,7 @@ async function vozLugar(nome){
       +faixa+conv+ass
       +(o.quartos?'<div class="hint" style="margin:6px 0 0">'+esc(t("Os portais não aceitam filtro de quartos por link, então “{0} quartos” não entrou.",o.quartos))+"</div>":"")
       +(falt.length?'<div class="hint" style="margin:6px 0 0">'+esc(t("Não achei: {0}. Confira no formulário abaixo.",falt.join(", ")))+"</div>":"")
+      +(VOZ_JA||falt.length?"":'<div class="hint" style="margin:6px 0 0">💡 '+esc(t("Depois da busca: “agora até 1 milhão”, “troca para casa” ou “salvar para Marcos Silva, telefone 62 99999-9999”."))+"</div>")
       +'</div><div class="actions" style="margin:8px 0 0"><button class="btn acc" type="button" id="voz-ger">'+esc(t("🔓 Gerar busca"))+"</button></div>";
     if((o.tipo&&(o.bairro||o.condo||o.livre||o.parque))||(VOZ_JA&&(o.tipo||o.vmin||o.vmax||o.bairro||o.condo||o.livre||o.parque||o.cidade)))vozGerar()}
   $("voz-go").addEventListener("click",entender);
@@ -3513,13 +3535,13 @@ async function vozLugar(nome){
   mic.addEventListener("click",()=>{
     if(on&&rec){try{rec.stop()}catch(_){}return}
     try{rec=new SR();rec.lang=LOC();rec.interimResults=true;rec.maxAlternatives=1;rec.continuous=false}catch(_){mic.hidden=true;return}
-    rec.onstart=()=>{on=true;mic.textContent="⏹️";mic.setAttribute("aria-label",t("Parar"));res.innerHTML='<div class="alert good">'+esc(t("🎤 Ouvindo… fale agora."))+"</div>"};
+    rec.onstart=()=>{on=true;mic.textContent="⏹️";mic.setAttribute("aria-label",t("Parar"));res.innerHTML='<div class="alert good"><b>'+esc(t("🎤 Ouvindo… fale agora."))+"</b><br>"+esc(t("Diga o tipo (casa ou apartamento), o lugar (bairro, condomínio ou parque) e o valor."))+'<br><span style="opacity:.85">'+esc(t("Exemplo:"))+" “"+esc(t("apartamento no Setor Bueno até 900 mil"))+"”</span></div>"};
     rec.onresult=ev=>{let f="";for(const r of ev.results)f+=r[0].transcript;inp.value=f.trim()};
     rec.onerror=ev=>{on=false;mic.textContent="🎤";res.innerHTML='<div class="alert warn">'+esc(ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Escreva a frase no campo."))+"</div>"};
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.14) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.16) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
