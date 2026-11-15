@@ -530,7 +530,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.17) ===== */
+/* ===== mais ferramentas (v3.18) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -574,7 +574,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.17</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.18</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1036,7 +1036,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.17</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.18</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1582,7 +1582,7 @@ $("ng-limpar").addEventListener("click",()=>ngGravar(null));
 let PN_DIAS=30,PN_VISAO="meu";
 function painelGeralDesenhar(r){
   const R=r.resumo;$("pn-ger").textContent="Atualizado "+new Date(r.geradoEm).toLocaleString(LOC());
-  const kp=[kpi("Buscas no período",pnN(R.buscas),"hoje: "+pnN(R.buscasHoje),PAL[0]),kpi("Corretores ativos",pnN(R.ativos7),"últimos 7 dias · "+pnN(R.ativos30)+" em 30",PAL[1]),kpi("Pagantes",pnN(R.pagantes),"de "+pnN(R.corretores)+" corretores",PAL[2]),kpi("Conversão",R.conversaoPct+"%","pagantes sobre cadastrados",PAL[3]),kpi("Em teste grátis",pnN(R.emTeste),pnN(R.esgotaram)+" já esgotaram as 3 buscas",PAL[4])].join("");
+  const kp=[kpi("Buscas no período",pnN(R.buscas),"hoje: "+pnN(R.buscasHoje)+" · exterior: "+pnN(R.buscasExt||0),PAL[0]),kpi("Corretores ativos",pnN(R.ativos7),"últimos 7 dias · "+pnN(R.ativos30)+" em 30",PAL[1]),kpi("Pagantes",pnN(R.pagantes),"de "+pnN(R.corretores)+" corretores",PAL[2]),kpi("Conversão",R.conversaoPct+"%","pagantes sobre cadastrados",PAL[3]),kpi("Em teste grátis",pnN(R.emTeste),pnN(R.esgotaram)+" já esgotaram as 3 buscas",PAL[4])].join("");
   const tipo=(r.tipos||[]).map((x,i)=>({...x,c:[PAL[0],PAL[3],PAL[2]][i]}));
   const fx=(r.faixas||[]).map((x,i)=>({...x,c:PAL[i%PAL.length]}));
   const pist=(r.pistas||[]),mp=Math.max(1,...pist.map(x=>x.n));
@@ -1590,7 +1590,9 @@ function painelGeralDesenhar(r){
   <div class="pn-g">
     <div class="pn-c" style="grid-column:1/-1"><h3>Buscas por dia</h3>${area(r.porDia,PAL[0])}</div>
     <div class="pn-c"><h3>Buscas por estado</h3>${donut(r.estados)}</div>
-    <div class="pn-c"><h3>Bairros mais buscados</h3>${hb((r.bairros||[]).slice(0,10).map(x=>({nome:x.nome+" · "+x.cidade,n:x.n})),{one:0})}</div>
+         ${r.exterior&&r.exterior.total?`<div class="pn-c" style="grid-column:1/-1"><h3>Buscas no exterior</h3><div class="sub">${pnN(r.exterior.total)} buscas no período, já somadas no total acima</div>
+       <div class="pn-g"><div class="pn-c"><h3>Países</h3>${hb(r.exterior.paises)}</div><div class="pn-c"><h3>Cidades</h3>${hb(r.exterior.cidades.map(x=>({nome:x.nome+" · "+x.pais,n:x.n})))}</div><div class="pn-c"><h3>Tipo</h3>${donut(r.exterior.tipos)}</div></div></div>`:`<div class="pn-c" style="grid-column:1/-1"><h3>Buscas no exterior</h3><p class="pn-note">Nenhuma busca no exterior neste período.</p></div>`}
+<div class="pn-c"><h3>Bairros mais buscados</h3>${hb((r.bairros||[]).slice(0,10).map(x=>({nome:x.nome+" · "+x.cidade,n:x.n})),{one:0})}</div>
     <div class="pn-c"><h3>Cidades</h3>${hb(r.cidades.map(x=>({nome:x.nome,n:x.n})))}</div>
     <div class="pn-c"><h3>Tipo de imóvel</h3>${donut(tipo)}</div>
     <div class="pn-c"><h3>Faixa de valor</h3>${hb(fx)}</div>
@@ -2182,7 +2184,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.17 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.18 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3257,7 +3259,7 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.17) ===== */
+/* ===== comprar no exterior (v3.18) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3287,7 +3289,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.17: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.18: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3545,7 +3547,7 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.17) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.18) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
@@ -3610,18 +3612,18 @@ $("ex-go").addEventListener("click",async()=>{const p=exPais();if(!p)return;cons
   finally{bt.disabled=false}});
 $("ex-res").addEventListener("click",e=>{const b=e.target.closest("[data-excopy]");if(!b)return;const l=window.EX_LS&&window.EX_LS[+b.dataset.excopy];if(!l)return;
   try{navigator.clipboard.writeText(l.url).then(()=>toast("Link copiado"),()=>toast("Não consegui copiar"))}catch(_){toast("Não consegui copiar")}});
-/* faixa de valor do "Estou aqui": barra com duas pontas, R$ 600 mil a R$ 20 milhões (escala em 3 faixas) */
-const AQ_MIN=600000,AQ_MAX=20000000,AQ_DEF=4000000,AQ_N=96;let AQUI_V=[AQ_MIN,AQ_DEF];
-/* posição da barra (0 a 96) <-> valor: de 600 mil a 4 mi de 50 em 50 mil; de 4 a 8 mi de 250 em 250 mil; de 8 a 20 mi de 1 em 1 milhão */
-function aqV(p){p=Math.max(0,Math.min(AQ_N,Math.round(p)));return p<=68?AQ_MIN+p*50000:p<=84?4000000+(p-68)*250000:8000000+(p-84)*1000000}
-function aqP(v){v=Math.max(AQ_MIN,Math.min(AQ_MAX,v));return v<=4000000?Math.round((v-AQ_MIN)/50000):v<=8000000?68+Math.round((v-4000000)/250000):84+Math.round((v-8000000)/1000000)}
+/* faixa de valor do "Estou aqui": barra com duas pontas, R$ 600 mil a R$ 100 milhões (escala em 5 faixas) */
+const AQ_MIN=600000,AQ_MAX=100000000,AQ_DEF=4000000,AQ_N=107;let AQUI_V=[AQ_MIN,AQ_DEF];
+/* posição da barra (0 a 107) <-> valor: 600 mil a 4 mi de 50 em 50 mil; 4 a 8 mi de 250 em 250 mil; 8 a 20 mi de 1 em 1 mi; 20 a 50 mi de 5 em 5 mi; 50 a 100 mi de 10 em 10 mi */
+function aqV(p){p=Math.max(0,Math.min(AQ_N,Math.round(p)));return p<=68?AQ_MIN+p*50000:p<=84?4000000+(p-68)*250000:p<=96?8000000+(p-84)*1000000:p<=102?20000000+(p-96)*5000000:50000000+(p-102)*10000000}
+function aqP(v){v=Math.max(AQ_MIN,Math.min(AQ_MAX,v));return v<=4000000?Math.round((v-AQ_MIN)/50000):v<=8000000?68+Math.round((v-4000000)/250000):v<=20000000?84+Math.round((v-8000000)/1000000):v<=50000000?96+Math.round((v-20000000)/5000000):102+Math.round((v-50000000)/10000000)}
 function aquiMoeda(v){return v>=1e6?"R$ "+(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":"R$ "+Math.round(v/1000)+" mil"}
 function aquiSlider(){
   const a=+S.vmin,b=+S.vmax;AQUI_V=[(a>=AQ_MIN&&a<=AQ_MAX)?aqV(aqP(a)):AQ_MIN,(b>=AQ_MIN&&b<=AQ_MAX)?aqV(aqP(b)):AQ_DEF];if(AQUI_V[0]>AQUI_V[1])AQUI_V=[AQ_MIN,AQ_DEF];
   return '<style>.aq-sl{position:relative;height:34px;margin:6px 6px 0}.aq-sl .tr{position:absolute;left:0;right:0;top:15px;height:4px;border-radius:2px;background:rgba(128,140,160,.45)}.aq-sl .fi{position:absolute;top:15px;height:4px;border-radius:2px;background:#4f8cff}.aq-sl input{position:absolute;left:0;width:100%;top:5px;height:24px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}.aq-sl input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#4f8cff;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}.aq-sl input::-moz-range-thumb{pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#4f8cff;border:3px solid #fff}.aq-sl input::-webkit-slider-runnable-track{background:none}.aq-sl input::-moz-range-track{background:none}</style>'+
   '<div style="margin:10px 0 2px"><b>Faixa de valor:</b> <span id="aq-lbl"></span></div>'+
   '<div class="aq-sl"><div class="tr"></div><div class="fi" id="aq-fi"></div><input type="range" id="aq-a" min="0" max="'+AQ_N+'" step="1" value="'+aqP(AQUI_V[0])+'" aria-label="Valor mínimo"><input type="range" id="aq-b" min="0" max="'+AQ_N+'" step="1" value="'+aqP(AQUI_V[1])+'" aria-label="Valor máximo"></div>'+
-  '<div style="position:relative;height:16px;font-size:12px;opacity:.7;margin:0 10px"><span style="position:absolute;left:0">R$ 600 mil</span><span style="position:absolute;left:70.8%;transform:translateX(-50%)">R$ 4 mi</span><span style="position:absolute;left:87.5%;transform:translateX(-50%)">8 mi</span><span style="position:absolute;right:0">20 mi</span></div>'+
+  '<div style="position:relative;height:16px;font-size:12px;opacity:.7;margin:0 10px"><span style="position:absolute;left:0">R$ 600 mil</span><span style="position:absolute;left:63.6%;transform:translateX(-50%)">R$ 4 mi</span><span style="position:absolute;left:89.7%;transform:translateX(-50%)">20 mi</span><span style="position:absolute;right:0">100 mi</span></div>'+
   '<p class="hint" style="margin:4px 0 0">💡 A faixa já vai no link do <b>VivaReal, ZAP e OLX</b>. No Imovelweb, Chaves na Mão e 62 Imóveis marque o preço no próprio site.</p>'}
 function aquiSliderPintar(){const a=$("aq-a"),b=$("aq-b");if(!a||!b)return;let x=+a.value,y=+b.value;
   if(x>y){if(document.activeElement===a){x=y;a.value=x}else{y=x;b.value=y}}
