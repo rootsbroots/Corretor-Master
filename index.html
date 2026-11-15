@@ -530,7 +530,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.18) ===== */
+/* ===== mais ferramentas (v3.20) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -574,7 +574,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.18</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.20</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -782,7 +782,11 @@ body.estr #ferr{display:none}
     <div class="av-box" id="voz-box" style="margin-bottom:12px"><b>Descreva o que o cliente procura</b><span>Toque no 🎤 e fale, ou escreva aqui.</span>
       <div style="display:flex;gap:8px;margin-top:8px"><input type="text" id="voz-in" aria-label="Descreva a busca" placeholder="Toque no 🎤 e fale, ou escreva" autocomplete="off" style="flex:1;min-width:0"><button class="btn alt" id="voz-mic" type="button" aria-label="Falar" title="Falar" style="flex:0 0 auto;min-width:48px">🎤</button></div>
       <div class="actions" style="margin:8px 0 0"><button class="btn acc" id="voz-go" type="button">Entender e preencher</button></div>
-      <div id="voz-res" style="margin-top:8px" role="status"></div></div>
+      <div style="margin-top:8px"><button class="btn alt" id="voz-help" type="button" aria-expanded="false" aria-controls="voz-ajuda" style="min-height:36px;padding:6px 12px;font-size:13px">💡 O que posso falar?</button>
+        <label id="voz-fala-l" style="display:inline-flex;align-items:center;gap:6px;margin-left:10px;font-size:13px;cursor:pointer"><input type="checkbox" id="voz-fala"> 🔊 Responder em voz</label></div>
+      <div id="voz-ajuda" hidden style="margin-top:6px"></div>
+      <div id="voz-res" style="margin-top:8px" role="status"></div>
+      <div id="voz-sug" hidden style="margin-top:8px"></div></div>
     <button type="button" class="hero" id="hero"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="hero-t" id="hero-t">Qual imóvel o cliente procura?</span><span class="hero-p">Ver links</span></button>
     <div class="cta-corr" data-cta><b>Fale com um corretor</b><span>Tire dúvidas e receba ajuda de um corretor brasileiro, no seu idioma.</span><a href="#" target="_blank" rel="noopener" data-noi18n-href>💬 <span style="display:inline;margin:0;opacity:1;font-size:inherit">Conversar no WhatsApp</span></a></div>
     <div class="cta-corr" data-doc style="background:linear-gradient(135deg,#25476b,#18304a)"><b>Cuidamos de toda a documentação</b><span>Indicamos um parceiro habilitado para cuidar de CPF, procuração, escritura, impostos e registro do imóvel.</span><a href="#" target="_blank" rel="noopener" data-noi18n-href>📄 <span style="display:inline;margin:0;opacity:1;font-size:inherit">Quero ajuda com a documentação</span></a></div>
@@ -1031,12 +1035,17 @@ body.estr #ferr{display:none}
     <section id="ferr" aria-label="Mais ferramentas">
       <div class="fr-h"><h2 class="sec-h" style="margin:0">Mais ferramentas</h2><span class="hint" style="margin:0">★ fixa no início</span></div>
       <div class="fr-grid" id="fr-grid"></div>
+      <div id="foto-box" class="panel pd" style="margin:0"><b>Foto da placa ou do imóvel</b>
+        <p class="hint" style="margin:6px 0 8px">Tire a foto com os óculos (“Hey Meta, tire uma foto”) ou com o celular, depois escolha a foto aqui. O app lê os telefones, valores e metragem da placa. A leitura acontece no seu celular e a foto não é enviada.</p>
+        <div class="actions" style="margin:0"><button class="btn acc" id="foto-pick" type="button">📷 Escolher foto</button><input type="file" id="foto-in" accept="image/*" hidden></div>
+        <img id="foto-img" alt="" hidden style="max-width:100%;max-height:240px;border-radius:10px;margin-top:8px">
+        <div id="foto-res" role="status" style="margin-top:8px"></div></div>
       <div id="fr-pane"></div>
     </section>
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.18</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.20</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1170,6 +1179,8 @@ I18N_ROWS.push(...[["Busca no exterior: o resultado aparece em “Comprar no ext
 I18N_ROWS.push(...[["Procurando o lugar no mapa…","Looking up the place on the map…","Buscando el lugar en el mapa…","Recherche du lieu sur la carte…","Ort wird auf der Karte gesucht …","","",""]]);
 I18N_ROWS.push(...[["Depois da busca: “agora até 1 milhão”, “troca para casa” ou “salvar para Marcos Silva, telefone 62 99999-9999”.","After the search: “now up to 1 million”, “switch to house” or “save for John Smith, phone 62 99999-9999”.","Después de la búsqueda: “ahora hasta 1 millón”, “cambia a casa” o “guardar para Marcos Silva, teléfono 62 99999-9999”.","Après la recherche : « maintenant jusqu'à 1 million », « passe à maison » ou « enregistrer pour Marc Dupont, téléphone 62 99999-9999 ».","Nach der Suche: „jetzt bis 1 Million“, „wechsle zu Haus“ oder „speichern für Max Müller, Telefon 62 99999-9999“.","","",""],["Diga o nome do cliente. Ex.: “salvar para Marcos Silva, telefone 62 99999-9999”.","Say the client's name. E.g.: “save for John Smith, phone 62 99999-9999”.","Di el nombre del cliente. Ej.: “guardar para Marcos Silva, teléfono 62 99999-9999”.","Dites le nom du client. Ex. : « enregistrer pour Marc Dupont, téléphone 62 99999-9999 ».","Nennen Sie den Namen des Kunden. Z. B.: „speichern für Max Müller, Telefon 62 99999-9999“.","","",""],["Cliente salvo: {0}","Client saved: {0}","Cliente guardado: {0}","Client enregistré : {0}","Kunde gespeichert: {0}","","",""],["Abrindo: {0}","Opening: {0}","Abriendo: {0}","Ouverture : {0}","Öffne: {0}","","",""]]);
 I18N_ROWS.push(...[["Toque no 🎤 e fale, ou escreva aqui.","Tap 🎤 and speak, or type here.","Toca 🎤 y habla, o escribe aquí.","Touchez 🎤 et parlez, ou écrivez ici.","Tippen Sie auf 🎤 und sprechen Sie, oder schreiben Sie hier.","","",""],["Toque no 🎤 e fale, ou escreva","Tap 🎤 and speak, or type","Toca 🎤 y habla, o escribe","Touchez 🎤 et parlez, ou écrivez","Tippen Sie auf 🎤 und sprechen Sie, oder schreiben Sie","","",""],["Diga o tipo (casa ou apartamento), o lugar (bairro, condomínio ou parque) e o valor.","Say the type (house or apartment), the place (neighborhood, gated community or park) and the price.","Di el tipo (casa o apartamento), el lugar (barrio, condominio o parque) y el precio.","Dites le type (maison ou appartement), le lieu (quartier, résidence ou parc) et le prix.","Nennen Sie den Typ (Haus oder Wohnung), den Ort (Viertel, Wohnanlage oder Park) und den Preis.","","",""],["Exemplo:","Example:","Ejemplo:","Exemple :","Beispiel:","","",""],["apartamento no Setor Bueno até 900 mil","apartment in Setor Bueno up to 900k","apartamento en Setor Bueno hasta 900 mil","appartement à Setor Bueno jusqu'à 900 mille","Wohnung in Setor Bueno bis 900 Tsd.","","",""]]);
+I18N_ROWS.push(...[["💡 O que posso falar?", "💡 What can I say?", "💡 ¿Qué puedo decir?", "💡 Que puis-je dire ?", "💡 Was kann ich sagen?", "", "", ""], ["Buscar", "Search", "Buscar", "Rechercher", "Suchen", "", "", ""], ["Depois da busca", "After the search", "Después de la búsqueda", "Après la recherche", "Nach der Suche", "", "", ""], ["Abrir e calcular", "Open and calculate", "Abrir y calcular", "Ouvrir et calculer", "Öffnen und rechnen", "", "", ""], ["apartamento no Setor Bueno até 900 mil", "apartment in Setor Bueno up to 900k", "apartamento en Setor Bueno hasta 900 mil", "appartement à Setor Bueno jusqu'à 900 mille", "Wohnung in Setor Bueno bis 900 Tsd.", "", "", ""], ["casa em condomínio, uns 3 milhões", "house in a gated community, around 3 million", "casa en condominio, unos 3 millones", "maison en copropriété, environ 3 millions", "Haus in Wohnanlage, etwa 3 Millionen", "", "", ""], ["apartamento no Parque Flamboyant", "apartment near Parque Flamboyant", "apartamento en el Parque Flamboyant", "appartement au Parque Flamboyant", "Wohnung am Parque Flamboyant", "", "", ""], ["casa na França", "house in France", "casa en Francia", "maison en France", "Haus in Frankreich", "", "", ""], ["agora até 1 milhão", "now up to 1 million", "ahora hasta 1 millón", "maintenant jusqu'à 1 million", "jetzt bis 1 Million", "", "", ""], ["troca para casa", "switch to house", "cambia a casa", "passe à maison", "wechsle zu Haus", "", "", ""], ["só no Jardim Goiás", "only in Jardim Goiás", "solo en Jardim Goiás", "seulement à Jardim Goiás", "nur in Jardim Goiás", "", "", ""], ["salvar para Marcos Silva, telefone 62 99999-9999", "save for John Smith, phone 62 99999-9999", "guardar para Marcos Silva, teléfono 62 99999-9999", "enregistrer pour Marcos Silva, téléphone 62 99999-9999", "speichern für Marcos Silva, Telefon 62 99999-9999", "", "", ""], ["enviar busca para Marcos", "send search to Marcos", "enviar búsqueda a Marcos", "envoyer la recherche à Marcos", "Suche senden an Marcos", "", "", ""], ["buscar para Marcos", "search for Marcos", "buscar para Marcos", "chercher pour Marcos", "suchen für Marcos", "", "", ""], ["abrir calculadora", "open calculator", "abrir calculadora", "ouvrir la calculatrice", "Rechner öffnen", "", "", ""], ["abrir meus clientes", "open my clients", "abrir mis clientes", "ouvrir mes clients", "meine Kunden öffnen", "", "", ""], ["abrir painel", "open dashboard", "abrir panel", "ouvrir le tableau de bord", "Dashboard öffnen", "", "", ""], ["comissão de 6% sobre 1 milhão e 200", "commission of 6% on 1 million 200 thousand", "comisión del 6% sobre 1 millón 200", "commission de 6% sur 1 million 200", "Provision 6% auf 1 Million 200", "", "", ""], ["parcela de 800 mil em 30 anos", "installment of 800 thousand over 30 years", "cuota de 800 mil en 30 años", "mensualité de 800 mille sur 30 ans", "Rate für 800 Tsd. über 30 Jahre", "", "", ""], ["Toque num exemplo para colocá-lo no campo. Os de busca só rodam quando você tocar em “Entender e preencher”.", "Tap an example to put it in the field. Search examples only run when you tap “Understand and fill in”.", "Toca un ejemplo para ponerlo en el campo. Los de búsqueda solo se ejecutan al tocar “Entender y rellenar”.", "Touchez un exemple pour le mettre dans le champ. Les recherches ne s'exécutent que si vous touchez « Comprendre et remplir ».", "Tippen Sie auf ein Beispiel, um es ins Feld zu setzen. Such-Beispiele laufen erst nach Tippen auf „Verstehen und ausfüllen“.", "", "", ""], ["Trocar para casa", "Switch to house", "Cambiar a casa", "Passer à maison", "Zu Haus wechseln", "", "", ""], ["Trocar para apartamento", "Switch to apartment", "Cambiar a apartamento", "Passer à appartement", "Zu Wohnung wechseln", "", "", ""], ["Baixar o teto", "Lower the cap", "Bajar el tope", "Baisser le plafond", "Obergrenze senken", "", "", ""], ["Enviar busca", "Send search", "Enviar búsqueda", "Envoyer la recherche", "Suche senden", "", "", ""], ["Enviar para {0} no WhatsApp", "Send to {0} on WhatsApp", "Enviar a {0} por WhatsApp", "Envoyer à {0} sur WhatsApp", "An {0} per WhatsApp senden", "", "", ""], ["{0} não tem telefone salvo. Diga: “salvar para {0}, telefone …”.", "{0} has no saved phone. Say: “save for {0}, phone …”.", "{0} no tiene teléfono guardado. Di: “guardar para {0}, teléfono …”.", "{0} n'a pas de téléphone enregistré. Dites : « enregistrer pour {0}, téléphone … ».", "{0} hat keine gespeicherte Nummer. Sagen Sie: „speichern für {0}, Telefon …“.", "", "", ""], ["Não achei cliente salvo com o nome “{0}”. Diga “salvar para {0}, telefone …” primeiro.", "No saved client named “{0}”. Say “save for {0}, phone …” first.", "No hay cliente guardado con el nombre “{0}”. Di primero “guardar para {0}, teléfono …”.", "Aucun client enregistré nommé « {0} ». Dites d'abord « enregistrer pour {0}, téléphone … ».", "Kein gespeicherter Kunde namens „{0}“. Sagen Sie zuerst „speichern für {0}, Telefon …“.", "", "", ""], ["Qual deles?", "Which one?", "¿Cuál?", "Lequel ?", "Welcher?", "", "", ""], ["Pronto: a busca atual está montada para {0}. Toque no botão verde para abrir o WhatsApp.", "Ready: the current search is set up for {0}. Tap the green button to open WhatsApp.", "Listo: la búsqueda actual está preparada para {0}. Toca el botón verde para abrir WhatsApp.", "Prêt : la recherche actuelle est préparée pour {0}. Touchez le bouton vert pour ouvrir WhatsApp.", "Fertig: Die aktuelle Suche ist für {0} vorbereitet. Tippen Sie auf den grünen Knopf, um WhatsApp zu öffnen.", "", "", ""], ["Busca de {0} carregada. Gerando os links…", "{0}'s search loaded. Generating links…", "Búsqueda de {0} cargada. Generando los enlaces…", "Recherche de {0} chargée. Génération des liens…", "Suche von {0} geladen. Links werden erstellt…", "", "", ""], ["Diga o valor do imóvel. Ex.: “comissão de 6% sobre 1 milhão e 200”.", "Say the property value. E.g. “commission of 6% on 1 million 200 thousand”.", "Di el valor del inmueble. Ej.: “comisión del 6% sobre 1 millón 200”.", "Dites la valeur du bien. Ex. : « commission de 6% sur 1 million 200 ».", "Nennen Sie den Immobilienwert. Z. B. „Provision 6% auf 1 Million 200“.", "", "", ""], ["Comissão de {0}% sobre {1}: {2}.", "Commission of {0}% on {1}: {2}.", "Comisión del {0}% sobre {1}: {2}.", "Commission de {0}% sur {1} : {2}.", "Provision von {0}% auf {1}: {2}.", "", "", ""], ["Parte da imobiliária ({0}%): {1}. Sobra {2} antes de parceiro e imposto.", "Agency share ({0}%): {1}. Leaves {2} before partner and tax.", "Parte de la inmobiliaria ({0}%): {1}. Quedan {2} antes de socio e impuesto.", "Part de l'agence ({0}%) : {1}. Reste {2} avant partenaire et impôt.", "Anteil der Agentur ({0}%): {1}. Bleiben {2} vor Partner und Steuer.", "", "", ""], ["Financiamento de {0} (entrada {1}) em {2} anos, juros {3}% ao ano:", "Loan of {0} (down payment {1}) over {2} years, interest {3}% a year:", "Financiación de {0} (entrada {1}) a {2} años, interés {3}% anual:", "Financement de {0} (apport {1}) sur {2} ans, taux {3}% par an :", "Finanzierung von {0} (Anzahlung {1}) über {2} Jahre, Zins {3}% pro Jahr:", "", "", ""], ["Parcela Price ≈ {0} · 1ª parcela SAC ≈ {1}.", "Price installment ≈ {0} · 1st SAC installment ≈ {1}.", "Cuota Price ≈ {0} · 1.ª cuota SAC ≈ {1}.", "Mensualité Price ≈ {0} · 1re mensualité SAC ≈ {1}.", "Rate Price ≈ {0} · 1. Rate SAC ≈ {1}.", "", "", ""], ["Preenchi a Calculadora. Toque em Calcular lá para ver todos os custos.", "I filled in the Calculator. Tap Calculate there to see all costs.", "Rellené la Calculadora. Toca Calcular allí para ver todos los costos.", "J'ai rempli la Calculatrice. Touchez Calculer pour voir tous les coûts.", "Ich habe den Rechner ausgefüllt. Tippen Sie dort auf Berechnen, um alle Kosten zu sehen.", "", "", ""]]);
+I18N_ROWS.push(...[["🔊 Responder em voz", "🔊 Answer by voice", "🔊 Responder en voz", "🔊 Répondre à voix haute", "🔊 Per Sprache antworten", "", "", ""], ["Resposta em voz ligada.", "Voice answers on.", "Respuesta en voz activada.", "Réponse vocale activée.", "Sprachantwort eingeschaltet.", "", "", ""], ["Foto da placa", "Sign photo", "Foto del cartel", "Photo de la pancarte", "Foto vom Schild", "", "", ""], ["Foto da placa ou do imóvel", "Photo of a sign or property", "Foto del cartel o del inmueble", "Photo d'une pancarte ou d'un bien", "Foto von Schild oder Immobilie", "", "", ""], ["Tire a foto com os óculos (“Hey Meta, tire uma foto”) ou com o celular, depois escolha a foto aqui. O app lê os telefones, valores e metragem da placa. A leitura acontece no seu celular e a foto não é enviada.", "Take the photo with your glasses (“Hey Meta, take a photo”) or your phone, then choose it here. The app reads phone numbers, prices and size from the sign. Reading happens on your phone and the photo is not uploaded.", "Toma la foto con las gafas (“Hey Meta, toma una foto”) o con el celular y elígela aquí. La app lee teléfonos, valores y metraje del cartel. La lectura ocurre en tu celular y la foto no se envía.", "Prenez la photo avec vos lunettes (« Hey Meta, prends une photo ») ou votre téléphone, puis choisissez-la ici. L'app lit les numéros, prix et surface de la pancarte. La lecture se fait sur votre téléphone, la photo n'est pas envoyée.", "Machen Sie das Foto mit der Brille („Hey Meta, mach ein Foto“) oder dem Handy und wählen Sie es hier aus. Die App liest Telefonnummern, Preise und Fläche vom Schild. Das Lesen passiert auf Ihrem Handy, das Foto wird nicht hochgeladen.", "", "", ""], ["📷 Escolher foto", "📷 Choose photo", "📷 Elegir foto", "📷 Choisir une photo", "📷 Foto wählen", "", "", ""], ["Ligar", "Call", "Llamar", "Appeler", "Anrufen", "", "", ""], ["Copiar", "Copy", "Copiar", "Copier", "Kopieren", "", "", ""], ["Não encontrei telefone na foto. Tente de mais perto, com a placa reta e boa luz.", "No phone number found in the photo. Try closer, with the sign straight and good light.", "No encontré teléfono en la foto. Prueba más cerca, con el cartel recto y buena luz.", "Aucun numéro trouvé sur la photo. Essayez de plus près, pancarte droite et bonne lumière.", "Keine Telefonnummer im Foto gefunden. Näher, gerade und mit gutem Licht versuchen.", "", "", ""], ["Também achei:", "Also found:", "También encontré:", "Aussi trouvé :", "Außerdem gefunden:", "", "", ""], ["Texto lido", "Text read", "Texto leído", "Texte lu", "Gelesener Text", "", "", ""], ["Achei {0} telefone na placa.", "Found {0} phone number on the sign.", "Encontré {0} teléfono en el cartel.", "{0} numéro trouvé sur la pancarte.", "{0} Telefonnummer auf dem Schild gefunden.", "", "", ""], ["Não encontrei telefone na foto.", "No phone number found in the photo.", "No encontré teléfono en la foto.", "Aucun numéro trouvé sur la photo.", "Keine Telefonnummer im Foto gefunden.", "", "", ""], ["Preparando a foto…", "Preparing the photo…", "Preparando la foto…", "Préparation de la photo…", "Foto wird vorbereitet…", "", "", ""], ["Lendo a placa… na primeira vez baixa o leitor (alguns MB).", "Reading the sign… the first time it downloads the reader (a few MB).", "Leyendo el cartel… la primera vez descarga el lector (unos MB).", "Lecture de la pancarte… la première fois, le lecteur est téléchargé (quelques Mo).", "Schild wird gelesen… beim ersten Mal wird der Leser geladen (einige MB).", "", "", ""], ["Lendo a placa… {0}%", "Reading the sign… {0}%", "Leyendo el cartel… {0}%", "Lecture de la pancarte… {0}%", "Schild wird gelesen… {0}%", "", "", ""], ["Não consegui ler a foto agora. Confira a internet e tente de novo.", "Couldn't read the photo now. Check your connection and try again.", "No pude leer la foto ahora. Revisa internet e inténtalo de nuevo.", "Impossible de lire la photo. Vérifiez la connexion et réessayez.", "Foto konnte nicht gelesen werden. Verbindung prüfen und erneut versuchen.", "", "", ""], ["Telefone copiado", "Phone copied", "Teléfono copiado", "Numéro copié", "Nummer kopiert", "", "", ""]]);
 let LANG="pt";
 try{const sv=localStorage.getItem("cm-lang");if(LANGS.some(l=>l[0]===sv))LANG=sv;else if(!sv){const nl=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).map(x=>String(x).toLowerCase());if(!nl.some(x=>x.startsWith("pt"))){for(const x of nl){const m=(x==="es-ar"||x==="es-cl"||x==="es-uy")?x:(["en","es","fr","de","zh","ar","it"].includes(x.slice(0,2))?x.slice(0,2):"");if(m){LANG=m;break}}}}}catch(_){}
 const LOC=()=>(LANGS.find(l=>l[0]===LANG)||LANGS[0])[2];
@@ -2184,7 +2195,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.18 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.20 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3259,7 +3270,7 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.18) ===== */
+/* ===== comprar no exterior (v3.20) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3289,7 +3300,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.18: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.20: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3442,9 +3453,61 @@ async function vozExterior(txt,res){
 
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
+let VOZ_CLI=null;
+const vozFoneOk=c=>String((c&&c.perfil&&c.perfil.fone)||"").replace(/\D/g,"").length>=10;
+function vozAchaCli(q){const N=s=>normSem(String(s||"")).replace(/\s+/g," ").trim(),k=N(q).split(" ").filter(w=>w.length>1&&!/^(o|a|os|as|do|da|de|cliente|client|for|to|the)$/.test(w));if(!k.length)return[];
+  const L=getC().filter(c=>{const n=N(c.perfil.nome).split(" ");return k.every(w=>n.some(x=>x===w||x.startsWith(w)))});
+  const ex=L.filter(c=>N(c.perfil.nome)===k.join(" "));return ex.length===1?ex:L}
+function vozMsgPara(c){let m=String(RES.msg||"");const pn=String(c.perfil.nome||"").trim().split(/\s+/)[0];m=m.replace(/^Olá(?:,\s*[^!]*)?!\s*/,"Olá, "+pn+"! ");return pcWa(c.perfil.fone,m)}
+function vozSug(){const box=$("voz-sug");if(!box)return;
+  const pronto=!$("portais-d").hidden&&GER&&GER.key===skey();let top="";
+  if(pronto&&VOZ_CLI){top=vozFoneOk(VOZ_CLI)?'<a class="btn acc" target="_blank" rel="noopener" href="'+esc(vozMsgPara(VOZ_CLI))+'" style="margin-bottom:6px">📲 '+esc(t("Enviar para {0} no WhatsApp",VOZ_CLI.perfil.nome))+"</a>":'<div class="hint" style="margin-bottom:6px">'+esc(t("{0} não tem telefone salvo. Diga: “salvar para {0}, telefone …”.",VOZ_CLI.perfil.nome))+"</div>"}
+  const en=LANG==="en",v=+S.vmax||0,pas=v>=2e6?5e5:1e5,low=v>0?Math.max(100000,Math.round(v*0.75/pas)*pas):0,outro=S.tipo==="casa"?"apartamento":"casa",ch=[];
+  ch.push([t(S.tipo==="casa"?"Trocar para apartamento":"Trocar para casa"),en?"switch to "+(outro==="casa"?"house":"apartment"):"troca para "+outro,1]);
+  if(low)ch.push([t("Baixar o teto")+": "+aquiMoeda(low),en?"now up to "+(low/1000)+"k":"agora até "+(low/1000)+" mil",1]);
+  ch.push([t("Salvar cliente"),en?"save for ":"salvar para ",0]);ch.push([t("Enviar busca"),en?"send search to ":"enviar busca para ",0]);
+  box.innerHTML=top+'<div style="display:flex;flex-wrap:wrap;gap:6px">'+ch.map(x=>'<button type="button" class="btn alt" data-vx="'+esc(x[1])+'" data-run="'+x[2]+'" style="min-height:34px;padding:5px 10px;font-size:13px">'+esc(x[0])+"</button>").join("")+"</div>";box.hidden=false}
+function vozCliAcao(c,acao,res){
+  const nome=c.perfil.nome;VOZ_CLI=c;
+  const pronto=!$("portais-d").hidden&&GER&&GER.key===skey();
+  if(acao==="env"&&pronto){vozSug();res.innerHTML='<div class="alert good">'+esc(t("Pronto: a busca atual está montada para {0}. Toque no botão verde para abrir o WhatsApp.",nome))+"</div>";return true}
+  S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();tab("busca");
+  res.innerHTML='<div class="alert good">'+esc(t("Busca de {0} carregada. Gerando os links…",nome))+"</div>";
+  if(window.vozGerar)window.vozGerar();return true}
+/* calculadora por voz: comissão e parcela */
+function vozCalc(t0){
+  let s=vozNumeros(t0);const PN=x=>parseFloat(String(x).replace(",","."));
+  const mE=s.match(/(?:entrada|down ?payment)\s*(?:de|of)?\s*(\d+(?:[.,]\d+)?)\s*(?:%|por cento|percent)/),
+    mJ=s.match(/(?:juros?|taxa|interest|rate)\s*(?:de|of|at)?\s*(\d+(?:[.,]\d+)?)/),
+    mA=s.match(/(\d+)\s*(?:anos?|years?|yrs?)\b/);
+  let r=s;[mE,mJ,mA].forEach(m=>{if(m)r=r.replace(m[0]," ")});
+  const mP=r.match(/(\d+(?:[.,]\d+)?)\s*(?:%|por cento|percent)/);if(mP)r=r.replace(mP[0]," ");
+  let valor=0;const mM=r.match(/(\d+(?:[.,]\d+)?)\s*(milhoes|milhao|million|mi)\b(?:\s*e\s*(\d{1,3})(?:\s*mil|k)?\b)?/);
+  if(mM)valor=PN(mM[1])*1e6+(mM[3]?Number(mM[3])*1000:0);
+  else{const mK=r.match(/(\d+(?:[.,]\d+)?)\s*(mil|k|thousand)\b/);if(mK)valor=PN(mK[1])*1000;else{const mN=r.match(/(\d{1,3}(?:[.,]\d{3})+|\d{5,})/);if(mN)valor=Number(mN[1].replace(/[.,]/g,""))}}
+  valor=Math.round(valor);
+  if(!valor||valor<10000)return '<div class="alert warn">'+esc(t("Diga o valor do imóvel. Ex.: “comissão de 6% sobre 1 milhão e 200”."))+"</div>";
+  const R=n=>"R$ "+Math.round(n).toLocaleString("pt-BR"),set=(id,v)=>{const e=$(id);e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))};
+  document.querySelector('nav button[data-tab="calc"]').click();
+  set("c-valor",valor.toLocaleString("pt-BR"));
+  if(/comiss|commission/.test(s)){
+    if(mP)set("c-com",String(PN(mP[1])).replace(".",","));
+    const pc=pct($("c-com").value),imob=Math.min(100,Math.max(0,pct($("c-imob").value))),tot=valor*pc/100;
+    return '<div class="alert good">'+esc(t("Comissão de {0}% sobre {1}: {2}.",String(pc).replace(".",","),R(valor),R(tot)))+"<br>"+esc(t("Parte da imobiliária ({0}%): {1}. Sobra {2} antes de parceiro e imposto.",String(imob).replace(".",","),R(tot*imob/100),R(tot*(100-imob)/100)))+"</div>"}
+  if(mE)set("c-ent",String(PN(mE[1])).replace(".",","));if(mA)set("c-anos",mA[1]);if(mJ)set("c-jur",String(PN(mJ[1])).replace(".",","));
+  const ent=Math.min(100,Math.max(0,pct($("c-ent").value))),anos=Math.min(35,Math.max(1,Math.round(pct($("c-anos").value))||1)),jur=Math.max(0,pct($("c-jur").value));
+  const F=valor*(1-ent/100),n=anos*12,i=jur?Math.pow(1+jur/100,1/12)-1:0,price=i?F*i/(1-Math.pow(1+i,-n)):F/n,sac=F/n+F*i;
+  return '<div class="alert good">'+esc(t("Financiamento de {0} (entrada {1}) em {2} anos, juros {3}% ao ano:",R(F),R(valor*ent/100),anos,String(jur).replace(".",",")))+"<br><b>"+esc(t("Parcela Price ≈ {0} · 1ª parcela SAC ≈ {1}.",R(price),R(sac)))+"</b><br>"+esc(t("Preenchi a Calculadora. Toque em Calcular lá para ver todos os custos."))+"</div>"}
 async function vozComando(txt,res){
   const t0=normSem(txt).replace(/\s+/g," ").trim();
   const ok=(m)=>{res.innerHTML='<div class="alert good">'+esc(m)+"</div>";return true};
+  const me=t0.match(/^(?:enviar|envia|envie|mandar|manda|mande|send)\s+(?:a |essa |esta |the |this )?(?:busca|pesquisa|links?|search)\s+(?:para|pra|pro|ao|a|to)\s+(?:o |a )?(.+)$/),
+    mb=t0.match(/^(?:buscar|busca|procurar|procura|search|find)\s+(?:um imovel\s+)?(?:para|pra|pro|for)\s+(?:o |a )?(.+)$/);
+  if(me||mb){const nm=(me||mb)[1],L=vozAchaCli(nm),ac=me?"env":"bus";
+    if(!L.length){if(mb)return false;return ok(t("Não achei cliente salvo com o nome “{0}”. Diga “salvar para {0}, telefone …” primeiro.",nm))}
+    if(L.length>1){res.innerHTML='<div class="alert good">'+esc(t("Qual deles?"))+'</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">'+L.slice(0,6).map(c=>'<button type="button" class="btn alt" data-vcli="'+esc(c.id)+'" data-vac="'+ac+'">'+esc(c.perfil.nome)+"</button>").join("")+"</div>";return true}
+    return vozCliAcao(L[0],ac,res)}
+  if(/^(comissao|commission|parcela|prestacao|financiamento|financiar|simular|simule|simulate|mortgage|installment|quanto fica|how much)/.test(t0)){res.innerHTML=vozCalc(t0);return true}
   if(/^(salvar|salve|salva|cadastrar|cadastre|guardar|guarde|save|add|register)\b/.test(t0)){
     const fi=t0.search(/\b(telefone|fone|celular|whatsapp|zap|phone|number|numero|tel)\b/);
     const nomePart=(fi>=0?txt.slice(0,fi):txt).replace(/[,.;:]+\s*$/,"");
@@ -3466,10 +3529,43 @@ async function vozComando(txt,res){
       [/\blink/,()=>document.querySelector('nav button[data-tab="link"]').click(),"Link"],
       [/portfolio|portifolio/,()=>$("est-top").click(),"Meu portfólio"],
       [/academia|academy/,()=>acAbrir(),"Academia do Corretor"],
+      [/foto|placa|camera|photo|sign\b/,()=>{const x=document.querySelector('#fr-grid [data-k="foto"]');if(x)x.click()},"Foto da placa"],
       [/parcerias?|partners?/,()=>{const x=document.querySelector('#fr-grid [data-k="par"]');if(x)x.click()},"Parcerias entre corretores"]];
     const h=A.find(a=>a[0].test(w));
     if(h){h[1]();return ok(t("Abrindo: {0}",t(h[2])))}}
   return false}
+/* foto da placa: lê telefones, valores e metragem no próprio celular (Tesseract) */
+(function(){
+  const fin=$("foto-in"),res=$("foto-res"),img=$("foto-img"),pick=$("foto-pick");if(!fin||!pick)return;
+  pick.addEventListener("click",()=>fin.click());
+  let TES=null;
+  const carregar=()=>TES||(TES=new Promise((ok,er)=>{if(window.Tesseract)return ok(window.Tesseract);const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js";s.onload=()=>ok(window.Tesseract);s.onerror=()=>{TES=null;er(new Error("tess"))};document.head.appendChild(s)}));
+  const reduzir=f=>new Promise((ok,er)=>{const u=URL.createObjectURL(f),i=new Image();i.onload=()=>{const k=Math.min(1,1800/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext("2d").drawImage(i,0,0,c.width,c.height);c.toBlob(b=>ok({blob:b,url:u}),"image/jpeg",.9)};i.onerror=()=>er(new Error("img"));i.src=u});
+  function fones(tx){const s=tx.replace(/(\d)[Oo](?=[\d\s.\-)])/g,"$10").replace(/([\d\s.\-(])[Oo](?=\d)/g,"$10"),out=[],vis=new Set(),re=/(?:\+?55[\s.\-]*)?\(?\s*(\d{2})\s*\)?[\s.\-]*(9?\s?\d{4})[\s.\-]*(\d{4})(?!\d)/g;let m;
+    while((m=re.exec(s))){const d=m[1],num=d+m[2].replace(/\s/g,"")+m[3];if(!/^[1-9][1-9]$/.test(d)||num.length<10||num.length>11||vis.has(num))continue;vis.add(num);out.push(num)}
+    return out}
+  const fmt=n=>"("+n.slice(0,2)+") "+(n.length===11?n.slice(2,7)+"-"+n.slice(7):n.slice(2,6)+"-"+n.slice(6));
+  function mostrar(tx){
+    const F=fones(tx),V=[...new Set([...tx.matchAll(/R\$\s*([\d.]+(?:,\d{2})?)/g)].map(m=>"R$ "+m[1]))].slice(0,4),
+      A=[...new Set([...tx.matchAll(/(\d{2,4})\s*m\s*[²2?]/gi)].map(m=>m[1]+" m²"))].slice(0,3),
+      C=(tx.match(/CRECI[^\d]{0,6}(\d{3,6}(?:-?[A-Za-z])?)/i)||[])[1];
+    let o="";
+    if(F.length)o+=F.map(n=>'<div class="client" style="margin:0 0 8px"><div class="i"><strong>📞 '+esc(fmt(n))+'</strong></div><div class="pbtn"><a class="btn" href="tel:+55'+n+'">'+esc(t("Ligar"))+'</a><a class="btn acc" href="'+esc(waLink(n))+'" target="_blank" rel="noopener">WhatsApp</a><button class="btn alt" type="button" data-fcp="'+n+'">'+esc(t("Copiar"))+"</button></div></div>").join("");
+    else o+='<div class="alert warn">'+esc(t("Não encontrei telefone na foto. Tente de mais perto, com a placa reta e boa luz."))+"</div>";
+    const x=[].concat(V,A,C?["CRECI "+C]:[]);if(x.length)o+='<div class="hint" style="margin:4px 0">'+esc(t("Também achei:"))+" "+x.map(esc).join(" · ")+"</div>";
+    o+='<details style="margin-top:6px"><summary>'+esc(t("Texto lido"))+'</summary><pre style="white-space:pre-wrap;font-size:12px;margin:6px 0 0">'+esc(tx.trim()||"—")+"</pre></details>";
+    res.innerHTML=o;window.FOTO_TXT=tx;try{if($("voz-fala")&&$("voz-fala").checked&&window.vozFalarTxt)window.vozFalarTxt(F.length?t("Achei {0} telefone na placa.",F.length):t("Não encontrei telefone na foto."))}catch(_){}}
+  fin.addEventListener("change",async()=>{const f=fin.files&&fin.files[0];if(!f)return;
+    res.innerHTML='<div class="alert good">'+esc(t("Preparando a foto…"))+"</div>";
+    try{const r=await reduzir(f);img.src=r.url;img.hidden=false;
+      res.innerHTML='<div class="alert good">'+esc(t("Lendo a placa… na primeira vez baixa o leitor (alguns MB)."))+"</div>";
+      const T=await carregar();
+      const w=await T.createWorker("por",1,{langPath:"https://tessdata.projectnaptha.com/4.0.0_fast",logger:m=>{if(m.status==="recognizing text")res.innerHTML='<div class="alert good">'+esc(t("Lendo a placa… {0}%",Math.round((m.progress||0)*100)))+"</div>"}});
+      const rr=await w.recognize(r.blob);await w.terminate();mostrar(String(rr.data&&rr.data.text||""))}
+    catch(e){res.innerHTML='<div class="alert warn">'+esc(t("Não consegui ler a foto agora. Confira a internet e tente de novo."))+"</div>"}
+    fin.value=""});
+  res.addEventListener("click",e=>{const b=e.target.closest("[data-fcp]");if(!b)return;const n=b.dataset.fcp;try{navigator.clipboard.writeText(n).then(()=>toast(t("Telefone copiado")),()=>toast(t("Não consegui copiar")))}catch(_){toast(t("Não consegui copiar"))}});
+})();
 /* lugar específico (parque, shopping, hospital, universidade...): acha no mapa e descobre o bairro */
 async function vozLugar(nome){
   try{const c=CIDADES.find(x=>x.s===S.cidade);if(!c)return null;
@@ -3532,13 +3628,42 @@ async function vozLugar(nome){
     let n=0,clicou=false;const iv=setInterval(()=>{n++;
       if(!clicou&&n>=2){const g=$("gerar");if(g&&!g.disabled&&!(GER&&GER.key===skey())){clicou=true;g.click()}}
       const ok=!$("portais-d").hidden&&GER&&GER.key===skey(),erro=$("ger-msg")&&$("ger-msg").textContent.trim();
-      if(ok){clearInterval(iv);aquiVer();toast("✅ "+t("Busca pronta: {0} portais abaixo",$("portais-n").textContent),4000)}
+      if(ok){clearInterval(iv);aquiVer();try{vozSug()}catch(_){}toast("✅ "+t("Busca pronta: {0} portais abaixo",$("portais-n").textContent),4000);try{const f=$("voz-fala");if(f&&f.checked&&window.vozFalarTxt)window.vozFalarTxt(t("Busca pronta: {0} portais abaixo",$("portais-n").textContent))}catch(_){}}
       else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}},250)}
-  res.addEventListener("click",e=>{if(e.target.closest("#voz-ger"))vozGerar()});
+  window.vozGerar=vozGerar;
+  /* responder em voz (útil com óculos ou fone) */
+  const fchk=$("voz-fala"),SS=window.speechSynthesis;
+  if(!SS||!window.SpeechSynthesisUtterance){const l=$("voz-fala-l");if(l)l.hidden=true}
+  else{
+    try{fchk.checked=localStorage.getItem("cm_voz_fala")==="1"}catch(_){}
+    fchk.addEventListener("change",()=>{try{localStorage.setItem("cm_voz_fala",fchk.checked?"1":"0")}catch(_){}
+      if(fchk.checked)falar(t("Resposta em voz ligada."));else SS.cancel()});
+    const EMO=/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}️]/gu;
+    window.vozFalarTxt=falar;
+    function falar(tx){if(!SS)return;const s=String(tx||"").replace(EMO,"").replace(/\s+/g," ").trim();if(!s)return;
+      try{SS.cancel();const u=new SpeechSynthesisUtterance(s);u.lang=LOC();u.rate=1.02;SS.speak(u)}catch(_){}}
+    let tmF=null,ult="";
+    function textoAlerta(){const a=res.querySelector(".alert");if(!a)return"";
+      const b=a.querySelector("b");if(b&&/🎤/.test(b.textContent))return"";
+      return [...a.childNodes].filter(n=>!(n.classList&&n.classList.contains("hint"))&&n.nodeName!=="BR").map(n=>n.textContent.trim()).filter(Boolean).join(", ").replace(/:,/g,":")}
+    if(window.MutationObserver)new MutationObserver(()=>{if(!fchk.checked)return;clearTimeout(tmF);tmF=setTimeout(()=>{const x=textoAlerta();if(x&&x!==ult){ult=x;falar(x)}},450)}).observe(res,{childList:true,subtree:true,characterData:true})}
+
+  res.addEventListener("click",e=>{if(e.target.closest("#voz-ger"))vozGerar();const b=e.target.closest("[data-vcli]");if(b){const c=getC().find(x=>x.id===b.dataset.vcli);if(c)vozCliAcao(c,b.dataset.vac,res)}});
+  /* ajuda: o que posso falar */
+  const AJ=[["Buscar",[["apartamento no Setor Bueno até 900 mil",0],["casa em condomínio, uns 3 milhões",0],["apartamento no Parque Flamboyant",0],["casa na França",0]]],
+    ["Depois da busca",[["agora até 1 milhão",0],["troca para casa",0],["só no Jardim Goiás",0]]],
+    ["Clientes",[["salvar para Marcos Silva, telefone 62 99999-9999",0],["enviar busca para Marcos",0],["buscar para Marcos",0]]],
+    ["Abrir e calcular",[["abrir calculadora",1],["abrir meus clientes",1],["abrir painel",1],["comissão de 6% sobre 1 milhão e 200",1],["parcela de 800 mil em 30 anos",1]]]];
+  const aj=$("voz-ajuda"),hb=$("voz-help");
+  const ajHtml=()=>AJ.map(g=>'<div style="margin-top:8px"><b style="font-size:13px">'+esc(t(g[0]))+'</b><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">'+g[1].map(x=>'<button type="button" class="btn alt" data-vx="'+esc(t(x[0]))+'" data-run="'+x[1]+'" style="min-height:34px;padding:5px 10px;font-size:13px;text-align:left">“'+esc(t(x[0]))+"”</button>").join("")+"</div></div>").join("")+'<p class="hint" style="margin:8px 0 0">'+esc(t("Toque num exemplo para colocá-lo no campo. Os de busca só rodam quando você tocar em “Entender e preencher”."))+"</p>";
+  hb.addEventListener("click",()=>{const abrir=aj.hidden;aj.hidden=!abrir;hb.setAttribute("aria-expanded",String(abrir));if(abrir)aj.innerHTML=ajHtml()});
+  document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#voz-box [data-vx]");if(!b)return;inp.value=b.dataset.vx;if(b.dataset.run==="1")entender();else{inp.focus();try{inp.setSelectionRange(inp.value.length,inp.value.length)}catch(_){}}});
+  $("limpar").addEventListener("click",()=>{const s=$("voz-sug");if(s){s.hidden=true;s.innerHTML=""}VOZ_CLI=null});
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){mic.hidden=true;return}
   let rec=null,on=false;
   mic.addEventListener("click",()=>{
+    try{if(window.speechSynthesis)window.speechSynthesis.cancel()}catch(_){}
     if(on&&rec){try{rec.stop()}catch(_){}return}
     try{rec=new SR();rec.lang=LOC();rec.interimResults=true;rec.maxAlternatives=1;rec.continuous=false}catch(_){mic.hidden=true;return}
     rec.onstart=()=>{on=true;mic.textContent="⏹️";mic.setAttribute("aria-label",t("Parar"));res.innerHTML='<div class="alert good"><b>'+esc(t("🎤 Ouvindo… fale agora."))+"</b><br>"+esc(t("Diga o tipo (casa ou apartamento), o lugar (bairro, condomínio ou parque) e o valor."))+'<br><span style="opacity:.85">'+esc(t("Exemplo:"))+" “"+esc(t("apartamento no Setor Bueno até 900 mil"))+"”</span></div>"};
@@ -3547,18 +3672,19 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.18) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.20) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
   const pane=$("fr-pane"),grid=$("fr-grid");if(!pane||!grid)return;
-  ["ex-box","outros-estados","pc-ban"].forEach(id=>{const e=$(id);if(e){e.classList.add("fr-x");e.style.margin="0";pane.appendChild(e)}});
+  ["ex-box","outros-estados","pc-ban","foto-box"].forEach(id=>{const e=$(id);if(e){e.classList.add("fr-x");e.style.margin="0";pane.appendChild(e)}});
   const acb=$("ac-ban");if(acb)acb.style.display="none";
   const pf=$("est-top");if(pf&&pf.parentElement)pf.parentElement.style.display="none";
   const T=[
     {k:"port",i:"📁",n:"Meu portfólio",go:()=>$("est-top")&&$("est-top").click()},
     {k:"ext",i:"🌍",n:"Comprar no exterior",box:"ex-box"},
     {k:"par",i:"🤝",n:"Parcerias entre corretores",box:"pc-ban"},
+    {k:"foto",i:"📷",n:"Foto da placa",box:"foto-box"},
     {k:"est",i:"🗺️",n:"Outros estados",box:"outros-estados"},
     {k:"aca",i:"📚",n:"Academia do Corretor",go:()=>acAbrir()}
   ];
