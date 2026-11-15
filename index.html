@@ -534,7 +534,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.30) ===== */
+/* ===== mais ferramentas (v3.31) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -633,7 +633,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.30</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.31</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1109,7 +1109,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.30</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.31</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2269,7 +2269,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.30 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.31 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3358,7 +3358,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
-/* ===== comprar no exterior (v3.30) ===== */
+/* ===== comprar no exterior (v3.31) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3388,7 +3388,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.30: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.31: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3425,6 +3425,7 @@ function vozNumeros(t){
   return t}
 function vozParse(txt){
   let t=vozNumeros(normSem(txt).replace(/\s+/g," ").replace(/\b(em torno de|por volta de|mais ou menos|aproximadamente|roughly|approximately|about)\b/g,"cerca de").replace(/\b(uns|umas)\s+(?=\d)/g,"cerca de "));
+  t=t.replace(/\b(?:alpha|alfa)\s?vil+e?\b/g,"alphaville").replace(/\bjardins?\s+(?=italia|valencia|munique|milao|verona|franca|paris|flamboyant)/g,m=>m);
   let cur="";
   if(/(us\$|\busd\b|dollars?|dolares?|\$)/.test(t)&&!/r\$/.test(t))cur="usd";
   else if(/(€|\beur\b|euros?)/.test(t))cur="eur";
@@ -3440,11 +3441,23 @@ function vozParse(txt){
   const v=vozValores(t.replace(new RegExp("(\\d)\\s*("+RQ+")(?![a-z])","g")," "));o.vmin=v.vmin;o.vmax=v.vmax;o.alvo=v.alvo;
   const cs=CIDADES.filter(c=>c.uf===S.estado).sort((a,b)=>b.n.length-a.n.length);
   o.cidade=cs.find(c=>t.includes(normSem(c.n)))||CIDADES.filter(c=>c.uf!==S.estado&&normSem(c.n).length>4).sort((a,b)=>b.n.length-a.n.length).find(c=>new RegExp("(^| )"+normSem(c.n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t))||null;
+  /* condomínio cadastrado: procura na cidade falada, na cidade atual e nas outras do mesmo estado (tolera jardim/jardins, "alpha ville", plural) */
+  if(o.tipo!=="apartamento"){
+    const stem=w=>w.replace(/s$/,"").replace(/m$/,"n"),lev=(a,b)=>{const d=[];for(let i=0;i<=a.length;i++){d[i]=[i];for(let j=1;j<=b.length;j++)d[i][j]=i?0:j}for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]};
+    const WC=v=>normSem(v).replace(/\(.*?\)/g," ").split(/[^a-z0-9]+/).filter(w=>w.length>2&&!/^(residencial|condominio|loteamento|bairro|clube|park|village|the|das|dos|del|geral)$/.test(w)).map(stem);
+    const tw=t.split(" ").map(stem),tsq=t.replace(/ /g,""),tok=k=>tw.some(w=>w===k||(k.length>=6&&w.length>=6&&lev(w,k)<=1));
+    const okC=x=>{const n=normSem(x[0]).replace(/\(.*?\)/g," ").replace(/\s+/g," ").trim();if(n.length>=6&&(" "+t+" ").includes(" "+n+" "))return 9;const sq=n.replace(/[^a-z0-9]/g,"");if(sq.length>=9&&tsq.includes(sq))return 8;const w=WC(x[0]);return w.length>=2&&w.every(tok)?w.length:0};
+    const atual=CIDADES.find(c=>c.s===S.cidade)||null,ordem=[];
+    [o.cidade,atual].forEach(c=>{if(c&&!ordem.includes(c.n))ordem.push(c.n)});
+    Object.keys(CONDOS).forEach(k=>{const c=CIDADES.find(x=>x.n===k);if(c&&c.uf===S.estado&&!ordem.includes(k))ordem.push(k)});
+    Object.keys(CONDOS).forEach(k=>{if(!ordem.includes(k))ordem.push(k)});
+    for(const k of ordem){const L=(CONDOS[k]||[]).map(x=>[x,okC(x)]).filter(z=>z[1]).sort((a,b)=>b[1]-a[1]||b[0][0].length-a[0][0].length);
+      if(L.length){const c=CIDADES.find(x=>x.n===k);if(c){o.condo=L[0][0];o.tipo="casa";o.cidade=c;break}}}}
   const cidS=o.cidade?o.cidade.s:S.cidade;
   const bl=BAIRROS.filter(b=>b.cid===cidS);
   const nb=x=>normSem(x.n);
   let hit=bl.filter(b=>t.includes(nb(b))).sort((a,b)=>nb(b).length-nb(a).length)[0]||null;
-  if(!hit&&!o.cidade){const GENB=/^(jardim|vila|parque|setor|centro|bairro|residencial|conjunto|chacara|loteamento|alto|baixo|nova|novo|santa|santo|sao|jd|vl)$/,all=BAIRROS.filter(b=>nb(b).length>=5&&!GENB.test(nb(b))&&new RegExp("(^| )"+nb(b).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t)).sort((a,b)=>nb(b).length-nb(a).length);
+  if(!hit&&!o.cidade&&!o.condo){const GENB=/^(jardim|vila|parque|setor|centro|bairro|residencial|conjunto|chacara|loteamento|alto|baixo|nova|novo|santa|santo|sao|jd|vl)$/,all=BAIRROS.filter(b=>nb(b).length>=5&&!GENB.test(nb(b))&&!CIDADES.some(c=>c.uf===S.estado&&(CONDOS[c.n]||[]).some(x=>normSem(x[0]).startsWith(nb(b)+" ")))&&new RegExp("(^| )"+nb(b).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t)).sort((a,b)=>nb(b).length-nb(a).length);
     if(all.length){const mesmo=all.filter(b=>nb(b)===nb(all[0])),pick=mesmo.find(b=>b.cid===S.cidade)||(mesmo.length===1?mesmo[0]:null);
       if(pick){hit=pick;o.cidade=CIDADES.find(c=>c.s===pick.cid)||null}}}
   if(!hit){const core=x=>nb(x).replace(/^(setor|jardim|parque|vila|residencial|conjunto|bairro|chacara|loteamento)\s+/,"");
@@ -3454,9 +3467,7 @@ function vozParse(txt){
   /* condomínio cadastrado (casa em condomínio fechado) */
   const cidO=o.cidade||CIDADES.find(c=>c.s===S.cidade)||null;
   const W=v=>normSem(v).split(/[^a-z0-9]+/).filter(w=>w.length>2&&!/^(residencial|condominio|loteamento|bairro|clube|park|village|the|das|dos|del)$/.test(w));
-  if(cidO&&o.tipo!=="apartamento"){const cl=CONDOS[cidO.n]||[];
-    const c3=cl.filter(x=>{const n=normSem(x[0]);if(t.includes(n))return true;const w=W(x[0]);return w.length>=2&&w.every(k=>t.includes(k))}).sort((a,b)=>b[0].length-a[0].length);
-    if(c3.length){o.condo=c3[0];o.tipo="casa";if(!o.bairro&&c3[0][2])o.bairro=bl.find(b=>b.s===c3[0][2])||null}}
+  if(o.condo){o.tipo="casa";if(!o.bairro&&o.condo[2])o.bairro=bl.find(b=>b.s===o.condo[2])||null}
   /* parque cadastrado ("apartamento no Parque Flamboyant"): o servidor já sabe em que bairro ele fica */
   if(!o.bairro&&!o.condo&&cidO&&/\b(parque|bosque|park)\b/.test(t)){
     const core=n=>normSem(n).replace(/^(parque|bosque)\s+(d[aoe]s?\s+)?/,"").replace(/\(.*$/,"").trim();
@@ -3474,7 +3485,8 @@ function vozParse(txt){
       let c=ws.filter(w=>!STOP.test(w)&&!/^(condominio|condominium|gated|fechado|closed|community)$/.test(w));
       let nome=c.join(" ").replace(cn,"").trim();
       if(nome.length>=4&&c.length<=4&&!(c.length===1&&GEN.test(c[0]))&&nome.length>melhor.length)melhor=nome}
-    if(melhor){const tit=melhor.replace(/(^|\s)(\S)/g,(mm,a1,b1)=>a1+b1.toUpperCase());
+    if(melhor){const OR={};String(txt||"").split(/\s+/).forEach(w=>{const k=normSem(w.replace(/[.,;:!?]+$/,""));if(k&&!OR[k])OR[k]=w.replace(/[.,;:!?]+$/,"")});
+      const tit=melhor.split(" ").map(w=>{const x=OR[w]||w;return x.charAt(0).toUpperCase()+x.slice(1)}).join(" ");
       o.livre={nome:tit,slug:melhor.replace(/\s+/g,"-"),condo:cond}}}
   /* filtros: piscina, vista, mobiliado, condição, status da obra, ordem */
   {const nl=normSem((o.bairro&&o.bairro.n)||(o.livre&&o.livre.nome)||(o.condo&&o.condo[0])||(o.parque||"")),tv=nl?t.replace(nl," "):t,f={};
@@ -3555,7 +3567,7 @@ async function vozExterior(txt,res){
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
 
-/* ===== comandos de voz do app (v3.30) ===== */
+/* ===== comandos de voz do app (v3.31) ===== */
 const vozEsp=ms=>new Promise(r=>setTimeout(r,ms));
 const vozVis=e=>!!(e&&e.offsetParent!==null&&!e.disabled);
 const VOZ_PERIGO=/\b(apagar|apague|excluir|exclua|remover|remova|deletar|delete|remove|sair|logout|sign ?out|cancelar|cancel|encerrar|desativar|desfazer|reembolso|pagar|comprar|assinar agora|confirmar exclusao)\b/;
@@ -3927,7 +3939,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== tela só com microfone + saudação (1x por dia) (v3.30) ===== */
+/* ===== tela só com microfone + saudação (1x por dia) (v3.31) ===== */
 (function(){
   const mh=$("mh");if(!mh)return;
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition,SS=window.speechSynthesis;
@@ -4004,7 +4016,7 @@ async function vozLugar(nome){
   const chk=()=>{if(!app.hidden)mostrar()};
   new MutationObserver(chk).observe(app,{attributes:true,attributeFilter:["hidden"]});chk();
 })();
-/* ===== mais ferramentas + seletor de pais (v3.30) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.31) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
