@@ -506,6 +506,10 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 #reg .pz ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;flex:1;min-width:0}
 #reg .pz li{display:flex;align-items:center;gap:8px;font-size:14px}#reg .pz li b{width:12px;height:12px;border-radius:3px;flex:none}#reg .pz li em{margin-left:auto;font-style:normal;font-weight:700}
 @media (max-width:360px){#reg .pz{flex-direction:column;align-items:stretch}#reg .pie{align-self:center}}
+.perfil-h{margin:0}.perfil-t{width:100%;display:flex;align-items:center;gap:12px;background:none;border:0;color:inherit;text-align:left;padding:0;min-height:44px;cursor:pointer;font:inherit}
+.perfil-t:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}.perfil-t .pt-x{min-width:0;flex:1}.perfil-t b{display:block;font-size:18px}
+.perfil-t .pt-x span{display:block;font-size:13px;font-weight:400;color:var(--ink-2,#8aa093);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.perfil-t .pv{flex:none;font-size:24px;line-height:1;transition:transform .2s}.perfil-t[aria-expanded="true"] .pv{transform:rotate(90deg)}
 .lk-d{margin-top:12px;border:1px solid var(--line);border-radius:14px}
 .lk-d>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;min-height:52px}
 .lk-d>summary::-webkit-details-marker{display:none}.lk-d>summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
@@ -530,12 +534,15 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.20) ===== */
+/* ===== mais ferramentas (v3.21) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
 .fr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .fr-t{position:relative;min-height:90px;border:1px solid var(--line);border-radius:16px;background:var(--card,transparent);color:inherit;font:inherit;font-size:12.5px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 6px;cursor:pointer;text-align:center}
+.fr-t .fi{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(79,140,255,.14);color:#6ea0ff;transition:background .15s}.fr-t .fi svg{width:24px;height:24px;display:block}
+.fr-t[aria-pressed="true"] .fi{background:rgba(79,140,255,.28)}
+:root[data-theme="light"] .fr-t .fi{color:#1f5fd6;background:rgba(31,95,214,.1)}
 .fr-t[aria-pressed="true"]{border-color:#4f8cff;box-shadow:0 0 0 2px rgba(79,140,255,.3)}
 .fr-b{all:unset;position:relative;box-sizing:border-box;width:100%;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 6px;cursor:pointer}.fr-t .fi{font-size:24px;line-height:1}
 .fr-t .fs{position:absolute;top:2px;right:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.55;border:0;background:none;color:inherit;cursor:pointer}
@@ -574,7 +581,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.20</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.21</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -827,7 +834,8 @@ body.estr #ferr{display:none}
     <div class="actions" style="margin:0 0 12px"><button class="btn alt" id="est-top" type="button">📁 Meu portfólio de imóveis</button></div>
     <div class="grid">
       <form class="panel" id="form" autocomplete="off">
-        <h2>Perfil do cliente</h2>
+        <h2 class="perfil-h"><button type="button" id="perfil-t" class="perfil-t" aria-expanded="false" aria-controls="form-corpo"><span class="pt-x"><b>Perfil do cliente</b><span id="perfil-s">Toque para preencher: nome, tipo, local e valor.</span></span><span class="pv" aria-hidden="true">›</span></button></h2>
+        <div id="form-corpo" hidden>
         <div class="row">
           <div class="f"><label for="nome">Nome</label><input type="text" id="nome"></div>
           <div class="f"><label for="idade">Idade</label><input type="number" id="idade" min="0" max="120" inputmode="numeric"></div>
@@ -872,6 +880,7 @@ body.estr #ferr{display:none}
           <label style="display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:14px"><input type="checkbox" id="ind-ok" style="margin-top:3px"> Há autorização para compartilhar nome, telefone e a busca com o correspondente</label>
           <div class="actions" style="margin-top:10px"><button type="button" class="btn acc" id="ind-go">Indicar ao correspondente no WhatsApp</button> <button type="button" class="btn alt" id="ind-sair" hidden style="font-size:12px">Desfazer vínculo</button></div>
           <div class="hint" id="ind-msg"></div>
+        </div>
         </div>
         <div class="actions">
           <button type="button" class="btn" id="salvar">Salvar cliente</button>
@@ -1047,7 +1056,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.20</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.21</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1185,6 +1194,7 @@ I18N_ROWS.push(...[["💡 O que posso falar?", "💡 What can I say?", "💡 ¿Q
 I18N_ROWS.push(...[["🔊 Responder em voz", "🔊 Answer by voice", "🔊 Responder en voz", "🔊 Répondre à voix haute", "🔊 Per Sprache antworten", "", "", ""], ["Resposta em voz ligada.", "Voice answers on.", "Respuesta en voz activada.", "Réponse vocale activée.", "Sprachantwort eingeschaltet.", "", "", ""], ["Foto da placa", "Sign photo", "Foto del cartel", "Photo de la pancarte", "Foto vom Schild", "", "", ""], ["Foto da placa ou do imóvel", "Photo of a sign or property", "Foto del cartel o del inmueble", "Photo d'une pancarte ou d'un bien", "Foto von Schild oder Immobilie", "", "", ""], ["Tire a foto com os óculos (“Hey Meta, tire uma foto”) ou com o celular, depois escolha a foto aqui. O app lê os telefones, valores e metragem da placa. A leitura acontece no seu celular e a foto não é enviada.", "Take the photo with your glasses (“Hey Meta, take a photo”) or your phone, then choose it here. The app reads phone numbers, prices and size from the sign. Reading happens on your phone and the photo is not uploaded.", "Toma la foto con las gafas (“Hey Meta, toma una foto”) o con el celular y elígela aquí. La app lee teléfonos, valores y metraje del cartel. La lectura ocurre en tu celular y la foto no se envía.", "Prenez la photo avec vos lunettes (« Hey Meta, prends une photo ») ou votre téléphone, puis choisissez-la ici. L'app lit les numéros, prix et surface de la pancarte. La lecture se fait sur votre téléphone, la photo n'est pas envoyée.", "Machen Sie das Foto mit der Brille („Hey Meta, mach ein Foto“) oder dem Handy und wählen Sie es hier aus. Die App liest Telefonnummern, Preise und Fläche vom Schild. Das Lesen passiert auf Ihrem Handy, das Foto wird nicht hochgeladen.", "", "", ""], ["📷 Escolher foto", "📷 Choose photo", "📷 Elegir foto", "📷 Choisir une photo", "📷 Foto wählen", "", "", ""], ["Ligar", "Call", "Llamar", "Appeler", "Anrufen", "", "", ""], ["Copiar", "Copy", "Copiar", "Copier", "Kopieren", "", "", ""], ["Não encontrei telefone na foto. Tente de mais perto, com a placa reta e boa luz.", "No phone number found in the photo. Try closer, with the sign straight and good light.", "No encontré teléfono en la foto. Prueba más cerca, con el cartel recto y buena luz.", "Aucun numéro trouvé sur la photo. Essayez de plus près, pancarte droite et bonne lumière.", "Keine Telefonnummer im Foto gefunden. Näher, gerade und mit gutem Licht versuchen.", "", "", ""], ["Também achei:", "Also found:", "También encontré:", "Aussi trouvé :", "Außerdem gefunden:", "", "", ""], ["Texto lido", "Text read", "Texto leído", "Texte lu", "Gelesener Text", "", "", ""], ["Achei {0} telefone na placa.", "Found {0} phone number on the sign.", "Encontré {0} teléfono en el cartel.", "{0} numéro trouvé sur la pancarte.", "{0} Telefonnummer auf dem Schild gefunden.", "", "", ""], ["Não encontrei telefone na foto.", "No phone number found in the photo.", "No encontré teléfono en la foto.", "Aucun numéro trouvé sur la photo.", "Keine Telefonnummer im Foto gefunden.", "", "", ""], ["Preparando a foto…", "Preparing the photo…", "Preparando la foto…", "Préparation de la photo…", "Foto wird vorbereitet…", "", "", ""], ["Lendo a placa… na primeira vez baixa o leitor (alguns MB).", "Reading the sign… the first time it downloads the reader (a few MB).", "Leyendo el cartel… la primera vez descarga el lector (unos MB).", "Lecture de la pancarte… la première fois, le lecteur est téléchargé (quelques Mo).", "Schild wird gelesen… beim ersten Mal wird der Leser geladen (einige MB).", "", "", ""], ["Lendo a placa… {0}%", "Reading the sign… {0}%", "Leyendo el cartel… {0}%", "Lecture de la pancarte… {0}%", "Schild wird gelesen… {0}%", "", "", ""], ["Não consegui ler a foto agora. Confira a internet e tente de novo.", "Couldn't read the photo now. Check your connection and try again.", "No pude leer la foto ahora. Revisa internet e inténtalo de nuevo.", "Impossible de lire la photo. Vérifiez la connexion et réessayez.", "Foto konnte nicht gelesen werden. Verbindung prüfen und erneut versuchen.", "", "", ""], ["Telefone copiado", "Phone copied", "Teléfono copiado", "Numéro copié", "Nummer kopiert", "", "", ""]]);
 I18N_ROWS.push(...[["Funciona com óculos inteligentes, como o Ray-Ban Meta: fale pelo microfone dos óculos conectado ao celular.", "Works with smart glasses such as Ray-Ban Meta: speak through the glasses' microphone connected to your phone.", "Funciona con gafas inteligentes, como Ray-Ban Meta: habla por el micrófono de las gafas conectado al celular.", "Fonctionne avec des lunettes connectées comme les Ray-Ban Meta : parlez via le micro des lunettes relié au téléphone.", "Funktioniert mit Smart-Brillen wie Ray-Ban Meta: Sprechen Sie über das mit dem Handy verbundene Mikrofon der Brille.", "", "", ""], ["Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.", "Ray-Ban and Meta are trademarks of their owners, with no affiliation with Corretor Master.", "Ray-Ban y Meta son marcas de sus titulares, sin vínculo con Corretor Master.", "Ray-Ban et Meta sont des marques de leurs titulaires, sans lien avec Corretor Master.", "Ray-Ban und Meta sind Marken ihrer Inhaber, ohne Verbindung zu Corretor Master.", "", "", ""]]);
 I18N_ROWS.push(...[["🔄 Trocar voz", "🔄 Change voice", "🔄 Cambiar voz", "🔄 Changer de voix", "🔄 Stimme wechseln", "", "", ""], ["Olá! Esta é a nova voz.", "Hello! This is the new voice.", "¡Hola! Esta es la nueva voz.", "Bonjour ! Voici la nouvelle voix.", "Hallo! Das ist die neue Stimme.", "", "", ""], ["Voz: {0}", "Voice: {0}", "Voz: {0}", "Voix : {0}", "Stimme: {0}", "", "", ""]]);
+I18N_ROWS.push(...[["Toque para preencher: nome, tipo, local e valor.", "Tap to fill in: name, type, place and price.", "Toca para completar: nombre, tipo, lugar y valor.", "Touchez pour remplir : nom, type, lieu et prix.", "Tippen zum Ausfüllen: Name, Typ, Ort und Preis.", "", "", ""]]);
 let LANG="pt";
 try{const sv=localStorage.getItem("cm-lang");if(LANGS.some(l=>l[0]===sv))LANG=sv;else if(!sv){const nl=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).map(x=>String(x).toLowerCase());if(!nl.some(x=>x.startsWith("pt"))){for(const x of nl){const m=(x==="es-ar"||x==="es-cl"||x==="es-uy")?x:(["en","es","fr","de","zh","ar","it"].includes(x.slice(0,2))?x.slice(0,2):"");if(m){LANG=m;break}}}}}catch(_){}
 const LOC=()=>(LANGS.find(l=>l[0]===LANG)||LANGS[0])[2];
@@ -1390,7 +1400,7 @@ function ui(){marcarAtalhos();
 }
 const DDD={go:"62",sp:"11",rj:"21",mg:"31",df:"61",pr:"41",to:"63",rs:"51",sc:"47",pb:"83",ce:"85",pe:"81",se:"79",ba:"71"};
 function pintarDDD(){try{const d=DDD[S.estado]||"62",ph="("+d+") 99999-9999";["fone","cv-fone"].forEach(id=>{const e=$(id);if(e&&e.placeholder!==ph)e.placeholder=ph})}catch(_){}}
-function render(){pintarDDD();ui();if(!PRONTO)return;if(GER&&!gerado())pintar();clearTimeout(tm);tm=setTimeout(atualizar,180)}
+function render(){pintarDDD();ui();try{perfilResumo()}catch(_){}if(!PRONTO)return;if(GER&&!gerado())pintar();clearTimeout(tm);tm=setTimeout(atualizar,180)}
 let _DISP="";
 function dispId(){if(_DISP)return _DISP;try{_DISP=localStorage.getItem("cm_disp")||""}catch(_){}
   /* vindo do endereço antigo de SP: aproveita o mesmo código do aparelho para não gastar outra vaga */
@@ -2199,7 +2209,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.20 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.21 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -2520,7 +2530,7 @@ $("lista").addEventListener("click",e=>{
   if(wa){const id=wa.dataset.wa,c=getC().find(x=>x.id===id),u=c&&c.perfil.contatos&&c.perfil.contatos[0];if(!(u&&u.t==="zap"&&Date.now()-u.ts<6e5))setTimeout(()=>{logContato(id,"zap","");listar()},400);return}
   if(ng){ngAbrir(ng.dataset.neg);return}
   if(lb){lbAbrir(lb.dataset.lb);return}
-  if(o){const c=getC().find(x=>x.id===o.dataset.open);if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();tab("busca")}}
+  if(o){const c=getC().find(x=>x.id===o.dataset.open);if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();tab("busca");perfilAbrir(true)}}
   if(d){ if(d.dataset.arm){{const ex=exLer();ex[d.dataset.del]=Date.now();exGravar(ex)}setC(getC().filter(x=>x.id!==d.dataset.del));listar();agendarNuvem()} else{d.dataset.arm="1";d.textContent="Confirmar exclusão"} }
 });
 
@@ -2579,7 +2589,7 @@ $("l-go").addEventListener("click",async()=>{
   S={...VAZIO,...Object.fromEntries(Object.entries(r).filter(([k,v])=>v||v===0&&false)),nome:$("l-nome").value.trim()};
   if(r.tipo==="casa"&&r.locCasa==="condominio"){S.locCasa="condominio"}
   if(preco){const margem=Math.max(preco*0.10,30000);S.vmin=Math.max(0,Math.round((preco-margem)/1000)*1000);S.vmax=Math.round((preco+margem)/1000)*1000}
-  syncInputs();render();tab("busca");
+  syncInputs();render();tab("busca");perfilAbrir(true);
   const aviso=[];if(url&&!r.tipo)aviso.push("tipo");if(url&&!r.bairro)aviso.push("bairro");
   $("salvo-msg").innerHTML=`<div class="alert good">Perfil preenchido a partir do link${aviso.length?`. Não identifiquei: ${aviso.join(", ")}. Ajuste no formulário.`:"."}</div>`;
 });
@@ -3274,7 +3284,21 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.20) ===== */
+/* perfil do cliente retrátil */
+function perfilAbrir(abrir,foco){const c=$("form-corpo"),b=$("perfil-t");if(!c||!b)return;const a=abrir===undefined?c.hidden:!!abrir;c.hidden=!a;b.setAttribute("aria-expanded",String(a));
+  try{localStorage.setItem("cm_perfil_aberto",a?"1":"0")}catch(_){}
+  if(a&&foco){setTimeout(()=>{const e=$(foco);if(e){e.scrollIntoView({behavior:"smooth",block:"center"});e.focus()}},60)}}
+function perfilResumo(){const e=$("perfil-s");if(!e)return;
+  const c=CIDADES.find(x=>x.s===S.cidade),b=S.bairro&&BAIRROS.find(x=>x.s===S.bairro&&x.cid===S.cidade);
+  const tipo=S.tipo==="casa"?(S.locCasa==="condominio"?"Casa em condomínio":"Casa"):(S.tipo==="apartamento"?"Apartamento":"");
+  const v=+S.vmin&&+S.vmax?brk(+S.vmin)+" a "+brk(+S.vmax):+S.vmax?"até "+brk(+S.vmax):+S.vmin?"a partir de "+brk(+S.vmin):"";
+  const loc=(b&&b.n)||(S.condoOutro||"")||(c&&c.n)||"";
+  const p=[String(S.nome||"").trim(),tipo&&t(tipo),loc,v].filter(Boolean);
+  e.textContent=p.length?p.join(" · "):t("Toque para preencher: nome, tipo, local e valor.")}
+(function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
+  perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
+  $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
+/* ===== comprar no exterior (v3.21) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3304,7 +3328,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.20: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.21: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3624,6 +3648,7 @@ async function vozLugar(nome){
       +(falt.length?'<div class="hint" style="margin:6px 0 0">'+esc(t("Não achei: {0}. Confira no formulário abaixo.",falt.join(", ")))+"</div>":"")
       +(VOZ_JA||falt.length?"":'<div class="hint" style="margin:6px 0 0">💡 '+esc(t("Depois da busca: “agora até 1 milhão”, “troca para casa” ou “salvar para Marcos Silva, telefone 62 99999-9999”."))+"</div>")
       +'</div><div class="actions" style="margin:8px 0 0"><button class="btn acc" type="button" id="voz-ger">'+esc(t("🔓 Gerar busca"))+"</button></div>";
+    if(falt.length)try{perfilAbrir(true)}catch(_){}
     if((o.tipo&&(o.bairro||o.condo||o.livre||o.parque))||(VOZ_JA&&(o.tipo||o.vmin||o.vmax||o.bairro||o.condo||o.livre||o.parque||o.cidade)))vozGerar()}
   $("voz-go").addEventListener("click",entender);
   inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();entender()}});
@@ -3688,7 +3713,7 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.20) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.21) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
@@ -3697,12 +3722,12 @@ async function vozLugar(nome){
   const acb=$("ac-ban");if(acb)acb.style.display="none";
   const pf=$("est-top");if(pf&&pf.parentElement)pf.parentElement.style.display="none";
   const T=[
-    {k:"port",i:"📁",n:"Meu portfólio",go:()=>$("est-top")&&$("est-top").click()},
-    {k:"ext",i:"🌍",n:"Comprar no exterior",box:"ex-box"},
-    {k:"par",i:"🤝",n:"Parcerias entre corretores",box:"pc-ban"},
-    {k:"foto",i:"📷",n:"Foto da placa",box:"foto-box"},
-    {k:"est",i:"🗺️",n:"Outros estados",box:"outros-estados"},
-    {k:"aca",i:"📚",n:"Academia do Corretor",go:()=>acAbrir()}
+    {k:"port",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18"/></svg>',n:"Meu portfólio",go:()=>$("est-top")&&$("est-top").click()},
+    {k:"ext",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9z"/></svg>',n:"Comprar no exterior",box:"ex-box"},
+    {k:"par",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2c2.5.2 4.5 2.2 4.5 4.8"/></svg>',n:"Parcerias entre corretores",box:"pc-ban"},
+    {k:"foto",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>',n:"Foto da placa",box:"foto-box"},
+    {k:"est",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>',n:"Outros estados",box:"outros-estados"},
+    {k:"aca",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></svg>',n:"Academia do Corretor",go:()=>acAbrir()}
   ];
   let aberto="";
   function pend(){const e=$("pc-ban-n");if(!e||e.hidden)return"";const m=(e.textContent||"").match(/\d+/);return m?m[0]:"•"}
@@ -4252,7 +4277,7 @@ function recentes(){
     return `<button type="button" class="rec-i" data-id="${esc(c.id)}"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span style="min-width:0"><b>${esc(p.nome||"Sem nome")}</b><small>${esc(p.tipo)}${cid?" · "+esc(cid):""} · ${esc(c.data)}</small></span></button>`}).join("");
 }
 $("rec-l").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(!b)return;const c=getC().find(x=>x.id===b.dataset.id);
-  if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();const f=$("form");f&&f.scrollIntoView({behavior:"smooth",block:"start"})}});
+  if(c){S={...VAZIO,...c.perfil,__id:c.id};syncInputs();render();perfilAbrir(true);const f=$("form");f&&f.scrollIntoView({behavior:"smooth",block:"start"})}});
 document.querySelectorAll(".card[data-go]").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.go)));
 
 /* ---------- perfil da região ---------- */
