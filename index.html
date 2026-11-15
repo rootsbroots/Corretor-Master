@@ -530,7 +530,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.16) ===== */
+/* ===== mais ferramentas (v3.17) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -574,7 +574,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.16</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.17</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1036,7 +1036,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.16</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.17</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2182,7 +2182,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.16 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.17 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3257,7 +3257,7 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.16) ===== */
+/* ===== comprar no exterior (v3.17) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3287,7 +3287,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.16: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.17: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3338,11 +3338,14 @@ function vozParse(txt){
   const q=t.match(new RegExp("(\\d)\\s*(quartos?|suites?|dormitorios?|bed|beds|bedrooms?)"));if(q)o.quartos=Number(q[1]);
   const v=vozValores(t.replace(new RegExp("(\\d)\\s*("+RQ+")(?![a-z])","g")," "));o.vmin=v.vmin;o.vmax=v.vmax;o.alvo=v.alvo;
   const cs=CIDADES.filter(c=>c.uf===S.estado).sort((a,b)=>b.n.length-a.n.length);
-  o.cidade=cs.find(c=>t.includes(normSem(c.n)))||null;
+  o.cidade=cs.find(c=>t.includes(normSem(c.n)))||CIDADES.filter(c=>c.uf!==S.estado&&normSem(c.n).length>4).sort((a,b)=>b.n.length-a.n.length).find(c=>new RegExp("(^| )"+normSem(c.n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t))||null;
   const cidS=o.cidade?o.cidade.s:S.cidade;
   const bl=BAIRROS.filter(b=>b.cid===cidS);
   const nb=x=>normSem(x.n);
   let hit=bl.filter(b=>t.includes(nb(b))).sort((a,b)=>nb(b).length-nb(a).length)[0]||null;
+  if(!hit&&!o.cidade){const GENB=/^(jardim|vila|parque|setor|centro|bairro|residencial|conjunto|chacara|loteamento|alto|baixo|nova|novo|santa|santo|sao|jd|vl)$/,all=BAIRROS.filter(b=>nb(b).length>=5&&!GENB.test(nb(b))&&new RegExp("(^| )"+nb(b).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t)).sort((a,b)=>nb(b).length-nb(a).length);
+    if(all.length){const mesmo=all.filter(b=>nb(b)===nb(all[0])),pick=mesmo.find(b=>b.cid===S.cidade)||(mesmo.length===1?mesmo[0]:null);
+      if(pick){hit=pick;o.cidade=CIDADES.find(c=>c.s===pick.cid)||null}}}
   if(!hit){const core=x=>nb(x).replace(/^(setor|jardim|parque|vila|residencial|conjunto|bairro|chacara|loteamento)\s+/,"");
     const c2=bl.filter(b=>{const c=core(b);return c.length>=4&&new RegExp("(^| )"+c.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"( |$)").test(t)}).sort((a,b)=>core(b).length-core(a).length);
     if(c2.length&&(c2.length===1||core(c2[0]).length>core(c2[1]).length))hit=c2[0]}
@@ -3374,6 +3377,7 @@ function vozParse(txt){
       o.livre={nome:tit,slug:melhor.replace(/\s+/g,"-"),condo:cond}}}
   return o}
 function vozAplicar(o){
+  if(o.cidade&&o.cidade.uf&&o.cidade.uf!==S.estado&&ESTADOS.some(e=>e.s===o.cidade.uf))S.estado=o.cidade.uf;
   if(o.cidade&&o.cidade.s!==S.cidade){S.cidade=o.cidade.s;S.cep="";S.bairro="";S.bairroOutro="";S.condo="";S.condoOutro="";S.parque=""}
   if(o.bairro){S.bairro=o.bairro.s;S.bairroOutro="";S.condo="";S.condoOutro=""}
   if(o.tipo){S.tipo=o.tipo;if(o.tipo==="casa")S.locCasa="bairro";else{S.piscina=""}}
@@ -3396,7 +3400,7 @@ async function vozExterior(txt,res){
   const sel=$("pais-top")?$("pais-top").value:"br";
   /* "Jardim Itália", "Vila França", "Condomínio Portugal" são nomes de bairro/condomínio, não o país */
   const t1=t0.replace(/\b(jardim|jd|vila|vl|parque|setor|st|bairro|condominio|residencial|rua|avenida|av|chacara|loteamento|alameda|praca|park|gardens?|village|street)\s+(italia|franca|portugal|america|usa)\b/g," ");
-  if(sel!=="br"&&!Object.keys(AL).some(k=>AL[k].test(t1))&&!CID.test(t0)&&BAIRROS.some(b=>b.cid===S.cidade&&normSem(b.n).length>3&&t0.includes(normSem(b.n)))){const pt0=$("pais-top");pt0.value="br";pt0.dispatchEvent(new Event("change"));return false}
+  if(sel!=="br"&&!Object.keys(AL).some(k=>AL[k].test(t1))&&!CID.test(t0)&&(BAIRROS.some(b=>normSem(b.n).length>=5&&t0.includes(normSem(b.n)))||CIDADES.some(c=>normSem(c.n).length>4&&t0.includes(normSem(c.n)))||/\b(brasil|brazil)\b/.test(t0))){const pt0=$("pais-top");pt0.value="br";pt0.dispatchEvent(new Event("change"));return false}
   const chave=Object.keys(AL).find(k=>AL[k].test(t1));
   if(!chave&&!CID.test(t0)&&sel==="br"&&!EXT)return false;
   if(!await exCarregar())return false;
@@ -3541,7 +3545,7 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.16) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.17) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
@@ -3582,6 +3586,7 @@ async function vozLugar(nome){
     if(EXT&&EXT.find(p=>p.s===s)){$("ex-pais").value=s;exPreencherPais()}
     const e=$("ex-box");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})}
   $("pais-top").addEventListener("change",e=>{const v=e.target.value;
+    {const es=$("estado-top"),pt=e.target;if(es){es.style.display=v==="br"?"":"none";pt.style.flex=v==="br"?"0 0 auto":"1";pt.style.maxWidth=v==="br"?"42%":"none"}}
     if(v==="br"){aberto="";pane.querySelectorAll(":scope>*").forEach(x=>x.classList.add("fr-x"));pintar();return}
     exIr(v)});
 })();
