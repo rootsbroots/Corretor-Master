@@ -530,13 +530,14 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.06) ===== */
+/* ===== mais ferramentas (v3.07) ===== */
 #ferr{margin:22px 0 8px}
+#fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
 .fr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .fr-t{position:relative;min-height:90px;border:1px solid var(--line);border-radius:16px;background:var(--card,transparent);color:inherit;font:inherit;font-size:12.5px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 6px;cursor:pointer;text-align:center}
 .fr-t[aria-pressed="true"]{border-color:#4f8cff;box-shadow:0 0 0 2px rgba(79,140,255,.3)}
-.fr-b{all:unset;box-sizing:border-box;width:100%;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 6px;cursor:pointer}.fr-t .fi{font-size:24px;line-height:1}
+.fr-b{all:unset;position:relative;box-sizing:border-box;width:100%;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 6px;cursor:pointer}.fr-t .fi{font-size:24px;line-height:1}
 .fr-t .fs{position:absolute;top:2px;right:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.55;border:0;background:none;color:inherit;cursor:pointer}
 .fr-t .fs[aria-pressed="true"]{opacity:1;color:#c9a24b}
 #fr-pane>*{margin-top:12px}
@@ -573,7 +574,7 @@ body.estr #ferr,body.estr #voz-box{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.06</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.07</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1035,7 +1036,7 @@ body.estr #ferr,body.estr #voz-box{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.06</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.07</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2175,7 +2176,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.06 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.07 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3250,7 +3251,7 @@ function aquiEsperar(){
     else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}
   },250)}
 
-/* ===== comprar no exterior (v3.06) ===== */
+/* ===== comprar no exterior (v3.07) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3280,7 +3281,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.06) ===== */
+/* ===== busca em uma frase + voz (v3.07) ===== */
 function vozValores(t){
   t=t.replace(/(\d+(?:[.,]\d+)?)\s+(e|a|ate)\s+(\d+(?:[.,]\d+)?)\s*(milhoes|milhao|mi|mil|k)(?![a-z0-9])/g,"$1 $4 $2 $3 $4");
   const re=/(\d{1,3}(?:\.\d{3})+|\d+(?:[.,]\d+)?)\s*(milhoes|milhao|mi|mil|k)?(?![a-z0-9])/g;let m;const L=[];
@@ -3358,36 +3359,39 @@ function vozAplicar(o){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label","Falar");if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.06) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.07) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
   const pane=$("fr-pane"),grid=$("fr-grid");if(!pane||!grid)return;
-  ["ex-box","outros-estados"].forEach(id=>{const e=$(id);if(e){e.hidden=true;e.style.margin="0";pane.appendChild(e)}});
+  ["ex-box","outros-estados","pc-ban"].forEach(id=>{const e=$(id);if(e){e.classList.add("fr-x");e.style.margin="0";pane.appendChild(e)}});
   const acb=$("ac-ban");if(acb)acb.style.display="none";
   const pf=$("est-top");if(pf&&pf.parentElement)pf.parentElement.style.display="none";
   const T=[
     {k:"port",i:"📁",n:"Meu portfólio",go:()=>$("est-top")&&$("est-top").click()},
     {k:"ext",i:"🌍",n:"Comprar no exterior",box:"ex-box"},
+    {k:"par",i:"🤝",n:"Parcerias entre corretores",box:"pc-ban"},
     {k:"est",i:"🗺️",n:"Outros estados",box:"outros-estados"},
     {k:"aca",i:"📚",n:"Academia do Corretor",go:()=>acAbrir()}
   ];
   let aberto="";
+  function pend(){const e=$("pc-ban-n");if(!e||e.hidden)return"";const m=(e.textContent||"").match(/\d+/);return m?m[0]:"•"}
   function ordem(){const u=ls("cm_fr_uso",{}),f=ls("cm_fr_fix",{});
     return T.slice().sort((a,b)=>(f[b.k]?1:0)-(f[a.k]?1:0)||(u[b.k]||0)-(u[a.k]||0)||T.indexOf(a)-T.indexOf(b))}
   function pintar(){const f=ls("cm_fr_fix",{});
-    grid.innerHTML=ordem().map(t=>'<div class="fr-t" aria-pressed="'+(aberto===t.k)+'"><button type="button" class="fr-b" data-k="'+t.k+'"><span class="fi" aria-hidden="true">'+t.i+'</span><span>'+t.n+'</span></button><button type="button" class="fs" data-fix="'+t.k+'" aria-pressed="'+(!!f[t.k])+'" aria-label="Fixar '+t.n+'">'+(f[t.k]?"★":"☆")+'</button></div>').join("")}
+    grid.innerHTML=ordem().map(t=>'<div class="fr-t" aria-pressed="'+(aberto===t.k)+'"><button type="button" class="fr-b" data-k="'+t.k+'"><span class="fi" aria-hidden="true">'+t.i+'</span><span>'+t.n+'</span>'+(t.k==="par"&&pend()?'<b class="fb">'+pend()+'</b>':"")+'</button><button type="button" class="fs" data-fix="'+t.k+'" aria-pressed="'+(!!f[t.k])+'" aria-label="Fixar '+t.n+'">'+(f[t.k]?"★":"☆")+'</button></div>').join("")}
   function abrir(k){const t=T.find(x=>x.k===k);if(!t)return;
     const u=ls("cm_fr_uso",{});u[k]=(u[k]||0)+1;lsw("cm_fr_uso",u);
-    pane.querySelectorAll(":scope>*").forEach(e=>e.hidden=true);
+    pane.querySelectorAll(":scope>*").forEach(e=>e.classList.add("fr-x"));
     if(t.go){aberto="";pintar();t.go();return}
     if(aberto===k){aberto="";pintar();return}
-    aberto=k;const e=$(t.box);if(e){e.hidden=false;setTimeout(()=>e.scrollIntoView({behavior:"smooth",block:"nearest"}),50)}
+    aberto=k;const e=$(t.box);if(e){e.classList.remove("fr-x");setTimeout(()=>e.scrollIntoView({behavior:"smooth",block:"nearest"}),50)}
     pintar()}
   grid.addEventListener("click",e=>{
     const f=e.target.closest("[data-fix]");if(f){const m=ls("cm_fr_fix",{});m[f.dataset.fix]=!m[f.dataset.fix];lsw("cm_fr_fix",m);pintar();return}
     const b=e.target.closest("[data-k]");if(b)abrir(b.dataset.k)});
   pintar();
+  {const n=$("pc-ban-n");if(n&&window.MutationObserver)new MutationObserver(()=>pintar()).observe(n,{attributes:true,childList:true,characterData:true,subtree:true})}
   async function exIr(s){
     abrir("ext");
     const pn=$("ex-p");
@@ -3396,7 +3400,7 @@ function vozAplicar(o){
     if(EXT&&EXT.find(p=>p.s===s)){$("ex-pais").value=s;exPreencherPais()}
     const e=$("ex-box");if(e)e.scrollIntoView({behavior:"smooth",block:"start"})}
   $("pais-top").addEventListener("change",e=>{const v=e.target.value;
-    if(v==="br"){aberto="";pane.querySelectorAll(":scope>*").forEach(x=>x.hidden=true);pintar();return}
+    if(v==="br"){aberto="";pane.querySelectorAll(":scope>*").forEach(x=>x.classList.add("fr-x"));pintar();return}
     exIr(v)});
 })();
 $("ex-moeda").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.moeda=b.dataset.v;$("ex-moeda").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));exSliderIniciar()});
