@@ -534,7 +534,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.35) ===== */
+/* ===== mais ferramentas (v3.36) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -557,6 +557,7 @@ body.estr #ferr{display:none}
 <style>
 #mh{position:fixed;inset:0;z-index:250;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:max(16px,env(safe-area-inset-top,0px)) 20px max(16px,env(safe-area-inset-bottom,0px))}
 #mh .mh-in{width:min(440px,100%);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:12px 0}
+#mh .mh-logo{margin:6px 0 0;flex:none}
 #mh .mh-k{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
 #mh h1{margin:0;font-size:clamp(25px,7vw,32px);line-height:1.2;font-weight:800;text-wrap:balance}
 #mh .mh-mic{width:200px;height:200px;border:0;cursor:pointer;background:none;box-shadow:none;position:relative;margin:8px 0;padding:0;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
@@ -591,6 +592,7 @@ body.estr #ferr{display:none}
 #mh .mh-opt{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--ink-2)}
 #mh .mh-opt label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
 </style>
+<div class="logo mh-logo"><i></i>Corretor Master<svg class="rg" viewBox="0 0 20 20" role="img" aria-label="marca registrada"><circle cx="10" cy="10" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="10" y="14.4" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="12.5" fill="currentColor">R</text></svg></div>
 <div class="mh-in">
   <div class="mh-k">Busca por voz</div>
   <h1 id="mh-h">Me diga o que você procura</h1>
@@ -632,7 +634,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.35</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.36</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1108,7 +1110,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.35</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.36</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2272,7 +2274,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.35 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.36 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3361,7 +3363,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
-/* ===== comprar no exterior (v3.35) ===== */
+/* ===== comprar no exterior (v3.36) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3391,7 +3393,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.35: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.36: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3572,7 +3574,7 @@ async function vozExterior(txt,res){
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
 
-/* ===== comandos de voz do app (v3.35) ===== */
+/* ===== comandos de voz do app (v3.36) ===== */
 const vozEsp=ms=>new Promise(r=>setTimeout(r,ms));
 const vozVis=e=>!!(e&&e.offsetParent!==null&&!e.disabled);
 const VOZ_PERIGO=/\b(apagar|apague|excluir|exclua|remover|remova|deletar|delete|remove|sair|logout|sign ?out|cancelar|cancel|encerrar|desativar|desfazer|reembolso|pagar|comprar|assinar agora|confirmar exclusao)\b/;
@@ -3944,7 +3946,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== tela só com microfone + saudação (1x por dia) (v3.35) ===== */
+/* ===== tela só com microfone + saudação (1x por dia) (v3.36) ===== */
 (function(){
   const mh=$("mh");if(!mh)return;
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition,SS=window.speechSynthesis;
@@ -4030,7 +4032,7 @@ async function vozLugar(nome){
   const chk=()=>{if(!app.hidden)mostrar()};
   new MutationObserver(chk).observe(app,{attributes:true,attributeFilter:["hidden"]});chk();
 })();
-/* ===== mais ferramentas + seletor de pais (v3.35) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.36) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
