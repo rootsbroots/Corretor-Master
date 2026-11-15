@@ -534,7 +534,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.25) ===== */
+/* ===== mais ferramentas (v3.27) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -553,6 +553,48 @@ body.estr #ferr{display:none}
 </head>
 <body>
 
+<div id="mh" role="dialog" aria-modal="true" aria-labelledby="mh-h" hidden>
+<style>
+#mh{position:fixed;inset:0;z-index:250;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:max(16px,env(safe-area-inset-top,0px)) 20px max(16px,env(safe-area-inset-bottom,0px))}
+#mh .mh-in{width:min(440px,100%);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:12px 0}
+#mh .mh-k{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+#mh h1{margin:0;font-size:clamp(25px,7vw,32px);line-height:1.2;font-weight:800;text-wrap:balance}
+#mh .mh-mic{width:148px;height:148px;border-radius:50%;border:0;cursor:pointer;color:#fff;background:radial-gradient(circle at 35% 30%,#7aa8ff,#4f8cff 55%,#2f62d8);box-shadow:0 18px 40px rgba(79,140,255,.4),inset 0 2px 6px rgba(255,255,255,.4);display:grid;place-items:center;position:relative;margin:14px 0}
+#mh .mh-mic:before,#mh .mh-mic:after{content:"";position:absolute;inset:-16px;border-radius:50%;border:2px solid rgba(79,140,255,.35);pointer-events:none}
+#mh .mh-mic:after{inset:-34px;border-color:rgba(79,140,255,.16)}
+#mh .mh-mic svg{width:62px;height:62px}
+#mh .mh-mic.on:before{animation:mhp 1.2s ease-out infinite}#mh .mh-mic.on:after{animation:mhp 1.2s .4s ease-out infinite}
+@keyframes mhp{0%{transform:scale(.92);opacity:1}100%{transform:scale(1.18);opacity:0}}
+#mh .mh-sub{color:var(--ink-2);font-size:15px;line-height:1.45;margin:0;max-width:320px}
+#mh .mh-tx{min-height:24px;font-size:18px;font-weight:600;line-height:1.35;margin:0}
+#mh .mh-ex{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+#mh .mh-ex button{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:9px 13px;font-size:13.5px;cursor:pointer;font-family:inherit}
+#mh .mh-type{display:flex;gap:8px;width:100%}
+#mh .mh-type input{flex:1;min-width:0;font-size:16px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit}
+#mh .mh-type button{border-radius:14px;padding:12px 16px;border:0;background:#4f8cff;color:#fff;font-weight:800;cursor:pointer;font-family:inherit}
+#mh .mh-bot{width:min(440px,100%);display:flex;flex-direction:column;gap:10px;align-items:center;padding:6px 0}
+#mh .mh-lnk{background:none;border:0;color:var(--ink-2);text-decoration:underline;font-size:14px;cursor:pointer;font-family:inherit;padding:6px}
+#mh .mh-full{width:100%;padding:15px 22px;border-radius:28px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font-weight:800;font-size:16px;cursor:pointer;font-family:inherit}
+#mh .mh-hint{font-size:13px;color:var(--ink-2);line-height:1.45;margin:0;text-align:center}
+#mh .mh-opt{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--ink-2)}
+#mh .mh-opt label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+</style>
+<div class="mh-in">
+  <div class="mh-k">Busca por voz</div>
+  <h1 id="mh-h">Me diga o que você procura</h1>
+  <button type="button" class="mh-mic" id="mh-mic" aria-label="Falar"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff" stroke="none"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></button>
+  <p class="mh-tx" id="mh-tx" aria-live="polite"></p>
+  <p class="mh-sub" id="mh-sub">Toque no microfone e fale como se estivesse conversando com o cliente.</p>
+  <div class="mh-ex" id="mh-ex"><button type="button">casa até 3 milhões</button><button type="button">apartamento no Setor Bueno</button><button type="button">simular financiamento</button></div>
+  <div class="mh-type" id="mh-type" hidden><input type="text" id="mh-in" placeholder="Digite o que procura ou um comando" autocomplete="off" aria-label="Digite o que procura ou um comando"><button type="button" id="mh-go">Buscar</button></div>
+</div>
+<div class="mh-bot">
+  <button type="button" class="mh-lnk" id="mh-dig">Prefiro digitar</button>
+  <button type="button" class="mh-full" id="mh-open">Abrir o app completo</button>
+  <p class="mh-hint">Depois do primeiro comando o app completo abre. Nele você também pode digitar e selecionar todas as opções desejadas.</p>
+  <div class="mh-opt"><label><input type="checkbox" id="mh-voz" checked> 🔊 Saudação em voz</label><label><input type="checkbox" id="mh-off"> Não mostrar esta tela ao abrir</label></div>
+</div>
+</div>
 <div id="gate" hidden>
   <div style="display:flex;justify-content:flex-end;margin-bottom:10px"><select id="g-lang" data-noi18n aria-label="Language" style="font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card,transparent);color:var(--ink)"></select></div>
   <div class="logo" style="margin-bottom:18px"><i></i>Corretor Master<svg class="rg" viewBox="0 0 20 20" role="img" aria-label="marca registrada"><circle cx="10" cy="10" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="10" y="14.4" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="12.5" fill="currentColor">R</text></svg><small>Acesso restrito a corretores autorizados</small></div>
@@ -580,7 +622,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.25</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.27</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -736,6 +778,7 @@ body.estr #ferr{display:none}
           <div class="actions" style="margin-top:14px">
             <button class="btn acc" id="c-copy" type="button">Copiar simulação para o cliente</button>
             <a class="btn alt" id="c-wa" href="#" target="_blank" rel="noopener">Enviar no WhatsApp</a>
+            <button class="btn alt" id="c-pdf" type="button">📄 Enviar em PDF</button><button class="btn alt" id="c-pdf-dl" type="button">Baixar PDF</button>
           </div>
           <label style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:14px"><input type="checkbox" id="c-price"> Mostrar também a tabela Price (só se o cliente pedir)</label>
           <label style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:14px"><input type="checkbox" id="c-links"> Incluir os links da busca na mensagem</label>
@@ -1055,7 +1098,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.25</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.27</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -1197,6 +1240,8 @@ I18N_ROWS.push(...[["Toque para preencher: nome, tipo, local e valor.", "Tap to 
 I18N_ROWS.push(...[["O Estou aqui só funciona no Brasil.", "“I'm here” only works in Brazil.", "“Estoy aquí” solo funciona en Brasil.", "« Je suis ici » ne fonctionne qu'au Brésil.", "„Ich bin hier“ funktioniert nur in Brasilien.", "", "", ""], ["Abrindo o Estou aqui… libere a localização se o celular pedir.", "Opening “I'm here”… allow location if your phone asks.", "Abriendo “Estoy aquí”… permite la ubicación si el celular lo pide.", "Ouverture de « Je suis ici »… autorisez la localisation si demandé.", "„Ich bin hier“ wird geöffnet… erlauben Sie den Standort, falls gefragt.", "", "", ""], ["Gere a busca primeiro. Diga “gerar busca”.", "Generate the search first. Say “generate search”.", "Genera la búsqueda primero. Di “generar búsqueda”.", "Générez d'abord la recherche. Dites « générer la recherche ».", "Erstellen Sie zuerst die Suche. Sagen Sie „Suche erstellen“.", "", "", ""], ["Não achei esse portal nos links gerados.", "I couldn't find that portal in the generated links.", "No encontré ese portal en los enlaces generados.", "Portail introuvable dans les liens générés.", "Dieses Portal ist nicht in den erstellten Links.", "", "", ""], ["Toque para abrir:", "Tap to open:", "Toca para abrir:", "Touchez pour ouvrir :", "Zum Öffnen tippen:", "", "", ""], ["Gerando a busca…", "Generating the search…", "Generando la búsqueda…", "Génération de la recherche…", "Suche wird erstellt…", "", "", ""], ["Gerando o PDF…", "Generating the PDF…", "Generando el PDF…", "Génération du PDF…", "PDF wird erstellt…", "", "", ""], ["Gerando a planilha de clientes…", "Generating the clients spreadsheet…", "Generando la hoja de clientes…", "Génération du tableur clients…", "Kundentabelle wird erstellt…", "", "", ""], ["Exportando os clientes…", "Exporting clients…", "Exportando clientes…", "Export des clients…", "Kunden werden exportiert…", "", "", ""], ["Toque para escolher a conversa:", "Tap to choose the chat:", "Toca para elegir la conversación:", "Touchez pour choisir la conversation :", "Zum Wählen des Chats tippen:", "", "", ""], ["Formulário limpo.", "Form cleared.", "Formulario limpio.", "Formulaire vidé.", "Formular geleert.", "", "", ""], ["O mapa aparece depois que a busca é gerada.", "The map shows up after the search is generated.", "El mapa aparece después de generar la búsqueda.", "La carte apparaît une fois la recherche générée.", "Die Karte erscheint nach dem Erstellen der Suche.", "", "", ""], ["Valor da Calculadora: teto da busca.", "Calculator value: search ceiling.", "Valor de la Calculadora: tope de la búsqueda.", "Valeur de la calculatrice : plafond de la recherche.", "Rechnerwert: Obergrenze der Suche.", "", "", ""], ["Perfil aberto.", "Profile opened.", "Perfil abierto.", "Profil ouvert.", "Profil geöffnet.", "", "", ""], ["Perfil recolhido.", "Profile collapsed.", "Perfil contraído.", "Profil replié.", "Profil eingeklappt.", "", "", ""], ["Nome do cliente: {0}", "Client name: {0}", "Nombre del cliente: {0}", "Nom du client : {0}", "Kundenname: {0}", "", "", ""], ["Diga o telefone com DDD. Ex.: “telefone 62 99999-9999”.", "Say the phone with area code. E.g. “phone 62 99999-9999”.", "Di el teléfono con código de área. Ej.: “teléfono 62 99999-9999”.", "Dites le téléphone avec l'indicatif. Ex. : « téléphone 62 99999-9999 ».", "Nennen Sie die Nummer mit Vorwahl. Z. B. „Telefon 62 99999-9999“.", "", "", ""], ["Telefone do cliente: {0}", "Client phone: {0}", "Teléfono del cliente: {0}", "Téléphone du client : {0}", "Telefon des Kunden: {0}", "", "", ""], ["Idade do cliente: {0}", "Client age: {0}", "Edad del cliente: {0}", "Âge du client : {0}", "Alter des Kunden: {0}", "", "", ""], ["Tratamento: ele", "Form of address: he", "Tratamiento: él", "Appellation : il", "Anrede: er", "", "", ""], ["Tratamento: ela", "Form of address: she", "Tratamiento: ella", "Appellation : elle", "Anrede: sie", "", "", ""], ["Idioma: {0}", "Language: {0}", "Idioma: {0}", "Langue : {0}", "Sprache: {0}", "", "", ""], ["Tema escuro.", "Dark theme.", "Tema oscuro.", "Thème sombre.", "Dunkles Design.", "", "", ""], ["Tema claro.", "Light theme.", "Tema claro.", "Thème clair.", "Helles Design.", "", "", ""], ["Veja os exemplos abaixo e toque em um.", "See the examples below and tap one.", "Mira los ejemplos de abajo y toca uno.", "Voyez les exemples ci-dessous et touchez-en un.", "Sehen Sie die Beispiele unten und tippen Sie auf eines.", "", "", ""], ["A instalação não está disponível agora neste navegador.", "Installation isn't available right now in this browser.", "La instalación no está disponible ahora en este navegador.", "L'installation n'est pas disponible dans ce navigateur.", "Die Installation ist in diesem Browser derzeit nicht verfügbar.", "", "", ""], ["Por segurança, para sair toque em “Sair” no menu do seu perfil. Não faço isso por voz.", "For safety, to sign out tap “Sign out” in your profile menu. I don't do that by voice.", "Por seguridad, para salir toca “Salir” en el menú de tu perfil. No lo hago por voz.", "Par sécurité, pour vous déconnecter touchez « Déconnexion » dans le menu du profil. Je ne le fais pas à la voix.", "Aus Sicherheitsgründen tippen Sie zum Abmelden auf „Abmelden“ im Profilmenü. Per Sprache mache ich das nicht.", "", "", ""], ["Por segurança, apagar ou excluir só pelos botões da tela. Não faço isso por voz.", "For safety, deleting is only done with the on-screen buttons. I don't do that by voice.", "Por seguridad, borrar solo con los botones de la pantalla. No lo hago por voz.", "Par sécurité, la suppression se fait seulement avec les boutons à l'écran. Pas à la voix.", "Aus Sicherheitsgründen wird Löschen nur über die Schaltflächen gemacht, nicht per Sprache.", "", "", ""], ["Abrindo o portfólio e a leitura de grupos do WhatsApp.", "Opening the portfolio and WhatsApp group reader.", "Abriendo el portafolio y la lectura de grupos de WhatsApp.", "Ouverture du portefeuille et de la lecture des groupes WhatsApp.", "Portfolio und WhatsApp-Gruppenleser werden geöffnet.", "", "", ""], ["Abrindo o portfólio e a importação de planilha.", "Opening the portfolio and spreadsheet import.", "Abriendo el portafolio y la importación de hoja.", "Ouverture du portefeuille et de l'import de tableur.", "Portfolio und Tabellenimport werden geöffnet.", "", "", ""], ["Por segurança, não toco nesse botão por voz.", "For safety, I don't tap that button by voice.", "Por seguridad, no toco ese botón por voz.", "Par sécurité, je ne touche pas ce bouton à la voix.", "Aus Sicherheitsgründen tippe ich diese Schaltfläche nicht per Sprache.", "", "", ""], ["Toquei em: {0}", "Tapped: {0}", "Toqué: {0}", "Touché : {0}", "Getippt: {0}", "", "", ""], ["Cliente aberto: {0}", "Client opened: {0}", "Cliente abierto: {0}", "Client ouvert : {0}", "Kunde geöffnet: {0}", "", "", ""], ["Cliente", "Client", "Cliente", "Client", "Kunde", "", "", ""], ["No app", "In the app", "En la app", "Dans l'app", "In der App", "", "", ""], ["casa com piscina até 3 milhões", "house with pool up to 3 million", "casa con piscina hasta 3 millones", "maison avec piscine jusqu'à 3 millions", "Haus mit Pool bis 3 Millionen", "", "", ""], ["apartamento mobiliado, lançamento", "furnished apartment, new development", "apartamento amueblado, lanzamiento", "appartement meublé, programme neuf", "möblierte Wohnung, Neubau", "", "", ""], ["estou aqui casa até 4 milhões", "I'm here house up to 4 million", "estoy aquí casa hasta 4 millones", "je suis ici maison jusqu'à 4 millions", "ich bin hier Haus bis 4 Millionen", "", "", ""], ["gerar busca", "generate search", "generar búsqueda", "générer la recherche", "Suche erstellen", "", "", ""], ["copiar links", "copy links", "copiar enlaces", "copier les liens", "Links kopieren", "", "", ""], ["gerar PDF", "generate PDF", "generar PDF", "générer le PDF", "PDF erstellen", "", "", ""], ["abrir VivaReal", "open VivaReal", "abrir VivaReal", "ouvrir VivaReal", "VivaReal öffnen", "", "", ""], ["mandar no WhatsApp", "send on WhatsApp", "enviar por WhatsApp", "envoyer sur WhatsApp", "per WhatsApp senden", "", "", ""], ["limpar", "clear", "limpiar", "effacer", "leeren", "", "", ""], ["nome do cliente Marcos Silva", "client name Marcos Silva", "nombre del cliente Marcos Silva", "nom du client Marcos Silva", "Kundenname Marcos Silva", "", "", ""], ["telefone 62 99999-9999", "phone 62 99999-9999", "teléfono 62 99999-9999", "téléphone 62 99999-9999", "Telefon 62 99999-9999", "", "", ""], ["abrir cliente Marcos", "open client Marcos", "abrir cliente Marcos", "ouvrir le client Marcos", "Kunde Marcos öffnen", "", "", ""], ["abrir perfil", "open profile", "abrir perfil", "ouvrir le profil", "Profil öffnen", "", "", ""], ["fechar perfil", "close profile", "cerrar perfil", "fermer le profil", "Profil schließen", "", "", ""], ["abrir portfólio", "open portfolio", "abrir portafolio", "ouvrir le portefeuille", "Portfolio öffnen", "", "", ""], ["abrir alto padrão", "open high-end", "abrir alto standing", "ouvrir le haut de gamme", "Luxus öffnen", "", "", ""], ["abrir mapa", "open map", "abrir mapa", "ouvrir la carte", "Karte öffnen", "", "", ""], ["abrir foto da placa", "open sign photo", "abrir foto del cartel", "ouvrir photo de pancarte", "Schildfoto öffnen", "", "", ""], ["abrir grupos de WhatsApp", "open WhatsApp groups", "abrir grupos de WhatsApp", "ouvrir les groupes WhatsApp", "WhatsApp-Gruppen öffnen", "", "", ""], ["usar o teto da busca", "use the search ceiling", "usar el tope de la búsqueda", "utiliser le plafond de la recherche", "Obergrenze der Suche verwenden", "", "", ""], ["mudar para inglês", "switch to English", "cambiar a inglés", "passer en anglais", "auf Englisch wechseln", "", "", ""], ["tema escuro", "dark theme", "tema oscuro", "thème sombre", "dunkles Design", "", "", ""], ["tocar em Salvar cliente", "tap Save client", "tocar en Guardar cliente", "toucher Enregistrer le client", "auf Kunde speichern tippen", "", "", ""], ["o que posso falar", "what can I say", "qué puedo decir", "que puis-je dire", "was kann ich sagen", "", "", ""], ["Foto da placa", "Sign photo", "Foto del cartel", "Photo de la pancarte", "Foto vom Schild", "", "", ""]]);
 I18N_ROWS.push(...[["Fale um comando ou descreva a busca", "Say a command or describe the search", "Di un comando o describe la búsqueda", "Dites une commande ou décrivez la recherche", "Sprechen Sie einen Befehl oder beschreiben Sie die Suche", "", "", ""], ["Um só microfone para tudo: toque no 🎤 e diga a busca (“casa até 3 milhões”) ou um comando (“abrir calculadora”, “gerar PDF”). Também pode escrever aqui.", "One microphone for everything: tap 🎤 and say the search (“house up to 3 million”) or a command (“open calculator”, “generate PDF”). You can also type here.", "Un solo micrófono para todo: toca 🎤 y di la búsqueda (“casa hasta 3 millones”) o un comando (“abrir calculadora”, “generar PDF”). También puedes escribir aquí.", "Un seul micro pour tout : touchez 🎤 et dites la recherche (« maison jusqu'à 3 millions ») ou une commande (« ouvrir la calculatrice », « générer le PDF »). Vous pouvez aussi écrire ici.", "Ein Mikrofon für alles: tippen Sie auf 🎤 und sagen Sie die Suche („Haus bis 3 Millionen“) oder einen Befehl („Rechner öffnen“, „PDF erstellen“). Sie können auch tippen.", "", "", ""], ["Ex.: casa até 3 milhões · abrir calculadora", "E.g. house up to 3 million · open calculator", "Ej.: casa hasta 3 millones · abrir calculadora", "Ex. : maison jusqu'à 3 millions · ouvrir la calculatrice", "Z. B. Haus bis 3 Millionen · Rechner öffnen", "", "", ""]]);
 I18N_ROWS.push(...[["PDF pronto. Toque para escolher a conversa:", "PDF ready. Tap to choose the chat:", "PDF listo. Toca para elegir la conversación:", "PDF prêt. Touchez pour choisir la conversation :", "PDF fertig. Zum Wählen des Chats tippen:", "", "", ""], ["Enviar PDF no WhatsApp", "Send PDF on WhatsApp", "Enviar PDF por WhatsApp", "Envoyer le PDF sur WhatsApp", "PDF per WhatsApp senden", "", "", ""], ["enviar PDF no WhatsApp", "send PDF on WhatsApp", "enviar PDF por WhatsApp", "envoyer le PDF sur WhatsApp", "PDF per WhatsApp senden", "", "", ""]]);
+I18N_ROWS.push(...[["Diga o valor do imóvel. Ex.: “simule o financiamento de um imóvel de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%”.", "Say the property value. E.g. “simulate financing for a 1.2 million property, 30% down, 25 years, 10.5% interest, 6% commission”.", "Di el valor del inmueble. Ej.: “simula el financiamiento de un inmueble de 1,2 millones, entrada de 30%, 25 años, interés 10,5%, comisión 6%”.", "Dites la valeur du bien. Ex. : « simule le financement d'un bien de 1,2 million, apport 30 %, 25 ans, taux 10,5 %, commission 6 % ».", "Nennen Sie den Immobilienwert. Z. B. „Finanzierung für 1,2 Mio. simulieren, 30 % Anzahlung, 25 Jahre, 10,5 % Zinsen, 6 % Provision“.", "", "", ""], ["Preenchi a Calculadora, mas o cálculo não foi liberado agora.", "I filled in the Calculator, but the calculation couldn't be unlocked now.", "Rellené la Calculadora, pero el cálculo no se pudo liberar ahora.", "J'ai rempli la calculatrice, mais le calcul n'a pas pu être débloqué.", "Rechner ausgefüllt, aber die Berechnung konnte jetzt nicht freigeschaltet werden.", "", "", ""], ["Você não disse tudo, então usei as métricas que já estavam na Calculadora (padrão do app):", "You didn't say everything, so I used the metrics already in the Calculator (app defaults):", "No dijiste todo, así que usé las métricas que ya estaban en la Calculadora (estándar de la app):", "Vous n'avez pas tout dit, j'ai donc utilisé les valeurs déjà dans la calculatrice (par défaut de l'app) :", "Sie haben nicht alles genannt, daher habe ich die bereits im Rechner stehenden Werte (App-Standard) verwendet:", "", "", ""], ["Para uma simulação exata, diga tudo de uma vez: valor, entrada, prazo, juros, ITBI, cartório, avaliação, seguro e comissão. Confira os valores na Calculadora.", "For an exact simulation, say it all at once: value, down payment, term, interest, transfer tax, registry, appraisal, insurance and commission. Check the values in the Calculator.", "Para una simulación exacta, dilo todo de una vez: valor, entrada, plazo, interés, ITBI, notaría, tasación, seguro y comisión. Revisa los valores en la Calculadora.", "Pour une simulation exacte, dites tout d'un coup : valeur, apport, durée, taux, droits de mutation, notaire, expertise, assurance et commission. Vérifiez dans la calculatrice.", "Für eine genaue Simulation alles auf einmal nennen: Wert, Anzahlung, Laufzeit, Zinsen, Grunderwerbsteuer, Notar, Gutachten, Versicherung und Provision. Werte im Rechner prüfen.", "", "", ""], ["Usei só os números que você falou.", "I used only the numbers you said.", "Usé solo los números que dijiste.", "J'ai utilisé seulement les chiffres que vous avez dits.", "Ich habe nur Ihre genannten Zahlen verwendet.", "", "", ""], ["Dinheiro necessário na compra: {0}.", "Cash needed at purchase: {0}.", "Dinero necesario en la compra: {0}.", "Argent nécessaire à l'achat : {0}.", "Nötiges Bargeld beim Kauf: {0}.", "", "", ""], ["Sua comissão: bruta {0} · sua parte {1} · líquida {2} (só para você, não vai no PDF).", "Your commission: gross {0} · your share {1} · net {2} (for you only, not in the PDF).", "Tu comisión: bruta {0} · tu parte {1} · neta {2} (solo para ti, no va en el PDF).", "Votre commission : brute {0} · votre part {1} · nette {2} (pour vous seul, pas dans le PDF).", "Ihre Provision: brutto {0} · Ihr Anteil {1} · netto {2} (nur für Sie, nicht im PDF).", "", "", ""], ["Enviar simulação em PDF", "Send simulation as PDF", "Enviar simulación en PDF", "Envoyer la simulation en PDF", "Simulation als PDF senden", "", "", ""], ["Faça a simulação primeiro. Diga: “simule o financiamento de 1 milhão e 200 mil”.", "Run the simulation first. Say: “simulate financing for 1 million 200 thousand”.", "Haz la simulación primero. Di: “simula el financiamiento de 1 millón 200 mil”.", "Faites d'abord la simulation. Dites : « simule le financement de 1 million 200 mille ».", "Zuerst die Simulation machen. Sagen Sie: „Finanzierung für 1 Million 200 Tausend simulieren“.", "", "", ""], ["Gerando o PDF da simulação…", "Generating the simulation PDF…", "Generando el PDF de la simulación…", "Génération du PDF de la simulation…", "Simulations-PDF wird erstellt…", "", "", ""], ["PDF da simulação pronto. Toque para escolher a conversa:", "Simulation PDF ready. Tap to choose the chat:", "PDF de la simulación listo. Toca para elegir la conversación:", "PDF de la simulation prêt. Touchez pour choisir la conversation :", "Simulations-PDF fertig. Zum Wählen des Chats tippen:", "", "", ""], ["📄 Enviar em PDF", "📄 Send as PDF", "📄 Enviar en PDF", "📄 Envoyer en PDF", "📄 Als PDF senden", "", "", ""], ["Baixar PDF", "Download PDF", "Descargar PDF", "Télécharger le PDF", "PDF herunterladen", "", "", ""], ["simule o financiamento de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%", "simulate financing for 1.2 million, 30% down, 25 years, 10.5% interest, 6% commission", "simula el financiamiento de 1,2 millones, entrada de 30%, 25 años, interés 10,5%, comisión 6%", "simule le financement de 1,2 million, apport 30 %, 25 ans, taux 10,5 %, commission 6 %", "Finanzierung für 1,2 Mio. simulieren, 30 % Anzahlung, 25 Jahre, 10,5 % Zinsen, 6 % Provision", "", "", ""], ["enviar simulação em PDF", "send simulation as PDF", "enviar simulación en PDF", "envoyer la simulation en PDF", "Simulation als PDF senden", "", "", ""], ["enviar simulação no WhatsApp", "send simulation on WhatsApp", "enviar simulación por WhatsApp", "envoyer la simulation sur WhatsApp", "Simulation per WhatsApp senden", "", "", ""]]);
+I18N_ROWS.push(...[["Busca por voz", "Voice search", "Búsqueda por voz", "Recherche vocale", "Sprachsuche", "语音搜索", "البحث الصوتي", "Ricerca vocale"], ["Me diga o que você procura", "Tell me what you're looking for", "Dime qué buscas", "Dites-moi ce que vous cherchez", "Sagen Sie mir, was Sie suchen", "告诉我您想找什么", "أخبرني ما الذي تبحث عنه", "Dimmi cosa stai cercando"], ["Toque no microfone e fale como se estivesse conversando com o cliente.", "Tap the microphone and speak as if you were talking to the client.", "Toca el micrófono y habla como si conversaras con el cliente.", "Touchez le micro et parlez comme si vous parliez au client.", "Tippen Sie auf das Mikrofon und sprechen Sie, als würden Sie mit dem Kunden reden.", "点按麦克风，像和客户聊天一样说话。", "اضغط على الميكروفون وتحدث كما لو كنت تتحدث مع العميل.", "Tocca il microfono e parla come se stessi parlando con il cliente."], ["casa até 3 milhões", "house up to 3 million", "casa hasta 3 millones", "maison jusqu'à 3 millions", "Haus bis 3 Millionen", "300万以内的房子", "منزل حتى 3 ملايين", "casa fino a 3 milioni"], ["apartamento no Setor Bueno", "apartment in Setor Bueno", "apartamento en Setor Bueno", "appartement à Setor Bueno", "Wohnung in Setor Bueno", "Setor Bueno 的公寓", "شقة في سيتور بوينو", "appartamento a Setor Bueno"], ["simular financiamento", "simulate financing", "simular financiamiento", "simuler un financement", "Finanzierung simulieren", "模拟贷款", "محاكاة التمويل", "simulare il finanziamento"], ["Ouvindo… fale agora.", "Listening… speak now.", "Escuchando… habla ahora.", "J'écoute… parlez maintenant.", "Ich höre zu … sprechen Sie jetzt.", "正在聆听…请说话。", "أستمع… تحدث الآن.", "Ascolto… parla ora."], ["Prefiro digitar", "I'd rather type", "Prefiero escribir", "Je préfère écrire", "Ich tippe lieber", "我想打字", "أفضّل الكتابة", "Preferisco scrivere"], ["Digite o que procura ou um comando", "Type what you're looking for or a command", "Escribe lo que buscas o un comando", "Écrivez ce que vous cherchez ou une commande", "Geben Sie ein, was Sie suchen, oder einen Befehl", "输入您要找的内容或指令", "اكتب ما تبحث عنه أو أمراً", "Scrivi cosa cerchi o un comando"], ["Abrir o app completo", "Open the full app", "Abrir la app completa", "Ouvrir l'app complète", "Vollständige App öffnen", "打开完整应用", "فتح التطبيق الكامل", "Apri l'app completa"], ["Depois do primeiro comando o app completo abre. Nele você também pode digitar e selecionar todas as opções desejadas.", "After your first command the full app opens. There you can also type and pick every option you want.", "Después del primer comando se abre la app completa. En ella también puedes escribir y seleccionar todas las opciones que quieras.", "Après votre première commande, l'app complète s'ouvre. Vous pouvez aussi y écrire et choisir toutes les options souhaitées.", "Nach dem ersten Befehl öffnet sich die vollständige App. Dort können Sie auch tippen und alle gewünschten Optionen auswählen.", "第一次语音指令后将打开完整应用。在其中您也可以输入并选择所有需要的选项。", "بعد أول أمر يُفتح التطبيق الكامل. وفيه يمكنك أيضاً الكتابة واختيار كل الخيارات التي تريدها.", "Dopo il primo comando si apre l'app completa. Lì puoi anche scrivere e selezionare tutte le opzioni che vuoi."], ["Não mostrar esta tela ao abrir", "Don't show this screen on startup", "No mostrar esta pantalla al abrir", "Ne plus afficher cet écran à l'ouverture", "Diesen Bildschirm beim Start nicht anzeigen", "启动时不再显示此屏幕", "عدم إظهار هذه الشاشة عند الفتح", "Non mostrare questa schermata all'apertura"], ["🔊 Saudação em voz", "🔊 Voice greeting", "🔊 Saludo en voz", "🔊 Salutation vocale", "🔊 Sprachbegrüßung", "🔊 语音问候", "🔊 تحية صوتية", "🔊 Saluto vocale"], ["Olá, seja bem-vindo! Me diga que tipo de imóvel e em qual local você procura.", "Hello, welcome! Tell me what type of property and what location you're looking for.", "¡Hola, bienvenido! Dime qué tipo de inmueble y en qué lugar buscas.", "Bonjour, bienvenue ! Dites-moi quel type de bien et dans quel lieu vous cherchez.", "Hallo, willkommen! Sagen Sie mir, welche Art von Immobilie und an welchem Ort Sie suchen.", "您好，欢迎！请告诉我您想找什么类型的房产，以及在哪个地区。", "مرحباً بك! أخبرني ما نوع العقار والموقع الذي تبحث عنه.", "Ciao, benvenuto! Dimmi che tipo di immobile e in quale zona stai cercando."], ["Dica: neste app você também pode digitar e selecionar todas as opções.", "Tip: in this app you can also type and select every option.", "Consejo: en esta app también puedes escribir y seleccionar todas las opciones.", "Astuce : dans cette app, vous pouvez aussi écrire et choisir toutes les options.", "Tipp: In dieser App können Sie auch alle Optionen tippen und auswählen.", "提示：在此应用中您也可以输入并选择所有选项。", "نصيحة: في هذا التطبيق يمكنك أيضاً الكتابة واختيار كل الخيارات.", "Suggerimento: in questa app puoi anche scrivere e selezionare tutte le opzioni."], ["Entendendo…", "Understanding…", "Entendiendo…", "Je comprends…", "Verstehe …", "正在理解…", "جارٍ الفهم…", "Capisco…"], ["Seu navegador não permite voz aqui. Digite o que procura.", "Your browser doesn't allow voice here. Type what you're looking for.", "Tu navegador no permite voz aquí. Escribe lo que buscas.", "Votre navigateur n'autorise pas la voix ici. Écrivez ce que vous cherchez.", "Ihr Browser erlaubt hier keine Sprache. Geben Sie ein, was Sie suchen.", "您的浏览器不支持语音。请输入您要找的内容。", "متصفحك لا يدعم الصوت هنا. اكتب ما تبحث عنه.", "Il tuo browser non consente la voce qui. Scrivi cosa cerchi."], ["Não consegui usar o microfone agora. Digite o que procura.", "I couldn't use the microphone now. Type what you're looking for.", "No pude usar el micrófono ahora. Escribe lo que buscas.", "Je n'ai pas pu utiliser le micro. Écrivez ce que vous cherchez.", "Mikrofon derzeit nicht nutzbar. Geben Sie ein, was Sie suchen.", "暂时无法使用麦克风。请输入您要找的内容。", "تعذر استخدام الميكروفون الآن. اكتب ما تبحث عنه.", "Impossibile usare il microfono ora. Scrivi cosa cerchi."]]);
 let LANG="pt";
 try{const sv=localStorage.getItem("cm-lang");if(LANGS.some(l=>l[0]===sv))LANG=sv;else if(!sv){const nl=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).map(x=>String(x).toLowerCase());if(!nl.some(x=>x.startsWith("pt"))){for(const x of nl){const m=(x==="es-ar"||x==="es-cl"||x==="es-uy")?x:(["en","es","fr","de","zh","ar","it"].includes(x.slice(0,2))?x.slice(0,2):"");if(m){LANG=m;break}}}}}catch(_){}
 const LOC=()=>(LANGS.find(l=>l[0]===LANG)||LANGS[0])[2];
@@ -2211,7 +2256,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.25 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.27 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3300,7 +3345,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
-/* ===== comprar no exterior (v3.25) ===== */
+/* ===== comprar no exterior (v3.27) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3330,7 +3375,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.25: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.27: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3497,7 +3542,7 @@ async function vozExterior(txt,res){
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
 
-/* ===== comandos de voz do app (v3.25) ===== */
+/* ===== comandos de voz do app (v3.27) ===== */
 const vozEsp=ms=>new Promise(r=>setTimeout(r,ms));
 const vozVis=e=>!!(e&&e.offsetParent!==null&&!e.disabled);
 const VOZ_PERIGO=/\b(apagar|apague|excluir|exclua|remover|remova|deletar|delete|remove|sair|logout|sign ?out|cancelar|cancel|encerrar|desativar|desfazer|reembolso|pagar|comprar|assinar agora|confirmar exclusao)\b/;
@@ -3533,6 +3578,13 @@ async function vozAcoes(t0,txt,res){
   /* gerar / copiar / PDF / planilha / WhatsApp */
   if(/^(gerar|gera|gere|montar|monte|criar|crie|fazer|faca|faz|generate|make|build)\s+(?:a |as |os |essa |esta |the )?(?:busca|buscas|links?|pesquisa|search)\b/.test(t0)){window.vozGerar&&window.vozGerar();return ok(t("Gerando a busca…"))}
   if(/^(copiar|copie|copia|copy)\s+(?:os |todos os |the )?(?:links?|busca|tudo|all)/.test(t0)){if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));$("zap-copy").click();return true}
+  if(/\b(simulacao|financiamento|calculadora|simulation|mortgage)\b/.test(t0)&&/\bpdf\b/.test(t0)){
+    if(!CALC)return aviso(t("Faça a simulação primeiro. Diga: “simule o financiamento de 1 milhão e 200 mil”."));
+    if(/^(?:baixar|baixe|gerar|gere|salvar|salve|download|save|make)\b/.test(t0)){calcPdfAcao("baixar");return ok(t("Gerando o PDF da simulação…"))}
+    res.innerHTML='<div class="alert good">'+esc(t("PDF da simulação pronto. Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-calcpdf2">📄 '+esc(t("Enviar simulação em PDF"))+"</button></div>";$("voz-calcpdf2").onclick=()=>$("c-pdf").click();return true}
+  if(/^(?:mandar|manda|mande|enviar|envia|envie|send|share|compartilhar|compartilhe)\s+(?:a |essa |esta |the |this )?(?:simulacao|financiamento)\b/.test(t0)){
+    if(!CALC)return aviso(t("Faça a simulação primeiro. Diga: “simule o financiamento de 1 milhão e 200 mil”."));
+    res.innerHTML='<div class="alert good">'+esc(t("Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><a class="btn acc" target="_blank" rel="noopener" href="'+esc($("c-wa").href)+'">💬 WhatsApp</a><button type="button" class="btn alt" id="voz-calcpdf3">📄 PDF</button></div>';$("voz-calcpdf3").onclick=()=>$("c-pdf").click();return true}
   if(/^(?:mandar|manda|mande|enviar|envia|envie|compartilhar|compartilhe|send|share)\s+(?:o |um |a |the |este |esse )?(?:pdf|relatorio)\b/.test(t0)||/\bpdf\b.*\b(?:whatsapp|zap)\b/.test(t0)||/\b(?:whatsapp|zap)\b.*\bpdf\b/.test(t0)){
     if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));
     res.innerHTML='<div class="alert good">'+esc(t("PDF pronto. Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-pdfwa">📄 '+esc(t("Enviar PDF no WhatsApp"))+"</button></div>";
@@ -3609,29 +3661,63 @@ function vozCliAcao(c,acao,res){
   res.innerHTML='<div class="alert good">'+esc(t("Busca de {0} carregada. Gerando os links…",nome))+"</div>";
   if(window.vozGerar)window.vozGerar();return true}
 /* calculadora por voz: comissão e parcela */
-function vozCalc(t0){
+async function vozCalc(t0){
   let s=vozNumeros(t0);const PN=x=>parseFloat(String(x).replace(",","."));
-  const mE=s.match(/(?:entrada|down ?payment)\s*(?:de|of)?\s*(\d+(?:[.,]\d+)?)\s*(?:%|por cento|percent)/),
-    mJ=s.match(/(?:juros?|taxa|interest|rate)\s*(?:de|of|at)?\s*(\d+(?:[.,]\d+)?)/),
-    mA=s.match(/(\d+)\s*(?:anos?|years?|yrs?)\b/);
-  let r=s;[mE,mJ,mA].forEach(m=>{if(m)r=r.replace(m[0]," ")});
-  const mP=r.match(/(\d+(?:[.,]\d+)?)\s*(?:%|por cento|percent)/);if(mP)r=r.replace(mP[0]," ");
+  const N="(\\d+(?:[.,]\\d+)?)",PC=v=>String(PN(v)).replace(".",","),M={};
+  const tira=(k,re,fn)=>{const m=s.match(re);if(m){M[k]=fn?fn(m):PN(m[1]);s=s.replace(m[0]," ")}};
+  const moeda=m=>{const v=PN(m[1]);const u=m[2]||"";return u==="mil"||u==="k"?v*1000:/^mi/.test(u)?v*1e6:v};
+  tira("com",new RegExp("comiss(?:ao|oes)\\s*(?:total\\s*)?(?:de|of|:)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("imob",new RegExp("(?:imobiliaria|agencia|imobiliaria fica com|agency)\\s*(?:fica com|leva|de|gets|takes)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("parc",new RegExp("(?:parceir[oa]s?|captador[a]?|partner)\\s*(?:fica com|leva|de|gets|takes)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("imp",new RegExp("(?:imposto|tributos?|tax)\\s*(?:sobre (?:a )?minha parte )?(?:de|of)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("itbi",new RegExp("itbi\\s*(?:de|of|at)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("cart",new RegExp("(?:cartorio|escritura(?: e registro)?|registro|deed|registry)\\s*(?:e registro\\s*)?(?:de|of|at)?\\s*"+N+"\\s*(?:%|por cento|percent)?"));
+  tira("aval",new RegExp("avaliacao\\s*(?:do banco\\s*)?(?:de|of)?\\s*(?:r\\$\\s*)?"+N+"\\s*(mil|k)?\\b"),moeda);
+  tira("seg",new RegExp("(?:seguros?|tarifas?|seguro e tarifa|insurance)\\s*(?:e tarifas?\\s*)?(?:mensal |por mes |mensais )?(?:de|of)?\\s*(?:r\\$\\s*)?"+N+"\\s*(mil|k)?\\b"),moeda);
+  tira("m2",new RegExp(N+"\\s*(?:m2|m²|metros quadrados|metros|sqm)\\b"));
+  tira("jur",new RegExp("(?:juros?|taxa(?: de juros)?|interest|rate)\\s*(?:de|of|at)?\\s*"+N+"\\s*(?:%|por cento|percent)?(?:\\s*ao ano| a\\.?a\\.?)?"));
+  tira("entv",new RegExp("entrada\\s*(?:de|of)?\\s*(?:r\\$\\s*)?"+N+"\\s*(mil|k|milhoes|milhao|mi)\\b"),moeda);
+  tira("ent",new RegExp("(?:entrada|down ?payment)\\s*(?:de|of)?\\s*"+N+"\\s*(?:%|por cento|percent)"));
+  tira("meses",new RegExp("(?:prazo\\s*(?:de)?\\s*)?"+N+"\\s*(?:meses|mes|months)\\b"));
+  tira("anos",new RegExp("(?:prazo\\s*(?:de)?\\s*)?"+N+"\\s*(?:anos?|years?|yrs?)\\b"));
+  const PRICE=/\b(price|tabela price)\b/.test(s);s=s.replace(/\b(tabela )?price\b/," ");
+  let r=s;const mP=r.match(new RegExp(N+"\\s*(?:%|por cento|percent)"));if(mP)r=r.replace(mP[0]," ");
   let valor=0;const mM=r.match(/(\d+(?:[.,]\d+)?)\s*(milhoes|milhao|million|mi)\b(?:\s*e\s*(\d{1,3})(?:\s*mil|k)?\b)?/);
   if(mM)valor=PN(mM[1])*1e6+(mM[3]?Number(mM[3])*1000:0);
   else{const mK=r.match(/(\d+(?:[.,]\d+)?)\s*(mil|k|thousand)\b/);if(mK)valor=PN(mK[1])*1000;else{const mN=r.match(/(\d{1,3}(?:[.,]\d{3})+|\d{5,})/);if(mN)valor=Number(mN[1].replace(/[.,]/g,""))}}
   valor=Math.round(valor);
-  if(!valor||valor<10000)return '<div class="alert warn">'+esc(t("Diga o valor do imóvel. Ex.: “comissão de 6% sobre 1 milhão e 200”."))+"</div>";
+  if(!valor||valor<10000)return '<div class="alert warn">'+esc(t("Diga o valor do imóvel. Ex.: “simule o financiamento de um imóvel de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%”."))+"</div>";
   const R=n=>"R$ "+Math.round(n).toLocaleString("pt-BR"),set=(id,v)=>{const e=$(id);e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))};
+  const soCom=/comiss|commission/.test(t0)&&!/financ|simul|parcela|prestacao|entrada|juros|prazo|mortgage|installment/.test(t0);
   document.querySelector('nav button[data-tab="calc"]').click();
   set("c-valor",valor.toLocaleString("pt-BR"));
-  if(/comiss|commission/.test(s)){
-    if(mP)set("c-com",String(PN(mP[1])).replace(".",","));
+  const F=(id,k)=>{if(M[k]!==undefined&&isFinite(M[k]))set(id,PC(M[k]))};
+  F("c-com","com");F("c-imob","imob");F("c-parc","parc");F("c-imp","imp");
+  if(soCom){
     const pc=pct($("c-com").value),imob=Math.min(100,Math.max(0,pct($("c-imob").value))),tot=valor*pc/100;
     return '<div class="alert good">'+esc(t("Comissão de {0}% sobre {1}: {2}.",String(pc).replace(".",","),R(valor),R(tot)))+"<br>"+esc(t("Parte da imobiliária ({0}%): {1}. Sobra {2} antes de parceiro e imposto.",String(imob).replace(".",","),R(tot*imob/100),R(tot*(100-imob)/100)))+"</div>"}
-  if(mE)set("c-ent",String(PN(mE[1])).replace(".",","));if(mA)set("c-anos",mA[1]);if(mJ)set("c-jur",String(PN(mJ[1])).replace(".",","));
-  const ent=Math.min(100,Math.max(0,pct($("c-ent").value))),anos=Math.min(35,Math.max(1,Math.round(pct($("c-anos").value))||1)),jur=Math.max(0,pct($("c-jur").value));
-  const F=valor*(1-ent/100),n=anos*12,i=jur?Math.pow(1+jur/100,1/12)-1:0,price=i?F*i/(1-Math.pow(1+i,-n)):F/n,sac=F/n+F*i;
-  return '<div class="alert good">'+esc(t("Financiamento de {0} (entrada {1}) em {2} anos, juros {3}% ao ano:",R(F),R(valor*ent/100),anos,String(jur).replace(".",",")))+"<br><b>"+esc(t("Parcela Price ≈ {0} · 1ª parcela SAC ≈ {1}.",R(price),R(sac)))+"</b><br>"+esc(t("Preenchi a Calculadora. Toque em Calcular lá para ver todos os custos."))+"</div>"}
+  F("c-itbi","itbi");F("c-cart","cart");
+  if(M.aval!==undefined)set("c-aval",Math.round(M.aval).toLocaleString("pt-BR"));
+  if(M.seg!==undefined)set("c-seg",Math.round(M.seg).toLocaleString("pt-BR"));
+  if(M.m2!==undefined)set("c-m2",PC(M.m2));
+  F("c-jur","jur");
+  if(M.ent!==undefined)set("c-ent",PC(Math.min(100,M.ent)));
+  else if(M.entv!==undefined)set("c-ent",PC(Math.min(100,M.entv/valor*100)));
+  if(M.anos!==undefined)set("c-anos",String(Math.min(35,Math.max(1,Math.round(M.anos)))));
+  else if(M.meses!==undefined)set("c-anos",String(Math.min(35,Math.max(1,Math.round(M.meses/12)))));
+  $("c-price").checked=PRICE;
+  if(!CALCOK){calcular();const b=$("c-go");if(b)b.click();for(let n=0;n<40&&!CALCOK;n++){await vozEsp(150);if($("c-msg")&&$("c-msg").textContent.trim())break}}
+  if(!CALCOK){const m=$("c-msg");return '<div class="alert warn">'+esc(t("Preenchi a Calculadora, mas o cálculo não foi liberado agora."))+(m&&m.textContent.trim()?" "+esc(m.textContent.trim()):"")+"</div>"}
+  calcular();
+  const ent=Math.min(100,Math.max(0,pct($("c-ent").value))),anos=Math.min(35,Math.max(1,Math.round(pct($("c-anos").value))||1)),jur=Math.max(0,pct($("c-jur").value)),seg=num($("c-seg").value);
+  const Fi=valor*(1-ent/100),n=anos*12,i=jur?Math.pow(1+jur/100,1/12)-1:0,price=i?Fi*i/(1-Math.pow(1+i,-n)):Fi/n,sac=Fi/n+Fi*i;
+  const com=pct($("c-com").value),imob=pct($("c-imob").value),parc=pct($("c-parc").value),imp=pct($("c-imp").value),bruta=valor*com/100,sua=bruta*(100-imob-parc)/100,liq=sua*(1-imp/100);
+  /* o que o corretor não disse: usou a métrica padrão do app */
+  const FALTA=[["ent","entv","Entrada",()=>PC(ent)+"%"],["anos","meses","Prazo",()=>anos+" anos"],["jur",0,"Juros",()=>PC(jur)+"% ao ano"],["itbi",0,"ITBI",()=>PC(pct($("c-itbi").value))+"%"],["cart",0,"Escritura e registro",()=>PC(pct($("c-cart").value))+"%"],["aval",0,"Avaliação do banco",()=>R(num($("c-aval").value))],["seg",0,"Seguros e tarifa",()=>R(seg)+"/mês"],["com",0,"Comissão",()=>PC(com)+"%"],["imob",0,"Parte da imobiliária",()=>PC(imob)+"%"]]
+    .filter(([a,b])=>M[a]===undefined&&(!b||M[b]===undefined));
+  const aviso=FALTA.length?'<div class="alert warn" style="margin-top:8px"><b>'+esc(t("Você não disse tudo, então usei as métricas que já estavam na Calculadora (padrão do app):"))+"</b> "+esc(FALTA.map(([a,b,l,f])=>t(l)+" "+f()).join(" · "))+".<br>"+esc(t("Para uma simulação exata, diga tudo de uma vez: valor, entrada, prazo, juros, ITBI, cartório, avaliação, seguro e comissão. Confira os valores na Calculadora."))+"</div>":'<div class="alert good" style="margin-top:8px">'+esc(t("Usei só os números que você falou."))+"</div>";
+  return '<div class="alert good">'+esc(t("Financiamento de {0} (entrada {1}) em {2} anos, juros {3}% ao ano:",R(Fi),R(valor*ent/100),anos,PC(jur)))+"<br><b>"+esc(t("Parcela Price ≈ {0} · 1ª parcela SAC ≈ {1}.",R(price+seg),R(sac+seg)))+"</b><br>"+esc(t("Dinheiro necessário na compra: {0}.",R(valor*ent/100+valor*pct($("c-itbi").value)/100+valor*pct($("c-cart").value)/100+num($("c-aval").value))))+"<br>"+esc(t("Sua comissão: bruta {0} · sua parte {1} · líquida {2} (só para você, não vai no PDF).",R(bruta),R(sua),R(liq)))+"</div>"+aviso+
+   '<div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-calcpdf">📄 '+esc(t("Enviar simulação em PDF"))+'</button><a class="btn alt" target="_blank" rel="noopener" href="'+esc($("c-wa").href)+'">💬 WhatsApp</a></div>'}
 async function vozComando(txt,res){
   const t0=normSem(txt).replace(/\s+/g," ").trim();
   const ok=(m)=>{res.innerHTML='<div class="alert good">'+esc(m)+"</div>";return true};
@@ -3641,7 +3727,7 @@ async function vozComando(txt,res){
     if(!L.length){if(mb)return false;return ok(t("Não achei cliente salvo com o nome “{0}”. Diga “salvar para {0}, telefone …” primeiro.",nm))}
     if(L.length>1){res.innerHTML='<div class="alert good">'+esc(t("Qual deles?"))+'</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">'+L.slice(0,6).map(c=>'<button type="button" class="btn alt" data-vcli="'+esc(c.id)+'" data-vac="'+ac+'">'+esc(c.perfil.nome)+"</button>").join("")+"</div>";return true}
     return vozCliAcao(L[0],ac,res)}
-  if(/^(comissao|commission|parcela|prestacao|financiamento|financiar|simular|simule|simulate|mortgage|installment|quanto fica|how much)/.test(t0)){res.innerHTML=vozCalc(t0);return true}
+  if(/^(comissao|commission|parcela|prestacao|financiamento|financiar|simular|simule|simulate|mortgage|installment|quanto fica|how much|simulacao|faca (?:uma )?simulacao|fazer (?:uma )?simulacao|calcule|calcula|calcular|quero simular|me de a simulacao|make a simulation|run a simulation)/.test(t0)){res.innerHTML=await vozCalc(t0);const bp=$("voz-calcpdf");if(bp)bp.onclick=()=>$("c-pdf").click();return true}
   if(/^(salvar|salve|salva|cadastrar|cadastre|guardar|guarde|save|add|register)\b/.test(t0)){
     const fi=t0.search(/\b(telefone|fone|celular|whatsapp|zap|phone|number|numero|tel)\b/);
     const nomePart=(fi>=0?txt.slice(0,fi):txt).replace(/[,.;:]+\s*$/,"");
@@ -3789,8 +3875,8 @@ async function vozLugar(nome){
       const pts=v=>(String(v.lang||"").toLowerCase().replace("_","-")===lg?4:0)+(BOA.test(v.name)?3:0)+(/neural|natural|online/i.test(v.name)?2:0)+(v.localService?0:1);
       return A.sort((x,y)=>pts(y)-pts(x)||x.name.localeCompare(y.name))}
     function vozAtual(){const V=vozes();let n="";try{n=localStorage.getItem("cm_voz_nome")||""}catch(_){}return V.find(v=>v.name===n)||V[0]||null}
-    function falar(tx,dica){if(!SS)return;const s=String(tx||"").replace(EMO,"").replace(/\s+/g," ").trim();if(!s)return;
-      try{SS.cancel();const u=new SpeechSynthesisUtterance(s);u.lang=LOC();const v=dica||vozAtual();if(v){u.voice=v;u.lang=v.lang||u.lang}u.rate=1.06;u.pitch=1.1;SS.speak(u)}catch(_){}}
+    function falar(tx,dica,fim){if(!SS)return;const s=String(tx||"").replace(EMO,"").replace(/\s+/g," ").trim();if(!s)return;
+      try{SS.cancel();const u=new SpeechSynthesisUtterance(s);u.lang=LOC();const v=dica||vozAtual();if(v){u.voice=v;u.lang=v.lang||u.lang}u.rate=1.06;u.pitch=1.1;if(fim)u.onend=fim;SS.speak(u)}catch(_){}}
     const tb=$("voz-troca");
     function trocaVis(){tb.hidden=!(fchk.checked&&vozes().length>1)}
     fchk.addEventListener("change",trocaVis);try{SS.addEventListener("voiceschanged",trocaVis)}catch(_){}setTimeout(trocaVis,600);
@@ -3807,7 +3893,7 @@ async function vozLugar(nome){
   const AJ=[["Buscar",[["apartamento no Setor Bueno até 900 mil",0],["casa em condomínio, uns 3 milhões",0],["casa com piscina até 3 milhões",0],["apartamento mobiliado, lançamento",0],["apartamento no Parque Flamboyant",0],["casa na França",0],["estou aqui casa até 4 milhões",0]]],
     ["Depois da busca",[["agora até 1 milhão",0],["troca para casa",0],["só no Jardim Goiás",0],["gerar busca",1],["copiar links",1],["gerar PDF",1],["enviar PDF no WhatsApp",1],["abrir VivaReal",1],["mandar no WhatsApp",1],["limpar",1]]],
     ["Cliente",[["nome do cliente Marcos Silva",0],["telefone 62 99999-9999",0],["salvar para Marcos Silva, telefone 62 99999-9999",0],["enviar busca para Marcos",0],["buscar para Marcos",0],["abrir cliente Marcos",0],["abrir perfil",1],["fechar perfil",1]]],
-    ["Abrir e calcular",[["abrir calculadora",1],["abrir meus clientes",1],["abrir painel",1],["abrir portfólio",1],["abrir alto padrão",1],["abrir mapa",1],["abrir foto da placa",1],["abrir grupos de WhatsApp",1],["comissão de 6% sobre 1 milhão e 200",1],["parcela de 800 mil em 30 anos",1],["usar o teto da busca",1]]],
+    ["Abrir e calcular",[["abrir calculadora",1],["abrir meus clientes",1],["abrir painel",1],["abrir portfólio",1],["abrir alto padrão",1],["abrir mapa",1],["abrir foto da placa",1],["abrir grupos de WhatsApp",1],["comissão de 6% sobre 1 milhão e 200",1],["simule o financiamento de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%",1],["parcela de 800 mil em 30 anos",1],["enviar simulação em PDF",1],["enviar simulação no WhatsApp",1],["usar o teto da busca",1]]],
     ["No app",[["mudar para inglês",1],["tema escuro",1],["tocar em Salvar cliente",1],["o que posso falar",1]]]];
   const aj=$("voz-ajuda"),hb=$("voz-help");
   const ajHtml=()=>AJ.map(g=>'<div style="margin-top:8px"><b style="font-size:13px">'+esc(t(g[0]))+'</b><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">'+g[1].map(x=>'<button type="button" class="btn alt" data-vx="'+esc(t(x[0]))+'" data-run="'+x[1]+'" style="min-height:34px;padding:5px 10px;font-size:13px;text-align:left">“'+esc(t(x[0]))+"”</button>").join("")+"</div></div>").join("")+'<p class="hint" style="margin:8px 0 0">'+esc(t("Toque num exemplo para colocá-lo no campo. Os de busca só rodam quando você tocar em “Entender e preencher”."))+"</p>";
@@ -3827,7 +3913,63 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.25) ===== */
+
+/* ===== tela só com microfone + saudação (1x por dia) (v3.27) ===== */
+(function(){
+  const mh=$("mh");if(!mh)return;
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition,SS=window.speechSynthesis;
+  const lsg=k=>{try{return localStorage.getItem(k)}catch(_){return null}},lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}};
+  const dia=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
+  let mostrada=false,rec=null,on=false,texto="",fechou=false;
+  const mic=$("mh-mic"),tx=$("mh-tx"),sub=$("mh-sub");
+  $("mh-voz").checked=lsg("cm_saudacao")!=="0";
+  $("mh-off").checked=lsg("cm_mic_home_off")==="1";
+  $("mh-voz").addEventListener("change",()=>{lss("cm_saudacao",$("mh-voz").checked?"1":"0");if(!$("mh-voz").checked&&SS)SS.cancel()});
+  $("mh-off").addEventListener("change",()=>lss("cm_mic_home_off",$("mh-off").checked?"1":"0"));
+  function fechar(){fechou=true;mh.hidden=true;try{if(SS)SS.cancel()}catch(_){}try{if(rec&&on)rec.abort()}catch(_){}document.body.style.overflow=""}
+  function enviar(txt){
+    txt=String(txt||"").trim();if(!txt)return;
+    fechar();tab("busca");const inp=$("voz-in");inp.value=txt;$("voz-go").click();
+    setTimeout(()=>{try{$("voz-box").scrollIntoView({behavior:"smooth",block:"start"})}catch(_){}},150);
+    setTimeout(()=>toast(t("Dica: neste app você também pode digitar e selecionar todas as opções."),6000),900)}
+  function ouvir(auto){
+    if(!SR){sub.textContent=t("Seu navegador não permite voz aqui. Digite o que procura.");$("mh-type").hidden=false;return}
+    try{if(SS)SS.cancel()}catch(_){}
+    if(on&&rec){try{rec.stop()}catch(_){}return}
+    texto="";let r;try{r=new SR();r.lang=LOC();r.interimResults=true;r.maxAlternatives=1;r.continuous=false}catch(_){return}
+    rec=r;
+    r.onstart=()=>{on=true;mic.classList.add("on");tx.textContent=t("Ouvindo… fale agora.");mic.setAttribute("aria-label",t("Parar"))};
+    r.onresult=ev=>{let f="";for(const x of ev.results)f+=x[0].transcript;texto=f.trim();tx.textContent="“"+texto+"”"};
+    r.onerror=ev=>{on=false;mic.classList.remove("on");if(auto)return;tx.textContent=ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Digite o que procura.");if(ev.error!=="no-speech")$("mh-type").hidden=false};
+    r.onend=()=>{const tinha=on;on=false;mic.classList.remove("on");mic.setAttribute("aria-label",t("Falar"));if(tinha&&texto&&!fechou){tx.textContent=t("Entendendo…");enviar(texto)}};
+    try{r.start()}catch(_){}}
+  mic.addEventListener("click",()=>{greetDone=true;ouvir(false)});
+  $("mh-ex").addEventListener("click",e=>{const b=e.target.closest("button");if(b)enviar(b.textContent)});
+  $("mh-dig").addEventListener("click",()=>{$("mh-type").hidden=false;$("mh-in").focus()});
+  $("mh-go").addEventListener("click",()=>enviar($("mh-in").value));
+  $("mh-in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();enviar($("mh-in").value)}});
+  $("mh-open").addEventListener("click",fechar);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!mh.hidden)fechar()});
+  /* saudação em voz: 1x por dia; o navegador só deixa falar depois de um toque */
+  let greetDone=false;
+  function saudar(){
+    if(greetDone||fechou||mh.hidden)return;greetDone=true;
+    if(!$("mh-voz").checked||lsg("cm_saudacao_dia")===dia()||!SS||!window.vozFalarTxt)return;
+    lss("cm_saudacao_dia",dia());
+    window.vozFalarTxt(t("Olá, seja bem-vindo! Me diga que tipo de imóvel e em qual local você procura."),null,()=>{if(!fechou&&!mh.hidden&&!on)ouvir(true)})}
+  function mostrar(){
+    if(mostrada||lsg("cm_mic_home_off")==="1")return;mostrada=true;fechou=false;
+    mh.hidden=false;document.body.style.overflow="hidden";
+    if(lsg("cm_saudacao_dia")===dia()||lsg("cm_saudacao")==="0"){greetDone=true;return}
+    const ativo=navigator.userActivation&&navigator.userActivation.hasBeenActive;
+    if(ativo)setTimeout(saudar,500);
+    else{const go=()=>{document.removeEventListener("pointerdown",go,true);document.removeEventListener("keydown",go,true);if(!mh.hidden&&!greetDone)saudar()};
+      document.addEventListener("pointerdown",go,true);document.addEventListener("keydown",go,true)}}
+  const app=$("app");
+  const chk=()=>{if(!app.hidden)mostrar()};
+  new MutationObserver(chk).observe(app,{attributes:true,attributeFilter:["hidden"]});chk();
+})();
+/* ===== mais ferramentas + seletor de pais (v3.27) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
@@ -4366,6 +4508,36 @@ document.addEventListener("click",async e=>{
   catch(er){b.disabled=false;const m=$("c-msg");if(m)m.innerHTML='<div class="alert warn">'+esc(er&&er.msg?er.msg:"Não foi possível calcular. Tente de novo.")+'</div>'+upgBtn(er.plano)}
 });
 calcular();
+
+/* ---------- PDF da simulação (sem a comissão do corretor) ---------- */
+function gerarPdfCalc(){
+  const {jsPDF}=window.jspdf,d=new jsPDF({unit:"mm",format:"a4"}),W=210,M=16,TW=W-2*M;let y=0;
+  const need=hh=>{if(y+hh>285){d.addPage();y=M}};
+  const txt=(tx,sz,bold,col)=>{d.setFont("helvetica",bold?"bold":"normal");d.setFontSize(sz);d.setTextColor(...(col||[20,41,31]));d.splitTextToSize(String(tx),TW).forEach(l=>{need(sz*0.5);d.text(l,M,y);y+=sz*0.45})};
+  d.setFillColor(10,31,60);d.rect(0,0,W,30,"F");
+  try{d.addImage("data:image/jpeg;base64,"+LOGO_PDF,"JPEG",M,1,28,28)}catch(_){}
+  d.setFont("helvetica","bold");d.setFontSize(15);d.setTextColor(255,255,255);d.text("Corretor Master",M+32,14);
+  d.setFont("helvetica","normal");d.setFontSize(10);d.setTextColor(190,205,225);d.text(t("Simulação de financiamento"),M+32,21);
+  d.setFillColor(45,212,191);d.rect(0,30,W,1.5,"F");y=42;
+  const cor=corInfo(),pn=(S.nome||"").trim().split(/\s+/)[0];
+  txt(S.nome.trim()?t("Cliente: {0}",S.nome.trim()):t("Cliente"),14,true);y+=2;
+  txt(t("Gerado em {0}",new Date().toLocaleString(LOC())),9,false,[74,93,82]);y+=4;
+  txt((pn?t("Olá, {0}!",pn):t("Olá!"))+" "+t("Segue a simulação de financiamento:"),10,false);
+  if(cor.nome){y+=1;txt("— "+cor.nome+(cor.creci?" · CRECI "+cor.creci:"")+(cor.fone?" · "+cor.fone:""),10,true,[29,74,53])}
+  y+=5;txt(t("Simulação de financiamento"),12,true,[29,74,53]);y+=2;
+  CALC.linhas.forEach(([k,v])=>{need(8);d.setFont("helvetica","normal");d.setFontSize(10);d.setTextColor(60,70,65);d.text(String(k),M,y);d.setFont("helvetica","bold");d.setTextColor(20,41,31);d.text(String(v),W-M,y,{align:"right"});d.setDrawColor(220,226,222);d.line(M,y+1.8,W-M,y+1.8);y+=7});
+  y+=4;txt(t("Estimativa com as taxas informadas; não substitui a simulação do banco."),8,false,[74,93,82]);
+  d.setFont("helvetica","normal");d.setFontSize(8);d.setTextColor(120,130,125);d.text("Corretor Master · "+new Date().toLocaleDateString(LOC()),M,290);
+  return d.output("arraybuffer")}
+async function calcPdfAcao(modo){
+  if(!CALC){toast("Informe o valor do imóvel");return}
+  try{const buf=gerarPdfCalc(),nome="simulacao-"+(slugify(S.nome)||"cliente")+".pdf",f=new File([buf],nome,{type:"application/pdf"});
+    if(modo==="enviar"){const fl=logoOn()&&podeLogo()?[logoFile(),f]:[f];
+      if(navigator.canShare&&navigator.canShare({files:fl})){await navigator.share({files:fl,text:msgCalc()});return}
+      if(fl.length>1&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:msgCalc()});return}}
+    if(DL){await DL.save({filename:nome,data:buf});toast(modo==="enviar"?"PDF salvo. Anexe-o na conversa do WhatsApp.":"PDF salvo")}else toast("Não foi possível gerar o PDF")
+  }catch(e){if(!e||e.name!=="AbortError")toast("Não foi possível gerar o PDF")}}
+$("c-pdf").addEventListener("click",()=>calcPdfAcao("enviar"));$("c-pdf-dl").addEventListener("click",()=>calcPdfAcao("baixar"));
 
 
 /* ---------- início: atalhos, recentes e cartões ---------- */
