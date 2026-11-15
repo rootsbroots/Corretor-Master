@@ -534,7 +534,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.22) ===== */
+/* ===== mais ferramentas (v3.23) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -580,7 +580,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.22</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.23</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1055,7 +1055,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.22</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.23</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2209,7 +2209,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.22 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.23 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3298,7 +3298,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
-/* ===== comprar no exterior (v3.22) ===== */
+/* ===== comprar no exterior (v3.23) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3328,7 +3328,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.22: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.23: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3495,7 +3495,7 @@ async function vozExterior(txt,res){
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
 
-/* ===== comandos de voz do app (v3.22) ===== */
+/* ===== comandos de voz do app (v3.23) ===== */
 const vozEsp=ms=>new Promise(r=>setTimeout(r,ms));
 const vozVis=e=>!!(e&&e.offsetParent!==null&&!e.disabled);
 const VOZ_PERIGO=/\b(apagar|apague|excluir|exclua|remover|remova|deletar|delete|remove|sair|logout|sign ?out|cancelar|cancel|encerrar|desativar|desfazer|reembolso|pagar|comprar|assinar agora|confirmar exclusao)\b/;
@@ -3778,7 +3778,8 @@ async function vozLugar(nome){
     /* voz: prefere vozes naturais/neurais do idioma e deixa trocar */
     const BOA=/natural|neural|online|premium|enhanced|google|luciana|francisca|antonio|thalita|camila|vit[oó]ria|siri|samantha|aria|jenny|denise|elsa|paulina|monica/i;
     function vozes(){let L=[];try{L=SS.getVoices()||[]}catch(_){}const lg=LOC().toLowerCase(),b=lg.slice(0,2);
-      const A=L.filter(v=>String(v.lang||"").toLowerCase().replace("_","-").startsWith(b));
+      let A=L.filter(v=>String(v.lang||"").toLowerCase().replace("_","-").startsWith(b));
+      if(lg==="pt-br"){const BR=A.filter(v=>!/^pt[-_]pt/i.test(v.lang||"")&&!/portugal|european|europeu|joana|h[eé]lia|duarte|fernanda pt|raquel pt/i.test(v.name||""));if(BR.length)A=BR}
       const pts=v=>(String(v.lang||"").toLowerCase().replace("_","-")===lg?4:0)+(BOA.test(v.name)?3:0)+(/neural|natural|online/i.test(v.name)?2:0)+(v.localService?0:1);
       return A.sort((x,y)=>pts(y)-pts(x)||x.name.localeCompare(y.name))}
     function vozAtual(){const V=vozes();let n="";try{n=localStorage.getItem("cm_voz_nome")||""}catch(_){}return V.find(v=>v.name===n)||V[0]||null}
@@ -3820,7 +3821,7 @@ async function vozLugar(nome){
     rec.onend=()=>{const tinha=on;on=false;mic.textContent="🎤";mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
-/* ===== mais ferramentas + seletor de pais (v3.22) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.23) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
