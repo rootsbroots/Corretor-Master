@@ -634,7 +634,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.44</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.45</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -2278,7 +2278,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.44 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.45 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3398,6 +3398,156 @@ $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
 /* ===== busca em uma frase + voz (v3.44: portugues e ingles) ===== */
+/* ---------- voz em alemão e francês: converte a frase para o que o analisador já entende (português) ---------- */
+let _vozTrOut="";
+function vozTr(txt){
+  if(LANG!=="de"&&LANG!=="fr")return txt;
+  if(txt===_vozTrOut)return txt;
+  const DE=LANG==="de";
+  let t=" "+normSem(txt).replace(/ß/g,"ss").replace(/([a-z])-(?=[a-z])/g,"$1 ").replace(/['’`´]/g," ").replace(/\s+/g," ")+" ";
+  for(let i=0;i<2;i++)t=t.replace(/(\d)[\s  ](?=\d{3}(?!\d))/g,"$1");
+  const R=(re,s)=>{t=t.replace(re,s)};
+  const NUM={un:1,une:1,ein:1,eine:1,einen:1,deux:2,zwei:2,trois:3,drei:3,quatre:4,vier:4,cinq:5,funf:5,six:6,sechs:6,sept:7,sieben:7,huit:8,acht:8,neuf:9,neun:9,dix:10,zehn:10};
+  const nw=Object.keys(NUM).join("|");
+  if(DE){
+    const DU={ein:1,eins:1,eine:1,zwei:2,drei:3,vier:4,funf:5,sechs:6,sieben:7,acht:8,neun:9,zehn:10,elf:11,zwolf:12,dreizehn:13,vierzehn:14,funfzehn:15,sechzehn:16,siebzehn:17,achtzehn:18,neunzehn:19},
+      DT={zwanzig:20,dreissig:30,vierzig:40,funfzig:50,sechzig:60,siebzig:70,achtzig:80,neunzig:90};
+    const deNum=s=>{let n=0,m;if((m=s.match(/^(.*?)hundert(.*)$/))){if(m[1]&&DU[m[1]]===undefined)return NaN;n+=(m[1]?DU[m[1]]:1)*100;s=m[2]}
+      if(!s)return n;if(DU[s]!==undefined)return n+DU[s];if(DT[s]!==undefined)return n+DT[s];
+      if((m=s.match(/^(.+?)und(.+)$/))&&DU[m[1]]!==undefined&&DT[m[2]]!==undefined)return n+DU[m[1]]+DT[m[2]];return NaN};
+    /* comandos */
+    R(/^\s*(.+?)\s+(?:offnen|oeffnen|zeigen|anzeigen)\s*$/,"offne $1");
+    R(/\bpdf\s+(?:erstellen|erzeugen|herunterladen|exportieren|speichern)\b/,"gerar pdf");
+    R(/^\s*(?:erstelle|erstellen|erzeuge|generiere|generieren)\s+(?:die |eine )?(?:suche|links?)\b/,"gerar busca");
+    R(/^\s*(?:suche|links?)\s+(?:erstellen|erzeugen|generieren)\s*$/,"gerar busca");
+    R(/^\s*(?:wechsle|wechseln|wechsel|tausche|andere)\s+(?:zu|auf|nach)\s+/,"troca para ");
+    R(/\b(?:jetzt|nun|ab jetzt)\b/g," ");
+    R(/(\d[\d.,]*)\s*tsd\.?/g,"$1 mil");
+    R(/^\s*(?:neue suche|neuer kunde|zurucksetzen|alles loschen|loschen|von vorn|neu starten)\b/,"nova busca ");
+    R(/^\s*(?:offne|offnen|oeffne|zeige|zeig|zeigen|gehe zu|geh zu)\s+(?:mir\s+)?(?:den |die |das |meine |meinen )?/,"abrir ");
+    if(/^\s*abrir /.test(t)){R(/\b(?:rechner|taschenrechner|kalkulator|finanzierungsrechner|kreditrechner)\b/,"calculadora");R(/\b(?:kunden|kundenliste|kundenverwaltung)\b/,"clientes");R(/\b(?:ubersicht|dashboard|ubersichtsseite)\b/,"painel");R(/\bkarte\b/,"mapa");R(/\b(?:profil|formular|filter)\b/,"perfil");R(/\b(?:startseite|suche)\b/,"busca")}
+    R(/^\s*(?:der |die )?(?:kunde|kundin)\s+(?:heisst|ist)\s+/,"cliente se chama ");
+    R(/^\s*name\s+(?:des|der)\s+kunden(?:in)?\s+/,"nome do cliente ");
+    R(/^\s*alter\s+(?:des\s+kunden\s+)?/,"idade ");
+    R(/^\s*(?:speichere|speichern|speicher|sichere|lege an|anlegen)\s+(?:den |die |das )?(?:kunden |kundin |kontakt )?(?:fur\s+|als\s+)?/,"salvar para ");
+    R(/^\s*(?:sende|senden|schicke|schick|schicken)\s+(?:die |diese )?(?:suche|links?)\s+(?:an|fur)\s+/,"enviar busca para ");
+    R(/\b(?:telefonnummer|telefon|handynummer|handy)\b/,"telefone");
+    R(/\b(?:simuliere|simulieren|berechne|berechnen|kalkuliere)\b/,"simule");
+    R(/\b(?:finanzierung|kredit|darlehen)\b/,"financiamento");
+    R(/\b(?:immobilie|objekt)\b/,"imovel");
+    R(/\b(?:anzahlung|eigenkapital|eigenanteil)\b/,"entrada");
+    R(/\b(?:jahren|jahre|jahr|laufzeit)\b/,"anos");
+    R(/\b(?:zinsen|zinssatz|zins)\b/,"juros");
+    R(/\b(?:maklerprovision|provision|courtage)\b/,"comissao");
+    R(/\b(?:monatsrate|rate)\b/,"parcela");
+    /* números */
+    R(new RegExp("\\b("+nw+")\\s+komma\\s+("+nw+")\\b","g"),(m,x,y)=>NUM[x]+","+NUM[y]);
+    R(/(\d+)\s+komma\s+(\d+)/g,"$1,$2");
+    R(new RegExp("\\b("+nw+")\\s+million(?:en)?\\b","g"),(m,w)=>NUM[w]+" milhoes");
+    R(/\b(?:eine\s+)?halbe[nr]?\s+million(?:en)?\b/g,"500 mil");
+    R(/\b(?:anderthalb|eineinhalb)\s+million(?:en)?\b/g,"1,5 milhoes");
+    R(/\b([a-z]+?)\s*tausend\b/g,(m,w)=>{const n=deNum(w);return isFinite(n)&&n>0?n+" mil":m});
+    R(/\btausend\b/g,"mil");
+    R(/\b(?:millionen|million|mio)\b/g,"milhoes");
+    /* faixa de valor */
+    R(/\bzwischen\s+(\d[\d.,]*(?:\s*(?:milhoes|mil))?)\s+und\s+(?=\d)/g,"$1 e ");
+    R(/\b(?:von\s+)?(\d[\d.,]*(?:\s*(?:milhoes|mil))?)\s+bis\s+(?:zu\s+)?(?=\d)/g,"$1 a ");
+    R(/\b(?:von|vom)\b/g,"de");
+    R(/\b(?:bis zu|bis maximal|bis max|bis|maximal|hochstens|unter|nicht mehr als|hochstpreis|budget)\b/g,"ate");
+    R(/\b(?:ab einem|ab|mindestens|wenigstens|uber|mehr als|minimum)\b/g,"apartir de");
+    R(/\b(?:circa|ungefahr|etwa|rund|ca)\b/g,"cerca de");
+    /* imóvel e características */
+    R(/\b(?:einfamilienhaus|haus|hauser|villa|reihenhaus|stadthaus|doppelhaushalfte|bungalow|landhaus|ferienhaus)\b/g,"casa");
+    R(/\b(?:eigentumswohnung|wohnung|wohnungen|apartment|appartement|penthouse|loft|maisonette|studio|etagenwohnung)\b/g,"apartamento");
+    R(/(\d+)\s*(?:schlafzimmern|schlafzimmer|zimmern|zimmer)\b/g,"$1 quartos");
+    R(/(\d+)\s*(?:badezimmern|badezimmer|bader)\b/g,"$1 banheiros");
+    R(/(\d+)\s*(?:garagen|garage|stellplatze|stellplatz|parkplatze|parkplatz|autostellplatze)\b/g,"$1 vagas");
+    R(/\b(?:schwimmbecken|schwimmbad|swimmingpool|schwimmbassin)\b/g,"piscina");
+    R(/\b(?:meerblick|ausblick|aussicht|blick)\b/g,"vista");
+    R(/\b(?:voll mobliert|mobliert|moebliert|mobiliert)\b/g,"mobiliado");
+    R(/\b(?:neuesten|neueste|aktuellsten|aktuellste)\b/g,"mais recentes");
+    R(/\b(?:neubauprojekt|neubauwohnung|neubau|erstbezug|neuwertig|neues|neuer|neue|neu)\b/g,"lancamento");
+    R(/\b(?:gebrauchtimmobilie|bestandsimmobilie|gebraucht|altbau|wiederverkauf)\b/g,"usado");
+    R(/\b(?:sofort bezugsfertig|bezugsfertig|einzugsbereit)\b/g,"pronto para morar");
+    R(/\b(?:im rohbau|im bau|in bau|bauphase)\b/g,"em construcao");
+    R(/\b(?:auf plan|vom plan|in planung)\b/g,"na planta");
+    R(/\b(?:geschlossene wohnanlage|gated community|eigentumsanlage|wohnanlage|wohnpark)\b/g,"condominio");
+    R(/\bohne\b/g,"sem");R(/\bmit\b/g,"com");R(/\bund\b/g,"e");R(/\boder\b/g,"ou");
+    R(/\b(?:in der nahe von|in der nahe|nahe bei|nahe)\b/g,"perto de");
+    R(/\b(?:im|in|am|bei)\b/g," em ");
+    R(/\b(?:ich|suche|suchen|finde|finden|mochte|mochten|will|wollen|brauche|bitte|zeig|zeige|zeigen|mir|mich|fur|nach|gesucht|gerne|der|die|das|den|dem|des|ein|eine|einen|einem|einer)\b/g," ");
+  }else{
+    const frNum=w=>{const T=w.trim().split(/\s+/).filter(x=>x!=="et"),U={un:1,une:1,deux:2,trois:3,quatre:4,cinq:5,six:6,sept:7,huit:8,neuf:9,dix:10,onze:11,douze:12,treize:13,quatorze:14,quinze:15,seize:16,vingt:20,trente:30,quarante:40,cinquante:50,soixante:60};
+      let tot=0,pend=0;for(let i=0;i<T.length;i++){const k=T[i];
+        if(k==="quatre"&&/^vingts?$/.test(T[i+1]||"")){tot+=80;i++;continue}
+        if(/^cents?$/.test(k)){tot+=(pend||1)*100;pend=0;continue}
+        if(U[k]===undefined)return NaN;
+        if(/^cents?$/.test(T[i+1]||"")&&U[k]<10){pend=U[k];continue}
+        tot+=U[k]}
+      return tot+pend};
+    /* comandos */
+    R(/\b(?:generer|creer|telecharger|exporter)\s+(?:le\s+)?pdf\b/,"gerar pdf");
+    R(/^\s*(?:generer|lancer|creer)\s+(?:la\s+)?(?:recherche|liens?)\b/,"gerar busca");
+    R(/^\s*(?:passe|passer|change|changer|bascule|basculer)\s+(?:a|en|sur|vers)\s+/,"troca para ");
+    R(/\bmaintenant\b/g," ");
+    R(/^\s*(?:nouvelle recherche|nouveau client|reinitialiser|effacer tout|tout effacer|effacer|recommencer|remettre a zero)\b/,"nova busca ");
+    R(/^\s*(?:ouvre|ouvrir|affiche|afficher|montre|montrer|va a|aller a)\s+(?:moi\s+)?(?:le |la |les |l |mes |mon |ma )?/,"abrir ");
+    if(/^\s*abrir /.test(t)){R(/\b(?:calculatrice|calculateur|simulateur|calculette)\b/,"calculadora");R(/\b(?:liste des clients|clients)\b/,"clientes");R(/\btableau de bord\b/,"painel");R(/\bcarte\b/,"mapa");R(/\b(?:profil|formulaire|filtres)\b/,"perfil");R(/\b(?:accueil|recherche)\b/,"busca")}
+    R(/^\s*(?:le |la )?client(?:e)?\s+(?:s appelle|se nomme|s appelle)\s+/,"cliente se chama ");
+    R(/^\s*nom\s+du\s+client(?:e)?\s+/,"nome do cliente ");
+    R(/^\s*age\s+(?:du\s+client\s+)?/,"idade ");
+    R(/^\s*(?:enregistre|enregistrer|sauvegarde|sauvegarder|ajoute|ajouter|creer|cree)\s+(?:le |la )?(?:client |cliente |contact )?(?:pour\s+|comme\s+)?/,"salvar para ");
+    R(/^\s*(?:envoie|envoyer|envoi)\s+(?:la |les |cette )?(?:recherche|liens?)\s+(?:a|pour)\s+/,"enviar busca para ");
+    R(/\b(?:numero de telephone|telephone|portable)\b/,"telefone");
+    R(/\b(?:simuler|simule|simulation|calculer|calcule)\b/,"simule");
+    R(/\b(?:credit immobilier|financement|emprunt|pret)\b/,"financiamento");
+    R(/\b(?:apport personnel|apport)\b/,"entrada");
+    R(/\b(?:taux d interet|taux|interets)\b/,"juros");
+    R(/\b(?:frais d agence|commission)\b/,"comissao");
+    R(/\b(?:mensualite|echeance)\b/,"parcela");
+    R(/\b(?:annees|annee|ans|duree)\b/,"anos");
+    R(/\b(?:bien|logement)\b/,"imovel");
+    /* números */
+    R(/(\d+)\s+virgule\s+(\d+)/g,"$1,$2");
+    R(new RegExp("\\b("+nw+"|\\d+)\\s+millions?\\s+et\\s+demi(?:e)?\\b","g"),(m,w)=>(NUM[w]||w)+",5 milhoes");
+    R(new RegExp("\\b("+nw+")\\s+millions?\\b","g"),(m,w)=>NUM[w]+" milhoes");
+    R(/\b(?:un\s+)?demi\s+million\b/g,"500 mil");
+    R(/\b((?:(?:un|une|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|treize|quatorze|quinze|seize|vingts?|trente|quarante|cinquante|soixante|cents?|et)\s+)+)mille\b/g,(m,w)=>{const n=frNum(w);return isFinite(n)&&n>0?n+" mil":m});
+    R(/\bmille\b/g,"mil");
+    R(/\bmillions?\b/g,"milhoes");
+    /* faixa de valor */
+    R(/\bentre\s+(\d[\d.,]*(?:\s*(?:milhoes|mil))?)\s+et\s+(?=\d)/g,"$1 e ");
+    R(/\bde\s+(\d[\d.,]*(?:\s*(?:milhoes|mil))?)\s+a\s+(?=\d)/g,"$1 a ");
+    R(/\b(?:a partir de|a partir d|au moins|minimum|plus de|au dessus de|superieur a)\b/g,"apartir de");
+    R(/\b(?:jusqu a|jusque|jusqu au|au maximum|maximum|maximal|max|pas plus de|moins de|en dessous de|au dessous de|sous|budget)\b/g,"ate");
+    R(/\bautour de\s+(?=\d)/g,"cerca de ");
+    R(/\b(?:environ|a peu pres|approximativement)\b/g,"cerca de");
+    /* imóvel e características */
+    R(/\b(?:maisons|maison|villas|villa|pavillon|propriete|chalet|bungalow|hotel particulier)\b/g,"casa");
+    R(/\b(?:appartements|appartement|appart|studio|penthouse|duplex|loft)\b/g,"apartamento");
+    R(/(\d+)\s*chambres?\b/g,"$1 quartos");
+    R(/(\d+)\s*(?:salles? de bains?|sdb)\b/g,"$1 banheiros");
+    R(/(\d+)\s*(?:places? de parking|places? de stationnement|parkings?|garages?)\b/g,"$1 vagas");
+    R(/\bpiscine\b/g,"piscina");
+    R(/\bvue\b/g,"vista");
+    R(/\b(?:meublees|meublee|meubles|meuble)\b/g,"mobiliado");
+    R(/\b(?:les plus recents|les plus recentes|plus recents|plus recentes|recents)\b/g,"mais recentes");
+    R(/\bsur plan\b/g,"na planta");
+    R(/\b(?:en cours de construction|en construction)\b/g,"em construcao");
+    R(/\b(?:programme neuf|vefa|neufs|neuves|neuf|neuve)\b/g,"lancamento");
+    R(/\b(?:seconde main|occasion|revente|ancien)\b/g,"usado");
+    R(/\b(?:pret a emmenager|pret a habiter|livrable|habitable)\b/g,"pronto para morar");
+    R(/\b(?:residence fermee|residence securisee|lotissement ferme|ensemble residentiel|copropriete|domaine)\b/g,"condominio");
+    R(/\bsans\b/g,"sem");R(/\bavec\b/g,"com");R(/\bet\b/g,"e");R(/\bou\b/g,"ou");
+    R(/\b(?:a proximite de|pres de|proche de)\b/g,"perto de");
+    R(/\b(?:dans|en|au|aux|sur|chez)\b/g," em ");
+    R(/\ba\s+(?!\d)/g," em ");
+    R(/\b(?:s il vous plait|svp|montre moi|je cherche|je voudrais|je veux|je recherche|cherche|cherches|chercher|recherche|trouve|trouver|pour|je|veux|voudrais|moi|me|un|une|des|du|le|la|les|mon|ma|mes)\b/g," ");
+    R(/\b[ldjsnmtc]\b/g," ");
+  }
+  t=t.replace(/\s+/g," ").trim();
+  _vozTrOut=t;return t;
+}
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3438,6 +3588,7 @@ function vozNumeros(t){
   t=t.replace(/\b(\d+)\s*milh(?:ao|oes)\s+(?:e\s+)?(\d{1,3})\s*mil\b/g,(m,a,b)=>(Number(a)*1000+Number(b))+" mil");
   return t}
 function vozParse(txt){
+  txt=vozTr(txt);
   let t=vozNumeros(normSem(txt).replace(/\s+/g," ").replace(/\b(em torno de|por volta de|mais ou menos|aproximadamente|roughly|approximately|about)\b/g,"cerca de").replace(/\b(uns|umas)\s+(?=\d)/g,"cerca de "));
   t=t.replace(/\b(?:alpha|alfa)\s?vil+e?\b/g,"alphaville").replace(/\bjardins?\s+(?=italia|valencia|munique|milao|verona|franca|paris|flamboyant)/g,m=>m);
   let cur="";
@@ -3762,6 +3913,7 @@ async function vozCalc(t0){
   return '<div class="alert good" data-fala="'+esc(t("Simulação realizada."))+'">'+esc(t("Financiamento de {0} (entrada {1}) em {2} anos, juros {3}% ao ano:",R(Fi),R(valor*ent/100),anos,PC(jur)))+"<br><b>"+esc(t("Parcela Price ≈ {0} · 1ª parcela SAC ≈ {1}.",R(price+seg),R(sac+seg)))+"</b><br>"+esc(t("Dinheiro necessário na compra: {0}.",R(valor*ent/100+valor*pct($("c-itbi").value)/100+valor*pct($("c-cart").value)/100+num($("c-aval").value))))+"<br>"+esc(t("Sua comissão: bruta {0} · sua parte {1} · líquida {2} (só para você, não vai no PDF).",R(bruta),R(sua),R(liq)))+"</div>"+aviso+
    '<div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-calcpdf">📄 '+esc(t("Enviar simulação em PDF"))+'</button><a class="btn alt" target="_blank" rel="noopener" href="'+esc($("c-wa").href)+'">💬 WhatsApp</a></div>'}
 async function vozComando(txt,res){
+  txt=vozTr(txt);
   const t0=normSem(txt).replace(/\s+/g," ").trim();
   const ok=(m)=>{res.innerHTML='<div class="alert good">'+esc(m)+"</div>";return true};
   const me=t0.match(/^(?:enviar|envia|envie|mandar|manda|mande|send)\s+(?:a |essa |esta |the |this )?(?:busca|pesquisa|links?|search)\s+(?:para|pra|pro|ao|a|to)\s+(?:o |a )?(.+)$/),
