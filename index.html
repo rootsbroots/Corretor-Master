@@ -534,7 +534,7 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 @keyframes ggp{50%{outline-color:transparent}}
 @media (prefers-reduced-motion:reduce){#gg-bl,.gg-alvo{animation:none}}
 
-/* ===== mais ferramentas (v3.41) ===== */
+/* ===== mais ferramentas (v3.42) ===== */
 #ferr{margin:22px 0 8px}
 #fr-pane>.fr-x{display:none!important}.fb{position:absolute;top:6px;left:8px;min-width:18px;height:18px;border-radius:9px;background:#e11d48;color:#fff;font-size:11px;line-height:18px;text-align:center;padding:0 5px}
 .fr-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
@@ -634,7 +634,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.41</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.42</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1110,7 +1110,7 @@ body.estr #ferr{display:none}
   </section>
 </div>
 <div id="tip" hidden></div>
-<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.41</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
+<p class="termos"><a id="upg" class="btn alt" href="#" target="_blank" rel="noopener" data-upg style="display:inline-block;margin-bottom:12px">Quer mais consultas? Peça um upgrade</a><br><button type="button" id="jaass" class="btn alt" data-ja style="margin-bottom:12px">Já assinei, liberar meu acesso</button><br><span id="lic" class="hint"></span><br><span id="meuplano" class="hint"></span><br><a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a><br><b>Corretor Master · v3.42</b><br>© Corretor Master. Acesso pessoal e intransferível, registrado em seu nome. Conteúdo, dados e código protegidos por direitos autorais; é proibido copiar, reproduzir ou compartilhar o acesso.</p>
 </div>
 
 <div class="modal" id="neg-m" hidden role="dialog" aria-modal="true" aria-labelledby="neg-t">
@@ -2278,7 +2278,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.41 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.42 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3367,7 +3367,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
-/* ===== comprar no exterior (v3.41) ===== */
+/* ===== comprar no exterior (v3.42) ===== */
 let EXT=null,EXC=null,EX={tipo:"apartamento",moeda:"BRL",v:[0,0]};
 const EX_BRL={min:500000,max:30000000,passo:250000};
 function exMoeda(v,sim){return sim+" "+(v>=1e6?(v/1e6).toFixed(2).replace(".",",").replace(/0+$/,"").replace(/,$/,"")+" mi":Math.round(v/1000)+" mil")}
@@ -3397,7 +3397,7 @@ $("ex-pais").addEventListener("change",exPreencherPais);
 $("ex-cid").addEventListener("change",exCidMudou);
 $("ex-tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;EX.tipo=b.dataset.v;$("ex-tipo").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
 
-/* ===== busca em uma frase + voz (v3.41: portugues e ingles) ===== */
+/* ===== busca em uma frase + voz (v3.42: portugues e ingles) ===== */
 const VOZ_U="milhoes|milhao|mi|mil|k|millions?|thousand";
 function vozValores(t){
   t=t.replace(new RegExp("(\\d+(?:[.,]\\d+)?)\\s+(e|a|ate|and|to)\\s+(\\d+(?:[.,]\\d+)?)\\s*("+VOZ_U+")(?![a-z0-9])","g"),"$1 $4 $2 $3 $4");
@@ -3580,7 +3580,7 @@ async function vozExterior(txt,res){
 /* comandos por voz depois da busca: salvar cliente e abrir funções */
 let VOZ_JA=false;
 
-/* ===== comandos de voz do app (v3.41) ===== */
+/* ===== comandos de voz do app (v3.42) ===== */
 const vozEsp=ms=>new Promise(r=>setTimeout(r,ms));
 const vozVis=e=>!!(e&&e.offsetParent!==null&&!e.disabled);
 const VOZ_PERIGO=/\b(apagar|apague|excluir|exclua|remover|remova|deletar|delete|remove|sair|logout|sign ?out|cancelar|cancel|encerrar|desativar|desfazer|reembolso|pagar|comprar|assinar agora|confirmar exclusao)\b/;
@@ -3969,7 +3969,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== tela só com microfone + saudação (1x por dia) (v3.41) ===== */
+/* ===== tela só com microfone + saudação (1x por dia) (v3.42) ===== */
 (function(){
   const mh=$("mh");if(!mh)return;
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition,SS=window.speechSynthesis;
@@ -4055,7 +4055,7 @@ async function vozLugar(nome){
   const chk=()=>{if(!app.hidden)mostrar()};
   new MutationObserver(chk).observe(app,{attributes:true,attributeFilter:["hidden"]});chk();
 })();
-/* ===== mais ferramentas + seletor de pais (v3.41) ===== */
+/* ===== mais ferramentas + seletor de pais (v3.42) ===== */
 (function(){
   function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}
   function lsw(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
@@ -4918,6 +4918,27 @@ async function sair(){
   EMAIL=null;try{mostrarGate()}catch(_){}
   location.reload();
 }
+/* vínculo da Alexa feito dentro do app: a Alexa abre corretormaster.com com client_id, redirect_uri e state */
+(function(){try{const q=new URLSearchParams(location.search),r=q.get("redirect_uri")||"";
+  if(q.get("client_id")&&q.get("state")&&/^https:\/\/(pitangui|layla)\.amazon\.com\/|^https:\/\/alexa\.amazon\.co\.jp\//.test(r)){
+    localStorage.setItem("cm-alexa",JSON.stringify({c:q.get("client_id"),r:r,s:q.get("state"),t:Date.now()}));history.replaceState(null,"",location.pathname)}}catch(_){}})();
+function alexaVincPerguntar(){
+  let d=null;try{d=JSON.parse(localStorage.getItem("cm-alexa")||"null")}catch(_){}
+  if(!d||Date.now()-d.t>900000){try{localStorage.removeItem("cm-alexa")}catch(_){}return}
+  if($("alx-ov"))return;
+  const ov=document.createElement("div");ov.id="alx-ov";ov.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(5,12,28,.9);display:flex;align-items:center;justify-content:center;padding:16px";
+  ov.innerHTML='<div style="max-width:420px;width:100%;padding:22px;border-radius:16px;background:#13294b;color:#eef2f9;font-family:inherit"><div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2dd3c0;font-weight:700">Corretor Master</div><h2 style="margin:4px 0 8px;font-size:20px">🔗 Vincular a Alexa</h2><p style="margin:0 0 12px;font-size:14px;color:#a9b6cf">Conta: <b style="color:#eef2f9">'+esc(EMAIL)+'</b><br>A Alexa vai usar os seus clientes e lembretes do Corretor Master e enviar as buscas para este e-mail.</p><div class="actions"><button class="btn acc" id="alx-ok" type="button">Vincular minha conta</button><button class="btn alt" id="alx-no" type="button">Agora não</button></div><div id="alx-m" style="margin-top:10px;font-size:13px;color:#a9b6cf"></div></div>';
+  document.body.appendChild(ov);
+  $("alx-no").onclick=()=>{try{localStorage.removeItem("cm-alexa")}catch(_){}ov.remove()};
+  $("alx-ok").onclick=async()=>{const b=$("alx-ok");b.disabled=true;$("alx-m").textContent="Vinculando…";
+    try{const {data}=await sb.auth.getSession(),tk=data&&data.session&&data.session.access_token;
+      const r=await fetch(SB_URL+"/functions/v1/alexa/auth/codigo",{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY},body:JSON.stringify({access_token:tk,client_id:d.c,redirect_uri:d.r,state:d.s})});
+      const j=await r.json().catch(()=>({}));
+      if(r.status===403){$("alx-m").textContent="Esta conta não está liberada no Corretor Master.";b.disabled=false;return}
+      if(!j.ok||!j.redirect)throw 0;
+      try{localStorage.removeItem("cm-alexa")}catch(_){}
+      $("alx-m").textContent="Vinculado! Voltando para a Alexa…";location.href=j.redirect}
+    catch(_){b.disabled=false;$("alx-m").textContent="Não foi possível vincular agora. Tente de novo."}}}
 async function checar(session){
   if(!session){EMAIL=null;mostrarGate();return}
   const email=(session.user.email||"").toLowerCase();
@@ -4931,6 +4952,7 @@ async function checar(session){
     $("g-msg").insertAdjacentHTML("beforeend",'<div class="actions"><button class="btn alt" id="g-out" type="button">Sair</button></div>');
     $("g-out").onclick=sair;return}
   const era=EMAIL;EMAIL=email;
+  try{alexaVincPerguntar()}catch(_){}
   if(!PRONTO){
     try{CARGA=CARGA||carregar();await CARGA}
     catch(e){CARGA=null;if(e&&e.message==="dispositivo")return;EMAIL=null;$("app").hidden=true;$("gate").hidden=false;$("g-form").hidden=true;
