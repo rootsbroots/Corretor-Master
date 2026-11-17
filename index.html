@@ -640,7 +640,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.52</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.53</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1271,6 +1271,7 @@ I18N_ROWS.push(...[["🎙️ Ouvir “Olá Corretor Master”", "🎙️ Listen 
 I18N_ROWS.push(...[["Diga “Olá Corretor Master” ou toque no ícone", "Say “Olá Corretor Master” or tap the icon", "Di “Olá Corretor Master” o toca el icono", "Dites « Olá Corretor Master » ou touchez l'icône", "Sagen Sie „Olá Corretor Master“ oder tippen Sie auf das Symbol", "请说“Olá Corretor Master”或点按图标", "قل «Olá Corretor Master» أو اضغط على الأيقونة", "Di' “Olá Corretor Master” o tocca l'icona"], ["Pronto. Esta tela não abrirá mais.", "Done. This screen won't open again.", "Listo. Esta pantalla no se abrirá más.", "C'est fait. Cet écran ne s'ouvrira plus.", "Erledigt. Dieser Bildschirm öffnet sich nicht mehr.", "好的，此屏幕不会再打开。", "تم. لن تُفتح هذه الشاشة مرة أخرى.", "Fatto. Questa schermata non si aprirà più."]]);
 I18N_ROWS.push(...[["Imóveis perto de você","Properties near you","Inmuebles cerca de ti","Biens près de chez vous","Immobilien in Ihrer Nähe","","",""],["Falar a busca","Speak your search","Di tu búsqueda","Dites votre recherche","Suche per Sprache","","",""],["Diga o que procura","Say what you are looking for","Di lo que buscas","Dites ce que vous cherchez","Sagen Sie, was Sie suchen","","",""]]);
 I18N_ROWS.push(...[["O que posso falar?","What can I say?","¿Qué puedo decir?","Que puis-je dire ?","Was kann ich sagen?","","",""],["Responder em voz","Answer by voice","Responder en voz","Répondre à voix haute","Per Sprache antworten","","",""]]);
+I18N_ROWS.push(...[["Segue o relatório da busca em PDF.","Here is the search report in PDF.","Te envío el informe de la búsqueda en PDF.","Voici le rapport de recherche en PDF.","Hier ist der Suchbericht als PDF.","","",""]]);
 I18N_ROWS.push(...[["Diga:", "Say:", "Di:", "Dites :", "Sagen Sie:", "请说：", "قل:", "Di':"]]);
 I18N_ROWS.push(...[["Toque na tela e depois diga:", "Tap the screen and then say:", "Toca la pantalla y luego di:", "Touchez l'écran, puis dites :", "Tippen Sie auf den Bildschirm und sagen Sie dann:", "请先点按屏幕，然后说：", "اضغط على الشاشة ثم قل:", "Tocca lo schermo e poi di':"]]);
 let LANG="pt";
@@ -2288,7 +2289,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.52 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.53 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -4147,7 +4148,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== cartões iniciais em botões (v3.52) ===== */
+/* ===== cartões iniciais em botões (v3.53) ===== */
 (function(){
   const ta=$("t-aqui"),tv=$("t-voz"),ab=$("aqui-box"),vb=$("voz-box"),vr=$("voz-res"),mic=$("voz-mic"),inp=$("voz-in");if(!ta||!tv||!vb)return;
   const abre=()=>{vb.classList.add("open")};
@@ -4615,7 +4616,8 @@ $("pdf-wa").addEventListener("click",async()=>{
   try{
     if(!PRONTO||!LS.length||!gerado()){toast("Gere os links desta busca primeiro");return}
     const buf=gerarPdf(),nome="busca-"+(slugify(S.nome)||"cliente")+".pdf",f=new File([buf],nome,{type:"application/pdf"});
-    const fl=logoOn()&&podeLogo()?[logoFile(),f]:[f];if(navigator.canShare&&navigator.canShare({files:fl})){await navigator.share({files:fl,text:RES.msg||""});return}if(fl.length>1&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:RES.msg||""});return}
+    /* só o PDF (a logo já está dentro dele): misturar imagem + PDF faz o WhatsApp descartar o arquivo e mandar só o texto */
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:nome,text:t("Segue o relatório da busca em PDF.")});return}
     if(DL){await DL.save({filename:nome,data:buf});toast("PDF salvo. Anexe-o na conversa do WhatsApp.")}else toast("Seu navegador não permite enviar o PDF direto. Use Baixar relatório em PDF.")
   }catch(e){if(!e||e.name!=="AbortError")toast("Não foi possível gerar o PDF")}
 });
@@ -4809,9 +4811,7 @@ function gerarPdfCalc(){
 async function calcPdfAcao(modo){
   if(!CALC){toast("Informe o valor do imóvel");return}
   try{const buf=gerarPdfCalc(),nome="simulacao-"+(slugify(S.nome)||"cliente")+".pdf",f=new File([buf],nome,{type:"application/pdf"});
-    if(modo==="enviar"){const fl=logoOn()&&podeLogo()?[logoFile(),f]:[f];
-      if(navigator.canShare&&navigator.canShare({files:fl})){await navigator.share({files:fl,text:msgCalc()});return}
-      if(fl.length>1&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:msgCalc()});return}}
+    if(modo==="enviar"){if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:nome,text:msgCalc()});return}}
     if(DL){await DL.save({filename:nome,data:buf});toast(modo==="enviar"?"PDF salvo. Anexe-o na conversa do WhatsApp.":"PDF salvo")}else toast("Não foi possível gerar o PDF")
   }catch(e){if(!e||e.name!=="AbortError")toast("Não foi possível gerar o PDF")}}
 $("c-pdf").addEventListener("click",()=>calcPdfAcao("enviar"));$("c-pdf-dl").addEventListener("click",()=>calcPdfAcao("baixar"));
