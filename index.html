@@ -441,6 +441,17 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 .est-at{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border:1px solid var(--accent);border-radius:12px;background:var(--surface-2);margin:0 0 12px;font-size:14px}
 .est-at .est-at-h{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .est-at b{overflow-wrap:anywhere}
+.rt>summary{list-style:none;display:flex;align-items:center;gap:12px;cursor:pointer;min-height:44px}
+.rt>summary::-webkit-details-marker{display:none}
+.rt>summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:8px}
+.rt>summary h2{margin:0;flex:1;min-width:0}
+.rt>summary .ev{margin-left:auto;font-size:22px;line-height:1;transition:transform .2s;flex:none}
+.rt[open]>summary .ev{transform:rotate(90deg)}
+.rt[open]>summary{margin-bottom:10px}
+#est-at{border-color:var(--accent);background:var(--surface-2);margin:0 0 12px}
+#est-at .et b,#est-at .et span{display:inline;font-size:inherit;color:inherit;overflow-wrap:anywhere}
+#est-at .et{font-size:14px}
+#est-at .est-at-h{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin:0 0 8px}
 .im-r{display:flex;flex-direction:column;gap:4px;margin:0 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
 .im-r label{margin:0;font-size:14px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .im-r label em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted)}
@@ -988,7 +999,7 @@ body.estr #ferr{display:none}
 <div class="fl-b"><button type="button" class="go" id="fl-go"></button><a id="fl-f" href="ficha-tempo-flamboyant.pdf" target="_blank" rel="noopener"></a><button type="button" id="fl-wa"></button></div>
 </div></div></div>
           <p class="summary" id="resumo"></p>
-          <div class="est-at" id="est-at" hidden><div class="est-at-h"><span id="est-at-t"></span><button class="btn alt" id="est-at-b" type="button">Ver todos no meu portfólio</button></div><div id="est-at-l"></div></div>
+          <details class="lk-d" id="est-at" hidden><summary><span class="ec" id="est-at-n">📁</span><span class="et" id="est-at-t"></span><span class="ev">›</span></summary><div class="eb"><div class="est-at-h"><button class="btn alt" id="est-at-b" type="button">Ver todos no meu portfólio</button></div><div id="est-at-l"></div></div></details>
           <div id="ger-pre"></div>
           <div id="ger-msg"></div>
           <details class="lk-d" id="portais-d" hidden><summary><span class="ec" id="portais-n">0</span><span class="et"><b>Links gerados</b><span>Toque para abrir ou fechar a lista</span></span><span class="ev">›</span></summary>
@@ -1002,8 +1013,8 @@ body.estr #ferr{display:none}
           </div>
           <p class="hint">Para o cliente receber os links em texto, use Copiar mensagem e cole na conversa.</p></div></details>
         </div>
-        <div class="panel" id="mapa-p" hidden style="margin-bottom:16px">
-          <h2>Mapa da região</h2>
+        <div class="panel" id="mapa-p" hidden style="margin-bottom:16px"><details class="rt" id="mapa-d">
+          <summary><h2>Mapa da região</h2><span class="ev">›</span></summary><div>
           <p class="hint" style="margin:-6px 0 10px">A região da busca e o que há por perto: supermercado, escola, farmácia, hospital ou clínica, padaria, academia e parque ou praça.</p>
           <div class="f"><label for="imv-map-ref">Ver o que há por perto de</label><select id="imv-map-ref"></select></div>
           <div class="f"><label>Distância máxima</label><div class="seg segx" id="imv-map-r"><button type="button" data-v="500">500 m</button><button type="button" data-v="1000" aria-pressed="true">1 km</button><button type="button" data-v="2000">2 km</button></div></div>
@@ -1014,7 +1025,6 @@ body.estr #ferr{display:none}
           <div id="imv-map"></div>
           <p class="hint" id="imv-map-msg"></p>
           <div id="imv-map-links" class="actions" style="margin-top:10px"></div>
-          <div id="imv-map-sol"></div>
           <div id="imv-map-trabbox" style="margin-top:12px">
             <div class="f"><label for="imv-trab">💼 Trabalho do cliente (CEP ou endereço)</label><div class="actions" style="margin:0"><input type="text" id="imv-trab" autocomplete="off" placeholder="Ex.: Av. Paulista, 1000, São Paulo  ou  CEP" style="flex:1;min-width:0"><button class="btn alt" id="imv-trab-go" type="button">Calcular distância</button></div></div>
             <div id="imv-trab-res"></div>
@@ -1022,9 +1032,10 @@ body.estr #ferr{display:none}
           <div id="imv-map-cats"></div>
           <div id="imv-map-sem"></div>
           <div id="imv-rota-box"></div>
-        </div>
-        <div class="panel" id="est" style="margin-bottom:16px">
-          <h2>Meu portfólio de imóveis</h2>
+        </div></details></div>
+        <div class="panel" id="sol-p" hidden style="margin-bottom:16px"><details class="rt" id="sol-d"><summary><h2><span aria-hidden="true">☀️</span> Sol no imóvel: nascente ou poente?</h2><span class="ev">›</span></summary><div id="imv-map-sol"></div></details></div>
+        <div class="panel" id="est" style="margin-bottom:16px"><details class="rt" id="est-d">
+          <summary><h2>Meu portfólio de imóveis</h2><span class="ev">›</span></summary><div>
           <p class="hint" style="margin:-6px 0 10px">Importe a planilha dos seus imóveis (Excel, CSV ou Google Drive) e busque nela com o perfil do cliente. Importe uma vez: o portfólio fica salvo na sua conta e aparece em todos os seus aparelhos. Para fotos, cole na planilha o link da pasta do Drive de cada imóvel (compartilhada como “Qualquer pessoa com o link”).</p>
           <details class="hint" style="margin:-4px 0 10px"><summary><b>🔒 Privacidade e LGPD</b></summary><p style="margin:6px 0 0">O Corretor Master lê a sua planilha apenas para montar o seu portfólio. Os dados dos imóveis (sem as fotos, só os links) ficam <b>guardados na sua conta</b>, para aparecerem em todos os seus aparelhos; só você os acessa, e “Apagar portfólio” os remove. A planilha em si não é guardada. Prefira <b>Importar planilha</b> (arquivo baixado do Drive): assim nada precisa ser compartilhado. Já o link das fotos precisa estar como “Qualquer pessoa com o link” (somente leitura) para o cliente abrir, e a responsabilidade por ele é sua. Use pastas só com <b>fotos de divulgação</b>, sem documentos nem dados pessoais de proprietários ou clientes (nome, telefone, CPF, matrícula), e desative o compartilhamento quando não precisar mais. Quem receber o link pode encaminhá-lo.</p></details>
           <div class="actions" style="margin:0 0 8px"><button class="btn alt" id="est-imp" type="button">Importar planilha</button><button class="btn alt" id="est-gd-b" type="button"><svg class="gd-ic" viewBox="0 0 87.3 78" aria-hidden="true" focusable="false"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>Importar do Google Drive</button><button id="est-mod" type="button" style="background:none;border:0;padding:6px 4px;font:inherit;font-size:.9em;color:inherit;text-decoration:underline;cursor:pointer;opacity:.8">Não tem planilha? Baixe o modelo</button><button class="btn alt" id="est-wa-b" type="button">💬 Importar do WhatsApp</button><input type="file" id="est-file" accept=".csv,.txt,.xlsx,.xls,text/csv" hidden></div>
@@ -1049,7 +1060,7 @@ body.estr #ferr{display:none}
             <div id="est-res"></div>
             <div class="actions"><button class="btn alt" id="est-apagar" type="button">Apagar portfólio</button></div>
           </div>
-        </div>
+        </div></details></div>
         <div class="panel pd" id="imv" style="margin-bottom:16px"><details id="imv-d"><summary><span class="ec z" id="imv-cnt">0</span><span class="et"><b>Imóveis escolhidos</b><span id="imv-sum">Cole o link de um anúncio para começar</span></span><span class="ev">›</span></summary><div class="eb">
           <p class="hint" style="margin:-6px 0 10px">Achou um imóvel no portal? Cole o link aqui. Marque os que vão para o cliente e envie por PDF ou WhatsApp.</p>
           <div class="f"><label for="imv-url">Link do anúncio</label><input type="text" id="imv-url" inputmode="url" placeholder="Cole o link (ZAP, VivaReal, OLX, Imovelweb...)"></div>
@@ -2938,8 +2949,9 @@ function estFiltrar(simples){
     if(q.length){const hs=imNorm([i.cod,i.tit,i.tr,i.cid,i.bai,i.cond,i.end,i.obs,i.orig==="wa"?"whatsapp "+(i.grupo||""):""].join(" "));if(!q.every(t=>hs.includes(t)))return false}
     return true});
   return r.sort((a,b)=>(a.valor||9e12)-(b.valor||9e12))}
+const abreRt=id=>{try{const d=$(id);if(d&&!d.open)d.open=true}catch(_){}};
 function estAtalho(){
-  const o=estLer(),a=$("est-at");if(!a)return;
+  const o=estLer(),a=$("est-at");if(!a)return;try{$("est-at-n").textContent="📁"}catch(_){}
   if(!o.itens.length){a.hidden=true;return}
   if(buscaCompletaBloq()){a.hidden=false;$("est-at-t").innerHTML="🔒 <b>A busca completa é do plano.</b> Seu teste acabou: assine para buscar também no seu portfólio e nas conversas do WhatsApp.";$("est-at-l").innerHTML=upgBtn("teste");return}
   if(!EST_ATIVO){a.hidden=false;$("est-at-t").innerHTML="📁 <b>Seu portfólio</b> tem "+o.itens.length+" imóvel(is). Preencha o perfil do cliente para ver os que combinam.";$("est-at-l").innerHTML="";return}
@@ -2948,7 +2960,7 @@ function estAtalho(){
   const wa=todos.filter(o=>o.x.orig==="wa").length,pf=todos.length-wa,pn=+(($("portais-n")||{}).textContent||0)||0;
   const lista=todos.filter(o=>EST_FONTE==="wa"?o.x.orig==="wa":EST_FONTE==="pf"?o.x.orig!=="wa":true),n=lista.length;a.hidden=false;
   const chip=(f,t)=>`<button type="button" class="btn ${EST_FONTE===f?"acc":"alt"}" data-fonte="${f}" style="padding:6px 10px;min-height:34px;font-size:12.5px">${t}</button>`;
-  $("est-at-t").innerHTML=`<b>Resultado da busca: ${pn+todos.length} opç${pn+todos.length===1?"ão":"ões"}</b><br><span style="font-size:13px">🌐 Sites: <b>${pn}</b> portais · 📁 Portfólio: <b>${pf}</b> · 💬 WhatsApp: <b>${wa}</b></span>`;
+  try{$("est-at-n").textContent=String(pf+wa)}catch(_){}$("est-at-t").innerHTML=`<b>Resultado da busca: ${pn+todos.length} opç${pn+todos.length===1?"ão":"ões"}</b><br><span style="font-size:13px">🌐 Sites: <b>${pn}</b> portais · 📁 Portfólio: <b>${pf}</b> · 💬 WhatsApp: <b>${wa}</b></span>`;
   $("est-at-l").innerHTML=`<div class="actions" style="margin:4px 0 8px;gap:6px">${chip("","Todos")}${chip("pf","📁 Portfólio ("+pf+")")}${chip("wa","💬 WhatsApp ("+wa+")")}<button type="button" class="btn alt" id="est-at-p" style="padding:6px 10px;min-height:34px;font-size:12.5px">🌐 Ver links dos portais</button></div>`+
     (n?lista.slice(0,EST_AT_N).map(o=>estCard(o.x,true)).join(""):`<small class="hint">Nenhum imóvel ${EST_FONTE==="wa"?"do WhatsApp":EST_FONTE==="pf"?"do portfólio":"do portfólio ou do WhatsApp"} combina com este perfil. Os portais continuam disponíveis nos links abaixo.</small>`)+
     (n>EST_AT_N?`<div class="actions"><button type="button" class="btn alt" id="est-at-m">Mostrar mais (${n-EST_AT_N})</button></div>`:"")}
@@ -2972,7 +2984,7 @@ $("est-at").addEventListener("click",e=>{
   if(e.target.closest("#est-at-m")){EST_AT_N+=10;estAtalho();return}
   if(e.target.closest("#est-at-p")){const d=$("portais-d");if(d){d.hidden=false;d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})}}});
 try{new MutationObserver(()=>{try{estAtalho()}catch(_){}}).observe($("portais-n"),{childList:true,characterData:true,subtree:true})}catch(_){}
-$("est-at-b").addEventListener("click",()=>{const x=$("est");if(x)x.scrollIntoView({behavior:"smooth",block:"start"})});
+$("est-at-b").addEventListener("click",ev=>{ev.preventDefault();abreRt("est-d");const x=$("est");if(x)setTimeout(()=>x.scrollIntoView({behavior:"smooth",block:"start"}),60)});
 $("est-q").addEventListener("input",()=>{EST_N=25;EST_ATIVO=true;estAgenda()});
 ["est-perfil","est-qt","est-off"].forEach(k=>$(k).addEventListener("change",()=>{EST_N=25;EST_ATIVO=true;estRender()}));
 ["input","change","click"].forEach(t=>$("form").addEventListener(t,()=>{EST_ATIVO=true;estAgenda()}));
@@ -3148,7 +3160,7 @@ $("est-mod").addEventListener("click",()=>{
 function estLimparTela(){if(EST_ATIVO&&document.readyState==="complete"&&arguments.length)return;try{if(!arguments.length)EST_ATIVO=false;$("est-q").value="";$("est-perfil").checked=true;$("est-qt").value="0";$("est-off").checked=false;EST_N=25;estRender()}catch(_){}}
 estLimparTela();window.addEventListener("load",()=>{[0,300,1200].forEach(t=>setTimeout(()=>estLimparTela(1),t))});window.addEventListener("pageshow",()=>{estLimparTela();setTimeout(()=>estLimparTela(1),300)});
 try{if("scrollRestoration" in history)history.scrollRestoration="manual"}catch(_){}
-$("est-top").addEventListener("click",()=>{const x=$("est");if(x)x.scrollIntoView({behavior:"smooth",block:"start"})});
+$("est-top").addEventListener("click",()=>{abreRt("est-d");const x=$("est");if(x)setTimeout(()=>x.scrollIntoView({behavior:"smooth",block:"start"}),60)});
 
 /* ---------- mapa dos imóveis (localização aproximada = centro do bairro) ---------- */
 let CEPAUTO="",LF=null,MAPA=null,MCAM=null,MOCUP=false,MPEND=false,MSIG="",ENTL={},ENTON={},ENTOFF={},ENTREF=null,ENTMAN=null,ENTERR="",ENTMAIS={},MTAP=null;const IMV_LOC={};
@@ -3210,7 +3222,15 @@ function entDesenhar(Lf){
       (c.n>arr.length?"<small>"+t("+ {0} no raio (a lista mostra os {1} mais perto)",c.n-arr.length,arr.length)+"</small>":"")+"</div>"}).join("");
   ce.innerHTML='<p class="hint" style="margin:6px 0 0">'+(tot&&Object.values(ENT.cats).filter(c=>c&&c.n>0).length<2&&ENT.raio>=1000?t("Só apareceu um tipo de lugar em {0}, o que costuma indicar falha do mapa (não que não exista comércio).",raioTxt)+" <button type=\"button\" class=\"btn\" data-retry=\"1\">"+t("Buscar de novo")+"</button> ":"")+(tot?t("Encontrado em {0} ao redor do ponto 📍",raioTxt)+(ENT.seg?" ("+String(ENT.seg).replace(".",",")+" s"+(ENT.cache?", "+t("do cache"):"")+")":"")+". "+t("Marque o que quer ver no mapa:"):t("Nada encontrado em {0}. Isso pode ser falha momentânea do mapa. Tente uma distância maior ou",raioTxt)+" <button type=\"button\" class=\"btn\" data-retry=\"1\">"+t("buscar de novo")+"</button>.")+"</p>"+blocos+'<p class="hint">'+t("Fonte:")+' '+(/Geoapify/.test(ENT.fonte||"")?'Powered by <a href="https://www.geoapify.com/" target="_blank" rel="noopener">Geoapify</a> '+t("e OpenStreetMap (colaborativo; pode estar incompleto)"):esc(ENT.fonte||"OpenStreetMap"))+". "+t("Distância em linha reta; a pé costuma ser maior.")+"</p>";
   return ptsE}
-function mapaAjustar(arr,cb){setTimeout(()=>{if(!MAPA)return;MAPA.invalidateSize();if(arr.length>1)MAPA.fitBounds(arr,{padding:[30,30],maxZoom:16});else if(arr.length)MAPA.setView(arr[0],cb?14:12)},60)}
+let MAPA_ULT=null;
+function mapaAjustar(arr,cb){MAPA_ULT=[arr,cb];setTimeout(()=>{if(!MAPA)return;MAPA.invalidateSize();if(arr.length>1)MAPA.fitBounds(arr,{padding:[30,30],maxZoom:16});else if(arr.length)MAPA.setView(arr[0],cb?14:12)},60)}
+
+/* blocos retráteis: o mapa precisa recalcular o tamanho ao abrir; o card do sol aparece só quando há cálculo */
+(function(){const md=$("mapa-d"),mp=$("mapa-p"),sp=$("sol-p"),sc=$("imv-map-sol");
+  if(md)md.addEventListener("toggle",()=>{if(md.open&&MAPA){setTimeout(()=>{try{MAPA.invalidateSize();if(MAPA_ULT)mapaAjustar(MAPA_ULT[0],MAPA_ULT[1])}catch(_){}},80)}});
+  const sync=()=>{if(sp)sp.hidden=!!(mp&&mp.hidden)||!(sc&&sc.innerHTML.trim())};
+  try{if(sc)new MutationObserver(sync).observe(sc,{childList:true,subtree:true});if(mp)new MutationObserver(sync).observe(mp,{attributes:true,attributeFilter:["hidden"]})}catch(_){}
+  sync()})();
 
 /* ---------- rua, rota e sol do ponto de referência ---------- */
 function solDia(lat,lon,y,m,d){
@@ -3271,15 +3291,15 @@ function mapaExtras(ref){
     .filter(x=>x[1]).map(([n,s])=>"<tr><td>"+n+"</td><td>"+hhmm(s.nasc)+" · "+dirSol(s.azN)+"</td><td>"+hhmm(s.por)+" · "+dirSol(s.azP)+"</td></tr>").join("");
   if(!lin){S2.innerHTML="";return}
   const BT=[["Norte",0],["Nordeste",45],["Leste",90],["Sudeste",135],["Sul",180],["Sudoeste",225],["Oeste",270],["Noroeste",315]];
-  S2.innerHTML='<details class="sol" open><summary>☀️ '+t("Sol no imóvel: nascente ou poente?")+'</summary>'+
-    '<p class="hint" style="margin-top:8px">'+t("<b>Nascente</b> = a janela da sala/varanda olha para onde o sol <b>nasce</b> (leste): sol da <b>manhã</b>, tarde fresca.<br><b>Poente</b> = olha para onde o sol <b>se põe</b> (oeste): sol da <b>tarde</b>, mais quente.")+'</p>'+
+  S2.innerHTML='<div class="sol">'+
+    '<p class="hint" style="margin-top:0">'+t("<b>Nascente</b> = a janela da sala/varanda olha para onde o sol <b>nasce</b> (leste): sol da <b>manhã</b>, tarde fresca.<br><b>Poente</b> = olha para onde o sol <b>se põe</b> (oeste): sol da <b>tarde</b>, mais quente.")+'</p>'+
     '<p class="hint" style="margin:8px 0 4px">'+t("<b>Para onde a frente do imóvel olha?</b> (a janela da sala ou a varanda, olhando de dentro para fora)")+'</p>'+
     '<div class="seg segx" id="sol-btns">'+BT.map(f=>'<button type="button" data-az="'+f[1]+'">'+t(f[0])+"</button>").join("")+"</div>"+
     '<div class="actions" style="margin-top:8px"><button type="button" class="btn alt" id="sol-bussola">🧭 '+t("Usar a bússola do celular")+'</button></div>'+
     '<p class="hint" id="sol-bmsg" style="margin:4px 0 0">'+t("Pela bússola: fique na janela da sala, de frente para fora, e toque no botão.")+'</p>'+
     '<div id="sol-res"></div>'+
     '<table class="calc-t" style="margin-top:12px"><tr class="sec"><td></td><td>'+t("Sol nasce")+'</td><td>'+t("Sol se põe")+'</td></tr>'+lin+'</table>'+
-    '<p class="hint">'+t("Cálculo astronômico aproximado para o ponto 📍 (horário de Brasília). Não considera prédios vizinhos nem o andar. Confirme no local.")+'</p></details>';
+    '<p class="hint">'+t("Cálculo astronômico aproximado para o ponto 📍 (horário de Brasília). Não considera prédios vizinhos nem o andar. Confirme no local.")+'</p></div>';
   const res=$("sol-res"),bt=$("sol-btns");
   const mostrar=az=>{
     az=((Math.round(az)%360)+360)%360;
@@ -3836,7 +3856,7 @@ async function vozAcoes(t0,txt,res){
   /* limpar / nova busca */
   if(/^(limpar|limpa|limpe|nova busca|novo cliente|recomecar|comecar de novo|zerar|clear|reset|new search|start over)\b/.test(t0)){$("limpar").click();return ok(t("Formulário limpo."))}
   /* mapa / calculadora / perfil */
-  if(/^(?:abrir|abre|abra|ver|mostrar|mostre|open|show)\s+(?:o |a |the )?(?:mapa|map)\b/.test(t0)){const e=$("mapa-p");if(e&&!e.hidden){e.scrollIntoView({behavior:"smooth",block:"start"});return true}return aviso(t("O mapa aparece depois que a busca é gerada."))}
+  if(/^(?:abrir|abre|abra|ver|mostrar|mostre|open|show)\s+(?:o |a |the )?(?:mapa|map)\b/.test(t0)){const e=$("mapa-p");if(e&&!e.hidden){abreRt("mapa-d");setTimeout(()=>e.scrollIntoView({behavior:"smooth",block:"start"}),80);return true}return aviso(t("O mapa aparece depois que a busca é gerada."))}
   if(/^(?:usar|use|usa|puxar|puxe|pegar|pega|use the)\s+(?:o |a |the )?(?:teto|valor|maximo|limite|cap|ceiling)/.test(t0)){document.querySelector('nav button[data-tab="calc"]').click();$("c-teto").click();return ok(t("Valor da Calculadora: teto da busca."))}
   if(/^(?:abrir|abre|abra|editar|edite|mostrar|mostre|ver|open|edit|show)\s+(?:o |a |os |the )?(?:perfil|formulario|filtros|campos|profile|form|filters|fields)/.test(t0)){tab("busca");perfilAbrir(true);return ok(t("Perfil aberto."))}
   if(/^(?:fechar|feche|recolher|recolha|esconder|esconda|close|hide|collapse)\s+(?:o |a |os |the )?(?:perfil|formulario|filtros|campos|profile|form|filters|fields)/.test(t0)){perfilAbrir(false);return ok(t("Perfil recolhido."))}
@@ -3868,7 +3888,7 @@ async function vozAcoes(t0,txt,res){
     const wa=/whatsapp|zap/.test(t0),o=estLer();
     if(!o.itens.length)return aviso(t("Você ainda não importou o portfólio nem grupos de WhatsApp."));
     if(buscaCompletaBloq())return aviso(t("A busca no portfólio e nos grupos faz parte do plano."));
-    EST_ATIVO=true;EST_FONTE=wa?"wa":"pf";estRender();const at=$("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"});
+    EST_ATIVO=true;EST_FONTE=wa?"wa":"pf";estRender();const at=$("est-at");if(at)abreRt("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"});
     const L=estFiltrar(true),n=L.filter(i=>wa?i.orig==="wa":i.orig!=="wa").length;
     return ok(wa?t("Grupos de WhatsApp: {0} imóvel(is) combinam com o perfil.",n):t("Portfólio: {0} imóvel(is) combinam com o perfil.",n))}
   if(/^(?:abrir|abre|abra|importar|importe|ler|open|import)\s+(?:os |as |meus |meu |my |the )?(?:grupos? (?:de )?(?:whatsapp|zap)|whatsapp|conversa)/.test(t0)){$("est-top").click();setTimeout(()=>{const b=$("est-wa-b");if(vozVis(b))b.click()},500);return ok(t("Abrindo o portfólio e a leitura de grupos do WhatsApp."))}
@@ -4125,7 +4145,7 @@ async function vozLugar(nome){
       const ok=!$("portais-d").hidden&&GER&&GER.key===skey(),erro=$("ger-msg")&&$("ger-msg").textContent.trim();
       if(ok){clearInterval(iv);aquiVer();try{vozSug()}catch(_){}let imp=null;try{imp=vozImport()}catch(_){}
         toast("✅ "+t("Busca pronta: {0} portais abaixo",$("portais-n").textContent)+(imp?" · "+imp.pf+" "+t("do portfólio")+" · "+imp.wa+" "+t("do WhatsApp"):""),4500);
-        if(imp){try{const r=$("voz-res");if(r){const d=document.createElement("div");d.className="hint";d.style.margin="8px 0 0";d.innerHTML="📁 "+esc(t("Seu portfólio"))+": <b>"+imp.pf+"</b> · 💬 "+esc(t("Grupos de WhatsApp"))+": <b>"+imp.wa+"</b> · 🌐 "+esc(t("Portais"))+": <b>"+esc($("portais-n").textContent)+'</b> <button type="button" class="vz-pill" id="voz-ver-imp" style="min-height:34px;font-size:12.5px;margin:8px 0 0;display:flex;width:max-content">'+esc(t("Ver imóveis importados"))+"</button>";r.appendChild(d);const bt=d.querySelector("#voz-ver-imp");bt.addEventListener("click",()=>{const at=$("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"})})}}catch(_){}}
+        if(imp){try{const r=$("voz-res");if(r){const d=document.createElement("div");d.className="hint";d.style.margin="8px 0 0";d.innerHTML="📁 "+esc(t("Seu portfólio"))+": <b>"+imp.pf+"</b> · 💬 "+esc(t("Grupos de WhatsApp"))+": <b>"+imp.wa+"</b> · 🌐 "+esc(t("Portais"))+": <b>"+esc($("portais-n").textContent)+'</b> <button type="button" class="vz-pill" id="voz-ver-imp" style="min-height:34px;font-size:12.5px;margin:8px 0 0;display:flex;width:max-content">'+esc(t("Ver imóveis importados"))+"</button>";r.appendChild(d);const bt=d.querySelector("#voz-ver-imp");bt.addEventListener("click",()=>{const at=$("est-at");if(at)abreRt("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"})})}}catch(_){}}
         try{const f=$("voz-fala");if(f&&f.checked&&window.vozFalarTxt)window.vozFalarTxt(t("Busca realizada.")+(imp?" "+imp.pf+" "+t("no seu portfólio")+", "+imp.wa+" "+t("nos grupos de WhatsApp")+".":""))}catch(_){}}
       else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}},250)}
   window.vozGerar=vozGerar;
@@ -4624,7 +4644,7 @@ async function roteiroVisitas(){
     '<p class="hint">Ordem do mais perto ao próximo, a partir do primeiro imóvel.'+(ap?" Imóveis sem endereço entram pelo centro do bairro: a parada é aproximada.":"")+(sel.length>o.length?" Foram usados os "+o.length+" primeiros localizados (limite do Google Maps).":"")+'</p>';
   box.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-$("imv-rota").addEventListener("click",()=>{mapaImoveis(true).then(()=>{$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"});return roteiroVisitas()})});
+$("imv-rota").addEventListener("click",()=>{mapaImoveis(true).then(()=>{abreRt("mapa-d");setTimeout(()=>$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"}),80);return roteiroVisitas()})});
 $("imv-map-cats").addEventListener("change",e=>{
   const ck=e.target.closest("[data-ck]"),ci=e.target.closest("[data-ci]");if(!MCAM)return;
   if(ck){const k=ck.dataset.ck,v=ENTL[k];if(!v)return;ENTON[k]=ck.checked;ck.checked?v.g.addTo(MCAM):MCAM.removeLayer(v.g);
@@ -4681,7 +4701,7 @@ $("imv-map-cepgo").addEventListener("click",mapaPorCep);
 ["imv-map-cep","imv-map-num"].forEach(id=>$(id).addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();mapaPorCep()}}));
 $("imv-map-ref").addEventListener("change",e=>{ENTREF=e.target.value;mapaImoveis(true)});
 document.querySelectorAll("#imv-map-r button").forEach(b=>b.addEventListener("click",()=>{ENTR=+b.dataset.v;entRaioSync();mapaImoveis(true)}));
-$("imv-mapa").addEventListener("click",async()=>{await mapaImoveis(true);$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"})});
+$("imv-mapa").addEventListener("click",async()=>{await mapaImoveis(true);abreRt("mapa-d");setTimeout(()=>$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"}),80)});
 
 /* ===== exportar para Excel (.xlsx) com a logo e marca d'água do Corretor Master (v3.63) ===== */
 let EXJS=null;
