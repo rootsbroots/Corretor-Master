@@ -640,7 +640,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.58</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.60</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -2290,7 +2290,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.58 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.60 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3780,7 +3780,7 @@ async function vozAcoes(t0,txt,res){
     if(L.length>1){res.innerHTML='<div class="alert good">'+esc(t("Qual deles?"))+'</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">'+L.slice(0,6).map(c=>'<button type="button" class="btn alt" data-vcli="'+esc(c.id)+'" data-vac="abrir">'+esc(c.perfil.nome)+"</button>").join("")+"</div>";return true}
     vozCliAcao(L[0],"abrir",res);return true}
   /* estou aqui */
-  if(/^(estou aqui|aqui perto|perto de mim|imoveis aqui|imoveis aqui perto|near me|around me|i am here|im here|here nearby)/.test(t0))return vozAqui(txt,res);
+  if(/^(estou aqui|aqui perto|perto de mim|imoveis aqui|imoveis aqui perto|near me|around me|i am here|im here|here nearby)/.test(t0)||/\b(minha localizacao|minha posicao|localizacao atual|onde estou|onde eu estou|aqui perto|aqui por perto|aqui na regiao|perto de mim|perto daqui|ao meu redor|meu redor|aqui mesmo|my location|current location|near me|around me|nearby)\b/.test(t0))return vozAqui(txt,res);
   /* gerar / copiar / PDF / planilha / WhatsApp */
   if(/^(gerar|gera|gere|montar|monte|criar|crie|fazer|faca|faz|generate|make|build)\s+(?:a |as |os |essa |esta |the )?(?:busca|buscas|links?|pesquisa|search)\b/.test(t0)){window.vozGerar&&window.vozGerar();return ok(t("Gerando a busca…"))}
   if(/^(copiar|copie|copia|copy)\s+(?:os |todos os |the )?(?:links?|busca|tudo|all)/.test(t0)){if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));$("zap-copy").click();return true}
@@ -4154,7 +4154,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== cartões iniciais em botões (v3.58) ===== */
+/* ===== cartões iniciais em botões (v3.60) ===== */
 (function(){
   const ta=$("t-aqui"),tv=$("t-voz"),ab=$("aqui-box"),vb=$("voz-box"),vr=$("voz-res"),mic=$("voz-mic"),inp=$("voz-in");if(!ta||!tv||!vb)return;
   const abre=()=>{vb.classList.add("open")};
@@ -4395,7 +4395,7 @@ $("aqui-res").addEventListener("input",e=>{if(e.target&&(e.target.id==="aq-a"||e
 new MutationObserver(()=>{if($("aq-a"))aquiSliderPintar()}).observe($("aqui-res"),{childList:true});
 $("aqui-res").addEventListener("click",e=>{const b=e.target.closest("[data-aqui]");if(!b)return;
     const cd=b.dataset.aqui==="condo"&&AQUI_CONDO;
-  S.vmin=AQUI_V[0];S.vmax=AQUI_V[1];S.tipo=cd?"casa":b.dataset.aqui;S.piscina="";S.vista="";S.parque="";S.locCasa=cd?"condominio":"bairro";S.condo=cd?(AQUI_CONDO.livre?"__outro":AQUI_CONDO.slug):"";S.condoOutro=cd?AQUI_CONDO.nome:"";
+  S.vmin=AQUI_V[0];S.vmax=AQUI_V[1];S.tipo=cd?"casa":b.dataset.aqui;S.piscina="";S.vista="";S.parque="";S.condicao="";S.mobiliado="";S.status="";S.locCasa=cd?"condominio":"bairro";S.condo=cd?(AQUI_CONDO.livre?"__outro":AQUI_CONDO.slug):"";S.condoOutro=cd?AQUI_CONDO.nome:"";
   if(cd&&AQUI_CONDO.bairro&&BAIRROS.some(x=>x.cid===S.cidade&&x.s===AQUI_CONDO.bairro))S.bairro=AQUI_CONDO.bairro;
   try{fillSelects()}catch(_){}syncInputs();render();
   aquiEsperar()});
@@ -4603,7 +4603,7 @@ $("imv-map-ref").addEventListener("change",e=>{ENTREF=e.target.value;mapaImoveis
 document.querySelectorAll("#imv-map-r button").forEach(b=>b.addEventListener("click",()=>{ENTR=+b.dataset.v;entRaioSync();mapaImoveis(true)}));
 $("imv-mapa").addEventListener("click",async()=>{await mapaImoveis(true);$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"})});
 
-/* ===== exportar para Excel (.xlsx) com a logo e marca d'água do Corretor Master (v3.58) ===== */
+/* ===== exportar para Excel (.xlsx) com a logo e marca d'água do Corretor Master (v3.60) ===== */
 let EXJS=null;
 function exceljsCarrega(){if(window.ExcelJS)return Promise.resolve(window.ExcelJS);if(EXJS)return EXJS;
   EXJS=new Promise((ok,no)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js";s.onload=()=>window.ExcelJS?ok(window.ExcelJS):no(new Error("exceljs"));s.onerror=()=>{EXJS=null;no(new Error("exceljs"))};document.head.appendChild(s)});return EXJS}
