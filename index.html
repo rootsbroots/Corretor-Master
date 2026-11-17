@@ -94,7 +94,7 @@ ul.obs li{margin-bottom:6px}
 .client small{color:var(--ink-2);display:block}
 .empty{color:var(--ink-2);padding:24px 0;text-align:center}
 textarea{font-family:var(--font-m);font-size:13px;min-height:120px;resize:vertical}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;z-index:300}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;max-width:min(92vw,420px);background:rgba(15,29,51,.94);color:#fff;border:1px solid rgba(45,212,191,.35);padding:10px 18px 10px 14px;border-radius:999px;font-size:13.5px;line-height:1.35;box-shadow:0 8px 22px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:300;animation:toastIn .3s cubic-bezier(.2,.8,.2,1)}.toast::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#2dd4bf;box-shadow:0 0 0 4px rgba(45,212,191,.2)}.toast.err::before{background:#f87171;box-shadow:0 0 0 4px rgba(248,113,113,.2)}@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}@media (prefers-reduced-motion:reduce){.toast{animation:none}}
 .hint{font-size:12px;color:var(--ink-2);margin-top:4px}
 
 .calc-g{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
@@ -136,7 +136,7 @@ input:focus,select:focus{border-color:var(--ink);outline:0}
 .client{background:var(--surface-2);border:0;border-radius:18px}
 .alert{border-radius:14px}
 .tag{font-weight:600}
-.toast{bottom:calc(104px + env(safe-area-inset-bottom,0px));border-radius:999px;padding:12px 20px}
+.toast{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:min(460px,calc(100% - 24px));z-index:20;display:flex;gap:2px;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px;margin:0;overflow:visible;box-shadow:0 10px 30px rgba(0,0,0,.30)}
 nav button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;border-radius:999px;padding:9px 4px 8px;font-size:11px;font-weight:600;color:var(--ink-2);background:none}
 nav button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -635,7 +635,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.45</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.46</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -1441,7 +1441,7 @@ const semAcento=t=>t.normalize("NFD").replace(/[̀-ͯ]/g,"");
 const slugify=t=>semAcento(t).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const num=v=>parseInt(String(v).replace(/\D/g,""),10)||0;
 let toastT;
-function toast(m,ms){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||2200)}
+function toast(m,ms){const t=$("toast");m=String(m==null?"":m);const er=/^(❌|⚠️?|🚫)/.test(m)||/não foi possível|erro|informe |não está|only available|nicht|impossible/i.test(m);m=m.replace(/^(✅|✔️?|❌|⚠️?|🚫|ℹ️|📄|🔎|📧|📨)\s*/u,"");t.classList.toggle("err",er);t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||2200)}
 
 function cidadeObj(){return CIDADES.find(c=>c.s===S.cidade&&c.uf===(S.estado||EST0))||CIDADES.find(c=>c.uf===(S.estado||EST0))||CIDADES[0]}
 function temBairros(){const c=cidadeObj();return BAIRROS.some(b=>b.cid===c.s)}
@@ -2280,7 +2280,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.45 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.46 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
