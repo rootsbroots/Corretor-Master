@@ -640,7 +640,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.53</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.54</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -2289,7 +2289,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.53 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.54 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3950,10 +3950,15 @@ async function vozComando(txt,res){
     if(!nome||nome.length<2||/^(cliente|client|contato|contact)$/i.test(nome)){return ok(t("Diga o nome do cliente. Ex.: “salvar para Marcos Silva, telefone 62 99999-9999”."))}
     nome=nome.replace(/(^|\s)(\S)/g,(x,a,b)=>a+b.toUpperCase());
     const dig=(fi>=0?txt.slice(fi):"").replace(/\D/g,"");
-    $("nome").value=nome;$("nome").dispatchEvent(new Event("input",{bubbles:true}));
-    if(dig.length>=10&&dig.length<=13){$("fone").value=dig;$("fone").dispatchEvent(new Event("input",{bubbles:true}))}
-    $("salvar").click();
-    return ok(t("Cliente salvo: {0}",nome)+(dig.length>=10?" · "+$("fone").value:""))}
+    const explicito=/^\s*\S+\s+(?:(?:o|a|este|esta|um|uma|this|the|new|novo|nova)\s+)*(?:(?:cliente|client|contato|contact)\s+)?(?:para|como|for|as|named|chamado|chamada|nome)\b/i.test(nomePart)||(dig.length>=10&&dig.length<=13);
+    const salva=()=>{$("nome").value=nome;$("nome").dispatchEvent(new Event("input",{bubbles:true}));
+      if(dig.length>=10&&dig.length<=13){$("fone").value=dig;$("fone").dispatchEvent(new Event("input",{bubbles:true}))}
+      $("salvar").click();
+      return ok(t("Cliente salvo: {0}",nome)+(dig.length>=10?" · "+$("fone").value:""))};
+    /* nome solto (sem "para …" e sem telefone) pode ser ruído do microfone: pede confirmação antes de gravar */
+    if(!explicito){res.innerHTML='<div class="alert warn">'+esc(t("Entendi o nome “{0}”. Salvar este cliente?",nome))+'</div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-salva-ok">'+esc(t("Salvar"))+'</button><button type="button" class="btn alt" id="voz-salva-no">'+esc(t("Cancelar"))+"</button></div>";
+      $("voz-salva-ok").onclick=salva;$("voz-salva-no").onclick=()=>ok(t("Não salvei. Diga “salvar para Marcos Silva, telefone 62 99999-9999”."));return true}
+    return salva()}
   try{if(await vozAcoes(t0,txt,res))return true}catch(_){}
   const mo=t0.match(/^(abrir|abre|abra|ir para|ir pra|vai para|va para|open|go to|show|mostrar|mostre)\s+(?:o |a |os |as |meus |minhas |my |the )?(.+)$/);
   if(mo){const w=mo[2];
@@ -4148,7 +4153,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== cartões iniciais em botões (v3.53) ===== */
+/* ===== cartões iniciais em botões (v3.54) ===== */
 (function(){
   const ta=$("t-aqui"),tv=$("t-voz"),ab=$("aqui-box"),vb=$("voz-box"),vr=$("voz-res"),mic=$("voz-mic"),inp=$("voz-in");if(!ta||!tv||!vb)return;
   const abre=()=>{vb.classList.add("open")};
