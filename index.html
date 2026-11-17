@@ -640,7 +640,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.54</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.58</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -966,10 +966,10 @@ body.estr #ferr{display:none}
             <button class="btn acc" id="zap-copy" type="button">Copiar mensagem para o cliente</button>
             <button class="btn" id="pdf" type="button">Baixar relatório em PDF</button>
             <button class="btn" id="pdf-wa" type="button">Enviar PDF no WhatsApp</button>
-            <button class="btn alt" id="busca-xls" type="button">Exportar busca em Excel</button>
-            <a class="btn alt" id="zap-wa" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+            <button class="btn alt" id="busca-xls" type="button" hidden style="display:none!important" aria-hidden="true" tabindex="-1">Exportar busca em Excel</button>
+            <a class="btn alt" id="zap-wa" href="#" target="_blank" rel="noopener" style="display:none!important" aria-hidden="true" tabindex="-1">Abrir no WhatsApp</a>
           </div>
-          <p class="hint">O WhatsApp pode não abrir dentro do app — use Copiar e cole na conversa.</p></div></details>
+          <p class="hint">Para o cliente receber os links em texto, use Copiar mensagem e cole na conversa.</p></div></details>
         </div>
         <div class="panel" id="mapa-p" hidden style="margin-bottom:16px">
           <h2>Mapa da região</h2>
@@ -1565,7 +1565,7 @@ function copiar(texto,okMsg){
   try{navigator.clipboard.writeText(texto).then(()=>toast(okMsg),fb)}catch(_){fb()}
 }
 $("portais").addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(b)copiar((LS[+b.dataset.copy]||{}).url||"","Link copiado")});
-$("zap-copy").addEventListener("click",()=>copiar(RES.msg,"Mensagem copiada"));
+$("zap-copy").addEventListener("click",()=>copiar((RES.msg||"")+"\n\n— Corretor Master · corretormaster.com","Mensagem copiada"));
 $("theme").addEventListener("click",()=>{
   const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
   r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("cm-theme",r.dataset.theme)}catch(_){}
@@ -2049,7 +2049,7 @@ $("cli-exp").addEventListener("click",()=>{
   l.href=u;l.download="clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Arquivo de clientes baixado.");
 });
-$("cli-xls").addEventListener("click",()=>{
+$("cli-xls").addEventListener("click",async()=>{
   const a=getC();if(!a.length){toast("Nenhum cliente para exportar.");return}
   const pt=x=>String(x||"").replace(/-/g," ").replace(/\b\w/g,m=>m.toUpperCase());
   const cel=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
@@ -2057,6 +2057,7 @@ $("cli-xls").addEventListener("click",()=>{
   const lin=a.map(c=>{const p=c.perfil||{};
     const cid=(CIDADES.find(x=>x.s===p.cidade)||{}).n||pt(p.cidade),bai=(BAIRROS.find(x=>x.s===p.bairro&&x.cid===p.cidade)||{}).n||pt(p.bairro);
     return [p.nome,p.fone||"",NOME_EST[p.estado]||"",cid,bai,p.tipo,p.vmin||"",p.vmax||"",p.condoOutro||pt(p.condo),p.piscina,p.vista,p.parque,p.condicao,p.status,p.mobiliado,c.data,...(()=>{const n=negDe(c);return n?[etp(n.etapa)[1],n.valor,Math.round(n.minha),n.prob+"%"]:["","","",""]})(),p.nota||"",ctUlt(c)?new Date(ctUlt(c)).toLocaleDateString(LOC()):"",(p.contatos||[]).length].map(cel).join(";")});
+  if(await xlsxDeCsv([cab.map(cel).join(";"),...lin].join("\r\n"),"clientes-corretor-master-"+new Date().toISOString().slice(0,10)+".xlsx",true)){toast("Planilha baixada. Abra no Excel.");return}
   const csv="\ufeff"+"sep=;\r\n"+[cab.map(cel).join(";"),...lin].join("\r\n");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
   const u=URL.createObjectURL(blob),l=document.createElement("a");
@@ -2289,7 +2290,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.54 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.58 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -2689,7 +2690,7 @@ function abrirWA(whats,m,aviso){const url="https://wa.me/"+String(whats).replace
   const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return false}
 document.addEventListener("click",e=>{
   const a=e.target&&e.target.closest&&e.target.closest("#zap-wa,#imv-wa,#c-wa,#cv-wa,#pc-link-wa,a[href^=\"https://wa.me/\"]");
-  if(!a||e.defaultPrevented||!logoOn()||!podeLogo())return;
+  if(!a||e.defaultPrevented||a.hasAttribute("data-nologo")||!logoOn()||!podeLogo())return;
   if((a.getAttribute("href")||"").indexOf("wa.me/"+FONE_UPG)>=0)return; /* conversa comigo/suporte: direto, sem cartão */
   const h=a.getAttribute("href")||"",m=h.match(/[?&]text=([^&]*)/);if(!m)return;
   let t="";try{t=decodeURIComponent(m[1])}catch(_){return}
@@ -3795,11 +3796,11 @@ async function vozAcoes(t0,txt,res){
     res.innerHTML='<div class="alert good">'+esc(t("PDF pronto. Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-pdfwa">📄 '+esc(t("Enviar PDF no WhatsApp"))+"</button></div>";
     $("voz-pdfwa").onclick=()=>$("pdf-wa").click();return true}
   if(/^(?:gerar|gera|gere|baixar|baixe|exportar|criar|crie|abrir|abre|download|make|export)?\s*(?:o |um |the |a )?pdf\b/.test(t0)){if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));$("pdf").click();return ok(t("Gerando o PDF…"))}
-  if(/^(?:exportar|baixar|baixe|gerar|export|download)\s+(?:a |as |os |uma |the )?(?:planilha|excel|xls|xlsx|spreadsheet)\b/.test(t0)){if(/cliente/.test(t0)){$("cli-xls").click();return ok(t("Gerando a planilha de clientes…"))}if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));const b=$("busca-xls");if(b)b.click();return true}
+  if(/^(?:exportar|baixar|baixe|gerar|export|download)\s+(?:a |as |os |uma |the )?(?:planilha|excel|xls|xlsx|spreadsheet)\b/.test(t0)){if(/cliente/.test(t0)){$("cli-xls").click();return ok(t("Gerando a planilha de clientes…"))}return aviso(t("A planilha em Excel é só da lista de clientes. Diga “exportar planilha de clientes”. Para a busca, use o PDF."))}
   if(/^(?:exportar|baixar|baixe|export|download)\s+(?:os |meus |my |the )?clientes\b/.test(t0)){$("cli-exp").click();return ok(t("Exportando os clientes…"))}
   if(/^(mandar|manda|mande|enviar|envia|envie|send|compartilhar|compartilhe|share)\s+(?:no |pelo |por |via |on |on the )?(?:whatsapp|zap)\b/.test(t0)||/^(mandar|manda|mande|enviar|envia|envie|send)\s+(?:a |essa |esta |the |this )?busca\s*$/.test(t0)){
     if(!pronto())return aviso(t("Gere a busca primeiro. Diga “gerar busca”."));
-    res.innerHTML='<div class="alert good">'+esc(t("Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><a class="btn acc" target="_blank" rel="noopener" href="'+esc($("zap-wa").href)+'">📲 WhatsApp</a></div>';return true}
+    res.innerHTML='<div class="alert good">'+esc(t("Toque para escolher a conversa:"))+'</div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn acc" id="voz-pdfwa2">📄 '+esc(t("Enviar PDF no WhatsApp"))+'</button></div>';$("voz-pdfwa2").onclick=()=>$("pdf-wa").click();return true}
   if((m=t0.match(/^(?:abrir|abre|abra|ver|mostrar|mostre|open|show|go to)\s+(?:o |a |no |na |the )?(viva ?real|zap(?: imoveis)?|olx|imovel ?web|chaves na mao|62 imoveis|sessenta e dois imoveis)\b/)))return vozPortal(m[1],res);
   /* limpar / nova busca */
   if(/^(limpar|limpa|limpe|nova busca|novo cliente|recomecar|comecar de novo|zerar|clear|reset|new search|start over)\b/.test(t0)){$("limpar").click();return ok(t("Formulário limpo."))}
@@ -4153,7 +4154,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== cartões iniciais em botões (v3.54) ===== */
+/* ===== cartões iniciais em botões (v3.58) ===== */
 (function(){
   const ta=$("t-aqui"),tv=$("t-voz"),ab=$("aqui-box"),vb=$("voz-box"),vr=$("voz-res"),mic=$("voz-mic"),inp=$("voz-in");if(!ta||!tv||!vb)return;
   const abre=()=>{vb.classList.add("open")};
@@ -4602,7 +4603,58 @@ $("imv-map-ref").addEventListener("change",e=>{ENTREF=e.target.value;mapaImoveis
 document.querySelectorAll("#imv-map-r button").forEach(b=>b.addEventListener("click",()=>{ENTR=+b.dataset.v;entRaioSync();mapaImoveis(true)}));
 $("imv-mapa").addEventListener("click",async()=>{await mapaImoveis(true);$("mapa-p").scrollIntoView({behavior:"smooth",block:"start"})});
 
-$("busca-xls").addEventListener("click",()=>{
+/* ===== exportar para Excel (.xlsx) com a logo e marca d'água do Corretor Master (v3.58) ===== */
+let EXJS=null;
+function exceljsCarrega(){if(window.ExcelJS)return Promise.resolve(window.ExcelJS);if(EXJS)return EXJS;
+  EXJS=new Promise((ok,no)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js";s.onload=()=>window.ExcelJS?ok(window.ExcelJS):no(new Error("exceljs"));s.onerror=()=>{EXJS=null;no(new Error("exceljs"))};document.head.appendChild(s)});return EXJS}
+function csvLinhas(t){return String(t).replace(/^﻿/,"").split("\r\n").filter(l=>!/^sep=/.test(l)).map(l=>{const o=[];let c="",q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(q){if(ch==='"'){if(l[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===";"){o.push(c);c=""}else c+=ch}o.push(c);return o})}
+function marcaDaguaPng(){return new Promise(res=>{try{const im=new Image();im.onload=()=>{try{const c=document.createElement("canvas");c.width=c.height=260;const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,260,260);g.globalAlpha=.07;g.translate(130,130);g.rotate(-Math.PI/9);g.drawImage(im,-70,-70,140,140);res(c.toDataURL("image/png"))}catch(_){res(null)}};im.onerror=()=>res(null);im.src="data:image/jpeg;base64,"+LOGO_PDF}catch(_){res(null)}})}
+async function xlsxDeCsv(csv,arquivo,cabLinha1){
+  let EJ;try{EJ=await exceljsCarrega()}catch(_){return false}
+  try{
+    const rows=csvLinhas(csv),wb=new EJ.Workbook();wb.creator="Corretor Master";wb.created=new Date();
+    const ws=wb.addWorksheet("Corretor Master",{views:[{showGridLines:false}]});
+    const NAVY="FF14365E",AZ="FF276EF1";
+    const logo=wb.addImage({base64:"data:image/jpeg;base64,"+LOGO_PDF,extension:"jpeg"});
+    const png=await marcaDaguaPng();if(png){const bg=wb.addImage({base64:png,extension:"png"});ws.addBackgroundImage(bg)}
+    const W=[];rows.forEach(r=>r.forEach((v,i)=>{W[i]=Math.max(W[i]||10,Math.min(String(v).length+2,/^https?:/.test(v)?64:46))}));
+    W[0]=Math.max(W[0]||0,16);ws.columns=W.map(w=>({width:w}));
+    const NC=Math.max(W.length,8),BANDA="FF0A1F3C";
+    for(let i=1;i<=4;i++){const rw=ws.getRow(i);rw.height=24;for(let c=1;c<=NC;c++)rw.getCell(c).fill={type:"pattern",pattern:"solid",fgColor:{argb:BANDA}}}
+    for(let c=1;c<=NC;c++)ws.getRow(5).getCell(c).fill={type:"pattern",pattern:"solid",fgColor:{argb:"FF2DD4BF"}};ws.getRow(5).height=4;
+    ws.addImage(logo,{tl:{col:0,row:0},ext:{width:94,height:94}});
+    const t1=ws.getCell("B1");t1.value="Corretor Master";t1.font={name:"Calibri",size:20,bold:true,color:{argb:"FFFFFFFF"}};
+    const t2=ws.getCell("B2");t2.value=cabLinha1?"Carteira de clientes":"Relatório de busca de imóveis";t2.font={size:12,color:{argb:"FFBECDE1"}};
+    const t3=ws.getCell("B3");t3.value="Gerado em "+new Date().toLocaleString(LOC());t3.font={size:10,color:{argb:"FFBECDE1"}};
+    const t4=ws.getCell("B4");t4.value={text:"corretormaster.com",hyperlink:"https://corretormaster.com"};t4.font={size:10,color:{argb:"FF2DD4BF"},underline:true};
+    if(!cabLinha1&&rows.length&&/Corretor Master/.test(rows[0][0]||"")&&rows[0].filter(x=>x!=="").length===1)rows.shift();
+    if(!cabLinha1&&rows.length&&/^Gerado em/.test(rows[0][0]||""))rows.shift();
+    if(!cabLinha1&&rows.length&&rows[0].every(x=>x===""))rows.shift();
+    let ini=7,cabNum=null;
+    rows.forEach((r,k)=>{
+      const row=ws.getRow(ini+k),nz=r.filter(x=>x!=="").length;
+      const sec=nz===1&&r[0]&&r[0]===r[0].toUpperCase()&&/[A-ZÀ-Ú]/.test(r[0]);
+      const tit=k===0&&!cabLinha1&&nz===1;
+      const cab=(k===0&&cabLinha1)||(k>0&&rows[k-1].filter(x=>x!=="").length===1&&/^[A-ZÀ-Ú ]+$/.test(rows[k-1][0]||"")&&nz>1);
+      if(k===0&&cabLinha1)cabNum=r.map(x=>/^(Valor|Comiss)/i.test(x));
+      r.forEach((v,i)=>{const c=row.getCell(i+1);let val=v;
+        if(/^https?:\/\//.test(v))val={text:v,hyperlink:v};
+        else if(!cab&&!sec&&!tit){
+          if(cabNum&&cabNum[i]&&/^\d+(\.\d+)?$/.test(v))val=Number(v);
+          else if(i===1&&/^(Valor|Comiss)/i.test(r[0]||"")&&/^\d+(\.\d+)?$/.test(v))val=Number(v)}
+        c.value=val;if(typeof val==="number")c.numFmt="#,##0";
+        if(typeof val==="object")c.font={color:{argb:AZ},underline:true};
+        if(cab){c.font={bold:true,color:{argb:"FFFFFFFF"}};c.fill={type:"pattern",pattern:"solid",fgColor:{argb:NAVY}}}
+        else if(sec){c.font={bold:true,size:12,color:{argb:NAVY}}}
+        else if(tit){c.font={bold:true,size:13,color:{argb:NAVY}}}
+        c.alignment={vertical:"middle",wrapText:false}});
+      if(cab||sec)row.height=20});
+    const buf=await wb.xlsx.writeBuffer();
+    const u=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})),a=document.createElement("a");
+    a.href=u;a.download=arquivo;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+    return true
+  }catch(e){return false}}
+$("busca-xls").addEventListener("click",async()=>{
   const cel=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"',L=a=>a.map(cel).join(";");
   const pt=x=>String(x||"").replace(/-/g," ").replace(/\b\w/g,m=>m.toUpperCase());
   const cid=(CIDADES.find(x=>x.s===S.cidade)||{}).n||pt(S.cidade),bai=(BAIRROS.find(x=>x.s===S.bairro&&x.cid===S.cidade)||{}).n||pt(S.bairro);
@@ -4612,19 +4664,36 @@ $("busca-xls").addEventListener("click",()=>{
   const im=imvLista();
   if(im.length)r.push("",L(["IMÓVEIS ESCOLHIDOS"]),L(["Descrição","Portal","Link","Para o cliente","Endereço"]),...im.map(i=>L([i.titulo,i.portal,i.url,i.sel?"Sim":"Não",i.end||""])));
   if(r.length<=12&&!im.length&&!(PRONTO&&LS&&LS.length&&gerado())){toast("Gere os links da busca ou adicione imóveis para exportar.",3500);return}
+  if(await xlsxDeCsv(r.join("\r\n"),"busca-"+(slugify(S.nome)||"cliente")+".xlsx",false)){toast("Planilha da busca baixada. Abra no Excel.");return}
   const blob=new Blob(["\ufeff"+"sep=;\r\n"+r.join("\r\n")],{type:"text/csv;charset=utf-8"});
   const u=URL.createObjectURL(blob),a=document.createElement("a");
   a.href=u;a.download="busca-"+(slugify(S.nome)||"cliente")+".csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
   toast("Planilha da busca baixada. Abra no Excel.");
 });
-$("pdf-wa").addEventListener("click",async()=>{
+async function pdfWaLista(){
   try{
     if(!PRONTO||!LS.length||!gerado()){toast("Gere os links desta busca primeiro");return}
     const buf=gerarPdf(),nome="busca-"+(slugify(S.nome)||"cliente")+".pdf",f=new File([buf],nome,{type:"application/pdf"});
     /* só o PDF (a logo já está dentro dele): misturar imagem + PDF faz o WhatsApp descartar o arquivo e mandar só o texto */
     if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:nome,text:t("Segue o relatório da busca em PDF.")});return}
     if(DL){await DL.save({filename:nome,data:buf});toast("PDF salvo. Anexe-o na conversa do WhatsApp.")}else toast("Seu navegador não permite enviar o PDF direto. Use Baixar relatório em PDF.")
-  }catch(e){if(!e||e.name!=="AbortError")toast("Não foi possível gerar o PDF")}
+  }catch(e){if(!e||e.name!=="AbortError")toast("Não foi possível gerar o PDF")}}
+function pdfWaPainel(h){let x=$("pdfwa-esc");if(!x){x=document.createElement("div");x.id="pdfwa-esc";x.style.cssText="flex:1 1 100%;display:grid;gap:8px;background:var(--surface-2);border-radius:14px;padding:12px";$("pdf-wa").insertAdjacentElement("afterend",x)}x.hidden=false;x.innerHTML=h;return x}
+$("pdf-wa").addEventListener("click",async()=>{
+  if(!PRONTO||!LS.length||!gerado()){toast("Gere os links desta busca primeiro");return}
+  const d=String($("fone").value||"").replace(/\D/g,""),nm=String($("nome").value||"").trim();
+  if(d.length<10||d.length>13){const x=$("pdfwa-esc");if(x)x.hidden=true;return pdfWaLista()}
+  const num=d.length<=11?"55"+d:d,rot=(nm||t("o cliente"))+" · "+$("fone").value;
+  const x=pdfWaPainel('<b style="font-size:14px">'+esc(t("Enviar o PDF para quem?"))+'</b><button type="button" class="btn acc" id="pdfwa-n">'+esc(t("Conversa com"))+" "+esc(rot)+'</button><button type="button" class="btn alt" id="pdfwa-l">'+esc(t("Escolher na lista do WhatsApp"))+'</button><button type="button" class="btn alt" id="pdfwa-x" style="min-height:36px">'+esc(t("Cancelar"))+"</button>");
+  $("pdfwa-l").onclick=()=>{x.hidden=true;pdfWaLista()};
+  $("pdfwa-x").onclick=()=>{x.hidden=true};
+  $("pdfwa-n").onclick=async()=>{
+    try{const buf=gerarPdf(),nome="busca-"+(slugify(S.nome)||"cliente")+".pdf";
+      let salvo=false;if(DL){await DL.save({filename:nome,data:buf});salvo=true}
+      const url="https://wa.me/"+num+"?text="+encodeURIComponent((nm?t("Olá, {0}!",nm)+" ":"")+t("Segue o relatório da busca em PDF."));
+      pdfWaPainel('<div class="alert good" style="margin:0">'+esc(salvo?t("PDF salvo no aparelho."):t("Use o PDF salvo (Baixar relatório em PDF)."))+" "+esc(t("Abra a conversa e toque no clipe para anexar o PDF."))+'</div><a class="btn acc" data-nologo target="_blank" rel="noopener" href="'+esc(url)+'">'+esc(t("Abrir conversa com"))+" "+esc(nm||t("o cliente"))+'</a><button type="button" class="btn alt" id="pdfwa-x2" style="min-height:36px">'+esc(t("Fechar"))+"</button>");
+      $("pdfwa-x2").onclick=()=>{$("pdfwa-esc").hidden=true};try{logUso("whatsapp")}catch(_){}
+    }catch(e){if(!e||e.code!=="declined")toast("Não foi possível gerar o PDF")}}
 });
 $("pdf").addEventListener("click",async()=>{
   if(!DL)return;
