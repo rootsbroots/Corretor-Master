@@ -584,7 +584,7 @@ body.estr #ferr{display:none}
 #flam .fl{position:relative;border-radius:16px;padding:1.5px;background:linear-gradient(135deg,#f6dc8b,#b8892b 45%,#f3d77a 70%,#8a6414);box-shadow:0 6px 22px rgba(214,170,60,.2)}
 @keyframes flPisca{0%,100%{box-shadow:0 6px 22px rgba(214,170,60,.2)}50%{box-shadow:0 0 0 4px rgba(246,220,139,.95),0 0 40px rgba(246,200,80,.85)}}
 #flam .fl.pisca{animation:flPisca .9s ease-in-out 4}
-@media (prefers-reduced-motion:reduce){#flam .fl.pisca{animation:none;outline:4px solid #f6dc8b;outline-offset:2px}}
+/* o pisca é só brilho (sem movimento), por isso roda também com 'reduzir movimento' ativo no computador */
 #flam .fl-in{border-radius:14.5px;background:linear-gradient(160deg,#1b1a14,#14120c 60%,#1d1810);color:#f6e7bb;padding:14px;display:flex;flex-direction:column;gap:10px}
 #flam .fl-tag{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#d9b45a}
 #flam .fl-tag span:last-child{color:#a89560;letter-spacing:.06em;font-weight:600;font-size:10.5px}
