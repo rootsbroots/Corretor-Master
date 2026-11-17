@@ -99,7 +99,7 @@ textarea{font-family:var(--font-m);font-size:13px;min-height:120px;resize:vertic
 #aqui-box.tl>b,#aqui-box.tl>span,#aqui-box.tl>.actions{display:none}#aqui-box.tl:has(#aqui-res:empty){display:none}
 #voz-box.tl>b,#voz-box.tl>span{display:none}#voz-box.tl:not(.open){display:none}
 #voz-mic{background:var(--accent)!important;color:var(--accent-ink)!important;border:0!important;border-radius:50%!important;width:48px;height:48px;min-width:48px!important;display:grid;place-items:center;padding:0!important}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;max-width:min(92vw,420px);background:rgba(15,29,51,.94);color:#fff;border:1px solid rgba(45,212,191,.35);padding:10px 18px 10px 14px;border-radius:999px;font-size:13.5px;line-height:1.35;box-shadow:0 8px 22px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:300;animation:toastIn .3s cubic-bezier(.2,.8,.2,1)}.toast::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#2dd4bf;box-shadow:0 0 0 4px rgba(45,212,191,.2)}.toast.err::before{background:#f87171;box-shadow:0 0 0 4px rgba(248,113,113,.2)}@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}@media (prefers-reduced-motion:reduce){.toast{animation:none}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;width:max-content;max-width:min(calc(100vw - 32px),420px);background:rgba(15,29,51,.94);color:#fff;border:1px solid rgba(45,212,191,.35);padding:10px 18px 10px 14px;border-radius:999px;font-size:13.5px;line-height:1.35;box-shadow:0 8px 22px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:300;animation:toastIn .3s cubic-bezier(.2,.8,.2,1)}.toast::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#2dd4bf;box-shadow:0 0 0 4px rgba(45,212,191,.2)}.toast.err::before{background:#f87171;box-shadow:0 0 0 4px rgba(248,113,113,.2)}@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}@media (prefers-reduced-motion:reduce){.toast{animation:none}}
 .hint{font-size:12px;color:var(--ink-2);margin-top:4px}
 
 .calc-g{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
@@ -640,7 +640,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.48</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.52</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -2288,7 +2288,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.48 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.52 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -3831,6 +3831,13 @@ async function vozAcoes(t0,txt,res){
   if(/^(?:sair|saia|logout|sign out|log out|deslogar)\b/.test(t0))return aviso(t("Por segurança, para sair toque em “Sair” no menu do seu perfil. Não faço isso por voz."));
   if(/\b(apagar|apague|excluir|exclua|deletar|delete|remover|remova)\b/.test(t0)&&/\b(cliente|clientes|portfolio|imovel|conta|tudo)\b/.test(t0))return aviso(t("Por segurança, apagar ou excluir só pelos botões da tela. Não faço isso por voz."));
   /* portfólio: grupos de WhatsApp e planilha */
+  if(/^(?:buscar|busca|procurar|procure|ver|mostrar|mostre|search|show)\s+(?:so |somente |apenas |only )?(?:no|na|nos|nas|em|in)?\s*(?:meu |meus |minha |my |os |as )?(?:portfolio|grupos? (?:de )?(?:whatsapp|zap)|whatsapp)/.test(t0)||/^(?:so|somente|apenas)\s+(?:o |no |nos )?(?:portfolio|grupos? (?:de )?(?:whatsapp|zap)|whatsapp)/.test(t0)){
+    const wa=/whatsapp|zap/.test(t0),o=estLer();
+    if(!o.itens.length)return aviso(t("Você ainda não importou o portfólio nem grupos de WhatsApp."));
+    if(buscaCompletaBloq())return aviso(t("A busca no portfólio e nos grupos faz parte do plano."));
+    EST_ATIVO=true;EST_FONTE=wa?"wa":"pf";estRender();const at=$("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"});
+    const L=estFiltrar(true),n=L.filter(i=>wa?i.orig==="wa":i.orig!=="wa").length;
+    return ok(wa?t("Grupos de WhatsApp: {0} imóvel(is) combinam com o perfil.",n):t("Portfólio: {0} imóvel(is) combinam com o perfil.",n))}
   if(/^(?:abrir|abre|abra|importar|importe|ler|open|import)\s+(?:os |as |meus |meu |my |the )?(?:grupos? (?:de )?(?:whatsapp|zap)|whatsapp|conversa)/.test(t0)){$("est-top").click();setTimeout(()=>{const b=$("est-wa-b");if(vozVis(b))b.click()},500);return ok(t("Abrindo o portfólio e a leitura de grupos do WhatsApp."))}
   if(/^(?:importar|importe|import)\s+(?:a |uma |minha |my |the )?(?:planilha|portfolio|spreadsheet)/.test(t0)){$("est-top").click();setTimeout(()=>{const b=$("est-imp");if(vozVis(b))b.click()},500);return ok(t("Abrindo o portfólio e a importação de planilha."))}
   /* qualquer botão visível: "tocar em ..." */
@@ -4072,12 +4079,16 @@ async function vozLugar(nome){
     if(o.tipo||o.vmin||o.vmax||o.bairro||o.condo||o.livre||o.parque||o.cidade||(o.f&&Object.keys(o.f).length))vozGerar()}
   $("voz-go").addEventListener("click",entender);
   inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();entender()}});
+  function vozImport(){const o=estLer();if(!o||!o.itens||!o.itens.length||buscaCompletaBloq())return null;EST_ATIVO=true;EST_FONTE="";estRender();const L=estFiltrar(true),wa=L.filter(i=>i.orig==="wa").length;return{pf:L.length-wa,wa}}
   function vozGerar(){
     VOZ_JA=true;
     let n=0,clicou=false;const iv=setInterval(()=>{n++;
       if(!clicou&&n>=2){const g=$("gerar");if(g&&!g.disabled&&!(GER&&GER.key===skey())){clicou=true;g.click()}}
       const ok=!$("portais-d").hidden&&GER&&GER.key===skey(),erro=$("ger-msg")&&$("ger-msg").textContent.trim();
-      if(ok){clearInterval(iv);aquiVer();try{vozSug()}catch(_){}toast("✅ "+t("Busca pronta: {0} portais abaixo",$("portais-n").textContent),4000);try{const f=$("voz-fala");if(f&&f.checked&&window.vozFalarTxt)window.vozFalarTxt(t("Busca realizada."))}catch(_){}}
+      if(ok){clearInterval(iv);aquiVer();try{vozSug()}catch(_){}let imp=null;try{imp=vozImport()}catch(_){}
+        toast("✅ "+t("Busca pronta: {0} portais abaixo",$("portais-n").textContent)+(imp?" · "+imp.pf+" "+t("do portfólio")+" · "+imp.wa+" "+t("do WhatsApp"):""),4500);
+        if(imp){try{const r=$("voz-res");if(r){const d=document.createElement("div");d.className="hint";d.style.margin="8px 0 0";d.innerHTML="📁 "+esc(t("Seu portfólio"))+": <b>"+imp.pf+"</b> · 💬 "+esc(t("Grupos de WhatsApp"))+": <b>"+imp.wa+"</b> · 🌐 "+esc(t("Portais"))+": <b>"+esc($("portais-n").textContent)+'</b> <button type="button" class="vz-pill" id="voz-ver-imp" style="min-height:34px;font-size:12.5px;margin-left:6px">'+esc(t("Ver imóveis importados"))+"</button>";r.appendChild(d);const bt=d.querySelector("#voz-ver-imp");bt.addEventListener("click",()=>{const at=$("est-at");if(at)at.scrollIntoView({behavior:"smooth",block:"start"})})}}catch(_){}}
+        try{const f=$("voz-fala");if(f&&f.checked&&window.vozFalarTxt)window.vozFalarTxt(t("Busca realizada.")+(imp?" "+imp.pf+" "+t("no seu portfólio")+", "+imp.wa+" "+t("nos grupos de WhatsApp")+".":""))}catch(_){}}
       else if(erro||n>40){clearInterval(iv);const m=$("ger-pre");if(m)m.scrollIntoView({behavior:"smooth",block:"center"})}},250)}
   window.vozGerar=vozGerar;
   /* responder em voz (útil com óculos ou fone) */
@@ -4115,7 +4126,7 @@ async function vozLugar(nome){
   const AJ=[["Buscar",[["apartamento no Setor Bueno até 900 mil",0],["casa em condomínio, uns 3 milhões",0],["casa com piscina até 3 milhões",0],["apartamento mobiliado, lançamento",0],["apartamento no Parque Flamboyant",0],["casa na França",0],["estou aqui casa até 4 milhões",0]]],
     ["Depois da busca",[["agora até 1 milhão",0],["troca para casa",0],["só no Jardim Goiás",0],["gerar busca",1],["copiar links",1],["gerar PDF",1],["enviar PDF no WhatsApp",1],["abrir VivaReal",1],["mandar no WhatsApp",1],["limpar",1]]],
     ["Cliente",[["nome do cliente Marcos Silva",0],["telefone 62 99999-9999",0],["salvar para Marcos Silva, telefone 62 99999-9999",0],["enviar busca para Marcos",0],["buscar para Marcos",0],["abrir cliente Marcos",0],["abrir perfil",1],["fechar perfil",1]]],
-    ["Abrir e calcular",[["abrir calculadora",1],["abrir meus clientes",1],["abrir painel",1],["abrir portfólio",1],["abrir alto padrão",1],["abrir mapa",1],["abrir foto da placa",1],["abrir grupos de WhatsApp",1],["comissão de 6% sobre 1 milhão e 200",1],["simule o financiamento de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%",1],["parcela de 800 mil em 30 anos",1],["enviar simulação em PDF",1],["enviar simulação no WhatsApp",1],["usar o teto da busca",1]]],
+    ["Abrir e calcular",[["abrir calculadora",1],["abrir meus clientes",1],["abrir painel",1],["abrir portfólio",1],["abrir alto padrão",1],["abrir mapa",1],["abrir foto da placa",1],["buscar no meu portfólio",1],["só nos grupos de WhatsApp",1],["abrir grupos de WhatsApp",1],["comissão de 6% sobre 1 milhão e 200",1],["simule o financiamento de 1 milhão e 200, entrada de 30%, 25 anos, juros 10,5%, comissão de 6%",1],["parcela de 800 mil em 30 anos",1],["enviar simulação em PDF",1],["enviar simulação no WhatsApp",1],["usar o teto da busca",1]]],
     ["No app",[["mudar para inglês",1],["tema escuro",1],["tocar em Salvar cliente",1],["o que posso falar",1]]]];
   const aj=$("voz-ajuda"),hb=$("voz-help");
   const ajHtml=()=>AJ.map(g=>'<div style="margin-top:8px"><b style="font-size:13px">'+esc(t(g[0]))+'</b><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">'+g[1].map(x=>'<button type="button" class="btn alt" data-vx="'+esc(t(x[0]))+'" data-run="'+x[1]+'" style="min-height:34px;padding:5px 10px;font-size:13px;text-align:left">“'+esc(t(x[0]))+"”</button>").join("")+"</div></div>").join("")+'<p class="hint" style="margin:8px 0 0">'+esc(t("Toque num exemplo para colocá-lo no campo. Os de busca só rodam quando você tocar em “Entender e preencher”."))+"</p>";
@@ -4136,7 +4147,7 @@ async function vozLugar(nome){
     try{rec.start()}catch(_){}})
 })();
 
-/* ===== cartões iniciais em botões (v3.48) ===== */
+/* ===== cartões iniciais em botões (v3.52) ===== */
 (function(){
   const ta=$("t-aqui"),tv=$("t-voz"),ab=$("aqui-box"),vb=$("voz-box"),vr=$("voz-res"),mic=$("voz-mic"),inp=$("voz-in");if(!ta||!tv||!vb)return;
   const abre=()=>{vb.classList.add("open")};
