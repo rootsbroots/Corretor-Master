@@ -564,6 +564,20 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 .fr-t .fs[aria-pressed="true"]{opacity:1;color:#c9a24b}
 #fr-pane>*{margin-top:12px}
 body.estr #ferr{display:none}
+
+/* v3.67: perfil Não corretor + Mercado */
+body.comp nav button:not([data-tab="busca"]):not([data-tab="calc"]):not(#nav-ag),body.comp .vipw,body.comp #mais,body.comp #mais-bg,body.comp #pc-ban,body.comp #ac-ban,body.comp #est-top,body.comp #est,body.comp #est-at,body.comp #ind-box,body.comp #conv,body.comp #upg,body.comp #jaass,body.comp #rec,body.comp #sol-p,body.comp #g-sou,body.comp .cta-corr[data-doc]{display:none!important}
+body.comp #nav-ag{display:flex}
+body.comp .cta-corr{display:block;background:linear-gradient(135deg,#c9a24a,#8a6d1f);color:#1a1405;border-radius:18px;padding:16px 18px;margin:0 0 14px}
+body.comp .cta-corr b{display:block;font-size:17px;margin-bottom:4px}body.comp .cta-corr span{display:block;font-size:14px;margin-bottom:10px}
+body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:#1a1405;color:#f5deb0;font-weight:700;border-radius:999px;padding:11px 18px;text-decoration:none}
+#cp-m{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:300;display:flex;align-items:center;justify-content:center;padding:16px}
+#cp-m .cp-c{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;max-width:440px;width:100%;padding:20px;max-height:92vh;overflow:auto}
+#cp-m h2{margin:0 0 6px;font-size:20px}#cp-m .cp-b{display:block;width:100%;text-align:left;margin:10px 0 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+#cp-m .cp-b b{display:block;font-size:16px}#cp-m .cp-b span{font-size:13px;color:var(--ink-2)}
+#cp-m .cp-b:hover,#cp-m .cp-b:focus-visible{border-color:var(--accent)}
+.mc-r{display:grid;grid-template-columns:minmax(80px,32%) 1fr auto;gap:8px;align-items:center;margin:6px 0;font-size:13px}
+.mc-r i{display:block;height:10px;border-radius:5px;background:var(--accent);min-width:3px}.mc-r small{color:var(--ink-2)}
 </style>
 <style>html,body{margin:0}body{min-height:100%}</style>
 </head>
@@ -674,7 +688,7 @@ body.estr #ferr{display:none}
     <p class="gb-c">Acesso por código no e-mail, sem senha para decorar.</p>
   </div>
   <div class="panel">
-    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.66</p>
+    <h2>Entrar</h2><p class="hint" style="margin:-6px 0 10px">v3.67</p>
     <div id="g-form">
       <p id="g-conv" class="hint" hidden style="padding:8px 10px;border:1px dashed var(--accent);border-radius:10px">Você chegou por um <b>convite de correspondente bancário</b>. Ao entrar, fica vinculado a ele(a): suas indicações de financiamento vão para ele(a), que vê apenas se você entrou no app e quantas indicações enviou. Você desfaz o vínculo quando quiser.</p>
       <p>Digite seu e-mail. Enviaremos um e-mail com um <b>código de 6 números</b> e um botão para entrar.</p>
@@ -682,6 +696,7 @@ body.estr #ferr{display:none}
       <label class="chk" style="display:flex;gap:8px;align-items:flex-start;margin:4px 0 12px;font-size:12.5px;line-height:1.4;color:var(--ink-2)"><input type="checkbox" id="g-aceita" style="margin-top:2px;flex:none"><span>Quero receber novidades e ofertas do Corretor Master por e-mail (opcional). Posso cancelar quando quiser.</span></label>
       <button class="btn" id="g-go" type="button">Receber código de acesso</button>
       <button class="btn alt" id="g-sou" type="button" style="margin-top:8px">Sou correspondente bancário</button>
+      <button class="btn alt" id="g-comp" type="button" style="margin-top:8px">Não sou corretor</button>
     </div>
     <div id="g-code" hidden style="margin-top:14px">
       <p>Digite o <b>código de 6 números</b> do e-mail (ou toque no botão <b>Entrar</b> do próprio e-mail, neste mesmo aparelho).</p>
@@ -917,6 +932,9 @@ body.estr #ferr{display:none}
       <p class="s" id="pc-ban-me" style="font-weight:700"></p>
       <div class="actions" style="margin:0"><button type="button" class="btn" id="pc-ban-b">Encontrar parceiro</button><button type="button" class="btn alt" id="pc-ban-p">Meu perfil de parceiro</button></div>
     </div>
+    <div class="panel" id="merc-p" style="margin-bottom:16px"><details class="rt" id="merc-d">
+      <summary><h2>📊 Mercado: preço por região</h2><span class="ev">›</span></summary><div id="merc-b"><p class="hint">Toque para ver, na cidade da sua busca, o valor médio por m² e o que mais se procura por bairro.</p></div></details></div>
+    <p class="hint" style="margin:0 0 12px"><a href="#" id="cp-troca">Trocar perfil (corretor / não corretor)</a></p>
     <h2 class="sec-h" id="sec-atalhos">Atalhos</h2>
     <div class="atalhos" id="atalhos">
       <button type="button" data-a="apartamento"><i>🏢</i>Apartamento</button>
@@ -2332,7 +2350,7 @@ function pfRender(){
   h+='<div class="actions" style="margin:0 0 10px">'+(falta&&!gr?'<a class="btn" id="pf-ass" href="'+esc(assinarUrl())+'" target="_blank" rel="noopener">Assinar outro estado</a>':'')+'<a class="btn alt" href="https://wa.me/'+FONE_UPG+'?text='+encodeURIComponent("Olá! Sou "+(d.email||EMAIL||"corretor")+" e preciso de ajuda com minha assinatura do Corretor Master.")+'" target="_blank" rel="noopener">Falar com o suporte</a></div>';
   const m=PC_ME;
   h+='<p class="hint" style="margin:8px 0 2px"><b>Rede de parcerias</b></p><div class="pf-i" style="margin-bottom:10px"><b>'+(m&&m.nome?esc(m.nome):"Você ainda não criou o perfil")+'</b><small>'+(!m||!m.nome?"Crie o perfil para aparecer para outros corretores.":m.oculto?"Perfil oculto por denúncias. Fale com o suporte.":m.ativo?"✓ Na rede em: "+esc(String(m.estados||"").split(",").filter(Boolean).map(nome).join(", "))+(m.verificado?" · CRECI verificado":" · CRECI em conferência"):"Perfil salvo, mas você não aparece na rede.")+'</small></div><div class="actions" style="margin:0 0 10px"><button type="button" class="btn alt" id="pf-par">Abrir meu perfil de parceiro</button></div>';
-  h+='<p class="hint" style="margin:0">Corretor Master · v3.66 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
+  h+='<p class="hint" style="margin:0">Corretor Master · v3.67 · <a href="termos.html" target="_blank" rel="noopener">Termos de uso, privacidade e cancelamento</a></p><p class="hint" style="margin:6px 0 0;font-size:11px;opacity:.7">Ray-Ban e Meta são marcas de seus titulares, sem vínculo com o Corretor Master.</p>';
   box.innerHTML=h}
 $("pf-logo-c").addEventListener("change",e=>{try{localStorage.setItem("cm_logo_wa",e.target.checked?"1":"0")}catch(_){}});
 const corInfo=()=>{try{return JSON.parse(localStorage.getItem("cm_cor")||"{}")||{}}catch(_){return{}}};
@@ -4048,6 +4066,7 @@ async function vozComando(txt,res){
   txt=vozTr(txt);
   const t0=normSem(txt).replace(/\s+/g," ").trim();
   const ok=(m)=>{res.innerHTML='<div class="alert good">'+esc(m)+"</div>";return true};
+  if(document.body.classList.contains("comp")&&/importar|import |whatsapp|grupo|cliente|comissao|parceir|portfolio|portifolio|escolhidos|estoque/.test(t0)){res.innerHTML='<div class="alert warn">Essa função é só para corretores. Você pode buscar imóveis, estimar financiamento ou tocar em <b>Corretor</b> para falar com um.</div>';return true}
   const me=t0.match(/^(?:enviar|envia|envie|mandar|manda|mande|send)\s+(?:a |essa |esta |the |this )?(?:busca|pesquisa|links?|search)\s+(?:para|pra|pro|ao|a|to)\s+(?:o |a )?(.+)$/),
     mb=t0.match(/^(?:buscar|busca|procurar|procura|search|find)\s+(?:um imovel\s+)?(?:para|pra|pro|for)\s+(?:o |a )?(.+)$/);
   if(me||mb){const nm=(me||mb)[1],L=vozAchaCli(nm),ac=me?"env":"bus";
@@ -5367,6 +5386,40 @@ function alexaVincPerguntar(){
       try{localStorage.removeItem("cm-alexa")}catch(_){}
       $("alx-m").textContent="Vinculado! Voltando para a Alexa…";location.href=j.redirect}
     catch(_){b.disabled=false;$("alx-m").textContent="Não foi possível vincular agora. Tente de novo."}}}
+/* ===== v3.67: PERFIL (corretor x não corretor), CRECI, Mercado ===== */
+let PERFIL=null;const WA_CORR="5562982505081";
+function perfilAplica(){const c=!!(PERFIL&&PERFIL.perfil==="comprador");document.body.classList.toggle("comp",c);
+  if(c){let r="";try{r=(RES&&RES.resumoTxt)||""}catch(_){}const h="https://wa.me/"+WA_CORR+"?text="+encodeURIComponent("Olá! Estou usando o Corretor Master e gostaria de falar com um corretor sobre um imóvel."+(r?"\n"+r:""));document.querySelectorAll("[data-cta] a").forEach(a=>{a.href=h});
+    const cb=document.querySelector("#tab-busca [data-cta] b");if(cb)cb.textContent="Falar com um corretor"}}
+function perfilModal(obrig){const o=$("cp-m");if(o)o.remove();
+  const bg=document.createElement("div");bg.id="cp-m";bg.setAttribute("data-noi18n","");
+  bg.innerHTML='<div class="cp-c" role="dialog" aria-modal="true"><h2>Como você usa o Corretor Master?</h2><p class="hint" style="margin:0 0 4px">Escolha o seu perfil. Você pode mudar depois em Mais opções ou no seu perfil.</p><div id="cp-1"><button type="button" class="cp-b" id="cp-cor"><b>🏢 Sou corretor</b><span>Portfólio, grupos de WhatsApp, clientes, parcerias e estatísticas. Pedimos seu CRECI.</span></button><button type="button" class="cp-b" id="cp-comp"><b>🏠 Não sou corretor</b><span>Quero buscar imóveis, estimar financiamento e falar com um corretor.</span></button></div><div id="cp-2" hidden><div class="f"><label for="cp-n">Número do CRECI</label><input type="text" id="cp-n" inputmode="text" maxlength="12" placeholder="Ex.: 12345"></div><div class="f"><label for="cp-uf">Estado do CRECI</label><select id="cp-uf"><option value="">Escolha</option>'+["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"].map(u=>'<option>'+u+'</option>').join("")+'</select></div><p class="hint">Você usa as ferramentas de corretor agora. A equipe confere o CRECI em seguida; a rede de parcerias libera após a confirmação.</p><div class="actions"><button type="button" class="btn" id="cp-ok">Confirmar</button><button type="button" class="btn alt" id="cp-v">Voltar</button></div></div><div id="cp-m2" class="hint" style="margin-top:8px"></div>'+(obrig?'':'<div class="actions"><button type="button" class="btn alt" id="cp-x">Fechar</button></div>')+'</div>';
+  document.body.appendChild(bg);const m=$("cp-m2");
+  const set=async(b)=>{try{const r=await api(b);if(r&&r.ok){PERFIL={ok:true,escolhido:true,perfil:r.perfil,status:r.status,creci:r.creci,uf:r.uf};try{localStorage.removeItem("cm-perfil")}catch(_){}perfilAplica();bg.remove();if(r.perfil==="comprador")try{tab("busca")}catch(_){}}else m.textContent=(r&&r.msg)||"Não foi possível salvar agora. Tente de novo."}catch(_){m.textContent="Não foi possível salvar agora. Tente de novo."}};
+  $("cp-cor").onclick=()=>{$("cp-1").hidden=true;$("cp-2").hidden=false;$("cp-n").focus()};
+  $("cp-v").onclick=()=>{$("cp-2").hidden=true;$("cp-1").hidden=false;m.textContent=""};
+  $("cp-comp").onclick=()=>set({acao:"perfil_set",perfil:"comprador"});
+  $("cp-ok").onclick=()=>{const n=$("cp-n").value.replace(/\D/g,""),uf=$("cp-uf").value;if(n.length<3||!uf){m.textContent="Informe o número do CRECI (só números) e o estado.";return}set({acao:"perfil_set",perfil:"corretor",creci:n,uf})};
+  const x=$("cp-x");if(x)x.onclick=()=>bg.remove()}
+async function perfilIniciar(){try{const p=await api({acao:"perfil"});if(!p||!p.ok||typeof p.escolhido!=="boolean")return;PERFIL=p;perfilAplica();
+  if(!p.escolhido){let pre="";try{pre=localStorage.getItem("cm-perfil")||""}catch(_){}
+    if(pre==="comprador"){const r=await api({acao:"perfil_set",perfil:"comprador"});if(r&&r.ok){PERFIL={ok:true,escolhido:true,perfil:"comprador"};try{localStorage.removeItem("cm-perfil")}catch(_){}perfilAplica();return}}
+    perfilModal(true)}}catch(_){}}
+$("g-comp").addEventListener("click",()=>{try{localStorage.setItem("cm-perfil","comprador")}catch(_){}$("g-msg").innerHTML="Certo! Digite seu e-mail e toque em <b>Receber código de acesso</b>. Você vai direto para a versão de quem está procurando imóvel.";$("g-email").focus()});
+document.addEventListener("click",ev=>{const ag=ev.target.closest&&ev.target.closest("#nav-ag");if(ag&&LANG==="pt"&&document.body.classList.contains("comp")){ev.preventDefault();perfilAplica();const a=document.querySelector("[data-cta] a");if(a&&a.href&&a.href.indexOf("wa.me")>0)window.open(a.href,"_blank","noopener")}});
+function mercNome(x){return String(x||"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())}
+async function mercCarregar(){const b=$("merc-b");if(!b||!S||!S.cidade){if(b)b.innerHTML='<p class="hint">Escolha uma cidade na busca para ver o mercado dela.</p>';return}
+  b.innerHTML='<p class="hint">Carregando…</p>';
+  try{const d=await api({acao:"mercado",cidade:S.cidade});if(!d||!d.ok)throw 0;
+    const bars=(L,fmt)=>{const mx=Math.max(1,...L.map(x=>x.mediana));return L.map(x=>'<div class="mc-r"><span>'+esc(mercNome(x.bairro))+'</span><i style="width:'+Math.max(3,Math.round(x.mediana/mx*100))+'%"></i><small>'+fmt(x.mediana)+' · '+x.n+'</small></div>').join("")};
+    let h='';
+    if(d.m2.length)h+='<h3 style="margin:8px 0 2px;font-size:15px">Valor por m² (mediana)</h3>'+bars(d.m2,v=>"R$ "+Math.round(v).toLocaleString("pt-BR"));
+    if(d.procurado.length)h+='<h3 style="margin:12px 0 2px;font-size:15px">Faixa de preço mais procurada (mediana)</h3>'+bars(d.procurado,v=>"R$ "+Math.round(v).toLocaleString("pt-BR"));
+    if(!h)h='<p class="hint">Ainda não há dados suficientes para esta cidade. As estatísticas aparecem conforme as buscas acontecem (mínimo de 5 por bairro, sem identificar ninguém).</p>';
+    else h+='<p class="hint" style="margin-top:10px">Dados anônimos do próprio app (buscas dos últimos 90 dias e portfólios agregados, mínimo de 3 corretores por bairro). É uma referência, não uma avaliação de imóvel.</p>';
+    b.innerHTML=h}catch(_){b.innerHTML='<p class="hint">Não foi possível carregar agora.</p>'}}
+$("cp-troca").addEventListener("click",e=>{e.preventDefault();perfilModal(false)});
+$("merc-d").addEventListener("toggle",e=>{if(e.target.open)mercCarregar()});
 async function checar(session){
   if(!session){EMAIL=null;mostrarGate();return}
   const email=(session.user.email||"").toLowerCase();
@@ -5381,6 +5434,7 @@ async function checar(session){
     $("g-out").onclick=sair;return}
   const era=EMAIL;EMAIL=email;
   try{alexaVincPerguntar()}catch(_){}
+  try{perfilIniciar()}catch(_){}
   if(!PRONTO){
     try{CARGA=CARGA||carregar();await CARGA}
     catch(e){CARGA=null;if(e&&e.message==="dispositivo")return;EMAIL=null;$("app").hidden=true;$("gate").hidden=false;$("g-form").hidden=true;
