@@ -568,6 +568,10 @@ body.estr #ferr{display:none}
 /* v3.67: perfil Não corretor + Mercado */
 body.comp nav button:not([data-tab="busca"]):not([data-tab="mercado"]):not([data-tab="calc"]):not(#nav-ag):not(#nav-mais),body.comp .vipw,body.comp #mais-vit,body.comp #mais-corr,body.comp #mais-sou,body.comp #merc-p,body.comp #imv,body.comp #sec-formas,body.comp .cards,body.comp #calc-com1,body.comp #calc-com2,body.comp #sol-box,body.comp #pc-ban,body.comp #ac-ban,body.comp #est-top,body.comp #est,body.comp #est-at,body.comp #ind-box,body.comp #conv,body.comp #upg,body.comp #jaass,body.comp #rec,body.comp #sol-p,body.comp #g-sou,body.comp .cta-corr[data-doc]{display:none!important}
 body.comp #nav-ag{display:flex}
+body.comp nav button svg{display:none}
+body.comp nav button::before{font-size:21px;line-height:1;font-weight:400}
+body.comp nav [data-tab="busca"]::before{content:"🔎"}body.comp nav [data-tab="mercado"]::before{content:"📊"}body.comp nav [data-tab="calc"]::before{content:"🧮"}body.comp #nav-ag::before{content:"💬"}body.comp #nav-mais::before{content:"☰"}
+body.comp nav button[aria-selected="true"]{background:none;color:#3ddc97;font-weight:800}
 #nav-merc{display:none}body.comp #nav-merc,body.comp #nav-mais{display:flex}
 body.comp .cta-corr{display:block;background:linear-gradient(135deg,#c9a24a,#8a6d1f);color:#1a1405;border-radius:18px;padding:16px 18px;margin:0 0 14px}
 body.comp .cta-corr b{display:block;font-size:17px;margin-bottom:4px}body.comp .cta-corr span{display:block;font-size:14px;margin-bottom:10px}
@@ -5411,10 +5415,10 @@ function perfilModal(obrig){const o=$("cp-m");if(o)o.remove();
   $("cp-ok").onclick=()=>{const n=$("cp-n").value.replace(/\D/g,""),uf=$("cp-uf").value;if(n.length<3||!uf){m.textContent="Informe o número do CRECI (só números) e o estado.";return}set({acao:"perfil_set",perfil:"corretor",creci:n,uf})};
   const x=$("cp-x");if(x)x.onclick=()=>bg.remove()}
 async function perfilIniciar(){try{const p=await api({acao:"perfil"});if(!p||!p.ok||typeof p.escolhido!=="boolean")return;PERFIL=p;perfilAplica();
-  if(!p.escolhido){let pre="";try{pre=localStorage.getItem("cm-perfil")||""}catch(_){}
+  if(!p.escolhido){let pre="";try{const q=(localStorage.getItem("cm-perfil")||"").split("|");localStorage.removeItem("cm-perfil");if(q[0]==="comprador"&&Date.now()-Number(q[1]||0)<1200000)pre="comprador"}catch(_){}
     if(pre==="comprador"){const r=await api({acao:"perfil_set",perfil:"comprador"});if(r&&r.ok){PERFIL={ok:true,escolhido:true,perfil:"comprador"};try{localStorage.removeItem("cm-perfil")}catch(_){}perfilAplica();return}}
     perfilModal(true)}}catch(_){}}
-$("g-comp").addEventListener("click",()=>{try{localStorage.setItem("cm-perfil","comprador")}catch(_){}$("g-msg").innerHTML="Certo! Digite seu e-mail e toque em <b>Receber código de acesso</b>. Você vai direto para a versão de quem está procurando imóvel.";$("g-email").focus()});
+$("g-comp").addEventListener("click",()=>{try{localStorage.setItem("cm-perfil","comprador|"+Date.now())}catch(_){}$("g-msg").innerHTML="Certo! Digite seu e-mail e toque em <b>Receber código de acesso</b>. Você vai direto para a versão de quem está procurando imóvel.";$("g-email").focus()});
 document.addEventListener("click",ev=>{const ag=ev.target.closest&&ev.target.closest("#nav-ag");if(ag&&LANG==="pt"&&document.body.classList.contains("comp")){ev.preventDefault();perfilAplica();const a=document.querySelector("[data-cta] a");if(a&&a.href&&a.href.indexOf("wa.me")>0)window.open(a.href,"_blank","noopener")}});
 function mercNome(x){return String(x||"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())}
 async function mercCarregar(id){const b=$(typeof id==="string"?id:"merc-b");if(!b||!S||!S.cidade){if(b)b.innerHTML='<p class="hint">Escolha uma cidade na busca para ver o mercado dela.</p>';return}
