@@ -566,8 +566,9 @@ body.estr #vt-admin,body.estr #vt-lista [data-ed],body.estr #vt-lista [data-ex]{
 body.estr #ferr{display:none}
 
 /* v3.67: perfil Não corretor + Mercado */
-body.comp nav button:not([data-tab="busca"]):not([data-tab="calc"]):not(#nav-ag),body.comp .vipw,body.comp #mais,body.comp #mais-bg,body.comp #pc-ban,body.comp #ac-ban,body.comp #est-top,body.comp #est,body.comp #est-at,body.comp #ind-box,body.comp #conv,body.comp #upg,body.comp #jaass,body.comp #rec,body.comp #sol-p,body.comp #g-sou,body.comp .cta-corr[data-doc]{display:none!important}
+body.comp nav button:not([data-tab="busca"]):not([data-tab="mercado"]):not([data-tab="calc"]):not(#nav-ag):not(#nav-mais),body.comp .vipw,body.comp #mais-vit,body.comp #mais-corr,body.comp #mais-sou,body.comp #merc-p,body.comp #imv,body.comp #sec-formas,body.comp .cards,body.comp #calc-com1,body.comp #calc-com2,body.comp #sol-box,body.comp #pc-ban,body.comp #ac-ban,body.comp #est-top,body.comp #est,body.comp #est-at,body.comp #ind-box,body.comp #conv,body.comp #upg,body.comp #jaass,body.comp #rec,body.comp #sol-p,body.comp #g-sou,body.comp .cta-corr[data-doc]{display:none!important}
 body.comp #nav-ag{display:flex}
+#nav-merc{display:none}body.comp #nav-merc,body.comp #nav-mais{display:flex}
 body.comp .cta-corr{display:block;background:linear-gradient(135deg,#c9a24a,#8a6d1f);color:#1a1405;border-radius:18px;padding:16px 18px;margin:0 0 14px}
 body.comp .cta-corr b{display:block;font-size:17px;margin-bottom:4px}body.comp .cta-corr span{display:block;font-size:14px;margin-bottom:10px}
 body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:#1a1405;color:#f5deb0;font-weight:700;border-radius:999px;padding:11px 18px;text-decoration:none}
@@ -736,6 +737,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
   <div class="vipw"><button class="vip" id="anunciar" type="button"><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M12 14l1.2 1.9 2.1.5-1.5 1.5.3 2.1-2.1-1-2.1 1 .3-2.1-1.5-1.5 2.1-.5z"/></svg></span><span class="vt"><small>Alto padrão</small><b>Anuncie seu imóvel aqui</b><span>Casas e apartamentos selecionados</span></span><span class="va" aria-hidden="true">&rsaquo;</span></button></div>
   <nav role="tablist">
     <button role="tab" data-tab="busca" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Busca</span></button>
+    <button role="tab" data-tab="mercado" id="nav-merc" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Mercado</span></button>
     <button role="tab" data-tab="link" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 005.6 0l3-3a4 4 0 00-5.6-5.6l-1 1"/><path d="M14 10a4 4 0 00-5.6 0l-3 3a4 4 0 005.6 5.6l1-1"/></svg><span>Link</span></button>
     <button role="tab" data-tab="clientes" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5A6.5 6.5 0 0121.5 20"/></svg><span>Clientes <b id="cnt" style="font-weight:600"></b></span></button>
     <button role="tab" data-tab="calc" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg><span>Calculadora</span></button>
@@ -748,6 +750,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
   <div id="mais" role="dialog" aria-label="Mais opções" hidden>
     <div class="mais-t">Mais</div>
     <button type="button" class="mais-i" id="mais-vit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span>Alto padrão<small>Casas e apartamentos selecionados</small></span></button>
+    <button type="button" class="mais-i" id="mais-perfil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Trocar perfil<small>Corretor ou não corretor</small></span></button>
     <button type="button" class="mais-i" id="mais-corr" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-7M15 19v-7M3 19h18"/></svg><span>Correspondente<small>Meus corretores, leads e clientes</small></span></button>
     <button type="button" class="mais-i" id="mais-sou" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-7M15 19v-7M3 19h18"/></svg><span>Sou correspondente<small>Acesso gratuito</small></span></button>
   </div>
@@ -801,6 +804,11 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
     <div id="vt-lista"><p class="hint">Carregando…</p></div>
   </section>
 
+  <section id="tab-mercado" hidden>
+    <h2>📊 Mercado: preço por região</h2>
+    <div class="panel"><div id="merc-b2"><p class="hint">Escolha a cidade na aba Busca para ver o mercado dela.</p></div></div>
+  </section>
+
   <section id="tab-calc" hidden>
     <div class="calc-g">
       <div>
@@ -823,7 +831,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
           </div>
           <div class="hint">ITBI e cartório variam por cidade. Confira as taxas locais antes de passar ao cliente.</div>
         </div>
-        <div class="panel">
+        <div class="panel" id="calc-com1">
           <h2>Sua comissão</h2>
           <div class="row">
             <div class="f"><label for="c-com">Comissão da venda (%)</label><input type="text" inputmode="decimal" id="c-com" value="6"></div>
@@ -860,7 +868,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
           <div class="actions" style="margin-top:12px"><button class="btn acc" id="c-corr-go" type="button">Enviar para o correspondente no WhatsApp</button></div>
           <div class="hint">Ao enviar, você compartilha estes dados com o correspondente parceiro do Corretor Master. A mensagem leva o código da indicação. Não leva a sua comissão nem o telefone do cliente.</div>
         </div>
-        <div class="panel">
+        <div class="panel" id="calc-com2">
           <h2>Comissão (só para você)</h2>
           <div id="c-com-out"></div>
         </div>
@@ -1127,7 +1135,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
         </div></details></div>
       </div>
     </div>
-  <h2 class="sec-h">Mais formas de usar o app</h2>
+  <h2 class="sec-h" id="sec-formas">Mais formas de usar o app</h2>
     <div class="cards">
       <button type="button" class="card c1" data-go="calc"><em>🧮</em><div><b>Calculadora</b><br><span>Parcela, custos da compra e a sua comissão</span></div></button>
       <button type="button" class="card c2" data-go="link"><em>🔗</em><div><b>Colar link</b><br><span>Monte a busca a partir de um anúncio</span></div></button>
@@ -1635,7 +1643,8 @@ try{const t=localStorage.getItem("cm-theme");document.documentElement.dataset.th
 /* abas */
 function tab(n){window.scrollTo(0,0);
   document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===n)));
-  ["busca","link","clientes","calc","vitrine","painel"].forEach(t=>$("tab-"+t).hidden=t!==n);
+  ["busca","mercado","link","clientes","calc","vitrine","painel"].forEach(t=>$("tab-"+t).hidden=t!==n);
+  if(n==="mercado")mercCarregar("merc-b2");
   if(n==="clientes")listar();
   if(n==="vitrine")vtCarregar();
   if(n==="painel")painelCarregar();
@@ -4454,7 +4463,7 @@ async function vozLugar(nome){
   let aberto="";
   function pend(){const e=$("pc-ban-n");if(!e||e.hidden)return"";const m=(e.textContent||"").match(/\d+/);return m?m[0]:"•"}
   function ordem(){const u=ls("cm_fr_uso",{}),f=ls("cm_fr_fix",{});
-    return T.slice().sort((a,b)=>(f[b.k]?1:0)-(f[a.k]?1:0)||(u[b.k]||0)-(u[a.k]||0)||T.indexOf(a)-T.indexOf(b))}
+    return T.filter(t=>!(document.body.classList.contains("comp")&&["port","par","aca"].includes(t.k))).sort((a,b)=>(f[b.k]?1:0)-(f[a.k]?1:0)||(u[b.k]||0)-(u[a.k]||0)||T.indexOf(a)-T.indexOf(b))}
   function pintar(){const f=ls("cm_fr_fix",{});
     grid.innerHTML=ordem().map(t=>'<div class="fr-t" aria-pressed="'+(aberto===t.k)+'"><button type="button" class="fr-b" data-k="'+t.k+'"><span class="fi" aria-hidden="true">'+t.i+'</span><span>'+t.n+'</span>'+(t.k==="par"&&pend()?'<b class="fb">'+pend()+'</b>':"")+'</button><button type="button" class="fs" data-fix="'+t.k+'" aria-pressed="'+(!!f[t.k])+'" aria-label="Fixar '+t.n+'">'+(f[t.k]?"★":"☆")+'</button></div>').join("")}
   function abrir(k){const t=T.find(x=>x.k===k);if(!t)return;
@@ -4467,7 +4476,7 @@ async function vozLugar(nome){
   grid.addEventListener("click",e=>{
     const f=e.target.closest("[data-fix]");if(f){const m=ls("cm_fr_fix",{});m[f.dataset.fix]=!m[f.dataset.fix];lsw("cm_fr_fix",m);pintar();return}
     const b=e.target.closest("[data-k]");if(b)abrir(b.dataset.k)});
-  pintar();
+  pintar();window.frPintar=pintar;
   {const n=$("pc-ban-n");if(n&&window.MutationObserver)new MutationObserver(()=>pintar()).observe(n,{attributes:true,childList:true,characterData:true,subtree:true})}
   async function exIr(s){
     abrir("ext");
@@ -5388,9 +5397,9 @@ function alexaVincPerguntar(){
     catch(_){b.disabled=false;$("alx-m").textContent="Não foi possível vincular agora. Tente de novo."}}}
 /* ===== v3.67: PERFIL (corretor x não corretor), CRECI, Mercado ===== */
 let PERFIL=null;const WA_CORR="5562982505081";
-function perfilAplica(){const c=!!(PERFIL&&PERFIL.perfil==="comprador");document.body.classList.toggle("comp",c);
+function perfilAplica(){const c=!!(PERFIL&&PERFIL.perfil==="comprador");document.body.classList.toggle("comp",c);try{window.frPintar&&window.frPintar()}catch(_){}
   if(c){let r="";try{r=(RES&&RES.resumoTxt)||""}catch(_){}const h="https://wa.me/"+WA_CORR+"?text="+encodeURIComponent("Olá! Estou usando o Corretor Master e gostaria de falar com um corretor sobre um imóvel."+(r?"\n"+r:""));document.querySelectorAll("[data-cta] a").forEach(a=>{a.href=h});
-    const cb=document.querySelector("#tab-busca [data-cta] b");if(cb)cb.textContent="Falar com um corretor"}}
+    const cb=document.querySelector("#tab-busca [data-cta] b");if(cb)cb.textContent="Falar com um corretor";const sv=$("salvar");if(sv)sv.textContent="Salvar busca"}else{const sv=$("salvar");if(sv&&sv.textContent==="Salvar busca")sv.textContent="Salvar cliente"}}
 function perfilModal(obrig){const o=$("cp-m");if(o)o.remove();
   const bg=document.createElement("div");bg.id="cp-m";bg.setAttribute("data-noi18n","");
   bg.innerHTML='<div class="cp-c" role="dialog" aria-modal="true"><h2>Como você usa o Corretor Master?</h2><p class="hint" style="margin:0 0 4px">Escolha o seu perfil. Você pode mudar depois em Mais opções ou no seu perfil.</p><div id="cp-1"><button type="button" class="cp-b" id="cp-cor"><b>🏢 Sou corretor</b><span>Portfólio, grupos de WhatsApp, clientes, parcerias e estatísticas. Pedimos seu CRECI.</span></button><button type="button" class="cp-b" id="cp-comp"><b>🏠 Não sou corretor</b><span>Quero buscar imóveis, estimar financiamento e falar com um corretor.</span></button></div><div id="cp-2" hidden><div class="f"><label for="cp-n">Número do CRECI</label><input type="text" id="cp-n" inputmode="text" maxlength="12" placeholder="Ex.: 12345"></div><div class="f"><label for="cp-uf">Estado do CRECI</label><select id="cp-uf"><option value="">Escolha</option>'+["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"].map(u=>'<option>'+u+'</option>').join("")+'</select></div><p class="hint">Você usa as ferramentas de corretor agora. A equipe confere o CRECI em seguida; a rede de parcerias libera após a confirmação.</p><div class="actions"><button type="button" class="btn" id="cp-ok">Confirmar</button><button type="button" class="btn alt" id="cp-v">Voltar</button></div></div><div id="cp-m2" class="hint" style="margin-top:8px"></div>'+(obrig?'':'<div class="actions"><button type="button" class="btn alt" id="cp-x">Fechar</button></div>')+'</div>';
@@ -5408,7 +5417,7 @@ async function perfilIniciar(){try{const p=await api({acao:"perfil"});if(!p||!p.
 $("g-comp").addEventListener("click",()=>{try{localStorage.setItem("cm-perfil","comprador")}catch(_){}$("g-msg").innerHTML="Certo! Digite seu e-mail e toque em <b>Receber código de acesso</b>. Você vai direto para a versão de quem está procurando imóvel.";$("g-email").focus()});
 document.addEventListener("click",ev=>{const ag=ev.target.closest&&ev.target.closest("#nav-ag");if(ag&&LANG==="pt"&&document.body.classList.contains("comp")){ev.preventDefault();perfilAplica();const a=document.querySelector("[data-cta] a");if(a&&a.href&&a.href.indexOf("wa.me")>0)window.open(a.href,"_blank","noopener")}});
 function mercNome(x){return String(x||"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())}
-async function mercCarregar(){const b=$("merc-b");if(!b||!S||!S.cidade){if(b)b.innerHTML='<p class="hint">Escolha uma cidade na busca para ver o mercado dela.</p>';return}
+async function mercCarregar(id){const b=$(typeof id==="string"?id:"merc-b");if(!b||!S||!S.cidade){if(b)b.innerHTML='<p class="hint">Escolha uma cidade na busca para ver o mercado dela.</p>';return}
   b.innerHTML='<p class="hint">Carregando…</p>';
   try{const d=await api({acao:"mercado",cidade:S.cidade});if(!d||!d.ok)throw 0;
     const bars=(L,fmt)=>{const mx=Math.max(1,...L.map(x=>x.mediana));return L.map(x=>'<div class="mc-r"><span>'+esc(mercNome(x.bairro))+'</span><i style="width:'+Math.max(3,Math.round(x.mediana/mx*100))+'%"></i><small>'+fmt(x.mediana)+' · '+x.n+'</small></div>').join("")};
@@ -5418,8 +5427,9 @@ async function mercCarregar(){const b=$("merc-b");if(!b||!S||!S.cidade){if(b)b.i
     if(!h)h='<p class="hint">Ainda não há dados suficientes para esta cidade. As estatísticas aparecem conforme as buscas acontecem (mínimo de 5 por bairro, sem identificar ninguém).</p>';
     else h+='<p class="hint" style="margin-top:10px">Dados anônimos do próprio app (buscas dos últimos 90 dias e portfólios agregados, mínimo de 3 corretores por bairro). É uma referência, não uma avaliação de imóvel.</p>';
     b.innerHTML=h}catch(_){b.innerHTML='<p class="hint">Não foi possível carregar agora.</p>'}}
+$("mais-perfil").addEventListener("click",()=>{maisAbrir(false);perfilModal(false)});
 $("cp-troca").addEventListener("click",e=>{e.preventDefault();perfilModal(false)});
-$("merc-d").addEventListener("toggle",e=>{if(e.target.open)mercCarregar()});
+$("merc-d").addEventListener("toggle",e=>{if(e.target.open)mercCarregar("merc-b")});
 async function checar(session){
   if(!session){EMAIL=null;mostrarGate();return}
   const email=(session.user.email||"").toLowerCase();
@@ -5518,7 +5528,7 @@ async function leadSalvar(){const pais=$("ld-pais").value.trim(),fone=$("ld-fone
   try{await api({acao:"estr_lead",pais,fone});try{localStorage.setItem("cm-lead",JSON.stringify({pais,fone}))}catch(_){}toast(t("Contato salvo. O corretor poderá falar com você."))}catch(_){toast(t("Não foi possível salvar agora"))}}
 $("ld-ok")&&$("ld-ok").addEventListener("click",leadSalvar);
 try{const lv=JSON.parse(localStorage.getItem("cm-lead")||"null");if(lv){$("ld-pais").value=lv.pais||"";$("ld-fone").value=lv.fone||""}}catch(_){}
-function estrSync(){const e=LANG!=="pt";document.body.classList.toggle("estr",e);if(e){cotacao().then(d=>{if(!d)return;const ab=$("aqui-box");if(ab)ab.hidden=!!(d.pais&&d.pais!=="BR"&&d.pais!=="??");if(d.corr&&LANG!=="pt"){langMsg();langSet("pt",1)}}).catch(()=>{})}else{const ab=$("aqui-box");if(ab)ab.hidden=false};{const nv=$("nav-vitrine");if(nv)nv.hidden=!e}{const sv=$("salvar"),hh=$("imv-hint");if(sv)sv.textContent=e?t("Salvar busca"):"Salvar cliente";if(hh)hh.textContent=e?t('Toque em "Salvar busca" para guardar esta lista.'):'Toque em "Salvar cliente" para guardar esta lista na ficha do cliente.'}if(e&&EMAIL&&estrSync.a!==LANG){estrSync.a=LANG;api({acao:"estr_acesso"}).catch(()=>{})}if(estrSync.k!==LANG){estrSync.k=LANG;const c=$("fx-cur");if(c){c.value=curDef();fxPrev=c.value;["fx-min","fx-max"].forEach(i=>{const e=$(i);if(e)e.value=""});const fi=$("fx-info");if(fi)fi.textContent=t("Digite o orçamento e o app mostra o valor correspondente em reais.")}}
+function estrSync(){const e=LANG!=="pt";document.body.classList.toggle("estr",e);if(e){cotacao().then(d=>{if(!d)return;const ab=$("aqui-box");if(ab)ab.hidden=!!(d.pais&&d.pais!=="BR"&&d.pais!=="??");if(d.corr&&LANG!=="pt"){langMsg();langSet("pt",1)}}).catch(()=>{})}else{const ab=$("aqui-box");if(ab)ab.hidden=false};{const nv=$("nav-vitrine");if(nv)nv.hidden=!e}{const sv=$("salvar"),hh=$("imv-hint");if(sv)sv.textContent=(e||document.body.classList.contains("comp"))?t("Salvar busca"):"Salvar cliente";if(hh)hh.textContent=e?t('Toque em "Salvar busca" para guardar esta lista.'):'Toque em "Salvar cliente" para guardar esta lista na ficha do cliente.'}if(e&&EMAIL&&estrSync.a!==LANG){estrSync.a=LANG;api({acao:"estr_acesso"}).catch(()=>{})}if(estrSync.k!==LANG){estrSync.k=LANG;const c=$("fx-cur");if(c){c.value=curDef();fxPrev=c.value;["fx-min","fx-max"].forEach(i=>{const e=$(i);if(e)e.value=""});const fi=$("fx-info");if(fi)fi.textContent=t("Digite o orçamento e o app mostra o valor correspondente em reais.")}}
   if(e){try{const ab=document.querySelector("nav button[aria-selected=true]");if(ab&&ab.dataset.tab!=="busca")tab("busca")}catch(_){}
     let r="";try{r=(RES&&RES.resumoTxt)||""}catch(_){}
     const fa=fxNum($("fx-min").value),fb=fxNum($("fx-max").value),mo=curSym($("fx-cur").value),
