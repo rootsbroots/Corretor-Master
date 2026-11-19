@@ -2929,7 +2929,7 @@ function estMontar(){
     const chave=cod?"c|"+imNorm(cod):"t|"+imNorm(tit+"|"+cond+"|"+bai+"|"+valor+"|"+end);
     if(vistos.has(chave)){dup++;return}vistos.add(chave);
     let link=g(r,"link").slice(0,300);if(link&&!/^https?:\/\//i.test(link))link=/^[\w-]+\.[\w.-]+\//.test(link)?"https://"+link:"";
-    novos.push({pisc:estSN(g(r,"pisc")),vis:estSN(g(r,"vis")),mob:estSN(g(r,"mob")),cnd:estCnd(g(r,"cnd")),obr:estObr(g(r,"obr")),id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
+    novos.push({nic:estNic([tit,tr,cond,g(r,"estilo"),g(r,"obs")].join(" ")),pisc:estSN(g(r,"pisc")),vis:estSN(g(r,"vis")),mob:estSN(g(r,"mob")),cnd:estCnd(g(r,"cnd")),obr:estObr(g(r,"obr")),id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
   return{novos,dup,sem}}
 function estPrev(){
   const m=imMapa(),r=estMontar(),ex=estLer().itens.length;
@@ -2961,6 +2961,7 @@ function estCorresp(i){
   ch("condição",!!S.condicao,!!i.cnd,i.cnd===S.condicao);
   ch("obra",!!S.status,!!i.obr,i.obr===S.status);
   ch("mobiliado",S.mobiliado==="com",i.mob!==undefined,i.mob===true);
+  ch("estilo",!!S.nicho,i.nic!==undefined,i.nic===S.nicho);
   return{ok,falta,ruim}}
 function estFiltrar(simples){
   const E=estLer().itens,q=simples?[]:imNorm($("est-q").value).split(/\s+/).filter(Boolean),perf=simples?true:$("est-perfil").checked,qmin=simples?0:(+$("est-qt").value||0),off=simples?false:$("est-off").checked;
@@ -3097,7 +3098,7 @@ function waExtrair(m){
   const tit=[tr||"Imóvel",bai||cond].filter(Boolean).join(" · ").slice(0,120);
   let h=5381;const k=link||(imNorm(tit)+"|"+valor+"|"+imNorm(bai||cond)+"|"+qts+"|"+ar+"|"+cod);for(let i=0;i<k.length;i++)h=((h<<5)+h+k.charCodeAt(i))>>>0;
   const pisc=/piscina/.test(tp)||undefined,vis=/ vista /.test(tp)||undefined,mob=/ (mobiliad|mobiliada|mobilia) /.test(tp)||undefined,cnd=/ (lancamento|lancamentos|novo|nova|nunca habitado) /.test(tp)?"novo":/ (usado|usada|seminovo|seminova) /.test(tp)?"usado":"",obr=/ (na planta|em construcao|em obras) /.test(tp)?"construcao":/ (pronto|pronta|pronto pra morar|pronto para morar|entregue) /.test(tp)?"pronto":"";
-  return{pisc,vis,mob,cnd,obr,id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
+  return{nic:estNic(sem.slice(0,600)),pisc,vis,mob,cnd,obr,id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
 async function waZipTexto(buf){
   const u=new DataView(buf),b=new Uint8Array(buf);let e=-1;
   for(let i=b.length-22;i>=Math.max(0,b.length-70000);i--)if(u.getUint32(i,true)===0x06054b50){e=i;break}
@@ -3681,6 +3682,8 @@ function vozNumeros(t){
   t=t.replace(/\b(\d+)\s*(milhoes|milhao)\s+e\s+(\d{2,3})\b(?!\s*(?:mil|k|milh|[.,]\d|\d))/g,"$1 $2 $3 mil");
   t=t.replace(/\b(\d+)\s*milh(?:ao|oes)\s+(?:e\s+)?(\d{1,3})\s*mil\b/g,(m,a,b)=>(Number(a)*1000+Number(b))+" mil");
   return t}
+const NICHOV=[["lote",/\b((terreno|lote|lotes) (em|no|num) condominio|loteamento fechado)\b/],["praia",/\b(casa de praia|de praia|na praia|frente (ao |pro |para o |pra )?mar|pe na areia|beira[ -]?mar|beachfront|oceanfront|beach house)\b/],["agua",/\b(beira (de|do|da) (rio|lago|represa)|beira[ -]?rio|beira[ -]?lago|represa|margem do (rio|lago)|lakefront|riverfront)\b/],["serra",/\b(na serra|na montanha|de montanha|casa de serra|serrana|montanha|mountain)\b/],["campo",/\b(chacaras?|sitios?|casa de campo|rancho|country house)\b/],["alto",/\b(alto padrao|luxo|luxuoso|luxuosa|mansao|luxury|upscale|high end)\b/],["cobertura",/\b(cobertura|duplex|triplex|penthouse)\b/],["studio",/\b(studio|estudio|kitnet|kitinete|quitinete|loft)\b/]];
+const estNic=txt=>{const t=" "+imNorm(txt||"")+" ",n=NICHOV.find(x=>x[1].test(t));return n?n[0]:undefined};
 function vozParse(txt){
   txt=vozTr(txt);
   let t=vozNumeros(normSem(txt).replace(/\s+/g," ").replace(/\b(em torno de|por volta de|mais ou menos|aproximadamente|roughly|approximately|about)\b/g,"cerca de").replace(/\b(uns|umas)\s+(?=\d)/g,"cerca de "));
@@ -3761,6 +3764,8 @@ function vozParse(txt){
    else if(/\b(usado|usada|usados|usadas|seminovo|used|resale|second hand)\b/.test(tv))f.condicao="usado";
    if(/\b(pronto para morar|pronta para morar|pronto pra morar|imovel pronto|ready to move|move in ready)\b/.test(tv))f.status="pronto";
    else if(/\b(em construcao|em obras|na planta|under construction|off plan)\b/.test(tv))f.status="construcao";
+     {const nv=NICHOV.find(x=>x[1].test(tv));if(nv)f.nicho=nv[0];
+      else if(o.livre&&!o.bairro&&!o.condo){const ln=normSem(o.livre.nome),mp={serra:"serra",montanha:"serra",praia:"praia",lago:"agua",represa:"agua",chacara:"campo",sitio:"campo",rancho:"campo"};if(mp[ln]){f.nicho=mp[ln];delete o.livre}}}
    if(/\b(mais recentes?|newest|most recent)\b/.test(tv))f.ordem="";else if(/\b(padrao do portal|relevancia|portal default|most relevant)\b/.test(tv))f.ordem="rel";
    o.f=f}
   return o}
@@ -3772,7 +3777,7 @@ function vozAplicar(o){
   if(o.condo){const c=CIDADES.find(c=>c.s===S.cidade);S.tipo="casa";S.locCasa="condominio";S.condo=((c&&c.cb)||!o.condo[1])?o.condo[0]:o.condo[1];S.condoOutro="";if(o.bairro)S.bairro=o.bairro.s}
   else if(o.parque){S.tipo="apartamento";S.vista="com";S.parque=o.parque;S.condo="";S.condoOutro=""}
   else if(o.livre){if(o.livre.condo){S.tipo="casa";S.locCasa="condominio";S.condo="__outro";S.condoOutro=o.livre.nome}else{S.bairro=o.livre.slug;S.bairroOutro=o.livre.nome;S.condo="";S.condoOutro=""}}
-  if(o.f){const f=o.f;if(f.piscina&&S.tipo==="casa")S.piscina="com";if(f.vista&&S.tipo==="apartamento")S.vista="com";if(f.mobiliado)S.mobiliado="com";if(f.condicao)S.condicao=f.condicao;if(f.status&&S.condicao==="novo")S.status=f.status;if("ordem" in f)S.ordem=f.ordem}
+  if(o.f){const f=o.f;if(f.piscina&&S.tipo==="casa")S.piscina="com";if(f.vista&&S.tipo==="apartamento")S.vista="com";if(f.mobiliado)S.mobiliado="com";if(f.condicao)S.condicao=f.condicao;if(f.status&&S.condicao==="novo")S.status=f.status;if(f.nicho)S.nicho=f.nicho;if("ordem" in f)S.ordem=f.ordem}
   if(o.vmin||o.vmax){S.vmin=o.vmin;S.vmax=o.vmax;$("vmin").value=o.vmin?o.vmin.toLocaleString(LOC()):"";$("vmax").value=o.vmax?o.vmax.toLocaleString(LOC()):""}
   fillSelects();syncInputs();render()}
 
@@ -4214,7 +4219,7 @@ async function vozLugar(nome){
     const vm=orig?orig.vmin:o.vmin,vx=orig?orig.vmax:o.vmax;
     if(o.alvo)chips.push("💰 "+t("cerca de {0}",M(orig?orig.alvo:o.alvo)));
     else if(vm&&vx)chips.push("💰 "+t("{0} a {1}",M(vm),M(vx)));else if(vx)chips.push("💰 "+t("até {0}",M(vx)));else if(vm)chips.push("💰 "+t("a partir de {0}",M(vm)));
-    if(o.f){const f=o.f,F=[];if(f.piscina)F.push("🏊 "+t("Com piscina"));if(f.vista)F.push("🌅 "+t("Com vista"));if(f.mobiliado)F.push("🛋️ "+t("Mobiliado"));if(f.condicao)F.push("🆕 "+t(f.condicao==="novo"?"Novo / lançamento":"Usado"));if(f.status)F.push("🏗️ "+t(f.status==="pronto"?"Pronto p/ morar":"Em construção"));if("ordem" in f)F.push("↕️ "+t(f.ordem==="rel"?"Padrão do portal":"Mais recentes primeiro"));chips.push(...F)}
+    if(o.f){const f=o.f,F=[];if(f.piscina)F.push("🏊 "+t("Com piscina"));if(f.vista)F.push("🌅 "+t("Com vista"));if(f.mobiliado)F.push("🛋️ "+t("Mobiliado"));if(f.condicao)F.push("🆕 "+t(f.condicao==="novo"?"Novo / lançamento":"Usado"));if(f.status)F.push("🏗️ "+t(f.status==="pronto"?"Pronto p/ morar":"Em construção"));if(f.nicho){const op=[...$("nicho").options].find(x=>x.value===f.nicho);if(op)F.push("✨ "+op.text)}if("ordem" in f)F.push("↕️ "+t(f.ordem==="rel"?"Padrão do portal":"Mais recentes primeiro"));chips.push(...F)}
     if(!chips.length){res.innerHTML='<div class="alert warn">'+esc(semCot?t("Cotação indisponível agora. Informe os valores em R$ acima."):t("Não consegui entender. Tente algo como “apartamento no Setor Bueno até 900 mil”."))+"</div>";return}
     vozAplicar(o);
     if(cepC){S.cep=cepV;$("cep-b").value=cepFmt(cepV);render()}
