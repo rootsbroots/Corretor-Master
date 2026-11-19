@@ -567,6 +567,7 @@ body.estr #ferr{display:none}
 
 /* v3.67: perfil Não corretor + Mercado */
 body.comp nav button:not([data-tab="busca"]):not([data-tab="mercado"]):not([data-tab="calc"]):not(#nav-ag):not(#nav-mais),body.comp .vipw,body.comp #mais-vit,body.comp #mais-corr,body.comp #mais-sou,body.comp #merc-p,body.comp #imv,body.comp #sec-formas,body.comp .cards,body.comp #calc-com1,body.comp #calc-com2,body.comp #sol-box,body.comp #pc-ban,body.comp #ac-ban,body.comp #est-top,body.comp #est,body.comp #est-at,body.comp #ind-box,body.comp #conv,body.comp #upg,body.comp #jaass,body.comp #rec,body.comp #sol-p,body.comp #g-sou,body.comp .cta-corr[data-doc]{display:none!important}
+body.comp #salvar,body.comp #salvo-msg,body.comp #f-idade,body.comp #f-trat,body.comp #f-ordem{display:none!important}
 body.comp #nav-ag{display:flex}
 nav button svg{display:none}
 nav button::before{font-size:21px;line-height:1;font-weight:400}
@@ -961,10 +962,10 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
         <div id="form-corpo" hidden>
         <div class="row">
           <div class="f"><label for="nome">Nome</label><input type="text" id="nome"></div>
-          <div class="f"><label for="idade">Idade</label><input type="number" id="idade" min="0" max="120" inputmode="numeric"></div>
+          <div class="f" id="f-idade"><label for="idade">Idade</label><input type="number" id="idade" min="0" max="120" inputmode="numeric"></div>
         </div>
         <div class="f"><label for="fone">Telefone / WhatsApp (opcional)</label><input type="text" id="fone" inputmode="tel" autocomplete="off" placeholder="(62) 99999-9999"></div>
-        <div class="f"><label>Tratamento no convite</label><div class="seg" data-k="trat"><button type="button" data-v="m">Ele</button><button type="button" data-v="f">Ela</button></div></div>
+        <div class="f" id="f-trat"><label>Tratamento no convite</label><div class="seg" data-k="trat"><button type="button" data-v="m">Ele</button><button type="button" data-v="f">Ela</button></div></div>
 
         <h3>Imóvel</h3>
         <div class="f"><label>Tipo</label><div class="seg" data-k="tipo"><button type="button" data-v="apartamento">Apartamento</button><button type="button" data-v="casa">Casa</button></div></div>
@@ -983,7 +984,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
         <div class="f"><div class="seg" data-k="condicao"><button type="button" data-v="">Indiferente</button><button type="button" data-v="usado">Usado</button><button type="button" data-v="novo">Novo / lançamento</button></div></div>
         <div class="f" id="f-status"><label>Status da obra</label><div class="seg" data-k="status"><button type="button" data-v="">Indiferente</button><button type="button" data-v="pronto">Pronto p/ morar</button><button type="button" data-v="construcao">Em construção</button></div></div>
         <div class="f"><label>Mobiliado</label><div class="seg" data-k="mobiliado"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Mobiliado</button></div></div>
-        <div class="f"><label>Ordem dos resultados nos portais</label><div class="seg" data-k="ordem"><button type="button" data-v="">Mais recentes primeiro</button><button type="button" data-v="rel">Padrão do portal</button></div></div>
+        <div class="f" id="f-ordem"><label>Ordem dos resultados nos portais</label><div class="seg" data-k="ordem"><button type="button" data-v="">Mais recentes primeiro</button><button type="button" data-v="rel">Padrão do portal</button></div></div>
 
         <h3>Valores</h3>
         <div class="row" id="vals-brl">
@@ -3455,7 +3456,7 @@ function perfilResumo(){const e=$("perfil-s");if(!e)return;
   const v=+S.vmin&&+S.vmax?brk(+S.vmin)+" a "+brk(+S.vmax):+S.vmax?"até "+brk(+S.vmax):+S.vmin?"a partir de "+brk(+S.vmin):"";
   const loc=(b&&b.n)||(S.condoOutro||"")||(c&&c.n)||"";
   const p=[String(S.nome||"").trim(),tipo&&t(tipo),loc,v].filter(Boolean);
-  e.textContent=p.length?p.join(" · "):t("Toque para preencher: nome, tipo, local e valor.")}
+  e.textContent=p.length?p.join(" · "):(e.dataset.comp?"Toque para preencher: tipo de imóvel, cidade e valor.":t("Toque para preencher: nome, tipo, local e valor."))}
 (function(){const b=$("perfil-t");if(!b)return;let ab=false;try{ab=localStorage.getItem("cm_perfil_aberto")==="1"}catch(_){}
   perfilAbrir(ab);b.addEventListener("click",()=>perfilAbrir());
   $("salvar").addEventListener("click",()=>{if(!String(S.nome||"").trim())perfilAbrir(true,"nome")})})();
@@ -5399,7 +5400,13 @@ function alexaVincPerguntar(){
     catch(_){b.disabled=false;$("alx-m").textContent="Não foi possível vincular agora. Tente de novo."}}}
 /* ===== v3.67: PERFIL (corretor x não corretor), CRECI, Mercado ===== */
 let PERFIL=null;const WA_CORR="5562982505081";
-function perfilAplica(){const c=!!(PERFIL&&PERFIL.perfil==="comprador");document.body.classList.toggle("comp",c);try{window.frPintar&&window.frPintar()}catch(_){}
+const COMP_TX=[["#perfil-t b","Minha busca"],["label[for=nome]","Seu nome (opcional)"],["label[for=fone]","Seu WhatsApp (opcional, para o corretor te responder)"],["#form-corpo .seg[data-k=tipo]","","prev","O que você procura?"],["#form-corpo h3:nth-of-type(1)","Onde e como"],["label[for=cidade]","Em qual cidade?"],["label[for=bairro]","Qual bairro? (pode deixar em branco)"],["#form-corpo h3:nth-of-type(3)","Quanto pretende investir?"],["label[for=vmin]","De (R$)"],["label[for=vmax]","Até (R$)"],["#limpar","Limpar e começar de novo"]];
+function perfilCompUI(c){if(typeof LANG!=="undefined"&&LANG!=="pt")return;
+  COMP_TX.forEach(r=>{let e=document.querySelector(r[0]);if(!e)return;let tx=r[1];if(r[2]==="prev"){e=e.parentElement.querySelector("label");tx=r[3]}if(!e)return;if(e.dataset.o===undefined)e.dataset.o=e.textContent;e.textContent=c?tx:e.dataset.o});
+  const s=$("perfil-s");if(s)s.dataset.comp=c?"1":"";
+  if(c){let v=null;try{v=localStorage.getItem("cm_perfil_aberto")}catch(_){}if(v===null)perfilAbrir(true)}
+  try{perfilResumo()}catch(_){}}
+function perfilAplica(){const c=!!(PERFIL&&PERFIL.perfil==="comprador");document.body.classList.toggle("comp",c);try{perfilCompUI(c)}catch(_){}try{window.frPintar&&window.frPintar()}catch(_){}
   if(c){let r="";try{r=(RES&&RES.resumoTxt)||""}catch(_){}const h="https://wa.me/"+WA_CORR+"?text="+encodeURIComponent("Olá! Estou usando o Corretor Master e gostaria de falar com um corretor sobre um imóvel."+(r?"\n"+r:""));document.querySelectorAll("[data-cta] a").forEach(a=>{a.href=h});
     const cb=document.querySelector("#tab-busca [data-cta] b");if(cb)cb.textContent="Falar com um corretor";const sv=$("salvar");if(sv)sv.textContent="Salvar busca"}else{const sv=$("salvar");if(sv&&sv.textContent==="Salvar busca")sv.textContent="Salvar cliente"}}
 function perfilModal(obrig){const o=$("cp-m");if(o)o.remove();
