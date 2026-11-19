@@ -984,6 +984,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
         <div class="f"><div class="seg" data-k="condicao"><button type="button" data-v="">Indiferente</button><button type="button" data-v="usado">Usado</button><button type="button" data-v="novo">Novo / lançamento</button></div></div>
         <div class="f" id="f-status"><label>Status da obra</label><div class="seg" data-k="status"><button type="button" data-v="">Indiferente</button><button type="button" data-v="pronto">Pronto p/ morar</button><button type="button" data-v="construcao">Em construção</button></div></div>
         <div class="f"><label>Mobiliado</label><div class="seg" data-k="mobiliado"><button type="button" data-v="">Indiferente</button><button type="button" data-v="com">Mobiliado</button></div></div>
+        <div class="f" id="f-nicho"><label for="nicho">Estilo do imóvel (opcional)</label><select id="nicho" data-noi18n><option value="">Sem preferência</option><option value="praia">Casa de praia / frente mar</option><option value="campo">Casa de campo / sítio / chácara</option><option value="serra">Montanha / serra</option><option value="agua">Beira de rio ou lago</option><option value="temporada">Temporada / investimento</option><option value="alto">Alto padrão / luxo</option><option value="cobertura">Cobertura / duplex</option><option value="studio">Studio / kitnet / loft</option><option value="leilao">Leilão / retomado</option><option value="fin">Aceita financiamento</option><option value="fgts">Aceita FGTS</option><option value="permuta">Aceita permuta</option><option value="pet">Aceita pet</option><option value="lote">Lote / terreno em condomínio</option><option value="reformado">Reformado / pronto para morar</option><option value="planta">Na planta</option></select><div class="hint">Procura por palavras-chave nos portais, como "praia" ou "chácara".</div></div>
         <div class="f" id="f-ordem"><label>Ordem dos resultados nos portais</label><div class="seg" data-k="ordem"><button type="button" data-v="">Mais recentes primeiro</button><button type="button" data-v="rel">Padrão do portal</button></div></div>
 
         <h3>Valores</h3>
@@ -1513,7 +1514,7 @@ const PH={go:{n:"Goiás",c:"Goiânia",s:"goiania"},sp:{n:"São Paulo",c:"São Pa
 function phEst(){const p=PH[EST0]||PH.go,u=PH[EST0]?EST0:"go";return {E:[{s:u,n:p.n,uf:u.toUpperCase()}],C:[{n:p.c,s:p.s,uf:u}]}}
 let ESTADOS=phEst().E,CIDADES=phEst().C,BAIRROS=[],CONDOS={},EDIF={},PARQUES=[];
 
-const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",ordem:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",bairroOutro:"",condo:"",condoOutro:"",cep:"",fone:"",nota:"",ind:""};
+const VAZIO={imoveis:[],nome:"",trat:"",idade:"",tipo:"apartamento",locCasa:"bairro",piscina:"",vista:"",parque:"",condicao:"",status:"",mobiliado:"",nicho:"",ordem:"",vmin:0,vmax:0,estado:EST0,cidade:"goiania",bairro:"",bairroOutro:"",condo:"",condoOutro:"",cep:"",fone:"",nota:"",ind:""};
 let S={...VAZIO};
 const $=id=>document.getElementById(id);
 const brl=n=>n?"R$ "+n.toLocaleString(LOC()):"";
@@ -1529,7 +1530,7 @@ function esc(t){return String(t).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;","
 
 /* ---------- render ---------- */
 let RES0=null,LS=[],RES={resumo:"",resumoTxt:"",msg:"",avisos:[],obs:[]},PRONTO=false,seq=0,tm=null,GER=null;
-const skey=()=>JSON.stringify(["tipo","locCasa","piscina","vista","parque","condicao","status","mobiliado","vmin","vmax","estado","cidade","bairro","bairroOutro","condo","condoOutro"].map(k=>String(S[k]??"")));
+const skey=()=>JSON.stringify(["tipo","locCasa","piscina","vista","parque","condicao","status","mobiliado","nicho","vmin","vmax","estado","cidade","bairro","bairroOutro","condo","condoOutro"].map(k=>String(S[k]??"")));
 const gerado=()=>!!(GER&&GER.key===skey());
 function ui(){marcarAtalhos();
   const cbm=!!cidadeObj().cb;
@@ -1585,7 +1586,7 @@ function syncInputs(){try{delete $("cv-fone").dataset.u;if(typeof pintarConvite=
   $("nome").value=S.nome;$("fone").value=S.fone||"";$("idade").value=S.idade;
   $("vmin").value=S.vmin?S.vmin.toLocaleString(LOC()):"";$("vmax").value=S.vmax?S.vmax.toLocaleString(LOC()):"";try{indSync()}catch(_){}
   
-  $("estado").value=S.estado||EST0;fillSelects();$("cidade").value=S.cidade;$("bairro").value=S.bairro;$("condo").value=S.condo;$("condo-outro").value=S.condoOutro;$("cep-b").value=cepFmt(S.cep);$("parque").value=S.parque;pintarImoveis();
+  $("estado").value=S.estado||EST0;fillSelects();$("cidade").value=S.cidade;$("bairro").value=S.bairro;$("condo").value=S.condo;$("condo-outro").value=S.condoOutro;$("cep-b").value=cepFmt(S.cep);$("parque").value=S.parque;$("nicho").value=S.nicho||"";pintarImoveis();
 }
 function fillSelects(){
   if(!ESTADOS.some(e=>e.s===S.estado))S.estado=ESTADOS.some(e=>e.s===EST0)?EST0:ESTADOS[0].s;
@@ -1617,7 +1618,7 @@ document.querySelectorAll(".seg:not(.segx)").forEach(g=>g.addEventListener("clic
 const cepFmt=v=>{const d=String(v||"").replace(/\D/g,"").slice(0,8);return d.length>5?d.slice(0,5)+"-"+d.slice(5):d};
 $("cep-b").addEventListener("input",e=>{const d=e.target.value.replace(/\D/g,"").slice(0,8);e.target.value=cepFmt(d);S.cep=d;CEPAUTO="";render()});
 const bind=(id,k,fn)=>$(id).addEventListener("input",e=>{S[k]=fn?fn(e.target.value):e.target.value;render()});
-bind("nome","nome");bind("fone","fone");bind("idade","idade");$("bairro").addEventListener("input",e=>{if(!e.target.value||BAIRROS.some(b=>b.cid===S.cidade&&b.s===e.target.value))S.bairroOutro=""});bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
+bind("nome","nome");bind("nicho","nicho");bind("fone","fone");bind("idade","idade");$("bairro").addEventListener("input",e=>{if(!e.target.value||BAIRROS.some(b=>b.cid===S.cidade&&b.s===e.target.value))S.bairroOutro=""});bind("bairro","bairro");bind("condo","condo");bind("condo-outro","condoOutro");
 $("condo").addEventListener("input",e=>{const c=cidadeObj();if(!c.cb)return;const v=e.target.value,it=((S.tipo==="apartamento"&&EDIF[c.n])?EDIF[c.n]:(CONDOS[c.n]||[])).find(x=>x[0]===v);
   if(it){S.condoOutro=it[0];$("condo-outro").value=it[0];if(it[1]&&BAIRROS.some(b=>b.cid===c.s&&b.s===it[1])){S.bairro=it[1];$("bairro").value=it[1]}}
   else{S.condoOutro="";$("condo-outro").value=""}
