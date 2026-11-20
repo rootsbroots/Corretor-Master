@@ -155,6 +155,11 @@ nav button[aria-selected="true"]{background:var(--surface-2);color:var(--ink);bo
 .atalhos::-webkit-scrollbar{display:none}
 .atalhos button{flex:0 0 92px;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;font-weight:600;font-size:14px;color:var(--ink);cursor:pointer;padding:0}
 .atalhos i{font-style:normal;display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--surface);font-size:36px;border:2px solid transparent}
+.atalhos .at-fz i{background:linear-gradient(135deg,#f3d98b,#c9972f 60%,#8a6414);border-color:#fff8dc;box-shadow:0 0 16px rgba(243,217,139,.45)}
+.atalhos .at-fz[aria-pressed="true"] i{border-color:var(--ink)}
+.fz-box{border:1.5px solid #c9972f;margin:6px 0 14px}.fz-h{display:flex;align-items:center;justify-content:space-between;gap:8px}.fz-h b{font-size:18px}.fz-x{background:none;border:0;color:var(--ink);font-size:26px;line-height:1;cursor:pointer;min-width:44px;min-height:44px}
+.fz-go{width:100%;border:0;border-radius:14px;padding:15px;min-height:50px;font-weight:800;font-size:15.5px;cursor:pointer;color:#2a1c00;background:linear-gradient(135deg,#f3d98b,#c9972f 60%,#8a6414);box-shadow:0 6px 18px rgba(201,151,47,.3)}.fz-go[disabled]{opacity:.6}
+.fz-est{border:1px solid rgba(201,151,47,.5);background:rgba(201,151,47,.12);border-radius:12px;padding:9px 11px;font-size:13px;margin:6px 0}.fz-est:empty{display:none}
 .atalhos button[aria-pressed="true"] i{border-color:var(--ink);background:var(--surface-2)}
 .rec{background:var(--surface);border-radius:22px;padding:4px 16px;margin-top:20px}
 .rec-i{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 0;text-align:left;cursor:pointer;color:var(--ink)}
@@ -739,7 +744,6 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
     </div>
   </header>
   <div id="linha-estado" style="display:flex;align-items:center;gap:10px;margin:2px 0 12px"><span class="hint" style="margin:0;white-space:nowrap">Buscando em</span><select class="icon-btn" id="pais-top" aria-label="País" style="flex:0 0 auto;max-width:42%;color:inherit;font:inherit;font-weight:700;padding-inline:12px"><option value="br">Brasil</option><option value="pt">Portugal</option><option value="it">Itália</option><option value="fr">França</option><option value="us">Estados Unidos</option></select><select class="icon-btn" id="estado-top" aria-label="Estado" style="flex:1;min-width:0;color:inherit;font:inherit;font-weight:700;padding-inline:16px"></select></div>
-  <div class="vipw"><button class="vip" id="anunciar" type="button"><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M12 14l1.2 1.9 2.1.5-1.5 1.5.3 2.1-2.1-1-2.1 1 .3-2.1-1.5-1.5 2.1-.5z"/></svg></span><span class="vt"><small>Alto padrão</small><b>Anuncie seu imóvel aqui</b><span>Casas e apartamentos selecionados</span></span><span class="va" aria-hidden="true">&rsaquo;</span></button></div>
   <nav role="tablist">
     <button role="tab" data-tab="busca" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Busca</span></button>
     <button role="tab" data-tab="mercado" id="nav-merc" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Mercado</span></button>
@@ -950,12 +954,29 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
     <div class="atalhos" id="atalhos">
       <button type="button" data-a="apartamento"><i>🏢</i>Apartamento</button>
       <button type="button" data-a="casa"><i>🏠</i>Casa</button>
+      <button type="button" data-a="fazenda" class="at-fz"><i>🌾</i>Fazenda</button>
       <button type="button" data-a="condo"><i>🏘️</i>Condomínio</button>
       <button type="button" data-a="novo"><i>🏗️</i>Lançamento</button>
       <button type="button" data-a="vista"><i>🌳</i>Com vista</button>
       <button type="button" data-a="mob"><i>🛋️</i>Mobiliado</button>
     </div>
+    <div class="panel fz-box" id="fz-box" hidden>
+      <div class="fz-h"><b>🌾 Fazendas e imóveis rurais</b><button type="button" class="fz-x" id="fz-x" aria-label="Fechar">×</button></div>
+      <p class="hint" style="margin:2px 0 8px">Escolha o estado e o tamanho. O app abre os portais rurais já filtrados.</p>
+      <div class="row"><div class="f"><label for="fz-uf">Estado</label><select id="fz-uf" autocomplete="off"><option value="ac">Acre</option><option value="al">Alagoas</option><option value="ap">Amapá</option><option value="am">Amazonas</option><option value="ba">Bahia</option><option value="ce">Ceará</option><option value="df">Distrito Federal</option><option value="es">Espírito Santo</option><option value="go">Goiás</option><option value="ma">Maranhão</option><option value="mt">Mato Grosso</option><option value="ms">Mato Grosso do Sul</option><option value="mg">Minas Gerais</option><option value="pa">Pará</option><option value="pb">Paraíba</option><option value="pr">Paraná</option><option value="pe">Pernambuco</option><option value="pi">Piauí</option><option value="rj">Rio de Janeiro</option><option value="rn">Rio Grande do Norte</option><option value="rs">Rio Grande do Sul</option><option value="ro">Rondônia</option><option value="rr">Roraima</option><option value="sc">Santa Catarina</option><option value="sp">São Paulo</option><option value="se">Sergipe</option><option value="to">Tocantins</option></select></div><div class="f"><label for="fz-cid">Cidade ou região (opcional)</label><input type="text" id="fz-cid" autocomplete="off" placeholder="Ex.: Pirenópolis"></div></div>
+      <div class="f"><label>Tipo</label><div class="seg segx" id="fz-tipo"><button type="button" data-v="fazenda" aria-pressed="true">Fazenda</button><button type="button" data-v="sitio" aria-pressed="false">Sítio</button><button type="button" data-v="chacara" aria-pressed="false">Chácara</button><button type="button" data-v="terreno" aria-pressed="false">Terreno rural</button></div></div>
+      <div class="f"><label>Atividade</label><div class="seg segx" id="fz-ativ"><button type="button" data-v="" aria-pressed="true">Qualquer</button><button type="button" data-v="pecuaria" aria-pressed="false">Pecuária</button><button type="button" data-v="lavoura" aria-pressed="false">Lavoura</button><button type="button" data-v="lazer" aria-pressed="false">Lazer</button><button type="button" data-v="turismo" aria-pressed="false">Turismo</button></div></div>
+      <div class="row"><div class="f"><label for="fz-tmin">Tamanho: de</label><input type="text" id="fz-tmin" inputmode="decimal" autocomplete="off" placeholder="Ex.: 100"></div><div class="f"><label for="fz-tmax">até</label><input type="text" id="fz-tmax" inputmode="decimal" autocomplete="off" placeholder="Ex.: 300"></div></div>
+      <div class="f"><div class="seg segx" id="fz-unid"><button type="button" data-v="ha" aria-pressed="true">hectares</button><button type="button" data-v="alq" aria-pressed="false">alqueires</button></div></div>
+      <div class="f" id="fz-alq-w" hidden><label for="fz-alq">Qual alqueire?</label><select id="fz-alq" autocomplete="off"><option value="4.84">Goiano ou mineiro (4,84 ha)</option><option value="2.42">Paulista (2,42 ha)</option><option value="9.68">Baiano (9,68 ha)</option><option value="2.7">Do Norte (2,7 ha)</option></select></div>
+      <div class="fz-est" id="fz-conv"></div>
+      <div class="row"><div class="f"><label for="fz-vmin">Valor: de (R$ milhões)</label><input type="text" id="fz-vmin" inputmode="decimal" autocomplete="off" placeholder="Ex.: 5"></div><div class="f"><label for="fz-vmax">até (R$ milhões)</label><input type="text" id="fz-vmax" inputmode="decimal" autocomplete="off" placeholder="Ex.: 20"></div></div>
+      <div class="fz-est" id="fz-rsha"></div>
+      <button type="button" class="fz-go" id="fz-go">🔓 Ver fazendas à venda (conta 1 busca)</button>
+      <div id="fz-res" style="margin-top:10px"></div>
+    </div>
     <div class="actions" style="margin:0 0 12px"><button class="btn alt" id="est-top" type="button">📁 Meu portfólio de imóveis</button></div>
+    <div class="vipw" style="margin:0 0 14px"><button class="vip" id="anunciar" type="button"><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M12 14l1.2 1.9 2.1.5-1.5 1.5.3 2.1-2.1-1-2.1 1 .3-2.1-1.5-1.5 2.1-.5z"/></svg></span><span class="vt"><small>Alto padrão</small><b>Anuncie seu imóvel aqui</b><span>Casas e apartamentos selecionados</span></span><span class="va" aria-hidden="true">&rsaquo;</span></button></div>
     <div class="grid">
       <form class="panel" id="form" autocomplete="off">
         <h2 class="perfil-h"><button type="button" id="perfil-t" class="perfil-t" aria-expanded="false" aria-controls="form-corpo"><span class="pt-x"><b>Perfil do cliente</b><span id="perfil-s">Toque para preencher: nome, tipo, local e valor.</span></span><span class="pv" aria-hidden="true">›</span></button></h2>
@@ -1081,6 +1102,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
             <div class="actions"><button class="btn acc" id="wa-ler" type="button">Separar imóveis</button><button class="btn alt" id="wa-x" type="button">Fechar</button></div>
             <div id="wa-res"></div></div>
           <div id="est-box" hidden>
+            <div id="est-pastas" hidden></div>
             <p class="hint" id="est-info" style="margin:0 0 4px"></p><p class="hint" id="est-sync" style="margin:0 0 8px"></p>
             <div class="f"><label for="est-q">Buscar no portfólio</label><input type="text" id="est-q" autocomplete="off" placeholder="Código, bairro, condomínio, palavra…"></div>
             <div class="f"><label style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" id="est-perfil" autocomplete="off" checked style="width:20px;height:20px;flex:none"> Usar o perfil do cliente (tipo, cidade, bairro e valores)</label></div>
@@ -2614,7 +2636,7 @@ function imAbrir(rows,nome,modo){
   $("im-map").querySelectorAll("select").forEach(x=>x.addEventListener("change",imPrev));$("im-est").addEventListener("change",imPrev);
   imPrev();$("im-m").hidden=false}
 function imMapa(){const m={};$("im-map").querySelectorAll("select").forEach(x=>{m[x.dataset.k]=Number(x.value)});return m}
-function imTipo(v){const t=imNorm(v);if(/casa|sobrado|condominio/.test(t))return"casa";if(/ap|flat|cobertura|kitnet|studio/.test(t))return"apartamento";return null}
+function imTipo(v){const t=imNorm(v);if(/fazenda|sitio|chacara|haras|gleba|imovel rural|propriedade rural|terreno rural|rural/.test(t))return"fazenda";if(/casa|sobrado|condominio/.test(t))return"casa";if(/ap|flat|cobertura|kitnet|studio/.test(t))return"apartamento";return null}
 function imValor(v){let s=String(v||"").replace(/[^\d,.]/g,"");if(/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s))s=s.replace(/,/g,"");else s=s.replace(/\.(?=\d{3}\b)/g,"").replace(",",".");const n=parseFloat(s);return isFinite(n)&&n>=1000?Math.round(n):0}
 function imEtapa(v){const t=imNorm(v);if(!t)return"";if(/perd|desist|cancel/.test(t))return"perdido";if(/fech|vend|conclu|assin/.test(t))return"fechado";if(/negoc/.test(t))return"negoc";if(/propost/.test(t))return"proposta";if(/visit/.test(t))return"visita";if(/novo|lead|contato/.test(t))return"novo";return""}
 function imMontar(){
@@ -2887,8 +2909,8 @@ $("imv-pdf").addEventListener("click",()=>{if(!imvLista().some(i=>i.sel)){toast(
 
 
 /* ===== meu portfólio de imóveis (v2.49): importa planilha do corretor e busca nela ===== */
-const IM_CAMPOS_EST=[["cod","Código / referência",["codigo","cod","referencia","ref"]],["tit","Título / descrição",["titulo","descri","anuncio"]],["tipo","Tipo (casa/apto)",["tipo","categoria"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao","setor"]],["cond","Condomínio / empreendimento",["condominio","empreendimento","edificio","residencial"]],["end","Endereço ou CEP",["endereco","cep","logradouro","rua"]],["valor","Valor (R$)",["valor","preco","venda"]],["qts","Quartos",["quarto","dorm"]],["vagas","Vagas",["vaga","garagem"]],["area","Área (m²)",["area","m2","metragem"]],["pisc","Piscina (sim/não)",["piscina"]],["vis","Vista (sim/não)",["vista"]],["cnd","Condição (novo/usado)",["condicao","novo","usado"]],["obr","Obra (pronto/em construção)",["obra","andamento","entrega"]],["mob","Mobiliado (sim/não)",["mobiliado","mobilia"]],["estilo","Estilo (praia, campo, serra, alto padrão…)",["estilo","nicho","perfil do imovel"]],["st","Status (disponível/vendido)",["status","situacao","disponib"]],["link","Link do anúncio ou das fotos",["link","url","site","foto","album"]],["obs","Observação",["observ","obs","nota","detalhe"]]];
-const EST_MAX=5000;let EST=null,EST_N=25,EST_ATIVO=false,EST_FONTE="",EST_AT_N=6;
+const IM_CAMPOS_EST=[["cod","Código / referência",["codigo","cod","referencia","ref"]],["tit","Título / descrição",["titulo","descri","anuncio"]],["tipo","Tipo (casa/apto)",["tipo","categoria"]],["cidade","Cidade",["cidade","municipio"]],["bairro","Bairro",["bairro","regiao","setor"]],["cond","Condomínio / empreendimento",["condominio","empreendimento","edificio","residencial"]],["end","Endereço ou CEP",["endereco","cep","logradouro","rua"]],["valor","Valor (R$)",["valor","preco","venda"]],["qts","Quartos",["quarto","dorm"]],["vagas","Vagas",["vaga","garagem"]],["area","Área (m²)",["area","m2","metragem"]],["ha","Área rural (hectares)",["hectare","tamanho rural"]],["ativ","Atividade (pecuária, lavoura…)",["atividade","vocacao"]],["pisc","Piscina (sim/não)",["piscina"]],["vis","Vista (sim/não)",["vista"]],["cnd","Condição (novo/usado)",["condicao","novo","usado"]],["obr","Obra (pronto/em construção)",["obra","andamento","entrega"]],["mob","Mobiliado (sim/não)",["mobiliado","mobilia"]],["estilo","Estilo (praia, campo, serra, alto padrão…)",["estilo","nicho","perfil do imovel"]],["st","Status (disponível/vendido)",["status","situacao","disponib"]],["link","Link do anúncio ou das fotos",["link","url","site","foto","album"]],["obs","Observação",["observ","obs","nota","detalhe"]]];
+const EST_MAX=5000;let EST=null,EST_N=25,EST_ATIVO=false,EST_FONTE="",EST_AT_N=6,EST_PASTA="",EST_ATIV="";
 function estAtivar(){if(!EST_ATIVO){EST_ATIVO=true;try{estRender()}catch(_){}}}
 function buscaCompletaBloq(){const d=PLANO_D;if(!d||d.plano!=="teste"||d.teste_expirou!==true)return false;return !Object.values(PLANO_EST||{}).some(x=>x&&x.plano&&x.plano!=="teste")}
 function estLer(){if(EST)return EST;try{const o=JSON.parse(localStorage.getItem("cm-estoque")||"null");EST=o&&Array.isArray(o.itens)?o:{itens:[],em:0,arq:""}}catch(_){EST={itens:[],em:0,arq:""}}return EST}
@@ -2929,7 +2951,7 @@ function estMontar(){
     const chave=cod?"c|"+imNorm(cod):"t|"+imNorm(tit+"|"+cond+"|"+bai+"|"+valor+"|"+end);
     if(vistos.has(chave)){dup++;return}vistos.add(chave);
     let link=g(r,"link").slice(0,300);if(link&&!/^https?:\/\//i.test(link))link=/^[\w-]+\.[\w.-]+\//.test(link)?"https://"+link:"";
-    novos.push({nic:estNicCol(g(r,"estilo"))||estNic([tit,tr,cond,g(r,"obs")].join(" ")),pisc:estSN(g(r,"pisc")),vis:estSN(g(r,"vis")),mob:estSN(g(r,"mob")),cnd:estCnd(g(r,"cnd")),obr:estObr(g(r,"obr")),id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
+    novos.push({nic:estNicCol(g(r,"estilo"))||estNic([tit,tr,cond,g(r,"obs")].join(" ")),pisc:estSN(g(r,"pisc")),vis:estSN(g(r,"vis")),mob:estSN(g(r,"mob")),cnd:estCnd(g(r,"cnd")),obr:estObr(g(r,"obr")),id:"e"+i,cod,tit,t:imTipo(tr)||"",tr,cid,bai,cond,end,valor,qts:estInt(g(r,"qts")),vg:estInt(g(r,"vagas")),ar:estAreaN(g(r,"area")),...(()=>{const t=imTipo(tr)==="fazenda"||/fazenda|sitio|chacara|rural/.test(imNorm(tit));const h=estAreaN(g(r,"ha"));const a=estAtiv([g(r,"ativ"),tit,g(r,"obs")].join(" "));return{...(h?{ha:h}:{}),...(a&&t?{at:a}:{})}})(),off:/vendid|alugad|indispon|inativ|baixad|reservad|suspens/.test(imNorm(st)),st,link,obs:g(r,"obs").slice(0,200)})});
   return{novos,dup,sem}}
 function estPrev(){
   const m=imMapa(),r=estMontar(),ex=estLer().itens.length;
@@ -2964,11 +2986,13 @@ function estCorresp(i){
   ch("estilo",!!S.nicho,i.nic!==undefined,i.nic===S.nicho);
   return{ok,falta,ruim}}
 function estFiltrar(simples){
-  const E=estLer().itens,q=simples?[]:imNorm($("est-q").value).split(/\s+/).filter(Boolean),perf=simples?true:$("est-perfil").checked,qmin=simples?0:(+$("est-qt").value||0),off=simples?false:$("est-off").checked;
+  const E=estLer().itens,past=simples?"":EST_PASTA,q=simples?[]:imNorm($("est-q").value).split(/\s+/).filter(Boolean),perf=simples?true:($("est-perfil").checked&&!past),qmin=simples?0:(+$("est-qt").value||0),off=simples?false:$("est-off").checked;
   const cid=perf?imNorm(estNomeCidade()):"",bai=perf?imNorm(estNomeBairro()):"",cnd=perf?imNorm(estNomeCondo()):"";
   const vmin=perf?(+S.vmin||0):0,vmax=perf?(+S.vmax||0):0;
   const r=E.filter(i=>{
     if(i.off&&!off)return false;
+    if(past&&(i.t||"")!==past)return false;
+    if(past==="fazenda"&&EST_ATIV&&i.at!==EST_ATIV)return false;
     if(perf&&i.t&&i.t!==S.tipo)return false;
     if(cid&&i.cid&&imNorm(i.cid)!==cid)return false;
     if(bai&&i.bai&&!(imNorm(i.bai).includes(bai)||bai.includes(imNorm(i.bai))))return false;
@@ -2997,13 +3021,29 @@ function estAtalho(){
     (n?lista.slice(0,EST_AT_N).map(o=>estCard(o.x,true)).join(""):`<small class="hint">Nenhum imóvel ${EST_FONTE==="wa"?"do WhatsApp":EST_FONTE==="pf"?"do portfólio":"do portfólio ou do WhatsApp"} combina com este perfil. Os portais continuam disponíveis nos links abaixo.</small>`)+
     (n>EST_AT_N?`<div class="actions"><button type="button" class="btn alt" id="est-at-m">Mostrar mais (${n-EST_AT_N})</button></div>`:"")}
 function estCard(i,compacto){
-    const det=[i.qts?i.qts+" quarto"+(i.qts>1?"s":""):"",i.vg?i.vg+" vaga"+(i.vg>1?"s":""):"",i.ar?String(i.ar).replace(".",",")+" m²":""].filter(Boolean).join(" · ");
+    const det=[i.qts?i.qts+" quarto"+(i.qts>1?"s":""):"",i.vg?i.vg+" vaga"+(i.vg>1?"s":""):"",i.ar?String(i.ar).replace(".",",")+" m²":"",i.ha?String(i.ha).replace(".",",")+" ha":"",i.at?({pecuaria:"pecuária",lavoura:"lavoura",lazer:"lazer",turismo:"turismo"})[i.at]:""].filter(Boolean).join(" · ");
     const loc=[i.cond,i.bai,i.cid].filter(Boolean).join(" · ");
-    return`<div class="est-i${i.off?" off":""}"><b>${esc(i.tit||i.cond||i.bai||"Imóvel")}</b>${i.cod?`<small>Cód. ${esc(i.cod)}${i.off?" · "+esc(i.st||"indisponível"):""}</small>`:(i.off?`<small>${esc(i.st||"indisponível")}</small>`:"")}${loc?`<small>${esc(loc)}</small>`:""}${det?`<small>${esc(det)}</small>`:""}${i.valor?`<span class="v">${esc(brl(i.valor))}</span>`:""}${i.orig==="wa"?`<small class="wa-o">💬 Do grupo de WhatsApp${i.grupo?" «"+esc(i.grupo)+"»":""}${i.quem?" · "+esc(i.quem):""}${i.dt?" · "+new Date(i.dt).toLocaleDateString(LOC()):""}</small>`:""}${(()=>{if(!EST_ATIVO)return"";try{if(!$("est-perfil").checked)return"";const c=estCorresp(i);return(c.ok.length?`<small class="wa-o" style="color:var(--good,#2a9d6f)">✓ Combina: ${esc(c.ok.join(", "))}</small>`:"")+(c.falta.length?`<small class="wa-o" style="color:var(--warn,#b9770e)">⚠ Sem dado para conferir: ${esc(c.falta.join(", "))}</small>`:"")}catch(_){return""}})()}${!compacto&&i.obs?`<small>${esc(i.obs)}</small>`:""}<div class="actions"><button class="btn acc" type="button" data-ea="${esc(i.id)}">Adicionar aos escolhidos</button>${i.link?`<a class="btn alt" href="${esc(i.link)}" target="_blank" rel="noopener">${/drive\.google|docs\.google|photos\.google|photos\.app\.goo/i.test(i.link)?"Ver fotos":"Abrir anúncio"}</a>`:""}${compacto?"":`<button class="btn warn" type="button" data-er="${esc(i.id)}">Remover do portfólio</button>`}</div></div>`}
+    return`<div class="est-i${i.off?" off":""}"><b>${esc(i.tit||i.cond||i.bai||"Imóvel")}</b>${i.cod?`<small>Cód. ${esc(i.cod)}${i.off?" · "+esc(i.st||"indisponível"):""}</small>`:(i.off?`<small>${esc(i.st||"indisponível")}</small>`:"")}${loc?`<small>${esc(loc)}</small>`:""}${det?`<small>${esc(det)}</small>`:""}${i.valor?`<span class="v">${esc(brl(i.valor))}</span>`:""}${i.valor&&i.ha?`<small>≈ ${esc(brl(Math.round(i.valor/i.ha)))} por hectare</small>`:""}${i.orig==="wa"?`<small class="wa-o">💬 Do grupo de WhatsApp${i.grupo?" «"+esc(i.grupo)+"»":""}${i.quem?" · "+esc(i.quem):""}${i.dt?" · "+new Date(i.dt).toLocaleDateString(LOC()):""}</small>`:""}${(()=>{if(!EST_ATIVO)return"";try{if(!$("est-perfil").checked)return"";const c=estCorresp(i);return(c.ok.length?`<small class="wa-o" style="color:var(--good,#2a9d6f)">✓ Combina: ${esc(c.ok.join(", "))}</small>`:"")+(c.falta.length?`<small class="wa-o" style="color:var(--warn,#b9770e)">⚠ Sem dado para conferir: ${esc(c.falta.join(", "))}</small>`:"")}catch(_){return""}})()}${!compacto&&i.obs?`<small>${esc(i.obs)}</small>`:""}<div class="actions"><button class="btn acc" type="button" data-ea="${esc(i.id)}">Adicionar aos escolhidos</button>${i.link?`<a class="btn alt" href="${esc(i.link)}" target="_blank" rel="noopener">${/drive\.google|docs\.google|photos\.google|photos\.app\.goo/i.test(i.link)?"Ver fotos":"Abrir anúncio"}</a>`:""}${compacto?"":`<button class="btn warn" type="button" data-er="${esc(i.id)}">Remover do portfólio</button>`}</div></div>`}
+function estPastas(o){
+  const el=$("est-pastas");if(!el)return;
+  const c={"":o.itens.length,apartamento:0,casa:0,fazenda:0};o.itens.forEach(i=>{if(c[i.t]!==undefined&&i.t)c[i.t]++});
+  const grupos=["apartamento","casa","fazenda"].filter(k=>c[k]>0);
+  if(grupos.length<2&&!c.fazenda){el.hidden=true;EST_PASTA="";return}
+  if(EST_PASTA&&!c[EST_PASTA]){EST_PASTA="";EST_ATIV=""}
+  const nome={"":"📁 Todos",apartamento:"🏢 Apartamentos",casa:"🏠 Casas",fazenda:"🌾 Fazendas"};
+  const chip=k=>`<button type="button" class="btn ${EST_PASTA===k?"acc":"alt"}" data-pasta="${k}" style="padding:6px 10px;min-height:34px;font-size:12.5px;${k==="fazenda"&&EST_PASTA!==k?"border-color:#c9972f":""}">${nome[k]} (${c[k]})</button>`;
+  const at=(k,t)=>`<button type="button" class="btn ${EST_ATIV===k?"acc":"alt"}" data-atv="${k}" style="padding:5px 9px;min-height:32px;font-size:12px">${t}</button>`;
+  el.hidden=false;
+  el.innerHTML=`<div class="actions" style="margin:0 0 6px;gap:6px">${["",...grupos].map(chip).join("")}</div>`+(EST_PASTA==="fazenda"?`<div class="actions" style="margin:0 0 8px;gap:6px">${at("","Qualquer")}${at("pecuaria","Pecuária")}${at("lavoura","Lavoura")}${at("lazer","Lazer")}${at("turismo","Turismo")}</div>`:"")}
+$("est-pastas").addEventListener("click",e=>{
+  const b=e.target.closest("[data-pasta]"),a=e.target.closest("[data-atv]");
+  if(b){EST_PASTA=b.dataset.pasta;EST_ATIV="";EST_N=25;EST_ATIVO=true;estRender();return}
+  if(a){EST_ATIV=a.dataset.atv;EST_N=25;EST_ATIVO=true;estRender()}});
 function estRender(){
   const o=estLer(),box=$("est-box");if(!box)return;
   box.hidden=!o.itens.length;estAtalho();if(!o.itens.length)return;
   const quando=o.em?new Date(o.em).toLocaleDateString(LOC()):"";
+  estPastas(o);
   $("est-info").textContent=o.itens.length+" imóvel(is) no portfólio"+(o.itens.some(x=>x.orig==="wa")?" ("+o.itens.filter(x=>x.orig==="wa").length+" do WhatsApp)":"")+(o.arq?" · "+o.arq:"")+(quando?" · importado em "+quando:"")+". Para atualizar, importe a planilha de novo.";
   if(buscaCompletaBloq()){$("est-n").textContent="🔒 A busca no seu portfólio e nas conversas do WhatsApp faz parte do plano. Seu teste acabou.";$("est-res").innerHTML=upgBtn("teste");return}
   if(!EST_ATIVO){$("est-n").textContent="Preencha o perfil do cliente ou digite uma busca acima para ver os imóveis.";$("est-res").innerHTML="";return}
@@ -3080,12 +3120,14 @@ function waExtrair(m){
   if(!link&&(/\b(procuro|busco|preciso|alguem (tem|possui|conhece|com))\b/.test(tp)||/\bcliente (procura|busca|quer)\b/.test(tp)||/\?/.test(sem)))return{pula:"procura"};
   const valor=waPreco(sem);
   let tipo="",tr="";
-  if(/ (casa|casas|cs|sobrado|sobrados|sob|sobr|chacara|casarao|cs) /.test(tp)){tipo="casa";tr=/ (sobrado|sobrados|sob|sobr) /.test(tp)?"Sobrado":"Casa"}
+  if(/ (fazenda|fazendas|sitio|sitios|chacara|chacaras|haras|gleba) /.test(tp)){tipo="fazenda";tr=/ (sitio|sitios) /.test(tp)?"Sítio":/ (chacara|chacaras) /.test(tp)?"Chácara":"Fazenda"}
+  else if(/ (casa|casas|cs|sobrado|sobrados|sob|sobr|casarao|cs) /.test(tp)){tipo="casa";tr=/ (sobrado|sobrados|sob|sobr) /.test(tp)?"Sobrado":"Casa"}
   else if(/ (apto|aptos|apt|apts|ap|aps|apart|aparts|apartamento|apartamentos|cobertura|coberturas|cob|flat|studio|stdo|kitnet|kit|loft|duplex) /.test(tp)){tipo="apartamento";tr=/ (cobertura|coberturas|cob) /.test(tp)?"Cobertura":"Apartamento"}
   else if(/ (terreno|terrenos|terr|lote|lotes|lt) /.test(tp))tr="Terreno";
   else if(/ (loja|sala comercial|galpao|ponto comercial) /.test(tp))tr="Comercial";
   let qts=0,mq=/(\d{1,2})\s*(?:qtos?|qts?|qtº|qt|quartos?|dorms?|dormit[óo]rios?|dormitorio)\b/i.exec(sem)||/(\d{1,2})q\b/i.exec(sem)||/\b(\d{1,2})\s*\/\s*4\b/.exec(sem)||/(\d{1,2})\s*(?:su[ií]tes?|sts)\b/i.exec(sem)||/(\d{1,2})\s*st\b/i.exec(sem);if(mq)qts=Math.min(+mq[1],99);
   const ma=/(\d{2,4}(?:[.,]\d+)?)\s*(?:m²|m2|mt²|mts?\b|metros|m\b)/i.exec(sem)||/(?:[aá]rea(?:\s+(?:[uú]til|privativa|constru[ií]da|total))?|a\.?\s?c\.?|a\.?\s?u\.?)\s*[:\-]?\s*(\d{2,4}(?:[.,]\d+)?)/i.exec(sem),ar=ma?estAreaN(ma[1]):0;
+  const mh=/(\d{1,5}(?:[.,]\d+)?)\s*(?:ha\b|hectares?|alqueires?)/i.exec(sem),ha=mh&&tipo==="fazenda"?estAreaN((mh[1].replace(",",".")*(/alqueire/i.test(mh[0])?4.84:1)).toFixed(1)):0;
   const mv=/(\d{1,2})\s*(?:vagas?|vgs?|vgas?|gar(?:agens?)?)\b/i.exec(sem),vg=mv?+mv[1]:0;
   const mc=/(?:c[óo]d(?:igo)?\.?|ref\.?|refer[êe]ncia|\bid)\s*[:\-]?\s*([A-Za-z0-9-]{3,15})/i.exec(sem),cod=mc?mc[1]:"";
   let bai="",cid="";const L=waCat();
@@ -3098,7 +3140,7 @@ function waExtrair(m){
   const tit=[tr||"Imóvel",bai||cond].filter(Boolean).join(" · ").slice(0,120);
   let h=5381;const k=link||(imNorm(tit)+"|"+valor+"|"+imNorm(bai||cond)+"|"+qts+"|"+ar+"|"+cod);for(let i=0;i<k.length;i++)h=((h<<5)+h+k.charCodeAt(i))>>>0;
   const pisc=/piscina/.test(tp)||undefined,vis=/ vista /.test(tp)||undefined,mob=/ (mobiliad|mobiliada|mobilia) /.test(tp)||undefined,cnd=/ (lancamento|lancamentos|novo|nova|nunca habitado) /.test(tp)?"novo":/ (usado|usada|seminovo|seminova) /.test(tp)?"usado":"",obr=/ (na planta|em construcao|em obras) /.test(tp)?"construcao":/ (pronto|pronta|pronto pra morar|pronto para morar|entregue) /.test(tp)?"pronto":"";
-  return{nic:estNic(sem.slice(0,600)),pisc,vis,mob,cnd,obr,id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
+  return{nic:estNic(sem.slice(0,600)),...(ha?{ha}:{}),...(tipo==="fazenda"&&estAtiv(sem)?{at:estAtiv(sem)}:{}),pisc,vis,mob,cnd,obr,id:"w"+h.toString(36),cod,tit,t:tipo,tr,cid,bai,cond,end:"",valor,qts,vg,ar,off:false,st:"",link,obs:sem.slice(0,200),orig:"wa",quem:m.q.slice(0,40),dt:m.dt||0}}
 async function waZipTexto(buf){
   const u=new DataView(buf),b=new Uint8Array(buf);let e=-1;
   for(let i=b.length-22;i>=Math.max(0,b.length-70000);i--)if(u.getUint32(i,true)===0x06054b50){e=i;break}
@@ -3185,7 +3227,7 @@ $("est-gd-ok").addEventListener("click",async()=>{
 /* modelo */
 $("est-mod").addEventListener("click",()=>{
   const cel=v=>'"'+String(v).replace(/"/g,'""')+'"';
-  const cab=["Código","Título","Tipo","Cidade","Bairro","Condomínio","Endereço ou CEP","Valor","Quartos","Vagas","Área (m²)","Estilo","Status","Link","Observação"],ex=[["AP-101","Apartamento 3 suítes","Apartamento","Goiânia","Setor Bueno","Edifício Exemplo","74230-010","850000","3","2","112","Alto padrão","Disponível","https://exemplo.com.br/ap-101","Andar alto, varanda gourmet"],["CS-205","Casa em condomínio","Casa","Goiânia","Jardins Mônaco","Condomínio Exemplo","74884-120","2300000","4","4","420","Alto padrão","Disponível","","Piscina e espaço gourmet"]];
+  const cab=["Código","Título","Tipo","Cidade","Bairro","Condomínio","Endereço ou CEP","Valor","Quartos","Vagas","Área (m²)","Hectares","Atividade","Estilo","Status","Link","Observação"],ex=[["AP-101","Apartamento 3 suítes","Apartamento","Goiânia","Setor Bueno","Edifício Exemplo","74230-010","850000","3","2","112","","","Alto padrão","Disponível","https://exemplo.com.br/ap-101","Andar alto, varanda gourmet"],["CS-205","Casa em condomínio","Casa","Goiânia","Jardins Mônaco","Condomínio Exemplo","74884-120","2300000","4","4","420","","","Alto padrão","Disponível","","Piscina e espaço gourmet"],["FZ-310","Fazenda com sede e pastagem","Fazenda","Pirenópolis","","","","9600000","","","","320","Pecuária","","Disponível","","Porteira fechada"]];
   const csv="﻿"+"sep=;\r\n"+[cab,...ex].map(l=>l.map(cel).join(";")).join("\r\n");
   const u=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})),l=document.createElement("a");
   l.href=u;l.download="modelo-portfolio-corretor-master.csv";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast("Modelo baixado. Preencha e importe.")});
@@ -3683,6 +3725,7 @@ function vozNumeros(t){
   t=t.replace(/\b(\d+)\s*milh(?:ao|oes)\s+(?:e\s+)?(\d{1,3})\s*mil\b/g,(m,a,b)=>(Number(a)*1000+Number(b))+" mil");
   return t}
 const NICHOV=[["lote",/\b((terreno|lote|lotes) (em|no|num) condominio|loteamento fechado)\b/],["praia",/\b(casa de praia|de praia|na praia|frente (ao |pro |para o |pra )?mar|pe na areia|beira[ -]?mar|beachfront|oceanfront|beach house)\b/],["agua",/\b(beira (de|do|da) (rio|lago|represa)|beira[ -]?rio|beira[ -]?lago|represa|margem do (rio|lago)|lakefront|riverfront)\b/],["serra",/\b(na serra|na montanha|de montanha|casa de serra|serrana|montanha|mountain)\b/],["campo",/\b(chacaras?|sitios?|casa de campo|rancho|country house)\b/],["alto",/\b(alto padrao|luxo|luxuoso|luxuosa|mansao|luxury|upscale|high end)\b/],["cobertura",/\b(cobertura|duplex|triplex|penthouse)\b/],["studio",/\b(studio|estudio|kitnet|kitinete|quitinete|loft)\b/]];
+const estAtiv=v=>{const t=imNorm(v||"");return/pecuari|gado|boi|\bleite\b|cria[cç]ao/.test(t)?"pecuaria":/lavoura|soja|milho|cana|cafe|agricol|plantio|grao/.test(t)?"lavoura":/lazer|recreio|veraneio|descanso/.test(t)?"lazer":/turismo|pousada|hotel fazenda|ecoturismo/.test(t)?"turismo":""};
 const estNicCol=v=>{const t=imNorm(v||"").trim();if(!t)return undefined;
   const m=/\b(praia|mar|litoral)\b/.test(t)?"praia":/\b(campo|sitio|chacara|rancho|fazenda)\b/.test(t)?"campo":/\b(serra|montanha|serrana)\b/.test(t)?"serra":/\b(agua|rio|lago|represa)\b/.test(t)?"agua":/\b(alto padrao|luxo|luxuoso|mansao|alto)\b/.test(t)?"alto":/\b(cobertura|duplex|triplex)\b/.test(t)?"cobertura":/\b(studio|estudio|kitnet|loft)\b/.test(t)?"studio":/\b(lote|lotes|terreno)\b/.test(t)?"lote":"";
   return m||estNic(v)};
@@ -5095,15 +5138,54 @@ async function calcPdfAcao(modo){
 $("c-pdf").addEventListener("click",()=>calcPdfAcao("enviar"));$("c-pdf-dl").addEventListener("click",()=>calcPdfAcao("baixar"));
 
 
+/* ---------- fazendas e imóveis rurais ---------- */
+const FZ={tipo:"fazenda",ativ:"",unid:"ha"};
+const fzNum=v=>{const n=parseFloat(String(v||"").replace(/\s/g,"").replace(/\.(?=\d{3}\b)/g,"").replace(",","."));return isFinite(n)&&n>0?n:0};
+const fzAlqUF=u=>/^(sp|pr|sc|rs|rj|es)$/.test(u)?"2.42":u==="ba"?"9.68":"4.84";
+const fzFmt=(v,d)=>v.toLocaleString(LOC(),{maximumFractionDigits:d==null?1:d});
+function fzCalc(){
+  const k=FZ.unid==="alq"?+$("fz-alq").value:1,a=fzNum($("fz-tmin").value)*k,b=fzNum($("fz-tmax").value)*k,vmin=fzNum($("fz-vmin").value)*1e6,vmax=fzNum($("fz-vmax").value)*1e6;
+  $("fz-alq-w").hidden=FZ.unid!=="alq";
+  $("fz-conv").textContent=FZ.unid==="alq"&&(a||b)?"1 alqueire = "+fzFmt(k,2)+" ha · "+(a&&b?fzFmt(a,0)+" a "+fzFmt(b,0):a?"a partir de "+fzFmt(a,0):"até "+fzFmt(b,0))+" ha":"";
+  let r="";const lo=Math.min(a||1e18,b||1e18),hi=Math.max(a,b);
+  if(vmax&&a&&b&&vmin)r="≈ R$ "+fzFmt(vmin/hi,0)+" a R$ "+fzFmt(vmax/lo,0)+" por hectare";else if(vmax&&a&&!b)r="até ≈ R$ "+fzFmt(vmax/a,0)+" por hectare";
+  $("fz-rsha").textContent=r}
+function fzAbrir(abre){
+  const x=$("fz-box");if(!x)return;const on=abre===undefined?x.hidden:abre;x.hidden=!on;
+  document.querySelectorAll('#atalhos [data-a="fazenda"]').forEach(b=>b.setAttribute("aria-pressed",String(on)));
+  if(on){const u=$("fz-uf");if(u&&!u.dataset.t){u.value=S.estado&&[...u.options].some(o=>o.value===S.estado)?S.estado:"go";u.dataset.t="1";$("fz-alq").value=fzAlqUF(u.value)}x.scrollIntoView({behavior:"smooth",block:"start"})}}
+["fz-tipo","fz-ativ","fz-unid"].forEach(id=>$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  FZ[id.slice(3)]=b.dataset.v;$(id).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));fzCalc()}));
+["fz-tmin","fz-tmax","fz-vmin","fz-vmax","fz-alq"].forEach(id=>$(id).addEventListener("input",fzCalc));
+$("fz-uf").addEventListener("change",()=>{$("fz-alq").value=fzAlqUF($("fz-uf").value);fzCalc()});
+$("fz-x").addEventListener("click",()=>fzAbrir(false));
+$("fz-go").addEventListener("click",async()=>{
+  const res=$("fz-res"),bt=$("fz-go");
+  const R={uf:$("fz-uf").value,cid:$("fz-cid").value.trim(),tipo:FZ.tipo,ativ:FZ.ativ,unid:FZ.unid,alq:+$("fz-alq").value,tmin:fzNum($("fz-tmin").value),tmax:fzNum($("fz-tmax").value),vmin:Math.round(fzNum($("fz-vmin").value)*1e6),vmax:Math.round(fzNum($("fz-vmax").value)*1e6)};
+  bt.disabled=true;res.innerHTML='<div class="alert good">Montando os links…</div>';
+  try{const d=await api({acao:"rural_gerar",R});if(!d||!d.ok)throw new Error("x");
+    window.FZ_LS=d.links;
+    const rs=d.rsha&&d.rsha[1]?(d.rsha[0]?"R$ "+fzFmt(d.rsha[0],0)+" a R$ "+fzFmt(d.rsha[1],0):"até R$ "+fzFmt(d.rsha[1],0))+" por hectare":"";
+    res.innerHTML='<div class="alert good" id="fz-pronto">✅ <b>Busca pronta:</b> '+esc(d.tipo)+" · "+esc(d.cidade?d.cidade+" · ":"")+esc(d.uf)+(d.ativ?" · "+esc(d.ativ):"")+(d.tam?" · "+esc(d.tam):"")+(rs?" · "+esc(rs):"")+"</div>"+
+      '<p class="hint" style="margin:6px 0">Os endereços dos portais rurais ainda estão <b>a confirmar</b>. Se algum abrir sem o filtro, ajuste direto no site. Tamanho e atividade precisam ser filtrados no próprio portal.</p>'+
+      d.links.map((l,i)=>`<div class="portal"><div class="portal-h"><strong>${esc(l.nome)}</strong></div><div class="tags">${l.ap.map(x=>`<span class="tag ok">✓ ${esc(x)}</span>`).join("")}${l.man.map(x=>`<span class="tag man">${esc("Conferir: "+x)}</span>`).join("")}${l.conf==="conf"?'<span class="tag man">⚠ formato a confirmar</span>':""}</div><div class="url">${esc(l.url)}</div><div class="pbtn"><a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">Abrir</a><button class="btn alt" type="button" data-fzcopy="${i}">Copiar link</button></div></div>`).join("")+
+      '<div class="fz-est">📄 Antes de comprar, peça o <b>CAR</b>, o <b>CCIR</b>, o <b>ITR</b> em dia e a matrícula atualizada.</div>';
+    const a=$("fz-pronto");if(a)a.scrollIntoView({behavior:"smooth",block:"start"});
+    try{logUso("rural")}catch(_){}try{verPlano()}catch(_){}}
+  catch(er){res.innerHTML='<div class="alert warn">'+esc(er&&er.msg?er.msg:"Não foi possível montar os links agora. Tente de novo.")+"</div>"+(er&&er.plano?upgBtn(er.plano):"")}
+  finally{bt.disabled=false}});
+$("fz-res").addEventListener("click",e=>{const b=e.target.closest("[data-fzcopy]");if(!b)return;const l=window.FZ_LS&&window.FZ_LS[+b.dataset.fzcopy];if(!l)return;
+  try{navigator.clipboard.writeText(l.url).then(()=>toast("Link copiado"),()=>toast("Não consegui copiar"))}catch(_){toast("Não consegui copiar")}});
 /* ---------- início: atalhos, recentes e cartões ---------- */
 function seg(k,v){const b=document.querySelector(`.seg[data-k="${k}"] button[data-v="${v}"]`);if(b)b.click()}
 function tgl(k,v){const on=document.querySelector(`.seg[data-k="${k}"] button[data-v="${v}"]`),off=document.querySelector(`.seg[data-k="${k}"] button[data-v=""]`);
   if(on&&on.getAttribute("aria-pressed")==="true"&&off)off.click();else if(on)on.click()}
 function marcarAtalhos(){
   const m={apartamento:S.tipo==="apartamento",casa:S.tipo==="casa"&&S.locCasa!=="condominio",condo:S.tipo==="casa"&&S.locCasa==="condominio",novo:S.condicao==="novo",vista:S.tipo==="apartamento"&&S.vista==="com",mob:S.mobiliado==="com"};
-  document.querySelectorAll("#atalhos button").forEach(b=>b.setAttribute("aria-pressed",String(!!m[b.dataset.a])));
+  document.querySelectorAll("#atalhos button").forEach(b=>{if(b.dataset.a!=="fazenda")b.setAttribute("aria-pressed",String(!!m[b.dataset.a]))});
 }
 $("atalhos").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const a=b.dataset.a;
+  if(a==="fazenda"){fzAbrir();return}
   if(a==="apartamento")seg("tipo","apartamento");
   else if(a==="casa"){seg("tipo","casa");seg("locCasa","bairro")}
   else if(a==="condo"){seg("tipo","casa");seg("locCasa","condominio")}
