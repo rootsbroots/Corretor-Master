@@ -906,7 +906,6 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
   </section>
 
   <section id="tab-busca">
-    <button type="button" id="volta-voz" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:0 0 12px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;font-size:14.5px;cursor:pointer"><span>🎤</span><span>Voltar à tela de voz</span></button>
     <div class="tiles" id="tiles"><button type="button" class="tile" id="t-aqui"><span class="ti"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><b>Estou aqui</b><span class="ts">Imóveis perto de você</span></button><button type="button" class="tile dk" id="t-voz"><span class="ti"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></span><b>Falar a busca</b><span class="ts">Diga o que procura</span></button></div>
     <div class="av-box tl" id="aqui-box" style="margin-bottom:12px"><b>Estou aqui</b><span>Use sua localização para ver casas e apartamentos à venda no bairro onde você está agora.</span><div class="actions" style="margin:8px 0 0"><button class="btn acc" id="aqui-btn" type="button">📍 Ver imóveis à venda aqui por perto</button></div><div id="aqui-res" style="margin-top:8px"></div></div>
     <div class="av-box tl" id="voz-box" style="margin-bottom:12px"><b>Fale um comando ou descreva a busca</b><span>Um só microfone para tudo: toque no 🎤 e diga a busca (“casa até 3 milhões”) ou um comando (“abrir calculadora”, “gerar PDF”). Também pode escrever aqui.</span>
@@ -1347,7 +1346,6 @@ I18N_ROWS.push(...[["O que posso falar?","What can I say?","¿Qué puedo decir?"
 I18N_ROWS.push(...[["Segue o relatório da busca em PDF.","Here is the search report in PDF.","Te envío el informe de la búsqueda en PDF.","Voici le rapport de recherche en PDF.","Hier ist der Suchbericht als PDF.","","",""]]);
 I18N_ROWS.push(...[["Diga:", "Say:", "Di:", "Dites :", "Sagen Sie:", "请说：", "قل:", "Di':"]]);
 I18N_ROWS.push(...[["Toque na tela e depois diga:", "Tap the screen and then say:", "Toca la pantalla y luego di:", "Touchez l'écran, puis dites :", "Tippen Sie auf den Bildschirm und sagen Sie dann:", "请先点按屏幕，然后说：", "اضغط على الشاشة ثم قل:", "Tocca lo schermo e poi di':"]]);
-I18N_ROWS.push(["Voltar à tela de voz","Back to the voice screen","Volver a la pantalla de voz","Retour à l'écran vocal","Zurück zum Sprachbildschirm","返回语音界面","العودة إلى شاشة الصوت","Torna alla schermata vocale"]);
 let LANG="pt";
 try{const sv=localStorage.getItem("cm-lang");if(LANGS.some(l=>l[0]===sv))LANG=sv;else if(!sv){const nl=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).map(x=>String(x).toLowerCase());if(!nl.some(x=>x.startsWith("pt"))){for(const x of nl){const m=(x==="es-ar"||x==="es-cl"||x==="es-uy")?x:(["en","es","fr","de","zh","ar","it"].includes(x.slice(0,2))?x.slice(0,2):"");if(m){LANG=m;break}}}}}catch(_){}
 const LOC=()=>(LANGS.find(l=>l[0]===LANG)||LANGS[0])[2];
@@ -4314,7 +4312,7 @@ async function vozLugar(nome){
   const sync=()=>{ta.hidden=!!(ab&&ab.hidden)};
   try{if(ab)new MutationObserver(sync).observe(ab,{attributes:true,attributeFilter:["hidden"]});sync()}catch(_){}
   ta.addEventListener("click",()=>{if(ab&&ab.hidden)return;$("aqui-btn").click();setTimeout(()=>{try{ab.scrollIntoView({behavior:"smooth",block:"center"})}catch(_){}},150)});
-  tv.addEventListener("click",()=>{abre();setTimeout(()=>{try{vb.scrollIntoView({behavior:"smooth",block:"start"})}catch(_){}},80);if(mic&&!mic.hidden)mic.click();else if(inp)inp.focus()});
+  tv.addEventListener("click",()=>{if(window.mhReabrir){abre();window.mhReabrir(true);return}abre();setTimeout(()=>{try{vb.scrollIntoView({behavior:"smooth",block:"start"})}catch(_){}},80);if(mic&&!mic.hidden)mic.click();else if(inp)inp.focus()});
   try{if(vr)new MutationObserver(()=>{if(vr.children.length||vr.textContent.trim())abre()}).observe(vr,{childList:true,subtree:true})}catch(_){}
   try{const sg=$("voz-sug");if(sg)new MutationObserver(()=>{if(!sg.hidden)abre()}).observe(sg,{attributes:true,attributeFilter:["hidden"]})}catch(_){}
   if(inp)inp.addEventListener("focus",abre);
@@ -4433,8 +4431,7 @@ async function vozLugar(nome){
   $("mh-go").addEventListener("click",()=>enviar($("mh-in").value));
   $("mh-in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();enviar($("mh-in").value)}});
   $("mh-open").addEventListener("click",fechar);
-  window.mhReabrir=function(){fechou=false;try{rec&&on&&rec.abort()}catch(_){}mh.hidden=false;document.body.style.overflow="hidden";tx.textContent="";$("mh-type").hidden=true;try{exemplo()}catch(_){}try{window.scrollTo(0,0)}catch(_){}};
-  const vv=$("volta-voz");if(vv)vv.addEventListener("click",()=>window.mhReabrir());
+  window.mhReabrir=function(auto){fechou=false;try{rec&&on&&rec.abort()}catch(_){}mh.hidden=false;document.body.style.overflow="hidden";tx.textContent="";$("mh-type").hidden=true;try{exemplo()}catch(_){}try{window.scrollTo(0,0)}catch(_){}if(auto){greetDone=true;try{ouvir(false)}catch(_){}}};
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!mh.hidden)fechar()});
   /* saudação em voz: 1x por dia; o navegador só deixa falar depois de um toque */
   let greetDone=false,falando=false;
