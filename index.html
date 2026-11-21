@@ -663,6 +663,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
   <p class="mh-tx" id="mh-tx" aria-live="polite"></p>
   <p class="mh-exs" id="mh-exs"></p>
   <p class="mh-exs mh-exs2" id="mh-exs2"></p>
+  <p class="mh-exs mh-exs2" id="mh-exs3"></p>
   <div class="mh-type" id="mh-type" hidden><input type="text" id="mh-in" placeholder="Digite o que procura ou um comando" autocomplete="off" aria-label="Digite o que procura ou um comando"><button type="button" id="mh-go">Buscar</button></div>
 </div>
 <div class="mh-bot">
@@ -4501,7 +4502,9 @@ async function vozLugar(nome){
   function exemplo(){const e=EXS[S.estado]||EXS.go,f=EXF[String(LANG).split("-")[0]]||EXF.pt;
     $("mh-exs").textContent=t(wkOn?"Diga:":"Toque na tela e depois diga:")+" “Olá Corretor Master, "+f(e[0],e[1],e[2])+"”";
     const P2={pt:"encontre apartamento de 2 milhões perto de mim",en:"find an apartment for 2 million near me",es:"encuentra un apartamento de 2 millones cerca de mí",fr:"trouve un appartement à 2 millions près de moi",de:"finde eine Wohnung für 2 Millionen in meiner Nähe",zh:"查找我附近约200万的公寓",ar:"ابحث عن شقة بقيمة 2 مليون بالقرب مني",it:"trova un appartamento da 2 milioni vicino a me"};
-    const e2=$("mh-exs2");if(e2){e2.textContent="";const b=document.createElement("b");b.textContent=t("Ou use sua localização:");e2.appendChild(b);e2.appendChild(document.createTextNode(" “"+(P2[String(LANG).split("-")[0]]||P2.pt)+"”"))}}
+    const e2=$("mh-exs2");if(e2){e2.textContent="";const b=document.createElement("b");b.textContent=t("Ou use sua localização:");e2.appendChild(b);e2.appendChild(document.createTextNode(" “"+(P2[String(LANG).split("-")[0]]||P2.pt)+"”"))}
+    const e3=$("mh-exs3");if(e3){const CF={go:"Pirenópolis",mt:"Chapada dos Guimarães",ms:"Bonito",mg:"Uberaba",sp:"Ribeirão Preto",ba:"Barreiras",to:"Palmas",pr:"Cascavel",rs:"Passo Fundo"},c=CF[S.estado]||"Uberaba",l=String(LANG).split("-")[0],P3={pt:"fazenda em "+c+" até 20 milhões",en:"farm in "+c+" up to 20 million",es:"finca en "+c+" hasta 20 millones"};
+      e3.textContent="";const b=document.createElement("b");b.textContent=t("Fazenda:");e3.appendChild(b);e3.appendChild(document.createTextNode(" “"+(P3[l]||P3.en)+"”"))}}
   window.mhExemplo=exemplo;
   try{new MutationObserver(exemplo).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(_){}
   function fechar(){fechou=true;mh.hidden=true;try{wkStop()}catch(_){}try{if(SS)SS.cancel()}catch(_){}try{if(rec&&on)rec.abort()}catch(_){}document.body.style.overflow=""}
