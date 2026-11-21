@@ -601,21 +601,25 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 #mh .mh-logo{margin:6px 0 0;flex:none}
 #mh .mh-k{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
 #mh h1{margin:0;font-size:clamp(25px,7vw,32px);line-height:1.2;font-weight:800;text-wrap:balance}
-#mh .mh-mic{width:200px;height:200px;border:0;cursor:pointer;background:none;box-shadow:none;position:relative;margin:8px 0;padding:0;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+#mh .mh-mic{width:210px;height:210px;border:0;cursor:pointer;background:none;box-shadow:none;position:relative;margin:10px 0;padding:0;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
 #mh .mh-mic:before,#mh .mh-mic:after{display:none}
-#mh .mh-aura{position:absolute;inset:10px;background:linear-gradient(135deg,#ff7ad9,#7a6bff 50%,#38e8ff);border-radius:58% 42% 55% 45%/48% 56% 44% 52%;filter:blur(9px);opacity:.88;animation:mhm 7s linear infinite;box-shadow:0 0 60px rgba(122,107,255,.5)}
-#mh .mh-aura.b{inset:30px;background:linear-gradient(200deg,#38e8ff,#4f8cff 60%,#9b6bff);animation-duration:9s;animation-direction:reverse;filter:blur(7px);opacity:.75}
-@keyframes mhm{0%{border-radius:58% 42% 55% 45%/48% 56% 44% 52%;transform:rotate(0) scale(1)}25%{border-radius:44% 56% 48% 52%/56% 44% 56% 44%;transform:rotate(90deg) scale(1.05)}50%{border-radius:50% 50% 60% 40%/42% 58% 42% 58%;transform:rotate(180deg) scale(.97)}75%{border-radius:56% 44% 42% 58%/52% 48% 52% 48%;transform:rotate(270deg) scale(1.06)}100%{border-radius:58% 42% 55% 45%/48% 56% 44% 52%;transform:rotate(360deg) scale(1)}}
-#mh .mh-core{position:absolute;inset:44px;border-radius:50%;background:radial-gradient(circle,rgba(9,12,28,.88),rgba(9,12,28,.72) 68%,transparent 100%)}
-#mh .mh-casa{position:relative;width:128px;height:128px;filter:drop-shadow(0 0 10px rgba(56,232,255,.65))}
-#mh .mh-bar{transform-box:fill-box;transform-origin:center;animation:mhb 2.4s ease-in-out infinite}
-#mh .mh-bar:nth-child(2){animation-delay:.25s}#mh .mh-bar:nth-child(3){animation-delay:.5s}#mh .mh-bar:nth-child(4){animation-delay:.15s}#mh .mh-bar:nth-child(5){animation-delay:.4s}
-@keyframes mhb{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1.05)}}
-#mh .mh-mic.on .mh-aura{animation-duration:2.4s;opacity:1;filter:blur(7px)}#mh .mh-mic.on .mh-aura.b{animation-duration:3.2s}
-#mh .mh-mic.on .mh-bar{animation-duration:.5s}#mh .mh-mic.on .mh-bar:nth-child(odd){animation-duration:.38s}
-#mh .mh-mic.wk .mh-aura{opacity:.55}
-@media (prefers-reduced-motion:reduce){#mh .mh-aura,#mh .mh-bar{animation:none}}
-#mh .mh-exs{margin:0;font-style:italic;font-size:15px;line-height:1.5;color:var(--ink-2);max-width:320px;text-wrap:balance}
+#mh .mh-mic i,#mh .mh-mic b{display:block;position:absolute;pointer-events:none}
+#mh .mh-orb,#mh .mh-rim,#mh .mh-glow,#mh .mh-rg{left:30px;top:30px;width:150px;height:150px;border-radius:50%}
+#mh .mh-rg{border:1.5px solid rgba(160,190,255,.45);animation:mhr 4.2s ease-out infinite;opacity:0}
+#mh .mh-rg.r2{animation-delay:1.4s}#mh .mh-rg.r3{animation-delay:2.8s}
+@keyframes mhr{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.75);opacity:0}}
+#mh .mh-glow{inset:auto;background:conic-gradient(from 0deg,#22d3ee,#818cf8,#e879f9,#22d3ee);filter:blur(24px);opacity:.5;animation:mhgl 5s ease-in-out infinite,mhsp 14s linear infinite}
+@keyframes mhgl{0%,100%{opacity:.4;scale:1}50%{opacity:.7;scale:1.08}}
+@keyframes mhsp{to{rotate:360deg}}
+#mh .mh-rim{padding:2px;box-sizing:border-box;background:conic-gradient(from 30deg,#67e8f9,#818cf8,#f0abfc,#67e8f9);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:mhsp 9s linear infinite}
+#mh .mh-orb{left:32px;top:32px;width:146px;height:146px;background:radial-gradient(circle at 50% 108%,rgba(99,102,241,.55),rgba(99,102,241,0) 60%),radial-gradient(circle at 30% 18%,rgba(255,255,255,.22),rgba(255,255,255,0) 42%),linear-gradient(160deg,#16203f,#080b18);animation:mhor 5s ease-in-out infinite}
+@keyframes mhor{0%,100%{scale:1}50%{scale:1.025}}
+#mh .mh-cm{left:50%;top:50%;width:88px;height:68px;margin:-34px 0 0 -44px;background:#fff;-webkit-mask:url("data:image/png;base64,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") center/contain no-repeat;mask:url("data:image/png;base64,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") center/contain no-repeat;filter:drop-shadow(0 0 10px rgba(129,140,248,.85))}
+
+#mh .mh-mic.on .mh-rg{animation-duration:1.8s}#mh .mh-mic.on .mh-rg.r2{animation-delay:.6s}#mh .mh-mic.on .mh-rg.r3{animation-delay:1.2s}
+#mh .mh-mic.on .mh-glow{opacity:.9;animation-duration:1.4s,6s}
+#mh .mh-mic.wk .mh-glow{opacity:.3}
+@media (prefers-reduced-motion:reduce){#mh .mh-rg,#mh .mh-glow,#mh .mh-rim,#mh .mh-orb,#mh .mh-exs{margin:0;font-style:italic;font-size:15px;line-height:1.5;color:var(--ink-2);max-width:320px;text-wrap:balance}
 #flam{margin:0 0 14px}
 #flam .fl{position:relative;border-radius:16px;padding:1.5px;background:linear-gradient(135deg,#f6dc8b,#b8892b 45%,#f3d77a 70%,#8a6414);box-shadow:0 6px 22px rgba(214,170,60,.2)}
 @keyframes flPisca{0%,100%{box-shadow:0 6px 22px rgba(214,170,60,.2)}50%{box-shadow:0 0 0 4px rgba(246,220,139,.95),0 0 40px rgba(246,200,80,.85)}}
@@ -659,7 +663,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 <div class="mh-in">
   <div class="mh-k">Busca por voz</div>
   <h1 id="mh-h">Me diga o que você procura</h1>
-  <button type="button" class="mh-mic" id="mh-mic" aria-label="Falar"><i class="mh-aura"></i><i class="mh-aura b"></i><i class="mh-core"></i><svg class="mh-casa" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><defs><linearGradient id="mhg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38e8ff"/><stop offset="1" stop-color="#9b8bff"/></linearGradient></defs><path d="M16 58 60 20l44 38" stroke="url(#mhg)" stroke-width="4.5"/><path d="M27 51v47h66V51" stroke="url(#mhg)" stroke-width="4.5"/><g stroke="#fff" stroke-width="4.5"><path class="mh-bar" d="M42 72v10"/><path class="mh-bar" d="M51 64v26"/><path class="mh-bar" d="M60 54v46"/><path class="mh-bar" d="M69 64v26"/><path class="mh-bar" d="M78 72v10"/></g></svg></button>
+  <button type="button" class="mh-mic" id="mh-mic" aria-label="Falar"><i class="mh-rg"></i><i class="mh-rg r2"></i><i class="mh-rg r3"></i><i class="mh-glow"></i><i class="mh-rim"></i><i class="mh-orb"></i><i class="mh-cm"></i></button>
   <p class="mh-tx" id="mh-tx" aria-live="polite"></p>
   <p class="mh-exs" id="mh-exs"></p>
   <p class="mh-exs mh-exs2" id="mh-exs2"></p>
@@ -669,7 +673,6 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 <div class="mh-bot">
   <button type="button" class="mh-lnk" id="mh-dig">Prefiro digitar</button>
   <button type="button" class="mh-full" id="mh-open">Abrir o app completo</button>
-  <button type="button" class="mh-lnk mh-tiny" id="mh-offl">Não mostrar esta tela ao abrir</button>
 </div>
 </div>
 <div id="gate" hidden>
@@ -4408,15 +4411,15 @@ async function vozLugar(nome){
   $("limpar").addEventListener("click",()=>{const s=$("voz-sug");if(s){s.hidden=true;s.innerHTML=""}VOZ_CLI=null});
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){mic.hidden=true;return}
-  let rec=null,on=false;
+  let rec=null,on=false,heard=false;
   mic.addEventListener("click",()=>{
     try{if(window.speechSynthesis)window.speechSynthesis.cancel()}catch(_){}
     if(on&&rec){try{rec.stop()}catch(_){}return}
-    try{rec=new SR();rec.lang=LOC();rec.interimResults=true;rec.maxAlternatives=1;rec.continuous=false}catch(_){mic.hidden=true;return}
+    heard=false;try{rec=new SR();rec.lang=LOC();rec.interimResults=true;rec.maxAlternatives=1;rec.continuous=false}catch(_){mic.hidden=true;return}
     rec.onstart=()=>{on=true;mic.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>';mic.setAttribute("aria-label",t("Parar"));res.innerHTML='<div class="alert good"><b>'+esc(t("🎤 Ouvindo… fale agora."))+"</b><br>"+esc(t("Diga o tipo (casa ou apartamento), o lugar (bairro, condomínio ou parque) e o valor."))+'<br><span style="opacity:.85">'+esc(t("Exemplo:"))+" “"+esc(t("apartamento no Setor Bueno até 900 mil"))+"”</span></div>"};
-    rec.onresult=ev=>{let f="";for(const r of ev.results)f+=r[0].transcript;inp.value=f.trim()};
-    rec.onerror=ev=>{on=false;mic.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>';res.innerHTML='<div class="alert warn">'+esc(ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Escreva a frase no campo."))+"</div>"};
-    rec.onend=()=>{const tinha=on;on=false;mic.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>';mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
+    rec.onresult=ev=>{let f="";for(const r of ev.results)f+=r[0].transcript;inp.value=f.trim();if(f.trim())heard=true};
+    rec.onerror=ev=>{on=false;if(heard&&ev.error!=="not-allowed"&&ev.error!=="service-not-allowed")return;mic.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>';res.innerHTML='<div class="alert warn">'+esc(ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Escreva a frase no campo."))+"</div>"};
+    rec.onend=()=>{const tinha=on||heard;heard=false;on=false;mic.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg>';mic.setAttribute("aria-label",t("Falar"));if(tinha&&inp.value.trim())entender()};
     try{rec.start()}catch(_){}})
 })();
 
@@ -4488,7 +4491,6 @@ async function vozLugar(nome){
   const dia=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
   let mostrada=false,rec=null,on=false,texto="",fechou=false;
   const mic=$("mh-mic"),tx=$("mh-tx");
-  $("mh-offl").addEventListener("click",()=>{lss("cm_mic_home_off","1");fechar();toast(t("Pronto. Esta tela não abrirá mais."),3500)});
   /* exemplo de frase: muda por estado, sempre com um condomínio ou bairro nobre de lá */
   const EXS={go:["c","Jardins Itália",5],sp:["c","Jardim Europa",5],rj:["a","Leblon",5],mg:["c","Vale dos Cristais",5],df:["c","Lago Sul",5],pr:["a","Batel",5],to:["c","Ville Du Lac",3],rs:["a","Moinhos de Vento",5],sc:["a","Barra Sul",5],pb:["a","Cabo Branco",3],ce:["a","Meireles",4],pe:["a","Jaqueira",3],se:["a","Jardins",3],ba:["a","Corredor da Vitória",5]};
   const EXF={pt:(k,l,n)=>"encontre "+(k==="c"?"casa":"apartamento")+" em "+l+" de "+n+(n>1?" milhões":" milhão"),
@@ -4522,8 +4524,8 @@ async function vozLugar(nome){
     rec=r;
     r.onstart=()=>{on=true;mic.classList.add("on");tx.textContent=t("Ouvindo… fale agora.");mic.setAttribute("aria-label",t("Parar"))};
     r.onresult=ev=>{let f="";for(const x of ev.results)f+=x[0].transcript;texto=f.trim();tx.textContent="“"+texto+"”"};
-    r.onerror=ev=>{on=false;mic.classList.remove("on");if(auto)return;tx.textContent=ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Digite o que procura.");if(ev.error!=="no-speech")$("mh-type").hidden=false};
-    r.onend=()=>{const tinha=on;on=false;mic.classList.remove("on");mic.setAttribute("aria-label",t("Falar"));if(tinha&&texto&&!fechou){tx.textContent=t("Entendendo…");enviar(texto)}else{if(!texto)tx.textContent="";if(wkQuer())setTimeout(wkStart,350)}};
+    r.onerror=ev=>{on=false;mic.classList.remove("on");if(auto)return;if(texto&&ev.error!=="not-allowed"&&ev.error!=="service-not-allowed")return;tx.textContent=ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador para este site."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Digite o que procura.");if(ev.error!=="no-speech")$("mh-type").hidden=false};
+    r.onend=()=>{const tinha=on||!!texto;on=false;mic.classList.remove("on");mic.setAttribute("aria-label",t("Falar"));if(tinha&&texto&&!fechou){tx.textContent=t("Entendendo…");enviar(texto)}else{if(!texto)tx.textContent="";if(wkQuer())setTimeout(wkStart,350)}};
     try{r.start()}catch(_){}}
   /* palavra de ativação: só enquanto esta tela está aberta (o navegador não escuta em segundo plano) */
   const WAKE=/\b(?:(?:hey|hei|ei|ey|oi|ok|okay|ola|e ai|alo)\s+)?(?:o\s+)?corret(?:or|ora|o)\s+(?:ma|me|mi|mu)[a-z]*\b|\b(?:hey|hei|ei|ey|oi|ok|okay|ola|alo)\s+(?:o\s+)?corret[a-z]*\b/;
@@ -4558,7 +4560,7 @@ async function vozLugar(nome){
     lss("cm_saudacao_dia",dia());falando=true;
     window.vozFalarTxt(t("Olá, seja bem-vindo! Me diga que tipo de imóvel e em qual local você procura."),null,()=>{falando=false;if(!fechou&&!mh.hidden&&!on){if(wkQuer())wkStart();else ouvir(true)}})}
   function mostrar(){
-    if(mostrada||lsg("cm_mic_home_off")==="1")return;mostrada=true;fechou=false;
+    if(mostrada)return;mostrada=true;fechou=false;
     mh.hidden=false;document.body.style.overflow="hidden";exemplo();
     const wk1=()=>{wkNeg=false;setTimeout(()=>{if(wkQuer()&&!wkOn&&!on&&!(falando&&window.speechSynthesis&&speechSynthesis.speaking)&&!wkT)wkStart()},200)};document.addEventListener("pointerdown",wk1,true);
     if(!window.__wkWd)window.__wkWd=setInterval(()=>{try{if(wkQuer()&&!wkOn&&!on&&!(falando&&window.speechSynthesis&&speechSynthesis.speaking)&&!wkT&&navigator.userActivation&&navigator.userActivation.hasBeenActive)wkStart()}catch(_){}},2000);
