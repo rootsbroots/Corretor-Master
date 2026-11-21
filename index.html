@@ -1271,7 +1271,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
       <div class="f"><label for="pc-obs">Sobre você (opcional)</label><input type="text" id="pc-obs" maxlength="300" placeholder="Alto padrão, lançamentos, investidores…" autocomplete="off"></div>
       <label style="display:flex;gap:8px;align-items:flex-start;margin-block:8px"><input type="checkbox" id="pc-ativo" style="margin-top:3px"><span>Quero aparecer na rede. Meu nome, CRECI, WhatsApp, estados e cidades ficam visíveis para outros corretores assinantes do Corretor Master.</span></label>
       <p class="hint" style="margin:0 0 8px">Para aparecer, informe nome completo, CRECI, WhatsApp e ao menos um estado. A equipe confere o CRECI e libera o selo ✓ Verificado. Trocar nome ou CRECI refaz a conferência. Seu WhatsApp só é mostrado a quem você aceitar. Nenhum dado dos seus clientes é compartilhado.</p>
-      <p class="hint" id="pc-msg" role="status" aria-live="polite" hidden style="margin:0 0 8px;padding:10px 12px;border-radius:10px;font-weight:600"></p>
+      <p class="hint" id="pcp-msg" role="status" aria-live="polite" hidden style="margin:0 0 8px;padding:10px 12px;border-radius:10px;font-weight:600"></p>
       <div class="actions"><button class="btn" id="pc-salvar" type="button">Salvar perfil</button><button class="btn warn" id="pc-apagar" type="button">Apagar meu perfil</button></div>
       <div id="pc-apg" hidden style="margin-top:10px"><p class="hint" style="margin:0 0 8px"><b>Apagar de vez?</b> Seu perfil sai da rede e seus pedidos de parceria são apagados. Você pode criar outro perfil quando quiser.</p><div class="actions"><button class="btn warn" id="pc-apg-ok" type="button">Sim, apagar</button><button class="btn alt" id="pc-apg-no" type="button">Cancelar</button></div></div>
     </details>
@@ -2333,7 +2333,7 @@ $("pc-ban-n").addEventListener("click",()=>pcAbrir(null,undefined,true));
 pcBanner();
 $("pc-x").addEventListener("click",()=>{$("pc-m").hidden=true;pcBadge()});
 $("pc-m").addEventListener("click",e=>{if(e.target===$("pc-m")){$("pc-m").hidden=true;pcBadge()}});
-function pcMsg(t,ok){const m=$("pc-msg");m.textContent=t;m.hidden=!t;m.style.background=ok?"rgba(46,160,90,.18)":"rgba(229,72,77,.18)";m.style.color=ok?"#2ea05a":"#e5484d";if(t)m.scrollIntoView({behavior:"smooth",block:"center"})}
+function pcMsg(t,ok){const m=$("pcp-msg");m.textContent=t;m.hidden=!t;m.style.background=ok?"rgba(46,160,90,.18)":"rgba(229,72,77,.18)";m.style.color=ok?"#2ea05a":"#e5484d";if(t)m.scrollIntoView({behavior:"smooth",block:"center"})}
 function pcMarcar(ids){["pc-nome","pc-creci","pc-whats","pc-estados"].forEach(i=>$(i).classList.toggle("pc-bad",ids.includes(i)));if(ids.length)$(ids[0]).scrollIntoView({behavior:"smooth",block:"center"})}
 ["pc-nome","pc-creci","pc-whats"].forEach(i=>$(i).addEventListener("input",()=>$(i).classList.remove("pc-bad")));
 $("pc-estados").addEventListener("change",()=>$("pc-estados").classList.remove("pc-bad"));
@@ -3841,7 +3841,7 @@ let _MUNI_K=null;
 function muniK(){if(_MUNI_K)return _MUNI_K;_MUNI_K=[];Object.keys(MUNI_N).forEach(u=>MUNI_N[u].forEach(n=>{const k=normSem(n).replace(/[^a-z0-9]+/g," ").trim();if(k.length>=4)_MUNI_K.push({n,u,k})}));return _MUNI_K}
 function vozFzUFs(){return[...$("fz-uf").options].map(o=>({u:o.value,k:normSem(o.textContent)})).sort((a,b)=>b.k.length-a.k.length)}
 function vozFazendaDetecta(t0){
-  if(/\b(jardim|jd|vila|vl|parque|setor|st|bairro|condominio|residencial|loteamento|alameda|rua|avenida|av)\s+(fazenda|sitio|chacara)\b/.test(t0))return false;
+  if(/\b(jardim|jd|vila|vl|parque|setor|st|bairro|condominio|residencial|loteamento|alameda|rua|avenida|av)\s+(fazenda|sitio|chacara)\b|\bsitio cercado\b/.test(t0))return false;
   const rural=/\b(hectares?|alqueires?|imoveis? rurais?|imovel rural|terrenos? rurais?|propriedades? rurais?|\d\s*ha)\b/.test(t0);
   const nome=/\b(fazendas?|sitios?)\b/.test(t0);
   const urb=/\b(casas?|apartamentos?|apto|sobrados?|condominio|kitnet|cobertura)\b/.test(t0);
