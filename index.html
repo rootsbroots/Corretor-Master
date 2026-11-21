@@ -642,10 +642,10 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 #flam .fl-b a,#flam .fl-b button{flex:1 1 140px;min-height:44px;border-radius:10px;border:1px solid #5a4824;background:transparent;color:#f1dc9b;font:inherit;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;padding:10px;cursor:pointer}
 #flam .fl-b .go{background:linear-gradient(135deg,#f6dc8b,#c9972f);color:#2a1d04;border:0;font-weight:800}
 #mh .mh-exs2{font-size:14px;margin-top:-4px}#mh .mh-exs2 b{font-style:normal;font-weight:700;color:var(--ink)}
-#mh .mh-tx:empty{display:none}
+#mh .mh-say{position:relative;height:112px;width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;overflow:hidden;flex:none}#mh .mh-tx:empty{visibility:hidden}#mh .mh-tx{position:absolute;left:0;right:0;top:0;bottom:0;z-index:1;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;overflow:hidden;min-height:0}
 #mh .mh-tiny{font-size:12px;opacity:.7;text-decoration:none}
 #mh .mh-sub{color:var(--ink-2);font-size:15px;line-height:1.45;margin:0;max-width:320px}
-#mh .mh-tx{min-height:24px;font-size:18px;font-weight:600;line-height:1.35;margin:0}
+#mh .mh-tx{font-size:18px;font-weight:600;line-height:1.35;margin:0}
 #mh .mh-ex{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 #mh .mh-ex button{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:9px 13px;font-size:13.5px;cursor:pointer;font-family:inherit}
 #mh .mh-type{display:flex;gap:8px;width:100%}
@@ -654,7 +654,7 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 #mh .mh-bot{width:min(440px,100%);display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:6px 16px 10px;box-sizing:border-box}
 #mh .mh-ic{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);display:grid;place-items:center;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
 #mh .mh-ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#mh .mh-exs{font-style:italic;font-size:16px;line-height:1.45;margin:0;color:var(--ink);text-wrap:balance;transition:opacity .35s;min-height:46px;max-width:320px}#mh .mh-exs2{font-size:13px;opacity:.7;margin-top:-6px;min-height:0}#mh .mh-exs2:empty{display:none}
+#mh .mh-exs{font-style:italic;font-size:16px;line-height:1.45;margin:0;color:var(--ink);text-wrap:balance;transition:opacity .35s;height:46px;overflow:hidden;max-width:320px;flex:none}#mh .mh-exs2{font-size:13px;opacity:.7;margin-top:0;height:18px;min-height:18px;font-style:normal}#mh .mh-exs2:empty{visibility:hidden}
 #mh .mh-lnk{background:none;border:0;color:var(--ink-2);text-decoration:underline;font-size:14px;cursor:pointer;font-family:inherit;padding:6px}
 #mh .mh-full{width:100%;padding:15px 22px;border-radius:28px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font-weight:800;font-size:16px;cursor:pointer;font-family:inherit}
 #mh .mh-hint{font-size:13px;color:var(--ink-2);line-height:1.45;margin:0;text-align:center}
@@ -666,9 +666,9 @@ body.comp .cta-corr a{display:inline-flex;align-items:center;gap:8px;background:
 <div class="mh-in">
   <h1 id="mh-h">Toque e fale</h1>
   <button type="button" class="mh-mic" id="mh-mic" aria-label="Falar"><i class="mh-rg"></i><i class="mh-rg r2"></i><i class="mh-rg r3"></i><i class="mh-glow"></i><i class="mh-rim"></i><i class="mh-orb"></i><i class="mh-cm"></i></button>
-  <p class="mh-tx" id="mh-tx" aria-live="polite"></p>
+  <div class="mh-say"><p class="mh-tx" id="mh-tx" aria-live="polite"></p>
   <p class="mh-exs" id="mh-exs"></p>
-  <p class="mh-exs mh-exs2" id="mh-exs2"></p>
+  <p class="mh-exs mh-exs2" id="mh-exs2"></p></div>
   <div class="mh-type" id="mh-type" hidden><input type="text" id="mh-in" placeholder="Digite o que procura ou um comando" autocomplete="off" aria-label="Digite o que procura ou um comando"><button type="button" id="mh-go">Buscar</button></div>
 </div>
 <div class="mh-bot">
@@ -4521,18 +4521,25 @@ async function vozLugar(nome){
     fechar();tab("busca");const inp=$("voz-in");inp.value=txt;$("voz-go").click();
     setTimeout(()=>{try{$("voz-box").scrollIntoView({behavior:"smooth",block:"start"})}catch(_){}},150);
     setTimeout(()=>toast(t("Dica: neste app você também pode digitar e selecionar todas as opções."),6000),900)}
+  let retryPend=false;
   function ouvir(auto){
     if(!SR){tx.textContent=t("Seu navegador não permite voz aqui. Digite o que procura.");$("mh-type").hidden=false;return}
     try{if(SS)SS.cancel()}catch(_){}
     if(on&&rec){try{rec.stop()}catch(_){}return}
-    wkStop();
-    texto="";let r;try{r=new SR();r.lang=LOC();r.interimResults=true;r.maxAlternatives=1;r.continuous=false}catch(_){return}
-    rec=r;
-    r.onstart=()=>{on=true;mic.classList.add("on");tx.textContent=t("Ouvindo… fale agora.");mic.setAttribute("aria-label",t("Parar"))};
-    r.onresult=ev=>{let f="";for(const x of ev.results)f+=x[0].transcript;texto=f.trim();tx.textContent="“"+texto+"”"};
-    r.onerror=ev=>{on=false;mic.classList.remove("on");if(auto)return;if(texto&&ev.error!=="not-allowed"&&ev.error!=="service-not-allowed")return;tx.textContent=ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Digite o que procura.");if(ev.error!=="no-speech")$("mh-type").hidden=false};
-    r.onend=()=>{const tinha=on||!!texto;on=false;mic.classList.remove("on");mic.setAttribute("aria-label",t("Falar"));if(tinha&&texto&&!fechou){tx.textContent=t("Entendendo…");enviar(texto)}else{if(!texto)tx.textContent="";if(wkQuer())setTimeout(wkStart,350)}};
-    try{r.start()}catch(_){}}
+    const hadWk=!!wk||wkOn;wkStop();texto="";let tries=0;
+    const go=()=>{
+      let r;try{r=new SR();r.lang=LOC();r.interimResults=true;r.maxAlternatives=1;r.continuous=false}catch(_){return}
+      rec=r;
+      r.onstart=()=>{on=true;mic.classList.add("on");tx.textContent=t("Ouvindo… fale agora.");mic.setAttribute("aria-label",t("Parar"))};
+      r.onresult=ev=>{let f="";for(const x of ev.results)f+=x[0].transcript;texto=f.trim();tx.textContent="“"+texto+"”"};
+      r.onerror=ev=>{on=false;mic.classList.remove("on");
+        /* "aborted" logo depois de parar a escuta da palavra de ativação: tenta de novo, sem mensagem */
+        if(ev.error==="aborted"&&!texto&&!fechou&&tries++<2){retryPend=true;setTimeout(()=>{retryPend=false;if(!on&&!fechou)go()},400);return}
+        if(auto)return;if(texto&&ev.error!=="not-allowed"&&ev.error!=="service-not-allowed")return;tx.textContent=ev.error==="not-allowed"||ev.error==="service-not-allowed"?t("Libere o microfone nas permissões do navegador."):ev.error==="no-speech"?t("Não ouvi nada. Toque no microfone e fale de novo."):t("Não consegui usar o microfone agora. Digite o que procura.");if(ev.error!=="no-speech")$("mh-type").hidden=false};
+      r.onend=()=>{if(retryPend)return;const tinha=on||!!texto;on=false;mic.classList.remove("on");mic.setAttribute("aria-label",t("Falar"));if(tinha&&texto&&!fechou){tx.textContent=t("Entendendo…");enviar(texto)}else{if(!texto)tx.textContent="";if(wkQuer())setTimeout(wkStart,350)}};
+      try{r.start()}catch(_){}};
+    /* o navegador precisa de um instante para soltar o microfone da escuta anterior */
+    if(hadWk)setTimeout(go,350);else go()}
   /* palavra de ativação: só enquanto esta tela está aberta (o navegador não escuta em segundo plano) */
   const WAKE=/\b(?:(?:hey|hei|ei|ey|oi|ok|okay|ola|e ai|alo)\s+)?(?:o\s+)?corret(?:or|ora|o)\s+(?:ma|me|mi|mu)[a-z]*\b|\b(?:hey|hei|ei|ey|oi|ok|okay|ola|alo)\s+(?:o\s+)?corret[a-z]*\b/;
   let wk=null,wkOn=false,wkT=null,wkRest="";
